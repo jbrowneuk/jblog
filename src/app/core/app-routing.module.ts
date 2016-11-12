@@ -11,6 +11,7 @@ import { ErrorComponent }         from "../shared/error.component";
 
 const routes: Routes = [
   { path: "about",              component: AboutComponent },
+  { path: "art",                redirectTo: "/calendar" },
   { path: "calendar/:year/:id", component: MonthDetailComponent },
   { path: "calendar",           component: YearOverviewComponent },
   { path: "journal",            component: JournalComponent },
