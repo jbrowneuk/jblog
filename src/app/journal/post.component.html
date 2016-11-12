@@ -1,0 +1,19 @@
+<div *ngIf="postData" class="post">
+  <article class="wrapper" id="{{postData.postId}}">
+    <h2>{{postData.title}}</h2>
+    <div class="info">
+      <ul>
+        <li><i class="fa fa-fw fa-thumb-tack" aria-hidden="true"></i> Post {{postData.postId}}</li>
+      </ul>
+    </div>
+    {{postData.content}}
+    <div class="info tags">
+      <ul>
+        <li><i class="fa fa-tags" aria-hidden="true"></i></li>
+        <li *ngFor="let tag of postData.tags">
+          <a [routerLink]="['/journal', 'tag', tag]">{{tag}}</a>
+        </li>
+      </ul>
+    </div>
+  </article>
+</div>
