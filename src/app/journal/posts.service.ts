@@ -7,7 +7,7 @@ import { PostData } from "./post-data.class";
 
 @Injectable()
 export class PostsService {
-  private postsUrl = "mocks/posts.json";
+  private postsUrl = "/api/posts.php";
 
   constructor(private http: Http) {}
 
