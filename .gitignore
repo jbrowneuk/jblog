@@ -1,2 +1,7 @@
 dist
 node_modules
+public/theme
+public/thirdparty
+
+*.sqlite
+*.db

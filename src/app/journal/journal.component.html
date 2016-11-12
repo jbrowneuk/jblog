@@ -1,3 +1,9 @@
+<nav class="pagination small-buttons">
+  <ul role="navigation">
+    <li>…</li>
+  </ul>
+</nav>
+
 <div id="tag-header" class="coloured-section">
   <div class="wrapper">
     <h1>{{title}}</h1>
@@ -10,7 +16,7 @@
   <div class="post">
     <article class="wrapper">
       <h2>Hang tight!</h2>
-      <p><i class="fa fa-fw fa-spin fa-circle-o-notch"></i> Just a minute&mdash;the page is loading.</p>
+      <p><i class="fa fa-fw fa-spin fa-circle-o-notch"></i> Reading the journal…</p>
     </article>
   </div>
 </div>
@@ -28,4 +34,12 @@
 <!-- ======================================================================= -->
 <!-- Post list                                                               -->
 <!-- ======================================================================= -->
-<jblog-post *ngFor="let post of posts" [postData]="post" class="coloured-section-container"></jblog-post>
+<jblog-post *ngFor="let post of posts"
+            [postData]="post"
+            class="coloured-section-container"></jblog-post>
+
+<nav class="pagination small-buttons">
+  <ul role="navigation">
+    <li>…</li>
+  </ul>
+</nav>
