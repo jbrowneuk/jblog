@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "postId": 2,
+      "title": "Example post #2",
+      "content": "Example post #2",
+      "tags": ["example", "post"]
+    },
+    {
+      "postId": 1,
+      "title": "Example post #1",
+      "content": "Example post #1",
+      "tags": ["example", "post"]
+    }
+  ]
+}
