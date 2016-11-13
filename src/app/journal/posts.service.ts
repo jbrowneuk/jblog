@@ -18,8 +18,6 @@ export class PostsService {
       apiRequestUrl += "?page=" + pageNumber;
     }
 
-    console.log("CALLING: " + apiRequestUrl);
-
     return this.http.get(apiRequestUrl)
       .toPromise()
       .then(this.handlePostsResponse)
