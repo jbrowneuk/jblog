@@ -4,6 +4,7 @@
     <div class="info">
       <ul>
         <li><i class="fa fa-fw fa-thumb-tack" aria-hidden="true"></i> Post {{postData.postId}}</li>
+        <li><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ (postData.date | amFromUnix) | amDateFormat:'LLL' }}</li>
       </ul>
     </div>
     <div class="content" [innerHTML]="getParsedContent()"></div>

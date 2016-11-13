@@ -60,22 +60,12 @@ class Post
     return $this->content;
   }
 
-  public function getDate($format = "")
-  {
-    return self::formatDate("@$this->date", $format);
-  }
-
-  public function getModifedDate($format = "")
-  {
-    return self::formatDate("@$this->modifedDate", $format);
-  }
-
-  public function getRawDate()
+  public function getDate()
   {
     return $this->date;
   }
 
-  public function getRawModifiedDate()
+  public function getModifiedDate()
   {
     return $this->modifedDate;
   }
@@ -116,17 +106,6 @@ class Post
     }
 
     return $default;
-  }
-
-  private static function formatDate($date, $format)
-  {
-    if (StringExtensions::isEmpty($format))
-    {
-      $format = Settings::getSetting('LongDateTime', 'Formats');
-    }
-
-    $formattedDate = DateExtensions::formatDate($date, $format);
-    return $formattedDate;
   }
 }
 

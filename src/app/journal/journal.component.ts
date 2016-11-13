@@ -27,6 +27,8 @@ export class JournalComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.forEach((params: Params) => {
+      this.isLoaded = false;
+      this.posts = [];
       let requestedPage = +params["page"];
       this.getPostData(requestedPage);
     });
