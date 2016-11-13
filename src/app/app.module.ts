@@ -16,6 +16,7 @@ import { AboutComponent }         from "./home/about.component";
 import { HomeComponent }          from "./home/home.component";
 import { JournalComponent }       from "./journal/journal.component";
 import { PostComponent }          from "./journal/post.component";
+import { ProjectListComponent }   from "./projects/project-list.component";
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { PostComponent }          from "./journal/post.component";
     MonthDetailComponent,
     PaginationComponent,
     PostComponent,
+    ProjectListComponent,
     YearOverviewComponent,
   ],
   bootstrap: [ AppComponent ]

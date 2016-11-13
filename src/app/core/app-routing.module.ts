@@ -6,6 +6,7 @@ import { YearOverviewComponent }  from "../calendar/year-overview.component";
 import { AboutComponent }         from "../home/about.component";
 import { HomeComponent }          from "../home/home.component";
 import { JournalComponent }       from "../journal/journal.component";
+import { ProjectListComponent }   from "../projects/project-list.component";
 
 import { ErrorComponent }         from "../shared/error.component";
 
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: "art",                redirectTo: "/calendar" },
   { path: "calendar/:year/:id", component: MonthDetailComponent },
   { path: "calendar",           component: YearOverviewComponent },
+  { path: "code",               component: ProjectListComponent },
   { path: "journal/page/:page", component: JournalComponent },
   { path: "journal",            component: JournalComponent },
   { path: "",                   component: HomeComponent, pathMatch: "full" },
