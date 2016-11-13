@@ -2,6 +2,8 @@ import { NgModule }       from "@angular/core";
 import { HttpModule }     from "@angular/http";
 import { BrowserModule }  from "@angular/platform-browser";
 
+import { MomentModule } from "angular2-moment";
+
 import { AppComponent }     from "./core/app.component";
 import { AppRoutingModule } from "./core/app-routing.module";
 
@@ -19,7 +21,8 @@ import { PostComponent }          from "./journal/post.component";
   imports: [
     AppRoutingModule,
     BrowserModule,
-    HttpModule
+    HttpModule,
+    MomentModule
   ],
   declarations: [
     AboutComponent,
