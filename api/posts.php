@@ -8,6 +8,12 @@ require "./lib/class.db-sqlite.php";
 
 require "./lib/framework.posts.php";
 
+function cleanText($input) {
+  $safeContent = str_replace(["\r\n", "\r", "\n"], "\\n", $input);
+  $safeContent = str_replace("\"", "\\\"", $safeContent);
+  return $safeContent;
+}
+
 $database = new Database();
 if (!$database->connect($settings["Database"]))
 {
@@ -36,8 +42,8 @@ foreach ($posts as $post) {
     $output .= ",\n";
   }
 
-  $safeContent = str_replace(["\r\n", "\r", "\n"], "\\n", $post->getContent());
-  $safeContent = str_replace("\"", "\\\"", $safeContent);
+  $safeTitle = cleanText($post->getTitle());
+  $safeContent = cleanText($post->getContent());
 
   $parsedTags = "";
   foreach ($post->getTags() as $tag) {
@@ -49,7 +55,7 @@ foreach ($posts as $post) {
   }
 
   $id = '"postId": ' . $post->getId();
-  $title = '"title": "' . $post->getTitle() . '"';
+  $title = '"title": "' . $safeTitle . '"';
   $content = '"content": "' . $safeContent . '"';
   $tags = '"tags": [' . $parsedTags . ']';
   $output .= "{{$id}, {$title}, {$content}, {$tags}}";
