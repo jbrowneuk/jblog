@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit }      from "@angular/core";
+import { ActivatedRoute, Params } from "@angular/router";
 
 import { PostComponent }      from "./post.component";
 import { PostData }           from "./post-data.class";
@@ -18,30 +19,25 @@ export class JournalComponent implements OnInit {
   public totalPages: number;
   public isLoaded: boolean;
 
-  constructor(private postsService: PostsService) {
+  constructor(private postsService: PostsService, private route: ActivatedRoute) {
     this.isLoaded = false;
     this.page = 1;
     this.totalPages = 1;
   }
 
   ngOnInit(): void {
-    this.getPostData();
+    this.route.params.forEach((params: Params) => {
+      let requestedPage = +params["page"];
+      this.getPostData(requestedPage);
+    });
   }
 
   public hasPosts(): boolean {
     return this.posts && this.posts.length > 0;
   }
 
-  public hasNextPage(): boolean {
-    return this.page < this.totalPages;
-  }
-
-  public hasPreviousPage(): boolean {
-    return this.page > 1;
-  }
-
-  private getPostData() {
-    this.postsService.getPostData()
+  private getPostData(pageRequest: number) {
+    this.postsService.getPostData(pageRequest)
       .then(response => this.handlePostData(response))
       .catch(e => this.posts = []);
   }
