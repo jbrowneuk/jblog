@@ -14,8 +14,9 @@ const routes: Routes = [
   { path: "art",                redirectTo: "/calendar" },
   { path: "calendar/:year/:id", component: MonthDetailComponent },
   { path: "calendar",           component: YearOverviewComponent },
+  { path: "journal/page/:page", component: JournalComponent },
   { path: "journal",            component: JournalComponent },
-  { path: "",                   component: HomeComponent },
+  { path: "",                   component: HomeComponent, pathMatch: "full" },
   { path: "**",                 component: ErrorComponent }
 ];
 
