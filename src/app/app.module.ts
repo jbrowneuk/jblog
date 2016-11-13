@@ -5,7 +5,8 @@ import { BrowserModule }  from "@angular/platform-browser";
 import { AppComponent }     from "./core/app.component";
 import { AppRoutingModule } from "./core/app-routing.module";
 
-import { ErrorComponent }   from "./shared/error.component";
+import { ErrorComponent }       from "./shared/error.component";
+import { PaginationComponent }  from "./shared/pagination.component";
 
 import { MonthDetailComponent }   from "./calendar/month-detail.component";
 import { YearOverviewComponent }  from "./calendar/year-overview.component";
@@ -27,6 +28,7 @@ import { PostComponent }          from "./journal/post.component";
     HomeComponent,
     JournalComponent,
     MonthDetailComponent,
+    PaginationComponent,
     PostComponent,
     YearOverviewComponent,
   ],

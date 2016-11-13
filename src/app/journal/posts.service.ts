@@ -12,8 +12,15 @@ export class PostsService {
 
   constructor(private http: Http) {}
 
-  public getPostData(amount: number = 10, offset: number = 0): Promise<PostDataContainer> {
-    return this.http.get(this.postsUrl)
+  public getPostData(pageNumber: number = 0): Promise<PostDataContainer> {
+    let apiRequestUrl = this.postsUrl;
+    if (pageNumber > 0) {
+      apiRequestUrl += "?page=" + pageNumber;
+    }
+
+    console.log("CALLING: " + apiRequestUrl);
+
+    return this.http.get(apiRequestUrl)
       .toPromise()
       .then(this.handlePostsResponse)
       .catch(this.handleError);
