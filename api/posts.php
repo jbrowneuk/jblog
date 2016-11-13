@@ -55,10 +55,11 @@ foreach ($posts as $post) {
   }
 
   $id = '"postId": ' . $post->getId();
+  $date = '"date": ' . $post->getDate();
   $title = '"title": "' . $safeTitle . '"';
   $content = '"content": "' . $safeContent . '"';
   $tags = '"tags": [' . $parsedTags . ']';
-  $output .= "{{$id}, {$title}, {$content}, {$tags}}";
+  $output .= "{{$id}, {$date}, {$title}, {$content}, {$tags}}";
 }
 
 @header("Content-Type:application/json");
