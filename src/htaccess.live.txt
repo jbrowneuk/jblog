@@ -1,0 +1,21 @@
+CheckSpelling off
+
+# =============================================================================
+# Generic error documents
+# =============================================================================
+ErrorDocument 404 /index.html
+ErrorDocument 500 /index.html
+
+# =============================================================================
+# Initialise rewrite engine
+# =============================================================================
+RewriteEngine on
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
+
+# =============================================================================
+RewriteRule ^art/?$ /index.html [NC,L]
+RewriteRule ^code/?$ /index.html [NC,L]
