@@ -1,6 +1,8 @@
 import { Component, OnInit }      from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 
+import { AlbumData }    from "./album-data.class";
+import { AlbumImage }   from "./album-image.class";
 import { ImageService } from "./image.service";
 
 @Component({
@@ -9,11 +11,11 @@ import { ImageService } from "./image.service";
   templateUrl: "./folder.component.html"
 })
 export class FolderComponent implements OnInit {
-  public images: any[];
+  public images: AlbumImage[];
   public page: number;
   public totalPages: number;
   public isLoaded: boolean;
-  public albumInfo: any;
+  public albumInfo: AlbumData;
 
   constructor(private imageService: ImageService, private route: ActivatedRoute) {
     this.isLoaded = false;
@@ -47,7 +49,7 @@ export class FolderComponent implements OnInit {
       .catch(e => this.handleImageResponseFailure(e));
   }
 
-  private handleImageResponseSuccess(data: any[]): void {
+  private handleImageResponseSuccess(data: AlbumImage[]): void {
     this.images = data;
     this.isLoaded = true;
   }
@@ -58,7 +60,7 @@ export class FolderComponent implements OnInit {
     this.isLoaded = true;
   }
 
-  private handleAlbumDataResponse(data: any): void {
+  private handleAlbumDataResponse(data: AlbumData): void {
     this.albumInfo = data;
   }
 
