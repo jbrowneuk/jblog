@@ -7,9 +7,9 @@ import { PostDataContainer }  from "./post-data-container.class";
 import { PostsService }       from "./posts.service";
 
 @Component({
+  providers: [ PostsService ],
   selector: "jblog-journal",
-  templateUrl: "./journal.component.html",
-  providers: [PostsService]
+  templateUrl: "./journal.component.html"
 })
 
 export class JournalComponent implements OnInit {
@@ -27,8 +27,6 @@ export class JournalComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.forEach((params: Params) => {
-      this.isLoaded = false;
-      this.posts = [];
       let requestedPage = +params["page"];
       this.getPostData(requestedPage);
     });
@@ -39,15 +37,24 @@ export class JournalComponent implements OnInit {
   }
 
   private getPostData(pageRequest: number) {
+    this.isLoaded = false;
+    this.posts = [];
+
     this.postsService.getPostData(pageRequest)
-      .then(response => this.handlePostData(response))
-      .catch(e => this.posts = []);
+      .then(response => this.handleResponsePostDataSuccess(response))
+      .catch(e => this.handleResponsePostDataFailure(e));
   }
 
-  private handlePostData(dataContainer: PostDataContainer): void {
+  private handleResponsePostDataSuccess(dataContainer: PostDataContainer): void {
     this.page = dataContainer.currentPage;
     this.totalPages = dataContainer.totalPages;
     this.posts = dataContainer.data;
+    this.isLoaded = true;
+  }
+
+  private handleResponsePostDataFailure(error: any): void {
+    console.error("An error occurred", error);
+    this.posts = [];
     this.isLoaded = true;
   }
 }
