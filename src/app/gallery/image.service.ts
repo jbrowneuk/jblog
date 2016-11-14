@@ -25,7 +25,7 @@ export class ImageService {
       .catch(this.handleError);
   }
 
-  public getAlbumImageOverviewData(albumId: number = 0, pageNumber: number = 1): Promise<AlbumImage[]> {
+  public getAlbumImageOverviewData(albumId: number = 0, pageNumber: number = 1, amountToLoad: number = 0): Promise<AlbumImage[]> {
     if (isNaN(albumId) || albumId < 0) {
       albumId = 0;
     }
@@ -35,6 +35,11 @@ export class ImageService {
     }
 
     let requestUrl = `${API_URL}?images&albumId=${albumId}&page=${pageNumber}`;
+
+    if (!isNaN(amountToLoad) && amountToLoad > 0) {
+      requestUrl += `&count=${amountToLoad}`;
+    }
+
     return this.http.get(requestUrl)
       .toPromise()
       .then(this.handleAlbumImageOverviewResponseSuccess)
