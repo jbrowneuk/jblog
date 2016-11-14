@@ -8,9 +8,9 @@ import { ImageService } from "./image.service";
 @Component({
   providers: [ ImageService ],
   selector: "jblog-gallery",
-  templateUrl: "./folder.component.html"
+  templateUrl: "./album-folder.component.html"
 })
-export class FolderComponent implements OnInit {
+export class AlbumFolderComponent implements OnInit {
   public images: AlbumImage[];
   public page: number;
   public totalPages: number;
@@ -28,8 +28,12 @@ export class FolderComponent implements OnInit {
       let requestedPage = +params["page"];
       let albumId = 0;
       this.getAlbumData(albumId);
-      this.getAlbumOverviewData(albumId, requestedPage);
+      this.getAlbumImageData(albumId, requestedPage);
     });
+  }
+
+  public formatGalleries(data: AlbumImage): string {
+    return data.galleries.join(", ");
   }
 
   private getAlbumData(albumId: number): void {
@@ -40,7 +44,7 @@ export class FolderComponent implements OnInit {
       .catch(e => this.handleAlbumDataResponseFailure(e));
   }
 
-  private getAlbumOverviewData(albumId: number, page: number): void {
+  private getAlbumImageData(albumId: number, page: number): void {
     this.isLoaded = false;
     this.images = [];
 
