@@ -46,40 +46,17 @@
   </div>
 </div>
 <div class="gallery-area lowered-area">
-  <a class="card hoverable" routerLink="/art/view/478">
-    <span class="image-area">
-      <img src="/art/thumbs/trainride-f02.jpg"/>
-    </span>
+  <h3 class="mini-title">Latest works</h3>
+  <div class="align-centre" *ngIf="!imageRequestComplete">
+    <i class="fa fa-fw fa-spin fa-circle-o-notch"></i> Seeing what’s new…
+  </div>
+  <a class="card hoverable"
+     *ngFor="let image of images"
+     [routerLink]="['/art', 'view', image.imageId]">
+    <span class="image-area"><img src="{{image.thumbnailUrl}}" alt="Thumbnail"></span>
     <span class="text-area">
-      <span class="galleries">Stylised vector</span>
-      <span class="title">The journey</span>
-    </span>
-  </a>
-  <a class="card hoverable" routerLink="/art/view/56">
-    <span class="image-area">
-      <img src="/art/thumbs/on_the_road_again.jpg"/>
-    </span>
-    <span class="text-area">
-      <span class="galleries">Photography</span>
-      <span class="title">On the road again</span>
-    </span>
-  </a>
-  <a class="card hoverable" routerLink="/art/view/3">
-    <span class="image-area">
-      <img src="/art/thumbs/an_all_in_one.jpg"/>
-    </span>
-    <span class="text-area">
-      <span class="galleries">Photorealistic vector</span>
-      <span class="title">An all-in-one</span>
-    </span>
-  </a>
-  <a class="card hoverable" href="/art/view/61">
-    <span class="image-area">
-      <img src="/art/thumbs/folderIcon.png"/>
-    </span>
-    <span class="text-area">
-      <span class="galleries">Iconography</span>
-      <span class="title">Blue folder icon</span>
+      <span class="galleries">{{image.galleries}}</span>
+      <span class="title">{{image.title}}</span>
     </span>
   </a>
 </div>
@@ -112,22 +89,17 @@
   </div>
 </div>
 <div class="gallery-area lowered-area">
-  <a class="card hoverable" href="http://github.com/jbrowneuk/tsuki-tasks">
-    <span class="image-area">
-      <img src="/code/tasks/gallery.png"/>
-    </span>
+  <h3 class="mini-title">Latest projects</h3>
+  <div class="align-centre" *ngIf="!projectsRequestComplete">
+    <i class="fa fa-fw fa-spin fa-circle-o-notch"></i> Seeing what’s new…
+  </div>
+  <a class="card hoverable"
+     *ngFor="let project of projects"
+     href="{{project.link}}">
+    <span class="image-area"><img src="{{project.resourcesUrl}}gallery.png" alt="Thumbnail"></span>
     <span class="text-area">
-      <span class="galleries">C# &amp; WPF</span>
-      <span class="title">Tsuki Tasks</span>
-    </span>
-  </a>
-  <a class="card hoverable" routerLink="/code/project/artefact/">
-    <span class="image-area">
-      <img src="/code/artefact/gallery.png"/>
-    </span>
-    <span class="text-area">
-      <span class="galleries">C# &amp; MonoGame</span>
-      <span class="title">Artefact</span>
+      <span class="galleries">{{project.info}}</span>
+      <span class="title">{{project.title}}</span>
     </span>
   </a>
 </div>
