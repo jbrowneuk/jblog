@@ -91,7 +91,7 @@ if (isset($_GET["albumdata"])) {
   "data": {
     "albumId": 0,
     "title": "Latest works",
-    "description": "Album description"
+    "description": "The gallery is being rewritten from scratch, and is lacking a lot of features currently. This page shows the last 16 images I have uploaded."
   }
 }
 EOF;
