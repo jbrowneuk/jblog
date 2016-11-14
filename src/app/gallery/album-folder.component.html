@@ -1,0 +1,19 @@
+<div class="post">
+  <article class="wrapper" *ngIf="albumInfo">
+    <h2>{{albumInfo.title}}</h2>
+    <p>{{albumInfo.description}}</p>
+  </article>
+</div>
+<!-- PAGINATION -->
+<div id="gallery-thumbnails" class="lowered-area">
+  <a class="card hoverable"
+     *ngFor="let image of images"
+     [routerLink]="['/art', 'view', image.imageId]">
+    <span class="image-area"><img src="{{image.thumbnailUrl}}" alt="Thumbnail"></span>
+    <span class="text-area">
+      <span class="galleries">{{formatGalleries(image)}}</span>
+      <span class="title">{{image.title}}</span>
+    </span>
+  </a>
+</div>
+<!-- PAGINATION -->
