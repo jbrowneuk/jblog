@@ -26,13 +26,20 @@ export class ProjectListComponent implements OnInit {
 
   private getProjectData(): void {
     this.isLoaded = false;
+    this.projects = [];
     this.projectsService.getAllKnownProjects()
-      .then(response => this.handleResponseData(response))
-      .catch(e => this.handleResponseData([]));
+      .then(response => this.handleResponseDataSuccess(response))
+      .catch(e => this.handleResponseDataFailure(e));
   }
 
-  private handleResponseData(data: ProjectData[]) {
+  private handleResponseDataSuccess(data: ProjectData[]): void {
     this.projects = data;
+    this.isLoaded = true;
+  }
+
+  private handleResponseDataFailure(error: any): void {
+    console.error("Upstream error", error);
+    this.projects = [];
     this.isLoaded = true;
   }
 }

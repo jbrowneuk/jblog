@@ -3,5 +3,5 @@ export class ProjectData {
   summary: string;
   info: string;
   link: string;
-  image: string;
+  resourcesUrl: string;
 }
