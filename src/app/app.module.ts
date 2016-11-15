@@ -13,6 +13,7 @@ import { PaginationComponent }  from "./shared/pagination.component";
 import { MonthDetailComponent }   from "./calendar/month-detail.component";
 import { YearOverviewComponent }  from "./calendar/year-overview.component";
 import { AlbumFolderComponent }   from "./gallery/album-folder.component";
+import { ImageViewComponent }     from "./gallery/image-view.component";
 import { AboutComponent }         from "./home/about.component";
 import { HomeComponent }          from "./home/home.component";
 import { JournalComponent }       from "./journal/journal.component";
@@ -32,6 +33,7 @@ import { ProjectListComponent }   from "./projects/project-list.component";
     AppComponent,
     ErrorComponent,
     HomeComponent,
+    ImageViewComponent,
     JournalComponent,
     MonthDetailComponent,
     PaginationComponent,
