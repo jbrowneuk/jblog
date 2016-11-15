@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 
 import { AlbumImage }   from "../gallery/album-image.class";
-import { ImageService } from "../gallery/image.service";
+import { GalleryService } from "../gallery/gallery.service";
 
 import { ProjectData }      from "../projects/project-data.class";
 import { ProjectsService }  from "../projects/projects.service";
 
 @Component({
-  providers: [ ImageService, ProjectsService ],
+  providers: [ GalleryService, ProjectsService ],
   selector: "jblog-home",
   templateUrl: "./home.component.html"
 })
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   public imageRequestComplete: boolean;
   public projectsRequestComplete: boolean;
 
-  constructor(private imageService: ImageService, private projectsService: ProjectsService) {}
+  constructor(private imageService: GalleryService, private projectsService: ProjectsService) {}
 
   ngOnInit(): void {
     this.loadLatestFeaturedImages();

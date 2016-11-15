@@ -1,12 +1,12 @@
 import { Component, OnInit }      from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 
-import { AlbumData }    from "./album-data.class";
-import { AlbumImage }   from "./album-image.class";
-import { ImageService } from "./image.service";
+import { AlbumData }      from "./album-data.class";
+import { AlbumImage }     from "./album-image.class";
+import { GalleryService } from "./gallery.service";
 
 @Component({
-  providers: [ ImageService ],
+  providers: [ GalleryService ],
   selector: "jblog-gallery",
   templateUrl: "./album-folder.component.html"
 })
@@ -17,7 +17,7 @@ export class AlbumFolderComponent implements OnInit {
   public isLoaded: boolean;
   public albumInfo: AlbumData;
 
-  constructor(private imageService: ImageService, private route: ActivatedRoute) {
+  constructor(private imageService: GalleryService, private route: ActivatedRoute) {
     this.isLoaded = false;
     this.page = 1;
     this.totalPages = 1;
@@ -25,10 +25,11 @@ export class AlbumFolderComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.forEach((params: Params) => {
-      let requestedPage = +params["page"];
+      this.page = +params["page"] || 1;
+      this.totalPages = 1;
       let albumId = 0;
       this.getAlbumData(albumId);
-      this.getAlbumImageData(albumId, requestedPage);
+      this.getAlbumImageData(albumId, this.page);
     });
   }
 
@@ -65,6 +66,7 @@ export class AlbumFolderComponent implements OnInit {
   }
 
   private handleAlbumDataResponse(data: AlbumData): void {
+    this.totalPages = data.totalPages;
     this.albumInfo = data;
   }
 
