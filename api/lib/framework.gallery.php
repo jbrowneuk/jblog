@@ -34,17 +34,7 @@ class GalleryImage
     return $this->imageFile;
   }
 
-  public function getDate($format = null)
-  {
-    if ($format == null)
-    {
-      return "";
-    }
-
-    return DateExtensions::formatDate("@$this->date", $format);
-  }
-
-  public function getRawDate()
+  public function getDate()
   {
     return $this->date;
   }

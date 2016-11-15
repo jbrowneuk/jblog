@@ -12,6 +12,11 @@ const DEFAULT_ALBUM_ID = 0;
 const IMAGES_PER_PAGE = 16;
 const GALLERY_ROOT = "/art/";
 const THUMBNAIL_URL = GALLERY_ROOT . "thumbs/";
+const IMAGE_URL = GALLERY_ROOT . "images/";
+
+function respondNotFound() {
+  @header("HTTP/1.0 404 Not Found");
+}
 
 function outputWithHeader($string) {
   @header("Content-Type:application/json; charset=utf-8");
@@ -85,7 +90,7 @@ function generateAlbumInfoView($database) {
   if ($requestedAlbum > 0) {
     $currentAlbum = GalleryAlbumList::getAlbumById($database, $requestedAlbum);
     if ($currentAlbum === NULL) {
-      @header("HTTP/1.0 404 Not Found");
+      respondNotFound();
       return;
     }
 
@@ -112,6 +117,39 @@ EOF;
   outputWithHeader($jsonString);
 }
 
+function generateImageView($database) {
+  $queryId = "imageId";
+  $requestedImage = isset($_GET[$queryId]) && is_numeric($_GET[$queryId]) ? (int)$_GET[$queryId] : -1;
+  if ($requestedImage < 1) {
+    returnNotFound();
+    return;
+  }
+
+  $image = GalleryImageList::getImageById($database, $requestedImage);
+  if ($image == null) {
+    respondNotFound();
+    return;
+  }
+
+  $safeTitle = StringExtensions::cleanText($image->getTitle());
+  $safeDescription = StringExtensions::cleanText($image->getDescription());
+  $url = IMAGE_URL . $image->getImageUri();
+
+  $jsonString = <<<EOF
+{
+  "data": {
+    "title": "{$safeTitle}",
+    "date": {$image->getDate()},
+    "description": "{$safeDescription}",
+    "url": "{$url}",
+    "containingAlbum": "none",
+    "featured": "false"
+  }
+}
+EOF;
+  outputWithHeader($jsonString);
+}
+
 $database = new Database();
 if (!$database->connect($settings["Database"]))
 {
@@ -129,4 +167,9 @@ if (isset($_GET["albumdata"])) {
   exit;
 }
 
-@header("HTTP/1.0 404 Not Found");
+if (isset($_GET["imagedata"])) {
+  generateImageView($database);
+  exit;
+}
+
+respondNotFound();
