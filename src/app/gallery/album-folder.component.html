@@ -4,7 +4,9 @@
     <p>{{albumInfo.description}}</p>
   </article>
 </div>
-<!-- PAGINATION -->
+<jblog-pagination componentName="art"
+                  [currentPage]="page"
+                  [totalPages]="totalPages"></jblog-pagination>
 <div id="gallery-thumbnails" class="lowered-area">
   <a class="card hoverable"
      *ngFor="let image of images"
@@ -16,4 +18,6 @@
     </span>
   </a>
 </div>
-<!-- PAGINATION -->
+<jblog-pagination componentName="art"
+                  [currentPage]="page"
+                  [totalPages]="totalPages"></jblog-pagination>
