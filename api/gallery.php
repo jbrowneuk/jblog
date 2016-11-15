@@ -13,7 +13,20 @@ const IMAGES_PER_PAGE = 16;
 const GALLERY_ROOT = "/art/";
 const THUMBNAIL_URL = GALLERY_ROOT . "thumbs/";
 
-function generateFolderView($requestedPage, $database) {
+function outputWithHeader($string) {
+  @header("Content-Type:application/json; charset=utf-8");
+  print $string;
+}
+
+function generateFolderView($database) {
+  $queryPage = "page";
+  $page = isset($_GET[$queryPage]) && is_numeric($_GET[$queryPage]) ? $_GET[$queryPage] : 1;
+
+  $requestedPage = $page - 1;
+  if ($requestedPage < 0) {
+    $requestedPage = 0;
+  }
+
   $requestedAlbum = isset($_GET["albumId"]) ? $_GET["albumId"] : DEFAULT_ALBUM_ID;
   $numberImagesToLoad = isset($_GET["count"]) && is_numeric($_GET["count"]) ? (int)$_GET["count"] : IMAGES_PER_PAGE;
 
@@ -56,11 +69,47 @@ function generateFolderView($requestedPage, $database) {
     $output .= "{{$imageId}, {$title}, {$galleries}, {$thumbnailUrl}}";
   }
 
-  print <<<EOF
+  $jsonString = "{ \"data\": [ $output ] }";
+  outputWithHeader($jsonString);
+}
+
+function generateAlbumInfoView($database) {
+  $title = "Latest works";
+  $description = "The gallery is being rewritten from scratch, and is lacking a lot of features currently. This page shows all images I have uploaded, latest first.";
+  $requestedAlbum = isset($_GET["albumId"]) && is_numeric($_GET["albumId"]) ? (int)$_GET["albumId"] : DEFAULT_ALBUM_ID;
+  if ($requestedAlbum < 0) {
+    $requestedAlbum = DEFAULT_ALBUM_ID;
+  }
+
+  // Album 0 is a special case - it's the "latest uploads" album
+  if ($requestedAlbum > 0) {
+    $currentAlbum = GalleryAlbumList::getAlbumById($database, $requestedAlbum);
+    if ($currentAlbum === NULL) {
+      @header("HTTP/1.0 404 Not Found");
+      return;
+    }
+
+    $title = StringExtensions::cleanText($currentAlbum->getTitle());
+    $description = StringExtensions::cleanText($currentAlbum->getDescription());
+  }
+
+  $imagesPerPage = IMAGES_PER_PAGE;
+  $totalImages = GalleryAlbumList::getTotalImagesInAlbum($database, $requestedAlbum);
+  $totalPages = ceil($totalImages / $imagesPerPage);
+
+  $jsonString = <<<EOF
 {
-  "data": [ $output ]
+  "data": {
+    "albumId": 0,
+    "title": "{$title}",
+    "description": "{$description}",
+    "imagesInAlbum": {$totalImages},
+    "imagesPerPage": {$imagesPerPage},
+    "totalPages": {$totalPages}
+  }
 }
 EOF;
+  outputWithHeader($jsonString);
 }
 
 $database = new Database();
@@ -70,32 +119,14 @@ if (!$database->connect($settings["Database"]))
   exit;
 }
 
-$queryPage = "page";
-$page = isset($_GET[$queryPage]) && is_numeric($_GET[$queryPage]) ? $_GET[$queryPage] : 1;
-
-$offset = $page - 1;
-if ($offset < 0) {
-  $offset = 0;
-}
-
-@header("Content-Type:application/json; charset=utf-8");
-
 if (isset($_GET["images"])) {
-  generateFolderView($offset, $database);
-  return;
+  generateFolderView($database);
+  exit;
 }
 
 if (isset($_GET["albumdata"])) {
-  print <<<EOF
-{
-  "data": {
-    "albumId": 0,
-    "title": "Latest works",
-    "description": "The gallery is being rewritten from scratch, and is lacking a lot of features currently. This page shows the last 16 images I have uploaded."
-  }
-}
-EOF;
-  return;
+  generateAlbumInfoView($database);
+  exit;
 }
 
-print "{}";
+@header("HTTP/1.0 404 Not Found");
