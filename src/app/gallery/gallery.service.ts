@@ -9,7 +9,7 @@ import { AlbumImage } from "./album-image.class";
 const API_URL = "/api/gallery.php";
 
 @Injectable()
-export class ImageService {
+export class GalleryService {
   constructor(private http: Http) {}
 
   // This could be an end-all gallery service tbh
