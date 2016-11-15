@@ -5,6 +5,7 @@ import "rxjs/add/operator/toPromise";
 
 import { AlbumData }  from "./album-data.class";
 import { AlbumImage } from "./album-image.class";
+import { ImageData }  from "./image-data.class";
 
 const API_URL = "/api/gallery.php";
 
@@ -22,6 +23,18 @@ export class GalleryService {
     return this.http.get(requestUrl)
       .toPromise()
       .then(this.handleAlbumDataResponseSuccess)
+      .catch(this.handleError);
+  }
+
+  public getImageData(imageId: number): Promise<any> {
+    if (isNaN(imageId) || imageId < 0) {
+      return Promise.reject("invalid image ID");
+    }
+
+    let requestUrl = `${API_URL}?imagedata&imageId=${imageId}`;
+    return this.http.get(requestUrl)
+      .toPromise()
+      .then(this.handleImageDataResponseSuccess)
       .catch(this.handleError);
   }
 
@@ -46,12 +59,16 @@ export class GalleryService {
       .catch(this.handleError);
   }
 
-  private handleAlbumImageOverviewResponseSuccess(response: Response): AlbumImage[] {
-    return response.json().data as AlbumImage[];
-  }
-
   private handleAlbumDataResponseSuccess(response: Response): AlbumData {
     return response.json().data as AlbumData;
+  }
+
+  private handleImageDataResponseSuccess(response: Response): ImageData {
+    return response.json().data as ImageData;
+  }
+
+  private handleAlbumImageOverviewResponseSuccess(response: Response): AlbumImage[] {
+    return response.json().data as AlbumImage[];
   }
 
   private handleError(error: any): Promise<any> {

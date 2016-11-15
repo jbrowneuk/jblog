@@ -1,15 +1,15 @@
-Navigation
-<div id="gallery-presenter">
-  <img class="card" src="{$ImageUri}" alt="{$Title}"/>
+<!-- Navigation -->
+<div id="gallery-presenter" *ngIf="image">
+  <img class="card" src="{{image.url}}" alt="{$Title}"/>
 </div>
-<div class="post">
+<div class="post" *ngIf="image">
   <article class="wrapper">
-    <h2>Title</h2>
+    <h2>{{image.title}}</h2>
     <div class="info">
       <ul>
-        <li><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> ShortDateTime</li>
+        <li><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ (image.date | amFromUnix) | amDateFormat:'LLL' }}</li>
       </ul>
     </div>
-    Description
+    <div class="content" [innerHTML]="getParsedContent()"></div>
   </article>
 </div>
