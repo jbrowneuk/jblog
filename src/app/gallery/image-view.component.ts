@@ -3,7 +3,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, Params } from "@angular/router";
 
 import { GalleryService } from "./gallery.service";
-import { ImageData }      from "./image-data.class";
+import { AlbumNameTitlePair, ImageData }      from "./image-data.class";
 
 @Component({
   providers: [ GalleryService ],
@@ -34,6 +34,14 @@ export class ImageViewComponent implements OnInit {
     const emoji = require("emojione");
     const emojified = emoji.toImage(this.image.description);
     return this.domSanitizer.bypassSecurityTrustHtml(emojified);
+  }
+
+  public getPrimaryAlbum(): AlbumNameTitlePair {
+    if (!this.image || this.image.containingAlbums.length === 0) {
+      return {name: "latest", title: "album"};
+    }
+
+    return this.image.containingAlbums[0];
   }
 
   private requestImageData(imageId: number): void {

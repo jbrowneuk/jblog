@@ -1,4 +1,12 @@
-<!-- Navigation -->
+<nav class="pagination">
+  <ul role="navigation">
+    <li *ngIf="image">
+      <a [routerLink]="['/art', 'album', getPrimaryAlbum().name]">
+        <i class="fa fa-fw fa-arrow-up" aria-hidden='true'></i> Back to {{getPrimaryAlbum().title}}
+      </a>
+    </li>
+  </ul>
+</nav>
 <div id="gallery-presenter" class="coloured-section" *ngIf="image">
   <img class="card" src="{{image.url}}" alt="{$Title}"/>
 </div>
@@ -11,5 +19,13 @@
       </ul>
     </div>
     <div class="content" [innerHTML]="getParsedContent()"></div>
+    <div class="info tags">
+      <ul>
+        <li><i class="fa fa-tags" aria-hidden="true"></i></li>
+        <li *ngFor="let gallery of image.containingAlbums">
+          <a [routerLink]="['/art', 'album', gallery.name]">{{gallery.title}}</a>
+        </li>
+      </ul>
+    </div>
   </article>
 </div>

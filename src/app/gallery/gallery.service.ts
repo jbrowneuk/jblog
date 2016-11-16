@@ -8,18 +8,19 @@ import { AlbumImage } from "./album-image.class";
 import { ImageData }  from "./image-data.class";
 
 const API_URL = "/api/gallery.php";
+const DEFAULT_ALBUM_NAME = "_default";
 
 @Injectable()
 export class GalleryService {
   constructor(private http: Http) {}
 
   // This could be an end-all gallery service tbh
-  public getAlbumData(albumId: number): Promise<any> {
-    if (isNaN(albumId) || albumId < 0) {
-      albumId = 0;
+  public getAlbumData(albumName: string = ""): Promise<any> {
+    if (albumName === "") {
+      albumName = DEFAULT_ALBUM_NAME;
     }
 
-    let requestUrl = `${API_URL}?albumdata&albumId=${albumId}`;
+    let requestUrl = `${API_URL}?albumdata&albumName=${albumName}`;
     return this.http.get(requestUrl)
       .toPromise()
       .then(this.handleAlbumDataResponseSuccess)
@@ -38,16 +39,16 @@ export class GalleryService {
       .catch(this.handleError);
   }
 
-  public getAlbumImageOverviewData(albumId: number = 0, pageNumber: number = 1, amountToLoad: number = 0): Promise<AlbumImage[]> {
-    if (isNaN(albumId) || albumId < 0) {
-      albumId = 0;
+  public getAlbumImageOverviewData(albumName: string = "", pageNumber: number = 1, amountToLoad: number = 0): Promise<AlbumImage[]> {
+    if (albumName === "") {
+      albumName = DEFAULT_ALBUM_NAME;
     }
 
     if (isNaN(pageNumber) || pageNumber < 0) {
       pageNumber = 1;
     }
 
-    let requestUrl = `${API_URL}?images&albumId=${albumId}&page=${pageNumber}`;
+    let requestUrl = `${API_URL}?images&albumName=${albumName}&page=${pageNumber}`;
 
     if (!isNaN(amountToLoad) && amountToLoad > 0) {
       requestUrl += `&count=${amountToLoad}`;
