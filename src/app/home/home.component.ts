@@ -28,9 +28,10 @@ export class HomeComponent implements OnInit {
   private loadLatestFeaturedImages(): void {
     this.images = [];
     this.imageRequestComplete = false;
-    const albumId = 1;
+    const albumName = "featured";
     const page = 1;
-    this.imageService.getAlbumImageOverviewData(albumId, page, 4)
+    const amountToLoad = 4;
+    this.imageService.getAlbumImageOverviewData(albumName, page, amountToLoad)
       .then(response => this.handleImageResponseSuccess(response))
       .catch(e => this.handleImageResponseFailure(e));
   }
