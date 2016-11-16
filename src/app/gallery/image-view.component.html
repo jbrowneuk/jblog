@@ -1,8 +1,8 @@
 <!-- Navigation -->
-<div id="gallery-presenter" *ngIf="image">
+<div id="gallery-presenter" class="coloured-section" *ngIf="image">
   <img class="card" src="{{image.url}}" alt="{$Title}"/>
 </div>
-<div class="post" *ngIf="image">
+<div class="post coloured-section" *ngIf="image">
   <article class="wrapper">
     <h2>{{image.title}}</h2>
     <div class="info">
