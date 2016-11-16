@@ -14,17 +14,19 @@ import { ProjectListComponent }   from "../projects/project-list.component";
 import { ErrorComponent }         from "../shared/error.component";
 
 const routes: Routes = [
-  { path: "about",              component: AboutComponent },
-  { path: "art/view/:id",      component: ImageViewComponent },
-  { path: "art/page/:page",     component: AlbumFolderComponent },
-  { path: "art",                component: AlbumFolderComponent },
-  { path: "calendar/:year/:id", component: MonthDetailComponent },
-  { path: "calendar",           component: YearOverviewComponent },
-  { path: "code",               component: ProjectListComponent },
-  { path: "journal/page/:page", component: JournalComponent },
-  { path: "journal",            component: JournalComponent },
-  { path: "",                   component: HomeComponent, pathMatch: "full" },
-  { path: "**",                 component: ErrorComponent }
+  { path: "about",                        component: AboutComponent },
+  { path: "art/view/:id",                 component: ImageViewComponent },
+  { path: "art/album/:album/page/:page",  component: AlbumFolderComponent },
+  { path: "art/album/:album",             component: AlbumFolderComponent },
+  { path: "art/page/:page",               component: AlbumFolderComponent },
+  { path: "art",                          component: AlbumFolderComponent },
+  { path: "calendar/:year/:id",           component: MonthDetailComponent },
+  { path: "calendar",                     component: YearOverviewComponent },
+  { path: "code",                         component: ProjectListComponent },
+  { path: "journal/page/:page",           component: JournalComponent },
+  { path: "journal",                      component: JournalComponent },
+  { path: "",                             component: HomeComponent, pathMatch: "full" },
+  { path: "**",                           component: ErrorComponent }
 ];
 
 @NgModule({
