@@ -8,11 +8,15 @@ require "./lib/class.db-sqlite.php";
 
 require "./lib/framework.gallery.php";
 
-const DEFAULT_ALBUM_ID = 0;
+const FEATURED_FOLDER_ID = 1;
+const LATEST_ALBUM_ID = 0;
+const LATEST_ALBUM_NAME = "latest";
 const IMAGES_PER_PAGE = 16;
 const GALLERY_ROOT = "/art/";
 const THUMBNAIL_URL = GALLERY_ROOT . "thumbs/";
 const IMAGE_URL = GALLERY_ROOT . "images/";
+
+const DEFAULT_ALBUM_NAME_QUERY = "_default";
 
 function respondNotFound() {
   @header("HTTP/1.0 404 Not Found");
@@ -32,19 +36,34 @@ function generateFolderView($database) {
     $requestedPage = 0;
   }
 
-  $requestedAlbum = isset($_GET["albumId"]) ? $_GET["albumId"] : DEFAULT_ALBUM_ID;
+  $albumNameQuery = "albumName";
+  if (!isset($_GET[$albumNameQuery])) {
+    respondNotFound();
+    return;
+  }
+
+  $requestedName = $_GET[$albumNameQuery];
   $numberImagesToLoad = isset($_GET["count"]) && is_numeric($_GET["count"]) ? (int)$_GET["count"] : IMAGES_PER_PAGE;
 
   if ($numberImagesToLoad <= 0) {
     $numberImagesToLoad = IMAGES_PER_PAGE;
   }
 
-  // Look up album - returns null if it doesn't exist.
-  $currentAlbum = GalleryAlbumList::getAlbumById($database, $requestedAlbum);
-  $currentAlbumId = $currentAlbum != NULL ? $currentAlbum->getId() : DEFAULT_ALBUM_ID;
+  if ($requestedName === LATEST_ALBUM_NAME || $requestedName === DEFAULT_ALBUM_NAME_QUERY) {
+    $requestedAlbumId = LATEST_ALBUM_ID;
+  } else {
+    // Look up album - returns null if it doesn't exist.
+    $currentAlbum = GalleryAlbumList::getAlbumByName($database, $requestedName);
+    if ($currentAlbum === NULL) {
+      respondNotFound();
+      return;
+    }
+
+    $requestedAlbumId = $currentAlbum->getId();
+  }
 
   $galleryAlbumCache = new GalleryAlbumList($database);
-  $galleryImages = new GalleryImageList($database, $numberImagesToLoad, $requestedPage, $currentAlbumId);
+  $galleryImages = new GalleryImageList($database, $numberImagesToLoad, $requestedPage, $requestedAlbumId);
   $output = "";
 
   foreach ($galleryImages as $image) {
@@ -78,28 +97,49 @@ function generateFolderView($database) {
   outputWithHeader($jsonString);
 }
 
+//==============================================================================
+// Get album information
+//==============================================================================
 function generateAlbumInfoView($database) {
+  $albumNameQuery = "albumName";
+  if (!isset($_GET[$albumNameQuery])) {
+    respondNotFound();
+    return;
+  }
+
   $title = "Latest works";
+  $name = LATEST_ALBUM_NAME;
   $description = "The gallery is being rewritten from scratch, and is lacking a lot of features currently. This page shows all images I have uploaded, latest first.";
-  $requestedAlbum = isset($_GET["albumId"]) && is_numeric($_GET["albumId"]) ? (int)$_GET["albumId"] : DEFAULT_ALBUM_ID;
-  if ($requestedAlbum < 0) {
-    $requestedAlbum = DEFAULT_ALBUM_ID;
+  $requestedAlbumId = LATEST_ALBUM_ID;
+
+  $requestedName = $_GET[$albumNameQuery];
+  if ($requestedName === LATEST_ALBUM_NAME || $requestedName === DEFAULT_ALBUM_NAME_QUERY) {
+    $requestedAlbumId = LATEST_ALBUM_ID;
+  } else {
+    $albumLookup = GalleryAlbumList::getAlbumByName($database, $requestedName);
+    if ($albumLookup === NULL) {
+      respondNotFound();
+      return;
+    }
+
+    $requestedAlbumId = $albumLookup->getId();
   }
 
   // Album 0 is a special case - it's the "latest uploads" album
-  if ($requestedAlbum > 0) {
-    $currentAlbum = GalleryAlbumList::getAlbumById($database, $requestedAlbum);
+  if ($requestedAlbumId > 0) {
+    $currentAlbum = GalleryAlbumList::getAlbumById($database, $requestedAlbumId);
     if ($currentAlbum === NULL) {
       respondNotFound();
       return;
     }
 
     $title = StringExtensions::cleanText($currentAlbum->getTitle());
+    $name = StringExtensions::cleanText($currentAlbum->getName());
     $description = StringExtensions::cleanText($currentAlbum->getDescription());
   }
 
   $imagesPerPage = IMAGES_PER_PAGE;
-  $totalImages = GalleryAlbumList::getTotalImagesInAlbum($database, $requestedAlbum);
+  $totalImages = GalleryAlbumList::getTotalImagesInAlbum($database, $requestedAlbumId);
   $totalPages = ceil($totalImages / $imagesPerPage);
 
   $jsonString = <<<EOF
@@ -107,6 +147,7 @@ function generateAlbumInfoView($database) {
   "data": {
     "albumId": 0,
     "title": "{$title}",
+    "name": "{$name}",
     "description": "{$description}",
     "imagesInAlbum": {$totalImages},
     "imagesPerPage": {$imagesPerPage},
@@ -135,6 +176,37 @@ function generateImageView($database) {
   $safeDescription = StringExtensions::cleanText($image->getDescription());
   $url = IMAGE_URL . $image->getImageUri();
 
+  $galleryAlbumCache = new GalleryAlbumList($database);
+
+  $galleryIds = explode(' ', $image->getGalleries());
+  $containingGalleries = "";
+  $isFeatured = false;
+  foreach ($galleryIds as $key => $galleryId) {
+    if ($galleryId == FEATURED_FOLDER_ID) {
+      $isFeatured = true;
+      continue;
+    }
+
+    if (strlen($containingGalleries) > 0) {
+      $containingGalleries .= ", ";
+    }
+
+    $albumsFromCache = array_filter((array)$galleryAlbumCache, function($e) use ($galleryId) { return $e->getId() == $galleryId; });
+    if (count($albumsFromCache) > 0)
+    {
+      $first = array_values($albumsFromCache)[0];
+      $containingGalleries .= '{"name": "' . $first->getName() . '", "title": "' . $first->getTitle() . '"}';
+    }
+  }
+
+  // Sanity check - add featured if no containing galleries but it is featured
+  if ($isFeatured && strlen($containingGalleries) == 0) {
+    $albumsFromCache = array_filter((array)$galleryAlbumCache, function($e) { return $e->getId() == FEATURED_FOLDER_ID; });
+    $first = array_values($albumsFromCache)[0];
+    $containingGalleries .= '{"name": "' . $first->getName() . '", "title": "' . $first->getTitle() . '"}';
+  }
+
+  $isFeaturedString = $isFeatured ? "true" : "false";
   $jsonString = <<<EOF
 {
   "data": {
@@ -142,8 +214,8 @@ function generateImageView($database) {
     "date": {$image->getDate()},
     "description": "{$safeDescription}",
     "url": "{$url}",
-    "containingAlbum": "none",
-    "featured": "false"
+    "containingAlbums": [{$containingGalleries}],
+    "featured": {$isFeaturedString}
   }
 }
 EOF;
