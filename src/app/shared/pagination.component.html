@@ -1,17 +1,17 @@
 <nav class="pagination small-buttons">
   <ul role="navigation">
     <li *ngIf="hasPreviousPage()">
-      <a [routerLink]="['/', componentName, 'page', 1]"><i class="fa fa-fw fa-angle-double-left" aria-hidden="true"></i> First</a>
+      <a [routerLink]="getRouterLinkForPage(1)"><i class="fa fa-fw fa-angle-double-left" aria-hidden="true"></i> First</a>
     </li>
     <li *ngIf="hasPreviousPage()">
-        <a [routerLink]="['/', componentName, 'page', (currentPage - 1)]"><i class="fa fa-fw fa-angle-left" aria-hidden="true"></i> Previous</a>
+        <a [routerLink]="getRouterLinkForPage(currentPage - 1)"><i class="fa fa-fw fa-angle-left" aria-hidden="true"></i> Previous</a>
     </li>
     <li class="spacer">page {{currentPage}} of {{totalPages}}</li>
     <li *ngIf="hasNextPage()">
-      <a [routerLink]="['/', componentName, 'page', (currentPage + 1)]">Next <i class="fa fa-fw fa-angle-right" aria-hidden="true"></i></a>
+      <a [routerLink]="getRouterLinkForPage(currentPage + 1)">Next <i class="fa fa-fw fa-angle-right" aria-hidden="true"></i></a>
     </li>
     <li *ngIf="hasNextPage()">
-      <a [routerLink]="['/', componentName, 'page', totalPages]">Last <i class="fa fa-fw fa-angle-double-right" aria-hidden="true"></i></a>
+      <a [routerLink]="getRouterLinkForPage(totalPages)">Last <i class="fa fa-fw fa-angle-double-right" aria-hidden="true"></i></a>
     </li>
   </ul>
 </nav>

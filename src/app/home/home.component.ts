@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 
 import { AlbumImage }   from "../gallery/album-image.class";
-import { ImageService } from "../gallery/image.service";
+import { GalleryService } from "../gallery/gallery.service";
 
 import { ProjectData }      from "../projects/project-data.class";
 import { ProjectsService }  from "../projects/projects.service";
 
 @Component({
-  providers: [ ImageService, ProjectsService ],
+  providers: [ GalleryService, ProjectsService ],
   selector: "jblog-home",
   templateUrl: "./home.component.html"
 })
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   public imageRequestComplete: boolean;
   public projectsRequestComplete: boolean;
 
-  constructor(private imageService: ImageService, private projectsService: ProjectsService) {}
+  constructor(private imageService: GalleryService, private projectsService: ProjectsService) {}
 
   ngOnInit(): void {
     this.loadLatestFeaturedImages();
@@ -28,9 +28,10 @@ export class HomeComponent implements OnInit {
   private loadLatestFeaturedImages(): void {
     this.images = [];
     this.imageRequestComplete = false;
-    const albumId = 1;
+    const albumName = "featured";
     const page = 1;
-    this.imageService.getAlbumImageOverviewData(albumId, page, 4)
+    const amountToLoad = 4;
+    this.imageService.getAlbumImageOverviewData(albumName, page, amountToLoad)
       .then(response => this.handleImageResponseSuccess(response))
       .catch(e => this.handleImageResponseFailure(e));
   }

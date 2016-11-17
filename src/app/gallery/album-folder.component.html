@@ -1,10 +1,19 @@
-<div class="post">
+<div class="post coloured-section">
+  <article class="wrapper" *ngIf="!isLoaded">
+    <h2>Hang tight!</h2>
+    <p><i class="fa fa-fw fa-spin fa-circle-o-notch"></i> Getting the latest data from the server.</p>
+  </article>
+
   <article class="wrapper" *ngIf="albumInfo">
     <h2>{{albumInfo.title}}</h2>
     <p>{{albumInfo.description}}</p>
   </article>
 </div>
-<!-- PAGINATION -->
+
+<jblog-pagination [urlComponents]="['art', 'album', albumName]"
+                  [currentPage]="page"
+                  [totalPages]="totalPages"></jblog-pagination>
+
 <div id="gallery-thumbnails" class="lowered-area">
   <a class="card hoverable"
      *ngFor="let image of images"
@@ -16,4 +25,7 @@
     </span>
   </a>
 </div>
-<!-- PAGINATION -->
+
+<jblog-pagination [urlComponents]="['art', 'album', albumName]"
+                  [currentPage]="page"
+                  [totalPages]="totalPages"></jblog-pagination>
