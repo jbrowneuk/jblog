@@ -15,18 +15,28 @@ const IMAGES_PER_PAGE = 16;
 const GALLERY_ROOT = "/art/";
 const THUMBNAIL_URL = GALLERY_ROOT . "thumbs/";
 const IMAGE_URL = GALLERY_ROOT . "images/";
+const ICON_URL = GALLERY_ROOT . "icons/";
 
 const DEFAULT_ALBUM_NAME_QUERY = "_default";
 
+//==============================================================================
+// Sets the response headers to "not found".
+//==============================================================================
 function respondNotFound() {
   @header("HTTP/1.0 404 Not Found");
 }
 
+//==============================================================================
+// Sets the correct response headers for JSON output, and outputs the JSON.
+//==============================================================================
 function outputWithHeader($string) {
   @header("Content-Type:application/json; charset=utf-8");
   print $string;
 }
 
+//==============================================================================
+// Generates the JSON data containing all the images in a specified album.
+//==============================================================================
 function generateFolderView($database) {
   $queryPage = "page";
   $page = isset($_GET[$queryPage]) && is_numeric($_GET[$queryPage]) ? $_GET[$queryPage] : 1;
@@ -98,9 +108,9 @@ function generateFolderView($database) {
 }
 
 //==============================================================================
-// Get album information
+// Generates the JSON data corresponding to a single album's information.
 //==============================================================================
-function generateAlbumInfoView($database) {
+function generateSingleAlbumInfoView($database) {
   $albumNameQuery = "albumName";
   if (!isset($_GET[$albumNameQuery])) {
     respondNotFound();
@@ -141,23 +151,70 @@ function generateAlbumInfoView($database) {
   $imagesPerPage = IMAGES_PER_PAGE;
   $totalImages = GalleryAlbumList::getTotalImagesInAlbum($database, $requestedAlbumId);
   $totalPages = ceil($totalImages / $imagesPerPage);
+  $iconUrl = ICON_URL . $name . ".jpg";
 
   $jsonString = <<<EOF
 {
   "data": {
-    "albumId": 0,
+    "albumId": {$requestedAlbumId},
     "title": "{$title}",
     "name": "{$name}",
     "description": "{$description}",
     "imagesInAlbum": {$totalImages},
     "imagesPerPage": {$imagesPerPage},
-    "totalPages": {$totalPages}
+    "totalPages": {$totalPages},
+    "iconUrl": "{$iconUrl}"
   }
 }
 EOF;
   outputWithHeader($jsonString);
 }
 
+//==============================================================================
+// Generates JSON data containing a list of all relevant album data.
+//==============================================================================
+function generateAllAlbumsInfoView($database) {
+  $albumsJson = "";
+  $galleryAlbumCache = new GalleryAlbumList($database);
+  foreach ($galleryAlbumCache as $cachedAlbum) {
+    if (strlen($albumsJson) > 0) {
+      $albumsJson .= ", ";
+    }
+
+    $albumId = $cachedAlbum->getId();
+    $title = StringExtensions::cleanText($cachedAlbum->getTitle());
+    $name = StringExtensions::cleanText($cachedAlbum->getName());
+    $description = StringExtensions::cleanText($cachedAlbum->getDescription());
+    $imagesPerPage = IMAGES_PER_PAGE;
+    $totalImages = GalleryAlbumList::getTotalImagesInAlbum($database, $albumId);
+    $totalPages = ceil($totalImages / $imagesPerPage);
+    $iconUrl = ICON_URL . $name . ".jpg";
+
+    $albumsJson .= <<<EOF
+{
+  "albumId": {$albumId},
+  "title": "{$title}",
+  "name": "{$name}",
+  "description": "{$description}",
+  "imagesInAlbum": {$totalImages},
+  "imagesPerPage": {$imagesPerPage},
+  "totalPages": {$totalPages},
+  "iconUrl": "{$iconUrl}"
+}
+EOF;
+  }
+
+  $jsonString = <<<EOF
+{
+  "data": [{$albumsJson}]
+}
+EOF;
+  outputWithHeader($jsonString);
+}
+
+//==============================================================================
+// Generates the JSON data containing information about a specified image.
+//==============================================================================
 function generateImageView($database) {
   $queryId = "imageId";
   $requestedImage = isset($_GET[$queryId]) && is_numeric($_GET[$queryId]) ? (int)$_GET[$queryId] : -1;
@@ -235,7 +292,12 @@ if (isset($_GET["images"])) {
 }
 
 if (isset($_GET["albumdata"])) {
-  generateAlbumInfoView($database);
+  if (isset($_GET["fullList"])) {
+    generateAllAlbumsInfoView($database);
+    exit;
+  }
+
+  generateSingleAlbumInfoView($database);
   exit;
 }
 
