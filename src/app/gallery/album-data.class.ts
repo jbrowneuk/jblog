@@ -6,4 +6,5 @@ export class AlbumData {
   imagesInAlbum: number;
   imagesPerPage: number;
   totalPages: number;
+  iconUrl: string;
 }

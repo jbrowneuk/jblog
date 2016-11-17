@@ -8,6 +8,7 @@ import { GalleryService } from "./gallery.service";
 @Component({
   providers: [ GalleryService ],
   selector: "jblog-gallery",
+  styleUrls: [ "./album-folder.component.sass" ],
   templateUrl: "./album-folder.component.html"
 })
 export class AlbumFolderComponent implements OnInit {

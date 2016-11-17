@@ -1,13 +1,18 @@
-<div class="post coloured-section">
-  <article class="wrapper" *ngIf="!isLoaded">
-    <h2>Hang tight!</h2>
+<div id="tag-header" class="coloured-section">
+  <div class="wrapper" *ngIf="!isLoaded">
+    <h1>Hang tight!</h1>
     <p><i class="fa fa-fw fa-spin fa-circle-o-notch"></i> Getting the latest data from the server.</p>
-  </article>
-
-  <article class="wrapper" *ngIf="albumInfo">
-    <h2>{{albumInfo.title}}</h2>
+  </div>
+  <div class="wrapper" *ngIf="albumInfo">
+    <h1>{{albumInfo.title}}</h1>
     <p>{{albumInfo.description}}</p>
-  </article>
+  </div>
+  <div class="wrapper">
+    <div class="button-area align-centre album-choice-area">
+      <a class="primary" routerLink="/art/albums"><i class="fa fa-fw fa-book"></i>Choose another album</a>
+      <a routerLink="/art/album/latest"><i class="fa fa-fw fa-clock-o"></i>See latest images</a>
+    </div>
+  </div>
 </div>
 
 <jblog-pagination [urlComponents]="['art', 'album', albumName]"

@@ -14,7 +14,13 @@ const DEFAULT_ALBUM_NAME = "_default";
 export class GalleryService {
   constructor(private http: Http) {}
 
-  // This could be an end-all gallery service tbh
+  /**
+   * Gets album data for a named album.
+   *
+   * @param {string} albumName - a string containing the textual album name.
+   * @return {Promise<any>} - a promise that resolves to an AlbumData object or
+   *                          rejects with an error message of type string.
+   */
   public getAlbumData(albumName: string = ""): Promise<any> {
     if (albumName === "") {
       albumName = DEFAULT_ALBUM_NAME;
@@ -27,6 +33,24 @@ export class GalleryService {
       .catch(this.handleError);
   }
 
+  /**
+   * Gets album data for a named album.
+   *
+   * @param {string} albumName - a string containing the textual album name.
+   * @return {Promise<any>} - a promise that resolves to an AlbumData object or
+   *                          rejects with an error message of type string.
+   */
+  public getAllAlbumData(): Promise<any> {
+    let requestUrl = `${API_URL}?albumdata&fullList`;
+    return this.http.get(requestUrl)
+      .toPromise()
+      .then(this.handleAllAlbumDataResponseSuccess)
+      .catch(this.handleError);
+  }
+
+  /**
+   * Gets image data for the image with the specified id.
+   */
   public getImageData(imageId: number): Promise<any> {
     if (isNaN(imageId) || imageId < 0) {
       return Promise.reject("invalid image ID");
@@ -62,6 +86,10 @@ export class GalleryService {
 
   private handleAlbumDataResponseSuccess(response: Response): AlbumData {
     return response.json().data as AlbumData;
+  }
+
+  private handleAllAlbumDataResponseSuccess(response: Response): AlbumData[] {
+    return response.json().data as AlbumData[];
   }
 
   private handleImageDataResponseSuccess(response: Response): ImageData {

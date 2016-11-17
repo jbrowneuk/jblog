@@ -3,5 +3,6 @@ CheckSpelling off
 Redirect 301 /images/ http://jbrowne.me.uk/images/
 Redirect 301 /art/images/ http://jbrowne.me.uk/art/images/
 Redirect 301 /art/thumbs/ http://jbrowne.me.uk/art/thumbs/
+Redirect 301 /art/icons/ http://jbrowne.me.uk/art/icons/
 
 ErrorDocument 404 /index.html
