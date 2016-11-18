@@ -10,8 +10,6 @@ import { AppRoutingModule } from "./core/app-routing.module";
 import { ErrorComponent }       from "./shared/error.component";
 import { PaginationComponent }  from "./shared/pagination.component";
 
-import { MonthDetailComponent }   from "./calendar/month-detail.component";
-import { YearOverviewComponent }  from "./calendar/year-overview.component";
 import { AlbumFolderComponent }   from "./gallery/album-folder.component";
 import { AlbumListComponent }     from "./gallery/album-list.component";
 import { ImageViewComponent }     from "./gallery/image-view.component";
@@ -37,11 +35,9 @@ import { ProjectListComponent }   from "./projects/project-list.component";
     HomeComponent,
     ImageViewComponent,
     JournalComponent,
-    MonthDetailComponent,
     PaginationComponent,
     PostComponent,
     ProjectListComponent,
-    YearOverviewComponent,
   ],
   bootstrap: [ AppComponent ]
 })
