@@ -1,8 +1,6 @@
 import { NgModule }             from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { MonthDetailComponent }   from "../calendar/month-detail.component";
-import { YearOverviewComponent }  from "../calendar/year-overview.component";
 import { AlbumFolderComponent }   from "../gallery/album-folder.component";
 import { AlbumListComponent }     from "../gallery/album-list.component";
 import { ImageViewComponent }     from "../gallery/image-view.component";
@@ -22,13 +20,14 @@ const routes: Routes = [
   { path: "art/album/:album",             component: AlbumFolderComponent },
   { path: "art/page/:page",               component: AlbumFolderComponent },
   { path: "art",                          component: AlbumFolderComponent },
-  { path: "calendar/:year/:id",           component: MonthDetailComponent },
-  { path: "calendar",                     component: YearOverviewComponent },
   { path: "code",                         component: ProjectListComponent },
   { path: "journal/page/:page",           component: JournalComponent },
   { path: "journal",                      component: JournalComponent },
   { path: "",                             component: HomeComponent, pathMatch: "full" },
-  { path: "**",                           component: ErrorComponent }
+  { path: "**",                           component: ErrorComponent },
+
+  // Redirects
+  { path: "calendar", redirectTo: "art/album/calendar2016" }
 ];
 
 @NgModule({
