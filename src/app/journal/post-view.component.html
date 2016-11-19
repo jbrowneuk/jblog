@@ -1,0 +1,21 @@
+<nav class="pagination">
+  <ul role="navigation">
+    <li>
+      <a routerLink="/journal">
+        <i class="fa fa-fw fa-arrow-up" aria-hidden='true'></i> Back to post list
+      </a>
+    </li>
+  </ul>
+</nav>
+<div id="tag-header"
+     class="coloured-section contain-margins"
+     *ngIf="ageInYearsGreaterThan(2)">
+  <div class="wrapper">
+    <div class="outdated-bubble">
+      This post is over two years old. The content here might not be relevant any more.
+    </div>
+  </div>
+</div>
+<jblog-post *ngIf="postData"
+            [postData]="postData"
+            class="coloured-section-container"></jblog-post>
