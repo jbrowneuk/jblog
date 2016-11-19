@@ -24,11 +24,28 @@ export class PostsService {
       .catch(this.handleError);
   }
 
+  public getSinglePost(postId: number): Promise<PostData> {
+    if (postId <= 0) {
+      return this.handleError("Post doesn't exist");
+    }
+
+    let apiRequestUrl = `${this.postsUrl}?postId=${postId}`;
+
+    return this.http.get(apiRequestUrl)
+      .toPromise()
+      .then(this.handleSinglePostResponse)
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
   }
 
   private handlePostsResponse(response: Response): PostDataContainer {
     return response.json() as PostDataContainer;
+  }
+
+  private handleSinglePostResponse(response: Response): PostData {
+    return response.json().data as PostData;
   }
 }
