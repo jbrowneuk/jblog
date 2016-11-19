@@ -11,11 +11,21 @@ ErrorDocument 500 /index.html
 # =============================================================================
 RewriteEngine on
 RewriteBase /
+
+# =============================================================================
+# Shuffle things around
+# =============================================================================
+RewriteRule ^art/?$ /index.html [NC,L]
+RewriteRule ^code/?$ /index.html [NC,L]
+
+RewriteRule ^journal/images/(.*)$ /public/images/journal/$1 [NC,L]
+RewriteRule ^images/journal/(.*)$ /public/images/journal/$1 [NC,L]
+RewriteRule ^images/(.*)$ /public/images/$1 [NC,L]
+
+# =============================================================================
+# Angular 2
+# =============================================================================
 RewriteRule ^index\.html$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.html [L]
-
-# =============================================================================
-RewriteRule ^art/?$ /index.html [NC,L]
-RewriteRule ^code/?$ /index.html [NC,L]
