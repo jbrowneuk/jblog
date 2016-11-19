@@ -9,6 +9,7 @@ import { ArtInsightsComponent }   from "../home/art-insights.component";
 import { HomeComponent }          from "../home/home.component";
 import { JournalComponent }       from "../journal/journal.component";
 import { PostComponent }          from "../journal/post.component";
+import { PostViewComponent }      from "../journal/post-view.component";
 import { ProjectListComponent }   from "../projects/project-list.component";
 
 import { ErrorComponent }         from "../shared/error.component";
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: "art",                          component: AlbumFolderComponent },
   { path: "code",                         component: ProjectListComponent },
   { path: "journal/page/:page",           component: JournalComponent },
+  { path: "journal/post/:postId",         component: PostViewComponent },
   { path: "journal",                      component: JournalComponent },
   { path: "",                             component: HomeComponent, pathMatch: "full" },
   { path: "**",                           component: ErrorComponent },

@@ -18,6 +18,7 @@ import { ArtInsightsComponent }   from "./home/art-insights.component";
 import { HomeComponent }          from "./home/home.component";
 import { JournalComponent }       from "./journal/journal.component";
 import { PostComponent }          from "./journal/post.component";
+import { PostViewComponent }      from "./journal/post-view.component";
 import { ProjectListComponent }   from "./projects/project-list.component";
 
 @NgModule({
@@ -39,6 +40,7 @@ import { ProjectListComponent }   from "./projects/project-list.component";
     JournalComponent,
     PaginationComponent,
     PostComponent,
+    PostViewComponent,
     ProjectListComponent,
   ],
   bootstrap: [ AppComponent ]
