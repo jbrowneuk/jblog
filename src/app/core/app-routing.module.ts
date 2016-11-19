@@ -5,6 +5,7 @@ import { AlbumFolderComponent }   from "../gallery/album-folder.component";
 import { AlbumListComponent }     from "../gallery/album-list.component";
 import { ImageViewComponent }     from "../gallery/image-view.component";
 import { AboutComponent }         from "../home/about.component";
+import { ArtInsightsComponent }   from "../home/art-insights.component";
 import { HomeComponent }          from "../home/home.component";
 import { JournalComponent }       from "../journal/journal.component";
 import { PostComponent }          from "../journal/post.component";
@@ -14,6 +15,7 @@ import { ErrorComponent }         from "../shared/error.component";
 
 const routes: Routes = [
   { path: "about",                        component: AboutComponent },
+  { path: "art/insights",                 component: ArtInsightsComponent },
   { path: "art/view/:id",                 component: ImageViewComponent },
   { path: "art/albums",                   component: AlbumListComponent },
   { path: "art/album/:album/page/:page",  component: AlbumFolderComponent },
@@ -27,7 +29,7 @@ const routes: Routes = [
   { path: "**",                           component: ErrorComponent },
 
   // Redirects
-  { path: "calendar", redirectTo: "art/album/calendar2016" }
+  { path: "calendar", redirectTo: "/art/album/calendar2016" }
 ];
 
 @NgModule({

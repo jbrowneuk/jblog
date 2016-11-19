@@ -14,6 +14,7 @@ import { AlbumFolderComponent }   from "./gallery/album-folder.component";
 import { AlbumListComponent }     from "./gallery/album-list.component";
 import { ImageViewComponent }     from "./gallery/image-view.component";
 import { AboutComponent }         from "./home/about.component";
+import { ArtInsightsComponent }   from "./home/art-insights.component";
 import { HomeComponent }          from "./home/home.component";
 import { JournalComponent }       from "./journal/journal.component";
 import { PostComponent }          from "./journal/post.component";
@@ -31,6 +32,7 @@ import { ProjectListComponent }   from "./projects/project-list.component";
     AlbumFolderComponent,
     AlbumListComponent,
     AppComponent,
+    ArtInsightsComponent,
     ErrorComponent,
     HomeComponent,
     ImageViewComponent,
