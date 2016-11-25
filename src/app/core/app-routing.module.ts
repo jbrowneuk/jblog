@@ -15,6 +15,11 @@ import { ProjectListComponent }   from "../projects/project-list.component";
 import { ErrorComponent }         from "../shared/error.component";
 
 const routes: Routes = [
+  // Redirects
+  { path: "calendar", redirectTo: "/art/album/calendar2016",  pathMatch: "full" },
+  { path: "journal",  redirectTo: "/journal/page/1",          pathMatch: "full" },
+
+  // Components
   { path: "about",                        component: AboutComponent },
   { path: "art/insights",                 component: ArtInsightsComponent },
   { path: "art/view/:id",                 component: ImageViewComponent },
@@ -26,12 +31,8 @@ const routes: Routes = [
   { path: "code",                         component: ProjectListComponent },
   { path: "journal/page/:page",           component: JournalComponent },
   { path: "journal/post/:postId",         component: PostViewComponent },
-  { path: "journal",                      component: JournalComponent },
   { path: "",                             component: HomeComponent, pathMatch: "full" },
-  { path: "**",                           component: ErrorComponent },
-
-  // Redirects
-  { path: "calendar", redirectTo: "/art/album/calendar2016" }
+  { path: "**",                           component: ErrorComponent }
 ];
 
 @NgModule({

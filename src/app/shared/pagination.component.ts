@@ -9,13 +9,14 @@ export class PaginationComponent {
   @Input() public totalPages: number;
   @Input() public componentName: string;
   @Input() public urlComponents: string[];
+  @Input() public isLoading: boolean = false;
 
   public hasNextPage(): boolean {
-    return this.currentPage < this.totalPages && this.totalPages > 1;
+    return !this.isLoading && this.currentPage < this.totalPages && this.totalPages > 1;
   }
 
   public hasPreviousPage(): boolean {
-    return this.currentPage > 1 && this.totalPages > 1;
+    return !this.isLoading && this.currentPage > 1 && this.totalPages > 1;
   }
 
   public getRouterLinkForPage(page: number): any[] {
