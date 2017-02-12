@@ -6,9 +6,13 @@ import { GalleryService } from "../gallery/gallery.service";
 import { ProjectData }      from "../projects/project-data.class";
 import { ProjectsService }  from "../projects/projects.service";
 
+const IMAGES_TO_LOAD = 3;
+const PROJECTS_TO_LOAD = 3;
+
 @Component({
   providers: [ GalleryService, ProjectsService ],
   selector: "jblog-home",
+  styleUrls: ["./home.component.sass"],
   templateUrl: "./home.component.html"
 })
 
@@ -30,7 +34,7 @@ export class HomeComponent implements OnInit {
     this.imageRequestComplete = false;
     const albumName = "featured";
     const page = 1;
-    const amountToLoad = 4;
+    const amountToLoad = IMAGES_TO_LOAD;
     this.imageService.getAlbumImageOverviewData(albumName, page, amountToLoad)
       .then(response => this.handleImageResponseSuccess(response))
       .catch(e => this.handleImageResponseFailure(e));
@@ -55,7 +59,7 @@ export class HomeComponent implements OnInit {
   }
 
   private handleProjectsResponseDataSuccess(data: ProjectData[]): void {
-    this.projects = data.slice(0, 4);
+    this.projects = data.slice(0, PROJECTS_TO_LOAD);
     this.projectsRequestComplete = true;
   }
 
