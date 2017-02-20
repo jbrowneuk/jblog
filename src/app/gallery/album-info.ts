@@ -1,4 +1,4 @@
-export class AlbumInfo {
+export interface AlbumInfo {
   albumId: number;
   title: string;
   name: string;

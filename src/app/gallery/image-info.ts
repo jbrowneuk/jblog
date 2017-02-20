@@ -1,6 +1,13 @@
-export class ImageInfo {
-  imageId: number;
+export interface AlbumNameTitlePair {
+  name: string;
   title: string;
-  galleries: string[];
-  thumbnailUrl: string;
+}
+
+export interface ImageInfo {
+  title: string;
+  date: number;
+  description: string;
+  url: string;
+  containingAlbums: AlbumNameTitlePair[];
+  featured: boolean;
 }
