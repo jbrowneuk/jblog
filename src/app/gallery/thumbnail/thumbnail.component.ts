@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { ImageInfo } from '../image-info';
+
 @Component({
   selector: 'jblog-thumbnail',
   templateUrl: './thumbnail.component.html',
@@ -7,7 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 export class ThumbnailComponent {
 
-  @Input() public title: string;
+  @Input() public data: ImageInfo;
 
   constructor() { }
 

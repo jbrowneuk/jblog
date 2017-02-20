@@ -1,9 +1,9 @@
-<a class="card hoverable" [routerLink]="['/art/view', title]">
+<a class="card hoverable" [routerLink]="['/art/view', data.imageId]">
   <span class="image-area">
-    <img src="http://jbrowne.me.uk/art/thumbs/hat_thief.jpg" alt="{{title}">
+    <img src="{{data.thumbnailUrl}}" alt="thumbnail image">
   </span>
   <span class="text-area">
     <span class="galleries">Test</span>
-    <span class="title">{{title}}</span>
+    <span class="title">{{data.title}}</span>
   </span>
 </a>

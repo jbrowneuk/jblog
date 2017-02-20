@@ -1,4 +1,4 @@
-export class AlbumImage {
+export class ImageInfo {
   imageId: number;
   title: string;
   galleries: string[];
