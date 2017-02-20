@@ -1,3 +1,30 @@
-<h1>
-  {{title}}
-</h1>
+<nav id="page-header" class="page-navigation">
+  <div class="container">
+    <span class="inline-block covered-area">
+      <a class="home-link" [routerLink]="['/']">
+        <img class="icon" src="assets/images/logo.svg">
+        Jason Browne
+      </a>
+    </span>
+    <ul class="right covered-area">
+      <li><a [routerLink]="['/about']" routerLinkActive="active">about</a></li>
+      <li><a [routerLink]="['/art']" routerLinkActive="active">art</a></li>
+      <li><a [routerLink]="['/code']" routerLinkActive="active">code</a></li>
+      <li><a [routerLink]="['/journal']" routerLinkActive="active">posts</a></li>
+    </ul>
+  </div>
+</nav>
+<main id="page-content">
+  <router-outlet></router-outlet>
+</main>
+<footer id="page-footer" class="page-footer">
+  <div class="container">
+    Powered by <a href="//angular.io">Angular 2</a>. Emoji provided free by <a href="//emojione.com">Emoji One</a>.
+    Created in <a href="//atom.io">Atom</a>.
+  </div>
+  <div class="copyright">
+    <div class="container">
+      &copy;2004&ndash;2017 Jason Browne
+    </div>
+  </div>
+</footer>
