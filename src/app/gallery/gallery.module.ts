@@ -5,6 +5,7 @@ import { AlbumComponent } from './album/album.component';
 import { ImageComponent } from './image/image.component';
 import { AlbumListComponent } from './album-list/album-list.component';
 import { ThumbnailComponent } from './thumbnail/thumbnail.component';
+import { GalleryFormatPipe } from './gallery-format.pipe';
 
 const galleryRoutes: Routes = [
   {path: 'art', component: AlbumComponent },
@@ -16,7 +17,7 @@ const galleryRoutes: Routes = [
     CommonModule,
     RouterModule.forChild(galleryRoutes)
   ],
-  declarations: [AlbumComponent, ImageComponent, AlbumListComponent, ThumbnailComponent],
+  declarations: [AlbumComponent, ImageComponent, AlbumListComponent, ThumbnailComponent, GalleryFormatPipe],
   exports: [RouterModule, AlbumComponent, ImageComponent, AlbumListComponent]
 })
 export class GalleryModule { }
