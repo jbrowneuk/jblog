@@ -1,5 +1,73 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'shared-sass/palette'
+@import 'shared-sass/variables'
+
+*, *:before, *:after
+  box-sizing: border-box
+
+a
+  color: $color-anchor
+  text-decoration: none
+
+  transition: color 250ms
+
+  &:hover
+    color: $color-anchor-hover
+    text-decoration: underline
+
+body
+  background-color: #F5F8FA
+  font-family: Geomanist, sans-serif
+  font-size: $font-size-default
+  line-height: 1.9
 
 body,
 html
-  font-family: sans-serif
+  height: 100%
+  position: relative
+
+// generics
+.container
+  margin: 0 auto
+  padding: 0 $wrapper-horizontal-padding
+  max-width: $large-container-width
+
+.inline-block
+  display: inline-block
+
+// Components
+.card
+  background-color: $color-card-backdrop
+  border-radius: 2px
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.15), 0 2px 8px 0 rgba(0,0,0,0.1)
+
+  &.hoverable
+    position: relative
+    top: 0px
+
+    transition: color 250ms,background-color 250ms,box-shadow 250ms
+
+    &:hover
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.20), 0 4px 16px 0 rgba(0, 0, 0, 0.15)
+
+    &:active
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15), 0 1px 4px 0 rgba(0, 0, 0, 0.1)
+      top: 1px
+
+.panel
+  padding: 32px 0
+
+  h1
+    font-size: $font-size-main-heading
+    font-weight: 300
+    margin: 4px 0
+    padding: 0
+
+  h2
+    border-top: 1px solid #ddd
+    font-size: $font-size-largest
+    font-weight: 400
+
+.well
+  background-color: #eeeeef
+  box-shadow: inset 0 2px 4px rgba(0,0,0,.25)
