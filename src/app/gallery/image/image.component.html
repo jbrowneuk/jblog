@@ -1,4 +1,23 @@
-<div>
-  <h2>{{title}}</h2>
-  <p><a [routerLink]="['/art']">Go back to gallery</a></p>
+<div class="panel" *ngIf="!data">
+  Loading…
+</div>
+<div class="panel" *ngIf="data">
+  <div class="presenter" [class.container]="isZoomedOut">
+    <div class="featured" *ngIf="data.featured" title="Featured">
+      <i class="fa fa-fw fa-trophy" aria-hidden="true"></i>
+    </div>
+    <img src="{{data.src}}" alt="full sized image" class="card responsive">
+  </div>
+  <div class="control">
+    <a [routerLink]="['/art']">Go back to gallery</a>
+    <a href="#" (click)="toggleZoom($event)">
+      <i class="fa fa-fw" aria-hidden="true"
+        [class.fa-search-plus]="isZoomedOut"
+        [class.fa-search-minus]="!isZoomedOut"></i>
+      Zoom
+    </a>
+  </div>
+  <div class="container">
+    <h1>{{data.title}}</h1>
+  </div>
 </div>

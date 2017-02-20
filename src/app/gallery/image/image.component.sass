@@ -1,0 +1,45 @@
+@import '../../../shared-sass/palette'
+
+.presenter
+  padding: 10px
+  position: relative
+  text-align: center
+
+  .featured
+    $badge-width: 48px
+    $featured-background: #B00
+    background-color: $featured-background
+    color: $color-bright-secondary
+    font-size: 32px
+    text-shadow: 0 -1px darken($featured-background, 30%)
+    text-align: center
+    width: $badge-width
+
+    position: absolute
+    right: 32px
+    top: 0px
+
+    &::before
+      display: block
+      content: ''
+      border-color: transparent
+      border-style: solid
+      border-width: 5px 2px
+      border-right-color: darken($featured-background, 30%)
+      border-bottom-color: darken($featured-background, 30%)
+
+      position: absolute
+      left: -4px
+      top: 0px
+
+    &::after
+      $frill-size: $badge-width / 2
+      display: block
+      content: ''
+      border: $frill-size solid transparent
+      border-left-color: $featured-background
+      border-right-color: $featured-background
+
+      position: absolute
+      left: 0px
+      bottom: -$frill-size
