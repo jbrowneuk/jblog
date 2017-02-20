@@ -4,10 +4,12 @@ export interface AlbumNameTitlePair {
 }
 
 export interface ImageInfo {
+  id: number;
   title: string;
   date: number;
   description: string;
-  url: string;
+  thumbnail: string;
+  src: string;
   containingAlbums: AlbumNameTitlePair[];
   featured: boolean;
 }

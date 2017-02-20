@@ -14,10 +14,20 @@ export class ImageService {
 
   constructor(private http: Http) { }
 
-  public getImageInfo(imageId: number): Observable<any> {
-    return this.http.get('/assets/mock-image.json')
-      .map((response: Response) => response.json().data as ImageInfo)
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error.'));
+  public getImagesFromAlbum(albumId: number, pageId: number): Observable<ImageInfo[]> {
+    return this.http.get('/assets/mock-images.json')
+      .map((response: Response) => response.json().data as ImageInfo[])
+      .catch((error: any) => this.errorHandler(error));
   }
 
+  public getImageInfo(imageId: number): Observable<ImageInfo> {
+    return this.http.get('/assets/mock-image.json')
+      .map((response: Response) => response.json().data as ImageInfo)
+      .catch((error: any) => this.errorHandler(error));
+  }
+
+  private errorHandler(error: any): Observable<any> {
+    console.log(error);
+    return Observable.throw(error.json().error || 'Server error.');
+  }
 }
