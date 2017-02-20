@@ -18,10 +18,6 @@ export class AlbumComponent implements OnInit {
   constructor(private imageService: ImageService) { }
 
   ngOnInit() {
-    /*this.images = [
-      { imageId: 1, title: 'Image 1', galleries: ['gallery 1', 'gallery 2'], thumbnailUrl: 'http://jbrowne.me.uk/art/thumbs/hat_thief.jpg' },
-      { imageId: 2, title: 'Image 2', galleries: ['gallery 3', 'gallery 4'], thumbnailUrl: 'http://jbrowne.me.uk/art/thumbs/hat_thief.jpg' },
-    ];*/
     this.data = {
       albumId: 1,
       title: 'Test album',
@@ -33,17 +29,15 @@ export class AlbumComponent implements OnInit {
       iconUrl: ''
     };
 
-    this.imageService.getImageInfo(1).subscribe(
+    this.imageService.getImagesFromAlbum(this.data.albumId, 0).subscribe(
       x => this.handleImageResponse(x),
       e => console.log('Error: %s', e),
       () => console.log('Completed')
     );
   }
 
-  private handleImageResponse(response: ImageInfo): void {
-    this.images = [
-      response
-    ];
+  private handleImageResponse(response: ImageInfo[]): void {
+    this.images = response;
   }
 
 }
