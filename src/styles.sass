@@ -25,9 +25,34 @@ html
   height: 100%
   position: relative
 
+h1,
+h2,
+h3
+  color: $color-theme-1
+
+hr
+  background-color: #ddd
+  border: none
+  height: 1px
+
+blockquote, p
+  margin: auto auto 8pt auto
+
 // generics
+.align-left
+  text-align: left
+
+.align-center
+  text-align: center
+
+.align-right
+  text-align: right
+
 .inline-block
   display: inline-block
+
+.uppercase-text
+  text-transform: uppercase
 
 // Components
 .card
@@ -58,7 +83,6 @@ html
     padding: 0
 
   h2
-    border-top: 1px solid #ddd
     font-size: $font-size-largest
     font-weight: 400
 
