@@ -5,7 +5,7 @@
   <div class="presenter" [class.container]="isZoomedOut"
     [class.zoomed-out]="isZoomedOut"
     [class.zoomed-in]="!isZoomedOut">
-    <div class="featured" *ngIf="data.featured" title="Featured">
+    <div class="featured" *ngIf="data.featured && isZoomedOut" title="Featured">
       <i class="fa fa-fw fa-trophy" aria-hidden="true"></i>
     </div>
     <img src="{{data.src}}" alt="full sized image" class="card"

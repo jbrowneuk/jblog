@@ -13,7 +13,7 @@ export class GalleryFormatPipe implements PipeTransform {
     }
 
     const galleryTitles = value.map((obj: AlbumNameTitlePair) => {
-      return obj.name;
+      return obj.title;
     });
 
     return galleryTitles.join(', ');
