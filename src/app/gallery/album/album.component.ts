@@ -22,11 +22,11 @@ export class AlbumComponent implements OnInit {
       albumId: 1,
       title: 'Test album',
       name: 'test',
-      description: 'A test album',
-      imagesInAlbum: 2,
+      description: 'A test album.\n\nNew line!',
+      imagesInAlbum: 3,
       imagesPerPage: 9,
       totalPages: 1,
-      iconUrl: ''
+      iconUrl: 'http://jbrowne.me.uk/art/icons/figures.jpg'
     };
 
     this.imageService.getImagesFromAlbum(this.data.albumId, 0).subscribe(

@@ -1,12 +1,20 @@
 <div id="information" class="panel">
+  <div class="container" *ngIf="!data">
+    Loading…
+  </div>
   <div class="container" *ngIf="data">
-    <h1>{{data.title}}</h1>
-    <p>{{data.description}}</p>
+    <div class="row">
+      <div class="col-sm-8">
+        <h1>{{data.title}}</h1>
+        <p *ngFor='let para of data.description | albumDescription'>{{para}}</p>
+      </div>
+      <div class="col-sm-4">
+        <img src="{{data.iconUrl}}" alt="icon" class="card">
+      </div>
+    </div>
   </div>
 </div>
 
 <div id="thumbnails" class="panel well">
-  <div class="container">
-    <jblog-thumbnail *ngFor="let image of images" [data]="image"></jblog-thumbnail>
-  </div>
+  <jblog-thumbnail *ngFor="let image of images" [data]="image"></jblog-thumbnail>
 </div>

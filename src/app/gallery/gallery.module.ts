@@ -8,6 +8,7 @@ import { ThumbnailComponent } from './thumbnail/thumbnail.component';
 import { GalleryFormatPipe } from './gallery-format.pipe';
 
 import { ImageService } from './image.service';
+import { AlbumDescriptionPipe } from './album-description.pipe';
 
 const galleryRoutes: Routes = [
   {path: 'art', component: AlbumComponent },
@@ -19,7 +20,7 @@ const galleryRoutes: Routes = [
     CommonModule,
     RouterModule.forChild(galleryRoutes)
   ],
-  declarations: [AlbumComponent, ImageComponent, AlbumListComponent, ThumbnailComponent, GalleryFormatPipe],
+  declarations: [AlbumComponent, ImageComponent, AlbumListComponent, ThumbnailComponent, GalleryFormatPipe, AlbumDescriptionPipe],
   exports: [RouterModule, AlbumComponent, ImageComponent, AlbumListComponent],
   providers: [ImageService]
 })
