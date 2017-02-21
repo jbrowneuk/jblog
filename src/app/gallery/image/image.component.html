@@ -2,11 +2,15 @@
   Loading…
 </div>
 <div class="panel" *ngIf="data">
-  <div class="presenter" [class.container]="isZoomedOut">
+  <div class="presenter" [class.container]="isZoomedOut"
+    [class.zoomed-out]="isZoomedOut"
+    [class.zoomed-in]="!isZoomedOut">
     <div class="featured" *ngIf="data.featured" title="Featured">
       <i class="fa fa-fw fa-trophy" aria-hidden="true"></i>
     </div>
-    <img src="{{data.src}}" alt="full sized image" class="card responsive">
+    <img src="{{data.src}}" alt="full sized image" class="card"
+      [class.responsive]="isZoomedOut"
+      (click)="toggleZoom($event)">
   </div>
   <div class="control">
     <a [routerLink]="['/art']">Go back to gallery</a>

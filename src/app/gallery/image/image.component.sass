@@ -5,13 +5,24 @@
   position: relative
   text-align: center
 
+  &.zoomed-in
+    padding-left: 0
+    padding-right: 0
+
+    img
+      cursor: zoom-out
+
+  &.zoomed-out
+    img
+      cursor: zoom-in
+
   .featured
     $badge-width: 48px
     $featured-background: #B00
     background-color: $featured-background
-    color: $color-bright-secondary
+    color: $featured-background
     font-size: 32px
-    text-shadow: 0 -1px darken($featured-background, 30%)
+    text-shadow: 0 -1px darken($featured-background, 30%), 0 1px lighten($featured-background, 30%)
     text-align: center
     width: $badge-width
 
