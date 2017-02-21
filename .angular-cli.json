@@ -19,7 +19,7 @@
       "tsconfig": "tsconfig.json",
       "prefix": "jblog",
       "styles": [
-        "styles.sass"
+        "styles.sass", "grid.sass"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

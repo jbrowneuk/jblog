@@ -1,0 +1,44 @@
+@import 'shared-sass/grid-framework'
+
+$screen-sm-min:       768px
+$screen-md-min:       992px
+$screen-lg-min:      1200px
+
+$screen-xs-max:       ($screen-sm-min - 1)
+$screen-sm-max:       ($screen-md-min - 1)
+$screen-md-max:       ($screen-lg-min - 1)
+
+$grid-columns:        12
+$grid-gutter-width:   30px
+
+$container-sm:        (720px + $grid-gutter-width)
+$container-md:        (940px + $grid-gutter-width)
+$container-lg:       (1140px + $grid-gutter-width)
+
+.container
+  +container-fixed
+
+  @media (min-width: $screen-sm-min)
+    width: $container-sm
+
+  @media (min-width: $screen-md-min)
+    width: $container-md
+
+  @media (min-width: $screen-lg-min)
+    width: $container-lg
+
+.row
+  +make-row
+
++make-grid-columns
+
++make-grid(xs)
+
+@media (min-width: $screen-sm-min)
+  +make-grid(sm)
+
+@media (min-width: $screen-md-min)
+  +make-grid(md)
+
+@media (min-width: $screen-lg-min)
+  +make-grid(lg)
