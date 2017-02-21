@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { GalleryModule } from './gallery/gallery.module';
+import { HomeModule } from './home/home.module';
 import { JournalModule } from './journal/journal.module';
 
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     HttpModule,
     GalleryModule,
+    HomeModule,
     JournalModule,
     AppRoutingModule
   ],
