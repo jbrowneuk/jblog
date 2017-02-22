@@ -8,7 +8,7 @@ import { TextParsingService } from '../../shared/text-parsing.service';
 @Component({
   selector: 'jblog-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.sass']
+  styleUrls: ['./post.component.sass', '../../../shared-sass/content-info-area.sass']
 })
 export class PostComponent {
 

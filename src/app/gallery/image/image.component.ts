@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
-import { ImageInfo } from '../image-info';
+import { AlbumNameTitlePair, ImageInfo } from '../image-info';
 
 import { ImageService } from '../image.service';
 import { TextParsingService } from '../../shared/text-parsing.service';
@@ -10,7 +10,7 @@ import { TextParsingService } from '../../shared/text-parsing.service';
 @Component({
   selector: 'jblog-image',
   templateUrl: './image.component.html',
-  styleUrls: ['./image.component.sass']
+  styleUrls: ['./image.component.sass', '../../../shared-sass/content-info-area.sass']
 })
 export class ImageComponent implements OnInit {
 

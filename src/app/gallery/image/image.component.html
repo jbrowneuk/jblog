@@ -12,17 +12,28 @@
       [class.responsive]="isZoomedOut"
       (click)="toggleZoom($event)">
   </div>
-  <div class="control">
-    <a [routerLink]="['/art']">Go back to gallery</a>
-    <a href="#" (click)="toggleZoom($event)">
+  <div class="controls align-center">
+    <a [routerLink]="['/art/album', getPrimaryAlbum().name]" class="button flat">
+      <i class="fa fa-fw fa-th-large" aria-hidden="true"></i>
+      Back to <em>{{getPrimaryAlbum().title}}</em>
+    </a>
+    <a href="#" (click)="toggleZoom($event)" class="button flat">
       <i class="fa fa-fw" aria-hidden="true"
         [class.fa-search-plus]="isZoomedOut"
         [class.fa-search-minus]="!isZoomedOut"></i>
       Zoom
+      <span *ngIf="isZoomedOut">in</span>
+      <span *ngIf="!isZoomedOut">out</span>
     </a>
   </div>
   <div class="container">
     <h1>{{data.title}}</h1>
-    <div class="content" [innerHTML]="getParsedContent()"></div>
+    <div class="content-info-area">
+      <ul>
+        <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
+        {{data.date * 1000 | date:'medium'}}
+      </ul>
+    </div>
+    <div class="content-area" [innerHTML]="getParsedContent()"></div>
   </div>
 </div>
