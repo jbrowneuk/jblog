@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params } from '@angular/router';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { ImageInfo } from '../image-info';
 
 import { ImageService } from '../image.service';
+import { TextParsingService } from '../../shared/text-parsing.service';
 
 @Component({
   selector: 'jblog-image',
@@ -12,14 +14,18 @@ import { ImageService } from '../image.service';
 })
 export class ImageComponent implements OnInit {
 
-  private data: ImageInfo;
-  private isZoomedOut: boolean = true;
+  public data: ImageInfo;
+  public isZoomedOut = true;
 
-  constructor(private route: ActivatedRoute, private imageService: ImageService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private domSanitizer: DomSanitizer,
+    private imageService: ImageService,
+    private parser: TextParsingService) { }
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
-      let imageId = +params["id"];
+      const imageId = +params['id'];
       if (!imageId || imageId <= 0) {
         return;
       }
@@ -31,6 +37,15 @@ export class ImageComponent implements OnInit {
   public toggleZoom(event: Event): void {
     event.preventDefault();
     this.isZoomedOut = !this.isZoomedOut;
+  }
+
+  public getParsedContent(): SafeHtml {
+    if (!this.data) {
+      return '';
+    }
+
+    const parsed = this.parser.parse(this.data.description);
+    return this.domSanitizer.bypassSecurityTrustHtml(parsed);
   }
 
   private requestImageById(imageId: number): void {
