@@ -12,9 +12,7 @@
        *ngIf="ageInYearsGreaterThan(2)">
     This post is over two years old. The content here might not be relevant any more.
   </div>
-  <div class="content">
-{{data.content}}
-  </div>
+  <div class="content" [innerHTML]="getParsedContent()"></div>
   <div class="info">
     <ul>
       <li><i class="fa fa-tags" aria-hidden="true"></i></li>

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
+import { SharedModule } from './shared/shared.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { HomeModule } from './home/home.module';
 import { JournalModule } from './journal/journal.module';
@@ -19,12 +20,12 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     FormsModule,
     HttpModule,
+    SharedModule.forRoot(),
     GalleryModule,
     HomeModule,
     JournalModule,
     AppRoutingModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
