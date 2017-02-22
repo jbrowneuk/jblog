@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params } from '@angular/router';
 
-import { PostData } from "../post-data";
+import { PostData } from '../post-data';
 
 import { PostService } from '../post.service';
 
@@ -12,20 +12,36 @@ import { PostService } from '../post.service';
 })
 export class PostListComponent implements OnInit {
 
-  private title: string = "All posts";
-  private posts: PostData[];
+  public posts: PostData[];
+  public title = 'All posts';
 
-  constructor(private postsService: PostService) { }
+  constructor(private route: ActivatedRoute, private postsService: PostService) { }
 
   ngOnInit() {
-    this.postsService.getPostsForPage(1).subscribe(
-      x => this.handlePostResponse(x),
-      e => console.log('Error: %s', e),
-      () => console.log('Completed')
-    );
+    this.route.params.forEach((params: Params) => {
+      const idParam = params['id'];
+      if (!idParam || idParam.length === 0) {
+        this.postsService.getPostsForPage(1).subscribe(
+          x => this.handlePostListResponse(x),
+          e => console.log('Error: %s', e),
+          () => console.log('Got post list')
+        );
+      } else {
+        const id = +idParam;
+        this.postsService.getPost(id).subscribe(
+          x => this.handlePostResponse(x),
+          e => console.log('Error: %s', e),
+          () => console.log('Got post %s', id)
+        );
+      }
+    });
   }
 
-  private handlePostResponse(response: PostData[]): void {
+  private handlePostResponse(response: PostData): void {
+    this.posts = [response];
+  }
+
+  private handlePostListResponse(response: PostData[]): void {
     this.posts = response;
   }
 
