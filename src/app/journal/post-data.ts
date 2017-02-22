@@ -1,4 +1,4 @@
-export class PostData {
+export interface PostData {
   postId: number;
   date: number;
   title: string;
