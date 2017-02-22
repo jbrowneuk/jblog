@@ -48,6 +48,14 @@ export class ImageComponent implements OnInit {
     return this.domSanitizer.bypassSecurityTrustHtml(parsed);
   }
 
+  public getPrimaryAlbum(): AlbumNameTitlePair {
+    if (!this.data || this.data.containingAlbums.length === 0) {
+      return {name: 'latest', title: 'album'};
+    }
+
+    return this.data.containingAlbums[0];
+  }
+
   private requestImageById(imageId: number): void {
     this.data = null;
 
