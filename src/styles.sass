@@ -55,23 +55,29 @@ blockquote, p
   text-transform: uppercase
 
 // Components
-.card
+%card
   background-color: $color-card-backdrop
   border-radius: 2px
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.15), 0 2px 8px 0 rgba(0,0,0,0.1)
 
+%card-hoverable
+  position: relative
+  top: 0px
+
+  transition: color 250ms,background-color 250ms,box-shadow 250ms
+
+  &:hover
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.20), 0 4px 16px 0 rgba(0, 0, 0, 0.15)
+
+  &:active
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15), 0 1px 4px 0 rgba(0, 0, 0, 0.1)
+    top: 1px
+
+.card
+  @extend %card
+
   &.hoverable
-    position: relative
-    top: 0px
-
-    transition: color 250ms,background-color 250ms,box-shadow 250ms
-
-    &:hover
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.20), 0 4px 16px 0 rgba(0, 0, 0, 0.15)
-
-    &:active
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15), 0 1px 4px 0 rgba(0, 0, 0, 0.1)
-      top: 1px
+    @extend %card-hoverable
 
 .panel
   padding: 32px 0
@@ -86,12 +92,20 @@ blockquote, p
     font-size: $font-size-largest
     font-weight: 400
 
-.responsive
+.responsive,
+img.posted
   max-width: 100%
 
 .well
   background-color: #eeeeef
   box-shadow: inset 0 2px 4px rgba(0,0,0,.25)
+
+// Specific styles
+img.posted
+  @extend %card
+
+a img.posted
+  @extend %card-hoverable
 
 // EmojiOne support
 .emojione
