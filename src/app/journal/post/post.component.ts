@@ -16,11 +16,11 @@ export class PostComponent {
 
   constructor(private domSanitizer: DomSanitizer, private parser: TextParsingService) {}
 
-  private hasTags(): boolean {
+  public hasTags(): boolean {
     return this.data && this.data.tags.length > 0;
   }
 
-  private ageInYearsGreaterThan(years: number): boolean {
+  public ageInYearsGreaterThan(years: number): boolean {
     if (!this.data || years <= 0) {
       return false;
     }
@@ -32,7 +32,7 @@ export class PostComponent {
     return postDate < comparisonDate;
   }
 
-  private getParsedContent(): SafeHtml {
+  public getParsedContent(): SafeHtml {
     if (!this.data) {
       return '';
     }

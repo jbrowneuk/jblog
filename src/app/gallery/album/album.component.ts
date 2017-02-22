@@ -12,8 +12,8 @@ import { ImageService } from '../image.service';
 })
 export class AlbumComponent implements OnInit {
 
-  private images: ImageInfo[];
-  private data: AlbumInfo;
+  public images: ImageInfo[];
+  public data: AlbumInfo;
 
   constructor(private imageService: ImageService) { }
 

@@ -5,7 +5,7 @@
       <li>
         <a [routerLink]="['/journal/post', data.postId]" title="Show only this post"><i class="fa fa-fw fa-thumb-tack" aria-hidden="true"></i> Post {{data.postId}}</a>
       </li>
-      <li><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{data.date * 1000 | date:medium}}</li>
+      <li><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{data.date * 1000 | date:'medium'}}</li>
     </ul>
   </div>
   <div class="outdated-content"
