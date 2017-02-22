@@ -6,6 +6,7 @@ import { ImageInfo } from './image-info';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 const API_URL = "/api/gallery.php";
 
