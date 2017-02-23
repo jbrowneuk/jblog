@@ -97,8 +97,8 @@ class ApiModule {
   //============================================================================
   private function generateAlbumNameTitlePair($album) {
     return array(
-      "name"  => $album->getName,
-      "title" => StringExtensions::cleanText($album->getTitle())
+      "name"  => $album->getName(),
+      "title" =>$album->getTitle()
     );
   }
 
@@ -111,7 +111,7 @@ class ApiModule {
 
     $galleryIds = explode(' ', $image->getGalleries());
     foreach ($galleryIds as $key => $galleryId) {
-      if ($galleryId === FEATURED_FOLDER_ID) {
+      if ($galleryId == FEATURED_FOLDER_ID) {
         $isFeatured = true;
         continue;
       }
@@ -125,16 +125,16 @@ class ApiModule {
 
     // Sanity check - add featured if no containing galleries but it is featured
     if ($isFeatured && count($containingGalleries) === 0) {
-      $albumsFromCache = array_filter((array)$this->galleryAlbumCache, function($e) { return $e->getId() === FEATURED_FOLDER_ID; });
+      $albumsFromCache = array_filter((array)$this->galleryAlbumCache, function($e) { return $e->getId() == FEATURED_FOLDER_ID; });
       $firstMatch = array_values($albumsFromCache)[0];
       $containingGalleries[] = $this->generateAlbumNameTitlePair($firstMatch);
     }
 
     return array(
       "id"                => $image->getId(),
-      "title"             => StringExtensions::cleanText($image->getTitle()),
+      "title"             => $image->getTitle(),
       "date"              => $image->getDate(),
-      "description"       => StringExtensions::cleanText($image->getDescription()),
+      "description"       => $image->getDescription(),
       "thumbnail"         => THUMBNAIL_URL . $image->getImageUri(),
       "src"               => IMAGE_URL . $image->getImageUri(),
       "containingAlbums"  => $containingGalleries,
