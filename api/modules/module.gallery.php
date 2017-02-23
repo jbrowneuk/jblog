@@ -1,13 +1,5 @@
 <?php
 
-require "./conf/settings.php";
-
-require "./lib/extensions.string.php";
-require "./lib/interface.database.php";
-require "./lib/class.db-sqlite.php";
-
-require "./lib/framework.gallery.php";
-
 const FEATURED_FOLDER_ID = 1;
 const LATEST_ALBUM_ID = 0;
 const LATEST_ALBUM_NAME = "latest";
@@ -19,62 +11,143 @@ const ICON_URL = GALLERY_ROOT . "icons/";
 
 const DEFAULT_ALBUM_NAME_QUERY = "_default";
 
-//==============================================================================
-// Sets the response headers to "not found".
-//==============================================================================
-function respondNotFound() {
-  @header("HTTP/1.0 404 Not Found");
-}
+// Relative to the file that includes this one
+require "lib/framework.gallery.php";
 
-//==============================================================================
-// Sets the correct response headers for JSON output, and outputs the JSON.
-//==============================================================================
-function outputWithHeader($string) {
-  @header("Content-Type:application/json; charset=utf-8");
-  print $string;
-}
+class ApiModule {
 
-//==============================================================================
-// Generates the JSON data containing all the images in a specified album.
-//==============================================================================
-function generateFolderView($database) {
-  $queryPage = "page";
-  $page = isset($_GET[$queryPage]) && is_numeric($_GET[$queryPage]) ? $_GET[$queryPage] : 1;
+  private $db = NULL;
+  private $galleryAlbumCache = null;
 
-  $requestedPage = $page - 1;
-  if ($requestedPage < 0) {
-    $requestedPage = 0;
+  public function __construct($db) {
+    $this->db = $db;
+
+    $this->galleryAlbumCache = new GalleryAlbumList($this->db);
   }
 
-  $albumNameQuery = "albumName";
-  if (!isset($_GET[$albumNameQuery])) {
-    respondNotFound();
-    return;
-  }
-
-  $requestedName = $_GET[$albumNameQuery];
-  $numberImagesToLoad = isset($_GET["count"]) && is_numeric($_GET["count"]) ? (int)$_GET["count"] : IMAGES_PER_PAGE;
-
-  if ($numberImagesToLoad <= 0) {
-    $numberImagesToLoad = IMAGES_PER_PAGE;
-  }
-
-  if ($requestedName === LATEST_ALBUM_NAME || $requestedName === DEFAULT_ALBUM_NAME_QUERY) {
-    $requestedAlbumId = LATEST_ALBUM_ID;
-  } else {
-    // Look up album - returns null if it doesn't exist.
-    $currentAlbum = GalleryAlbumList::getAlbumByName($database, $requestedName);
-    if ($currentAlbum === NULL) {
-      respondNotFound();
+  public function handleResponse() {
+    if (isset($_GET["images"])) {
+      $this->generateAlbumComponentImageData();
       return;
     }
 
-    $requestedAlbumId = $currentAlbum->getId();
+    if (isset($_GET["albumdata"])) {
+      if (isset($_GET["fullList"])) {
+        // $this->generateAlbumListAlbumData();
+        return;
+      }
+
+      // $this->generateAlbumComponentAlbumData();
+      return;
+    }
+
+    if (isset($_GET["imagedata"])) {
+      // $this->generateImageComponentData();
+      return;
+    }
+
+    ResponseHelpers::respondNotFound();
   }
 
-  $galleryAlbumCache = new GalleryAlbumList($database);
-  $galleryImages = new GalleryImageList($database, $numberImagesToLoad, $requestedPage, $requestedAlbumId);
-  $output = "";
+  //============================================================================
+  // Generates the data containing all the images in a specified album.
+  //============================================================================
+  private function generateAlbumComponentImageData() {
+    $page = RequestHelpers::getNumericValue("page", 1);
+    $requestedPage = $page - 1;
+    if ($requestedPage < 0) {
+      $requestedPage = 0;
+    }
+
+    $requestedName = RequestHelpers::getRawValue("albumName");
+    if (is_null($requestedName)) {
+      ResponseHelpers::respondNotFound();
+      return;
+    }
+
+    $numberImagesToLoad = RequestHelpers::getNumericValue("count", IMAGES_PER_PAGE);
+    if ($numberImagesToLoad <= 0) {
+      $numberImagesToLoad = IMAGES_PER_PAGE;
+    }
+
+    $requestedAlbumId = LATEST_ALBUM_ID;
+    if ($requestedName !== LATEST_ALBUM_NAME && $requestedName !== DEFAULT_ALBUM_NAME_QUERY) {
+      // Look up album - returns null if it doesn't exist.
+      $currentAlbum = GalleryAlbumList::getAlbumByName($this->db, $requestedName);
+      if ($currentAlbum === NULL) {
+        respondNotFound();
+        return;
+      }
+
+      $requestedAlbumId = $currentAlbum->getId();
+    }
+
+    $galleryImages = new GalleryImageList($this->db, $numberImagesToLoad, $requestedPage, $requestedAlbumId);
+    $output = array();
+
+    foreach ($galleryImages as $image) {
+      $output[] = $this->generateImageInfo($image);
+    }
+
+    ResponseHelpers::outputWithJsonHeader($output);
+  }
+
+  //============================================================================
+  // Generates the album name & title key value pair.
+  //============================================================================
+  private function generateAlbumNameTitlePair($album) {
+    return array(
+      "name"  => $album->getName,
+      "title" => StringExtensions::cleanText($album->getTitle())
+    );
+  }
+
+  //============================================================================
+  // Generates the data containing information about a specified image.
+  //============================================================================
+  private function generateImageInfo($image) {
+    $isFeatured = false;
+    $containingGalleries = array();
+
+    $galleryIds = explode(' ', $image->getGalleries());
+    foreach ($galleryIds as $key => $galleryId) {
+      if ($galleryId === FEATURED_FOLDER_ID) {
+        $isFeatured = true;
+        continue;
+      }
+
+      $albumsFromCache = array_filter((array)$this->galleryAlbumCache, function($e) use ($galleryId) { return $e->getId() == $galleryId; });
+      if (count($albumsFromCache) > 0) {
+        $firstMatch = array_values($albumsFromCache)[0];
+        $containingGalleries[] = $this->generateAlbumNameTitlePair($firstMatch);
+      }
+    }
+
+    // Sanity check - add featured if no containing galleries but it is featured
+    if ($isFeatured && count($containingGalleries) === 0) {
+      $albumsFromCache = array_filter((array)$this->galleryAlbumCache, function($e) { return $e->getId() === FEATURED_FOLDER_ID; });
+      $firstMatch = array_values($albumsFromCache)[0];
+      $containingGalleries[] = $this->generateAlbumNameTitlePair($firstMatch);
+    }
+
+    return array(
+      "id"                => $image->getId(),
+      "title"             => StringExtensions::cleanText($image->getTitle()),
+      "date"              => $image->getDate(),
+      "description"       => StringExtensions::cleanText($image->getDescription()),
+      "thumbnail"         => THUMBNAIL_URL . $image->getImageUri(),
+      "src"               => IMAGE_URL . $image->getImageUri(),
+      "containingAlbums"  => $containingGalleries,
+      "featured"          => $isFeatured
+    );
+  }
+}
+
+/*
+
+
+function generateFolderView($database) {
+
 
   foreach ($galleryImages as $image) {
     if (strlen($output) > 0) {
@@ -95,16 +168,7 @@ function generateFolderView($database) {
         $containingGalleries .= '"' . $first->getTitle() . '"';
       }
     }
-
-    $imageId = '"imageId": ' . $image->getId();
-    $title = '"title": "' . $image->getTitle() . '"';
-    $galleries = '"galleries": [' . $containingGalleries . ']';
-    $thumbnailUrl = '"thumbnailUrl": "' . THUMBNAIL_URL . $image->getImageUri() . '"';
-    $output .= "{{$imageId}, {$title}, {$galleries}, {$thumbnailUrl}}";
   }
-
-  $jsonString = "{ \"data\": [ $output ] }";
-  outputWithHeader($jsonString);
 }
 
 //==============================================================================
@@ -235,33 +299,7 @@ function generateImageView($database) {
 
   $galleryAlbumCache = new GalleryAlbumList($database);
 
-  $galleryIds = explode(' ', $image->getGalleries());
-  $containingGalleries = "";
-  $isFeatured = false;
-  foreach ($galleryIds as $key => $galleryId) {
-    if ($galleryId == FEATURED_FOLDER_ID) {
-      $isFeatured = true;
-      continue;
-    }
-
-    if (strlen($containingGalleries) > 0) {
-      $containingGalleries .= ", ";
-    }
-
-    $albumsFromCache = array_filter((array)$galleryAlbumCache, function($e) use ($galleryId) { return $e->getId() == $galleryId; });
-    if (count($albumsFromCache) > 0)
-    {
-      $first = array_values($albumsFromCache)[0];
-      $containingGalleries .= '{"name": "' . $first->getName() . '", "title": "' . $first->getTitle() . '"}';
-    }
-  }
-
-  // Sanity check - add featured if no containing galleries but it is featured
-  if ($isFeatured && strlen($containingGalleries) == 0) {
-    $albumsFromCache = array_filter((array)$galleryAlbumCache, function($e) { return $e->getId() == FEATURED_FOLDER_ID; });
-    $first = array_values($albumsFromCache)[0];
-    $containingGalleries .= '{"name": "' . $first->getName() . '", "title": "' . $first->getTitle() . '"}';
-  }
+ ///// moved
 
   $isFeaturedString = $isFeatured ? "true" : "false";
   $jsonString = <<<EOF
@@ -279,31 +317,4 @@ EOF;
   outputWithHeader($jsonString);
 }
 
-$database = new Database();
-if (!$database->connect($settings["Database"]))
-{
-  header("HTTP/1.1 500 Internal Server Error");
-  exit;
-}
-
-if (isset($_GET["images"])) {
-  generateFolderView($database);
-  exit;
-}
-
-if (isset($_GET["albumdata"])) {
-  if (isset($_GET["fullList"])) {
-    generateAllAlbumsInfoView($database);
-    exit;
-  }
-
-  generateSingleAlbumInfoView($database);
-  exit;
-}
-
-if (isset($_GET["imagedata"])) {
-  generateImageView($database);
-  exit;
-}
-
-respondNotFound();
+*/
