@@ -8,13 +8,15 @@ import { AlbumListComponent } from './album-list/album-list.component';
 import { ThumbnailComponent } from './thumbnail/thumbnail.component';
 
 import { ImageService } from './image.service';
+import { AlbumService } from './album.service';
 
 import { AlbumDescriptionPipe } from './album-description.pipe';
 import { GalleryFormatPipe } from './gallery-format.pipe';
 
 const galleryRoutes: Routes = [
   {path: 'art', component: AlbumComponent },
-  {path: 'art/view/:id', component: ImageComponent }
+  {path: 'art/album/:name', component: AlbumComponent },
+  {path: 'art/view/:id', component: ImageComponent },
 ];
 
 @NgModule({
@@ -24,6 +26,6 @@ const galleryRoutes: Routes = [
   ],
   declarations: [AlbumComponent, ImageComponent, AlbumListComponent, ThumbnailComponent, GalleryFormatPipe, AlbumDescriptionPipe],
   exports: [RouterModule, AlbumComponent, ImageComponent, AlbumListComponent],
-  providers: [ImageService]
+  providers: [ImageService, AlbumService]
 })
 export class GalleryModule { }

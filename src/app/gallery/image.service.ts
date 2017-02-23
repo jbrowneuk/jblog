@@ -15,7 +15,7 @@ export class ImageService {
 
   constructor(private http: Http) { }
 
-  public getImagesFromAlbum(albumId: number, pageId: number): Observable<ImageInfo[]> {
+  public getImagesFromAlbum(albumName: string, pageId: number): Observable<ImageInfo[]> {
     return this.http.get('/assets/mock-data/images.json')
       .map((response: Response) => response.json().data as ImageInfo[])
       .catch((error: any) => this.errorHandler(error));
