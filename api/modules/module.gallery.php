@@ -4,7 +4,7 @@ const FEATURED_FOLDER_ID = 1;
 const LATEST_ALBUM_ID = 0;
 const LATEST_ALBUM_NAME = "latest";
 const IMAGES_PER_PAGE = 16;
-const GALLERY_ROOT = "/art/";
+const GALLERY_ROOT = "http://jbrowne.me.uk/art/";
 const THUMBNAIL_URL = GALLERY_ROOT . "thumbs/";
 const IMAGE_URL = GALLERY_ROOT . "images/";
 const ICON_URL = GALLERY_ROOT . "icons/";
@@ -19,34 +19,60 @@ class ApiModule {
   private $db = NULL;
   private $galleryAlbumCache = null;
 
+  //============================================================================
+  // Constructor.
+  //============================================================================
   public function __construct($db) {
     $this->db = $db;
 
     $this->galleryAlbumCache = new GalleryAlbumList($this->db);
   }
 
+  //============================================================================
+  // Main entry point.
+  //============================================================================
   public function handleResponse() {
     if (isset($_GET["images"])) {
       $this->generateAlbumComponentImageData();
       return;
     }
 
-    if (isset($_GET["albumdata"])) {
+    if (isset($_GET["albumData"])) {
       if (isset($_GET["fullList"])) {
         // $this->generateAlbumListAlbumData();
         return;
       }
 
-      // $this->generateAlbumComponentAlbumData();
+      $this->generateAlbumComponentAlbumData();
       return;
     }
 
-    if (isset($_GET["imagedata"])) {
-      // $this->generateImageComponentData();
+    if (isset($_GET["imageData"])) {
+      $this->generateImageComponentData();
       return;
     }
 
     ResponseHelpers::respondNotFound();
+  }
+
+  //============================================================================
+  // Generates the data containing information about a specified image.
+  //============================================================================
+  private function generateImageComponentData() {
+    $requestedImage = RequestHelpers::getNumericValue("imageId", 0);
+    if ($requestedImage < 1) {
+      ResponseHelpers::respondNotFound();
+      return;
+    }
+
+    $image = GalleryImageList::getImageById($this->db, $requestedImage);
+    if ($image === NULL) {
+      ResponseHelpers::respondNotFound();
+      return;
+    }
+
+    $imageData = $this->generateImageInfo($image);
+    ResponseHelpers::outputWithJsonHeader($imageData);
   }
 
   //============================================================================
@@ -92,9 +118,9 @@ class ApiModule {
     ResponseHelpers::outputWithJsonHeader($output);
   }
 
-  //============================================================================
-  // Generates the album name & title key value pair.
-  //============================================================================
+  //
+  // Creates a JSON-serializable key-value pair encompassing the album name & title.
+  //
   private function generateAlbumNameTitlePair($album) {
     return array(
       "name"  => $album->getName(),
@@ -102,9 +128,9 @@ class ApiModule {
     );
   }
 
-  //============================================================================
-  // Generates the data containing information about a specified image.
-  //============================================================================
+  //
+  // Creates a JSON-serializable key-value pair encompassing an album image
+  //
   private function generateImageInfo($image) {
     $isFeatured = false;
     $containingGalleries = array();
@@ -141,98 +167,61 @@ class ApiModule {
       "featured"          => $isFeatured
     );
   }
+
+  //============================================================================
+  // Generates the data corresponding to a single album's information.
+  //============================================================================
+  private function generateAlbumComponentAlbumData() {
+    $requestedAlbumName = RequestHelpers::getRawValue("albumName");
+    if (is_null($requestedAlbumName)) {
+      ResponseHelpers::respondNotFound();
+      return;
+    }
+
+    $album = NULL;
+    if ($requestedAlbumName != LATEST_ALBUM_NAME && $requestedAlbumName != DEFAULT_ALBUM_NAME_QUERY) {
+      $album = GalleryAlbumList::getAlbumByName($this->db, $requestedAlbumName);
+    } else {
+      // TODO: get from settings or something.
+      $latestAlbumInfo = array(
+        "id"          => LATEST_ALBUM_ID,
+        "title"       => "Latest works",
+        "name"        => LATEST_ALBUM_NAME,
+        "description" => "This album shows all images I have uploaded, latest first."
+      );
+      $album = new GalleryAlbum($latestAlbumInfo);
+    }
+
+    if ($album === NULL) {
+      respondNotFound();
+      return;
+    }
+
+    $output = $this->generateAlbumInfo($album);
+    ResponseHelpers::outputWithJsonHeader($output);
+  }
+
+  //
+  // Creates a JSON-serializable key-value pair encompassing an album.
+  //
+  private function generateAlbumInfo($album) {
+    $totalImages = GalleryAlbumList::getTotalImagesInAlbum($this->db, $album->getId());
+    $totalPages = ceil($totalImages / IMAGES_PER_PAGE);
+
+    return array(
+      "albumId"       => $album->getId(),
+      "title"         => $album->getTitle(),
+      "name"          => $album->getName(),
+      "description"   => $album->getDescription(),
+      "imagesInAlbum" => $totalImages,
+      "imagesPerPage" => IMAGES_PER_PAGE,
+      "totalPages"    => $totalPages,
+      "iconUrl"       => ICON_URL . $album->getName() . ".jpg"
+    );
+  }
 }
 
 /*
-
-
-function generateFolderView($database) {
-
-
-  foreach ($galleryImages as $image) {
-    if (strlen($output) > 0) {
-      $output .= ", ";
-    }
-
-    $containingGalleries = "";
-    $galleryNumbers = explode(' ', $image->getGalleries());
-    foreach ($galleryNumbers as $id => $albumId) {
-      if (strlen($containingGalleries) > 0) {
-        $containingGalleries .= ", ";
-      }
-
-      $albumsFromCache = array_filter((array)$galleryAlbumCache, function($e) use ($albumId) { return $e->getId() == $albumId; });
-      if (count($albumsFromCache) > 0)
-      {
-        $first = array_values($albumsFromCache)[0];
-        $containingGalleries .= '"' . $first->getTitle() . '"';
-      }
-    }
-  }
-}
-
-//==============================================================================
-// Generates the JSON data corresponding to a single album's information.
-//==============================================================================
-function generateSingleAlbumInfoView($database) {
-  $albumNameQuery = "albumName";
-  if (!isset($_GET[$albumNameQuery])) {
-    respondNotFound();
-    return;
-  }
-
-  $title = "Latest works";
-  $name = LATEST_ALBUM_NAME;
-  $description = "The gallery is being rewritten from scratch, and is lacking a lot of features currently. This page shows all images I have uploaded, latest first.";
-  $requestedAlbumId = LATEST_ALBUM_ID;
-
-  $requestedName = $_GET[$albumNameQuery];
-  if ($requestedName === LATEST_ALBUM_NAME || $requestedName === DEFAULT_ALBUM_NAME_QUERY) {
-    $requestedAlbumId = LATEST_ALBUM_ID;
-  } else {
-    $albumLookup = GalleryAlbumList::getAlbumByName($database, $requestedName);
-    if ($albumLookup === NULL) {
-      respondNotFound();
-      return;
-    }
-
-    $requestedAlbumId = $albumLookup->getId();
-  }
-
-  // Album 0 is a special case - it's the "latest uploads" album
-  if ($requestedAlbumId > 0) {
-    $currentAlbum = GalleryAlbumList::getAlbumById($database, $requestedAlbumId);
-    if ($currentAlbum === NULL) {
-      respondNotFound();
-      return;
-    }
-
-    $title = StringExtensions::cleanText($currentAlbum->getTitle());
-    $name = StringExtensions::cleanText($currentAlbum->getName());
-    $description = StringExtensions::cleanText($currentAlbum->getDescription());
-  }
-
-  $imagesPerPage = IMAGES_PER_PAGE;
-  $totalImages = GalleryAlbumList::getTotalImagesInAlbum($database, $requestedAlbumId);
-  $totalPages = ceil($totalImages / $imagesPerPage);
-  $iconUrl = ICON_URL . $name . ".jpg";
-
-  $jsonString = <<<EOF
-{
-  "data": {
-    "albumId": {$requestedAlbumId},
-    "title": "{$title}",
-    "name": "{$name}",
-    "description": "{$description}",
-    "imagesInAlbum": {$totalImages},
-    "imagesPerPage": {$imagesPerPage},
-    "totalPages": {$totalPages},
-    "iconUrl": "{$iconUrl}"
-  }
-}
-EOF;
-  outputWithHeader($jsonString);
-}
 
 //==============================================================================
 // Generates JSON data containing a list of all relevant album data.
@@ -271,47 +260,6 @@ EOF;
   $jsonString = <<<EOF
 {
   "data": [{$albumsJson}]
-}
-EOF;
-  outputWithHeader($jsonString);
-}
-
-//==============================================================================
-// Generates the JSON data containing information about a specified image.
-//==============================================================================
-function generateImageView($database) {
-  $queryId = "imageId";
-  $requestedImage = isset($_GET[$queryId]) && is_numeric($_GET[$queryId]) ? (int)$_GET[$queryId] : -1;
-  if ($requestedImage < 1) {
-    returnNotFound();
-    return;
-  }
-
-  $image = GalleryImageList::getImageById($database, $requestedImage);
-  if ($image == null) {
-    respondNotFound();
-    return;
-  }
-
-  $safeTitle = StringExtensions::cleanText($image->getTitle());
-  $safeDescription = StringExtensions::cleanText($image->getDescription());
-  $url = IMAGE_URL . $image->getImageUri();
-
-  $galleryAlbumCache = new GalleryAlbumList($database);
-
- ///// moved
-
-  $isFeaturedString = $isFeatured ? "true" : "false";
-  $jsonString = <<<EOF
-{
-  "data": {
-    "title": "{$safeTitle}",
-    "date": {$image->getDate()},
-    "description": "{$safeDescription}",
-    "url": "{$url}",
-    "containingAlbums": [{$containingGalleries}],
-    "featured": {$isFeaturedString}
-  }
 }
 EOF;
   outputWithHeader($jsonString);
