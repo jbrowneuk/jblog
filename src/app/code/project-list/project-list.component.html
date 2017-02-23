@@ -1,3 +1,81 @@
-<p>
-  project-list works!
-</p>
+<div class="panel bordered">
+  <div class="container">
+    <h1>Looking to <strong>challenge</strong> the limits of computers through software.</h1>
+    <div class="row">
+      <div class="col-md-8">
+        <p>
+          The computer at your desk. The phone in your pocket. The console under
+          your TV. Each one of these devices has the potential to be the next
+          big thing&mdash;something I’m acutely aware of and thoroughly
+          interested in.
+        </p>
+        <p>
+          While desktop and mobile are my strong points, I’m always willing to
+          dive in the deep end and program something new. Whether it’s a serious
+          business application or a fun, timewasting app&mdash;<em>I’m game</em>.
+        </p>
+        <p>
+          I also spend some of my spare time
+          <a class="uncoverable" routerLink="/code/lab">experimenting<i class="fa fa-flask"></i></a>
+          with exciting new technologies and processes in order to bridge the
+          gap between humans and the machines we use.
+        </p>
+      </div>
+      <div class="col-md-4">
+        <img src="/assets/images/programming.svg" alt="stylized image of a computer" class="side-illustration" width="320" />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <hr />
+</div>
+<div class="panel bordered">
+  <div class="container">
+    <h2>GitHub</h2>
+    <p>
+      While I don’t use it as often as I’d like to, some of the code projects
+      that you can find on this page can also be found on my GitHub page.
+    </p>
+    <p>
+      <a href="//github.com/jbrowneuk" class="button primary">
+        <i class="fa fa-fw fa-github" aria-hidden="true"></i>
+        GitHub profile
+      </a>
+    </p>
+  </div>
+</div>
+<div class="container">
+  <hr />
+</div>
+<div *ngFor="let project of projects; let i = index">
+  <div class="panel">
+    <div class="container">
+      <h2>{{project.title}}</h2>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="content-info-area">
+            <ul>
+              <li>{{project.info}}</li>
+            </ul>
+          </div>
+          <div class="content-area">
+            <p>
+              {{project.summary}}
+            </p>
+            <a href="{{project.link}}" class="button default">
+              <i class="fa fa-rocket"></i>
+              Go to project page
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <img src="{{project.resourcesUrl}}folder.jpg" alt="project image" class="card" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" *ngIf="i < projects.length - 1">
+    <hr />
+  </div>
+</div>
