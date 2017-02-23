@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
+import { SharedModule } from '../shared/shared.module';
+
 import { ProjectService } from './project.service';
 
 import { ProjectListComponent } from './project-list/project-list.component';
@@ -15,7 +17,8 @@ const codeRoutes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(codeRoutes)
+    RouterModule.forChild(codeRoutes),
+    SharedModule
   ],
   declarations: [ProjectListComponent, ProjectDetailComponent],
   providers: [ProjectService]

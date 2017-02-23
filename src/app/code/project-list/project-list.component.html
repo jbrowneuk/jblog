@@ -49,21 +49,28 @@
   <hr />
 </div>
 <div *ngFor="let project of projects; let i = index">
-  <div class="panel">
+  <section class="panel">
     <div class="container">
       <h2>{{project.title}}</h2>
       <div class="row">
         <div class="col-md-8">
           <div class="content-info-area">
             <ul>
-              <li>{{project.info}}</li>
+              <li>
+                <i class="fa fa-code" aria-hidden="true"></i>
+                {{project.info}}
+              </li>
             </ul>
           </div>
-          <div class="content-area">
-            <p>
-              {{project.summary}}
-            </p>
-            <a href="{{project.link}}" class="button default">
+          <article class="content-area">
+            <p *ngFor='let para of project.summary | lineSplitting'>{{para}}</p>
+          </article>
+          <div>
+            <a *ngIf="project.link.length > 0" href="{{project.link}}" class="button default">
+              <i class="fa fa-rocket"></i>
+              Go to project page
+            </a>
+            <a *ngIf="project.link.length === 0" [routerLink]="['/code/project', project.name]">
               <i class="fa fa-rocket"></i>
               Go to project page
             </a>
@@ -74,7 +81,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
   <div class="container" *ngIf="i < projects.length - 1">
     <hr />
   </div>
