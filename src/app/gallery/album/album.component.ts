@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { AlbumInfo } from '../album-info';
 import { ImageInfo } from '../image-info';
 
+import { AlbumService } from '../album.service';
 import { ImageService } from '../image.service';
 
 @Component({
@@ -15,28 +17,50 @@ export class AlbumComponent implements OnInit {
   public images: ImageInfo[];
   public data: AlbumInfo;
 
-  constructor(private imageService: ImageService) { }
+  public isLoadingImages = false;
+  public isLoadingAlbumData = false;
+
+  constructor(
+    private route: ActivatedRoute,
+    private imageService: ImageService,
+    private albumService: AlbumService
+  ) { }
 
   ngOnInit() {
-    this.data = {
-      albumId: 1,
-      title: 'Test album',
-      name: 'test',
-      description: 'A test album.\n\nNew line!',
-      imagesInAlbum: 3,
-      imagesPerPage: 9,
-      totalPages: 1,
-      iconUrl: 'http://jbrowne.me.uk/art/icons/figures.jpg'
-    };
+    this.route.params.forEach((params: Params) => {
+      const albumName = params['name'] || '';
+      const page = 1;
 
-    this.imageService.getImagesFromAlbum(this.data.albumId, 0).subscribe(
+      this.getAlbumData(albumName);
+      this.getAlbumImageData(albumName, page);
+    });
+  }
+
+  private getAlbumData(albumName: string): void {
+    this.isLoadingAlbumData = true;
+    this.albumService.getAlbumInfo(albumName).subscribe(
+      x => this.handleAlbumResponse(x),
+      e => console.error('Error: %s', e),
+      () => console.log('Completed album data request.')
+    );
+  }
+
+  private handleAlbumResponse(response: AlbumInfo): void {
+    this.isLoadingAlbumData = false;
+    this.data = response;
+  }
+
+  private getAlbumImageData(albumName: string, page: number): void {
+    this.isLoadingImages = true;
+    this.imageService.getImagesFromAlbum(albumName, 0).subscribe(
       x => this.handleImageResponse(x),
       e => console.log('Error: %s', e),
-      () => console.log('Completed')
+      () => console.log('Completed image data request.')
     );
   }
 
   private handleImageResponse(response: ImageInfo[]): void {
+    this.isLoadingImages = false;
     this.images = response;
   }
 
