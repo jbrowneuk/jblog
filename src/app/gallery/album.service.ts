@@ -27,6 +27,13 @@ export class AlbumService {
       .catch((error: any) => this.errorHandler(error));
   }
 
+  public getAllAlbumInfo(): Observable<AlbumInfo[]> {
+    const requestUrl = `${API_URL}&albumData&all`;
+    return this.http.get(requestUrl)
+      .catch((error: any) => this.errorHandler(error))
+      .map((response: Response) => response.json().data as AlbumInfo[]);
+  }
+
   private errorHandler(error: any): Observable<any> {
     console.log(error);
     return Observable.throw(error.json().error || 'Server error.');

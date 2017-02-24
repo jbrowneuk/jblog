@@ -38,7 +38,7 @@ class ApiModule {
     }
 
     if (isset($_GET["albumData"])) {
-      if (isset($_GET["fullList"])) {
+      if (isset($_GET["all"])) {
         $this->generateAlbumListAlbumData();
         return;
       }

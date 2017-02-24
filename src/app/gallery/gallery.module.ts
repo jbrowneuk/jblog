@@ -16,6 +16,7 @@ import { GalleryFormatPipe } from './gallery-format.pipe';
 
 const galleryRoutes: Routes = [
   {path: 'art', component: AlbumComponent },
+  {path: 'art/albums', component: AlbumListComponent },
   {path: 'art/album/:name', component: AlbumComponent },
   {path: 'art/view/:id', component: ImageComponent },
 ];
