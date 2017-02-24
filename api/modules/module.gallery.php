@@ -182,14 +182,7 @@ class ApiModule {
     if ($requestedAlbumName != LATEST_ALBUM_NAME && $requestedAlbumName != DEFAULT_ALBUM_NAME_QUERY) {
       $album = GalleryAlbumList::getAlbumByName($this->db, $requestedAlbumName);
     } else {
-      // TODO: get from settings or something.
-      $latestAlbumInfo = array(
-        "id"          => LATEST_ALBUM_ID,
-        "title"       => "Latest works",
-        "name"        => LATEST_ALBUM_NAME,
-        "description" => "This album shows all images I have uploaded, latest first."
-      );
-      $album = new GalleryAlbum($latestAlbumInfo);
+      $album = $this->generateLatestAlbumInfo();
     }
 
     if ($album === NULL) {
@@ -199,6 +192,20 @@ class ApiModule {
 
     $output = $this->generateAlbumInfo($album);
     ResponseHelpers::outputWithJsonHeader($output);
+  }
+
+  //
+  // Generates album data for the 'latest uploads' pseudo-album.
+  //
+  private function generateLatestAlbumInfo() {
+    // TODO: get from settings or something.
+    $latestAlbumInfo = array(
+      "id"          => LATEST_ALBUM_ID,
+      "title"       => "Latest works",
+      "name"        => LATEST_ALBUM_NAME,
+      "description" => "This album shows all images I have uploaded, latest first."
+    );
+    return new GalleryAlbum($latestAlbumInfo);
   }
 
   //
@@ -224,7 +231,9 @@ class ApiModule {
   // Generates data containing a list of all relevant album data.
   //============================================================================
   private function generateAlbumListAlbumData() {
-    $output = array();
+    $output = array(
+      $this->generateAlbumInfo($this->generateLatestAlbumInfo())
+    );
     foreach ($this->galleryAlbumCache as $cachedAlbum) {
       $output[] = $this->generateAlbumInfo($cachedAlbum);
     }
