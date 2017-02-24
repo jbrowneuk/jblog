@@ -5,12 +5,14 @@
   <div class="presenter" [class.container]="isZoomedOut"
     [class.zoomed-out]="isZoomedOut"
     [class.zoomed-in]="!isZoomedOut">
-    <div class="featured" *ngIf="data.featured && isZoomedOut" title="Featured">
-      <i class="fa fa-fw fa-trophy" aria-hidden="true"></i>
+    <div class="picture-area inline-block">
+      <div class="featured" *ngIf="data.featured" title="Featured">
+        <i class="fa fa-fw fa-trophy" aria-hidden="true"></i>
+      </div>
+      <img src="{{data.src}}" alt="full sized image" class="card"
+        [class.responsive]="isZoomedOut"
+        (click)="toggleZoom($event)">
     </div>
-    <img src="{{data.src}}" alt="full sized image" class="card"
-      [class.responsive]="isZoomedOut"
-      (click)="toggleZoom($event)">
   </div>
   <div class="controls align-center">
     <a [routerLink]="['/art/album', getPrimaryAlbum().name]" class="button flat">
@@ -35,5 +37,13 @@
       </ul>
     </div>
     <div class="content-area" [innerHTML]="getParsedContent()"></div>
+    <div class="content-info-area">
+      <ul>
+        <li><i class="fa fa-tags" aria-hidden="true"></i></li>
+        <li *ngFor="let gallery of data.containingAlbums">
+          <a [routerLink]="['/art/album', gallery.name]">{{gallery.title}}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
