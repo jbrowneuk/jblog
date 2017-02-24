@@ -10,7 +10,7 @@ import { ImageService } from '../image.service';
 @Component({
   selector: 'jblog-album',
   templateUrl: './album.component.html',
-  styleUrls: ['./album.component.sass']
+  styleUrls: ['./album.component.sass', '../../../shared-sass/content-info-area.sass']
 })
 export class AlbumComponent implements OnInit {
 

@@ -7,29 +7,33 @@
   <hr />
 </div>
 <div *ngFor="let album of albums; let i = index">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-8">
-        <h2>{{album.title}}</h2>
-        <div class="content-info-area">
-          <ul>
-            <i class="fa fa-fw fa-info-circle" aria-hidden="true"></i>
-            {{album.imagesInAlbum}} image{{album.imagesInAlbum === 1 ? '' : 's'}}
-          </ul>
+  <section class="panel">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <h2>{{album.title}}</h2>
+          <div class="content-info-area">
+            <ul>
+              <i class="fa fa-fw fa-info-circle" aria-hidden="true"></i>
+              {{album.imagesInAlbum}} image{{album.imagesInAlbum === 1 ? '' : 's'}}
+            </ul>
+          </div>
+          <article class="content-area">
+            <p *ngFor='let para of album.description | lineSplitting'>{{para}}</p>
+          </article>
+          <div class="controls">
+            <a [routerLink]="['/art/album', album.name]" class="button default">
+              <i class="fa fa-fw fa-th-large" aria-hidden="true"></i>
+              Explore album
+            </a>
+          </div>
         </div>
-        <p *ngFor='let para of album.description | lineSplitting'>{{para}}</p>
-        <div class="controls">
-          <a [routerLink]="['/art/album', album.name]" class="button default">
-            <i class="fa fa-fw fa-th-large" aria-hidden="true"></i>
-            Explore album
-          </a>
+        <div class="col-sm-4 align-center">
+          <img src="{{album.iconUrl}}" alt="icon" class="card">
         </div>
-      </div>
-      <div class="col-sm-4 align-center">
-        <img src="{{album.iconUrl}}" alt="icon" class="card">
       </div>
     </div>
-  </div>
+  </section>
   <div class="container" *ngIf="i < albums.length - 1">
     <hr />
   </div>
