@@ -39,7 +39,7 @@ class ApiModule {
 
     if (isset($_GET["albumData"])) {
       if (isset($_GET["fullList"])) {
-        // $this->generateAlbumListAlbumData();
+        $this->generateAlbumListAlbumData();
         return;
       }
 
@@ -219,50 +219,16 @@ class ApiModule {
       "iconUrl"       => ICON_URL . $album->getName() . ".jpg"
     );
   }
-}
 
-/*
-
-//==============================================================================
-// Generates JSON data containing a list of all relevant album data.
-//==============================================================================
-function generateAllAlbumsInfoView($database) {
-  $albumsJson = "";
-  $galleryAlbumCache = new GalleryAlbumList($database);
-  foreach ($galleryAlbumCache as $cachedAlbum) {
-    if (strlen($albumsJson) > 0) {
-      $albumsJson .= ", ";
+  //============================================================================
+  // Generates data containing a list of all relevant album data.
+  //============================================================================
+  private function generateAlbumListAlbumData() {
+    $output = array();
+    foreach ($this->galleryAlbumCache as $cachedAlbum) {
+      $output[] = $this->generateAlbumInfo($cachedAlbum);
     }
 
-    $albumId = $cachedAlbum->getId();
-    $title = StringExtensions::cleanText($cachedAlbum->getTitle());
-    $name = StringExtensions::cleanText($cachedAlbum->getName());
-    $description = StringExtensions::cleanText($cachedAlbum->getDescription());
-    $imagesPerPage = IMAGES_PER_PAGE;
-    $totalImages = GalleryAlbumList::getTotalImagesInAlbum($database, $albumId);
-    $totalPages = ceil($totalImages / $imagesPerPage);
-    $iconUrl = ICON_URL . $name . ".jpg";
-
-    $albumsJson .= <<<EOF
-{
-  "albumId": {$albumId},
-  "title": "{$title}",
-  "name": "{$name}",
-  "description": "{$description}",
-  "imagesInAlbum": {$totalImages},
-  "imagesPerPage": {$imagesPerPage},
-  "totalPages": {$totalPages},
-  "iconUrl": "{$iconUrl}"
-}
-EOF;
+    ResponseHelpers::outputWithJsonHeader($output);
   }
-
-  $jsonString = <<<EOF
-{
-  "data": [{$albumsJson}]
 }
-EOF;
-  outputWithHeader($jsonString);
-}
-
-*/
