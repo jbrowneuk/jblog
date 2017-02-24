@@ -59,7 +59,7 @@ class ApiModule {
   // Generates the data containing information about a specified image.
   //============================================================================
   private function generateImageComponentData() {
-    $requestedImage = RequestHelpers::getNumericValue("imageId", 0);
+    $requestedImage = RequestHelpers::getNumericValue("imageId", -1);
     if ($requestedImage < 1) {
       ResponseHelpers::respondNotFound();
       return;
