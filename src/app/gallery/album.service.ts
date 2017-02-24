@@ -8,13 +8,21 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
+const API_URL = '/api/?gallery';
+const DEFAULT_ALBUM_NAME = '_default';
+
 @Injectable()
 export class AlbumService {
 
   constructor(private http: Http) { }
 
   public getAlbumInfo(albumName: string): Observable<AlbumInfo> {
-    return this.http.get('/assets/mock-data/album.json')
+    if (albumName === '') {
+      albumName = DEFAULT_ALBUM_NAME;
+    }
+
+    const endpoint = `${API_URL}&albumData&albumName=${albumName}`;
+    return this.http.get(endpoint)
       .map((response: Response) => response.json().data as AlbumInfo)
       .catch((error: any) => this.errorHandler(error));
   }

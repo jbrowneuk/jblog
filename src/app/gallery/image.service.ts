@@ -8,7 +8,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
-const API_URL = '/api/gallery.php';
+const API_URL = '/api/?gallery';
+const DEFAULT_ALBUM_NAME = '_default';
 
 @Injectable()
 export class ImageService {
@@ -16,13 +17,19 @@ export class ImageService {
   constructor(private http: Http) { }
 
   public getImagesFromAlbum(albumName: string, pageId: number): Observable<ImageInfo[]> {
-    return this.http.get('/assets/mock-data/images.json')
+    if (albumName === '') {
+      albumName = DEFAULT_ALBUM_NAME;
+    }
+
+    const endpoint = `${API_URL}&images&albumName=${albumName}&page=${pageId}`;
+    return this.http.get(endpoint)
       .map((response: Response) => response.json().data as ImageInfo[])
       .catch((error: any) => this.errorHandler(error));
   }
 
   public getImageInfo(imageId: number): Observable<ImageInfo> {
-    return this.http.get('/assets/mock-data/image.json')
+    const endpoint = `${API_URL}&imageData&imageId=${imageId}`;
+    return this.http.get(endpoint)
       .map((response: Response) => response.json().data as ImageInfo)
       .catch((error: any) => this.errorHandler(error));
   }
