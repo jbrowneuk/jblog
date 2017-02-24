@@ -100,9 +100,31 @@ blockquote
       background-color: $color-bright-secondary
       color: $color-theme-1-darker
 
-  &.primary,
+  &.default,
+  &.primary
+    +vertical-background-gradient(transparent, rgba(0, 0, 0, 0.1))
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12)
+
+    position: relative
+    top: 0px
+
+    &:hover
+      box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12)
+
+    &:active
+      box-shadow: none
+      top: 1px
+
   &.default
-    +vertical-background-gradient(transparent, rgba(0, 0, 0, 0.2))
+    background-color: $color-bright-secondary
+    color: $color-main-foreground
+
+    &:hover
+      background-color: $color-bright-primary
+      color: $color-theme-1-darker
+
+    &:active
+      background-color: #e0e0e0
 
   &.primary
     background-color: $color-theme-1
@@ -126,7 +148,7 @@ blockquote
   position: relative
   top: 0px
 
-  transition: color 250ms,background-color $animation-time-medium, box-shadow $animation-time-medium
+  transition: color 250ms, background-color $animation-time-medium, box-shadow $animation-time-medium
 
   &:hover
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.20), 0 4px 16px 0 rgba(0, 0, 0, 0.15)
