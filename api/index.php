@@ -26,6 +26,11 @@ if (!$database->connect($settings["Database"])) {
   exit(0);
 }
 
+// Enable cors for Angular dev server
+if (!$settings["Environment"]["Production"]) {
+  @header("Access-Control-Allow-Origin: http://localhost:4200");
+}
+
 // Run module
 require $apiFilePath;
 $module = new ApiModule($database);
