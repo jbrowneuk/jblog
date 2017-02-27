@@ -31,7 +31,7 @@ export class AlbumComponent implements OnInit {
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       const albumName = params['name'] || '';
-      this.page = params['page'] || 1;
+      this.page = +params['page'] || 1;
 
       this.getAlbumData(albumName);
       this.getAlbumImageData(albumName, this.page);
@@ -54,7 +54,7 @@ export class AlbumComponent implements OnInit {
 
   private getAlbumImageData(albumName: string, page: number): void {
     this.isLoadingImages = true;
-    this.imageService.getImagesFromAlbum(albumName, 0).subscribe(
+    this.imageService.getImagesFromAlbum(albumName, page).subscribe(
       x => this.handleImageResponse(x),
       e => console.log('Error: %s', e),
       () => console.log('Completed image data request.')
