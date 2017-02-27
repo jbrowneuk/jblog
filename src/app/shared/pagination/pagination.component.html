@@ -1,17 +1,29 @@
 <nav class="pagination small-buttons">
   <ul role="navigation">
-    <li *ngIf="hasPreviousPage()">
-      <a [routerLink]="getRouterLinkForPage(1)"><i class="fa fa-fw fa-angle-double-left" aria-hidden="true"></i> First</a>
-    </li>
-    <li *ngIf="hasPreviousPage()">
-        <a [routerLink]="getRouterLinkForPage(currentPage - 1)"><i class="fa fa-fw fa-angle-left" aria-hidden="true"></i> Previous</a>
+    <!-- Previous -->
+    <li [class.disabled]="!hasPreviousPage()">
+      <a *ngIf="hasPreviousPage()"
+         [routerLink]="getRouterLinkForPage(currentPage - 1)"
+         class="text-container">
+        <i class="fa fa-fw fa-chevron-left" aria-hidden="true"></i>
+      </a>
+      <span *ngIf="hasPreviousPage()"
+            class="text-container">
+        <i class="fa fa-fw fa-chevron-left" aria-hidden="true"></i>
+      </span>
     </li>
     <li class="spacer">page {{currentPage}} of {{totalPages}}</li>
-    <li *ngIf="hasNextPage()">
-      <a [routerLink]="getRouterLinkForPage(currentPage + 1)">Next <i class="fa fa-fw fa-angle-right" aria-hidden="true"></i></a>
-    </li>
-    <li *ngIf="hasNextPage()">
-      <a [routerLink]="getRouterLinkForPage(totalPages)">Last <i class="fa fa-fw fa-angle-double-right" aria-hidden="true"></i></a>
+    <!-- Next -->
+    <li [class.disabled]="!hasNextPage()">
+      <a *ngIf="hasNextPage()"
+         [routerLink]="getRouterLinkForPage(currentPage + 1)"
+         class="text-container">
+        <i class="fa fa-fw fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <span *ngIf="!hasNextPage()"
+            class="text-container">
+        <i class="fa fa-fw fa-chevron-right" aria-hidden="true"></i>
+      </span>
     </li>
   </ul>
 </nav>

@@ -20,6 +20,8 @@ export class AlbumComponent implements OnInit {
   public isLoadingImages = false;
   public isLoadingAlbumData = false;
 
+  public page: number;
+
   constructor(
     private route: ActivatedRoute,
     private imageService: ImageService,
@@ -29,10 +31,10 @@ export class AlbumComponent implements OnInit {
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       const albumName = params['name'] || '';
-      const page = 1;
+      this.page = params['page'] || 1;
 
       this.getAlbumData(albumName);
-      this.getAlbumImageData(albumName, page);
+      this.getAlbumImageData(albumName, this.page);
     });
   }
 
