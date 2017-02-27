@@ -3,6 +3,12 @@
     Loading…
   </div>
 </div>
+<div class="align-center"
+     *ngIf="totalPages > 1">
+  <jblog-pagination [urlComponents]="['journal']"
+                    [currentPage]="page"
+                    [totalPages]="totalPages"></jblog-pagination>
+</div>
 <div *ngFor="let post of posts; let i = index">
   <div class="panel">
     <jblog-post [data]="post"></jblog-post>
@@ -10,4 +16,10 @@
   <div class="container" *ngIf="i < posts.length - 1">
     <hr />
   </div>
+</div>
+<div class="align-center"
+     *ngIf="totalPages > 1">
+  <jblog-pagination [urlComponents]="['journal']"
+                    [currentPage]="page"
+                    [totalPages]="totalPages"></jblog-pagination>
 </div>

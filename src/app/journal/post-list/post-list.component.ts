@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { PostData } from '../post-data';
+import { PostData, PostDataWrapper } from '../post-data';
 
 import { PostService } from '../post.service';
 
@@ -14,14 +14,18 @@ export class PostListComponent implements OnInit {
 
   public posts: PostData[];
   public title = 'All posts';
+  public page: number;
+  public totalPages: number;
 
   constructor(private route: ActivatedRoute, private postsService: PostService) { }
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       const idParam = params['id'];
+
       if (!idParam || idParam.length === 0) {
-        this.postsService.getPostsForPage(1).subscribe(
+        this.page = +params['page'] || 1;
+        this.postsService.getPostsForPage(this.page).subscribe(
           x => this.handlePostListResponse(x),
           e => console.log('Error: %s', e),
           () => console.log('Got post list')
@@ -39,10 +43,12 @@ export class PostListComponent implements OnInit {
 
   private handlePostResponse(response: PostData): void {
     this.posts = [response];
+    this.totalPages = 1;
   }
 
-  private handlePostListResponse(response: PostData[]): void {
-    this.posts = response;
+  private handlePostListResponse(response: PostDataWrapper): void {
+    this.posts = response.posts;
+    this.totalPages = response.totalPages;
   }
 
 }

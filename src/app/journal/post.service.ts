@@ -3,7 +3,7 @@ import { Headers, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { BASE_PATH } from '../variables';
-import { PostData } from './post-data';
+import { PostData, PostDataWrapper } from './post-data';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -29,11 +29,12 @@ export class PostService {
    * Gets all posts on a page.
    *
    * @param {number} pageId - page number to load posts for.
-   * @return {Observable<PostData[]>} - an Observable that returns an array of
-   *                                    PostData-implementing objects that map
-   *                                    to posts.
+   * @return {Observable<PostDataWrapper>} - an Observable that returns a
+   *                                         PostDataWrapper-implementation that
+   *                                         contains information relating to a
+   *                                         set of posts.
    */
-  public getPostsForPage(pageNumber: number): Observable<PostData[]> {
+  public getPostsForPage(pageNumber: number): Observable<PostDataWrapper> {
     let apiRequestUrl = `${this.basePath}${API_URL}`;
     if (pageNumber > 0) {
       apiRequestUrl += `&page=${pageNumber}`;
@@ -41,7 +42,7 @@ export class PostService {
 
     return this.http.get(apiRequestUrl)
       .catch((error: any) => this.errorHandler(error))
-      .map((response: Response) => response.json().data as PostData[]);
+      .map((response: Response) => response.json().data as PostDataWrapper);
   }
 
   /**

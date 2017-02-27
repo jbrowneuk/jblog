@@ -86,7 +86,10 @@ class ApiModule {
     $postCount = PostList::getTotalPostCount($this->db, $tag, $searchTerms);
     $totalPages = ceil($postCount / $settings["Defaults"]["PostsVisible"]);
 
-    $output = $this->generatePostsOutput($posts);
+    $output = array(
+      "posts" => $this->generatePostsOutput($posts),
+      "totalPages" => $totalPages
+    );
     ResponseHelpers::outputWithJsonHeader($output);
   }
 

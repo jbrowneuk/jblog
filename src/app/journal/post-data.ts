@@ -5,3 +5,8 @@ export interface PostData {
   content: string;
   tags: string[];
 }
+
+export interface PostDataWrapper {
+  posts: PostData[];
+  totalPages: number;
+}
