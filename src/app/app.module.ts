@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
+import { ENV_PROVIDERS } from '../environments/environment';
+
 import { SharedModule } from './shared/shared.module';
 import { CodeModule } from './code/code.module';
 import { GalleryModule } from './gallery/gallery.module';
@@ -30,6 +32,7 @@ import { ErrorComponent } from './error/error.component';
     JournalModule,
     AppRoutingModule
   ],
+  providers: [ENV_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

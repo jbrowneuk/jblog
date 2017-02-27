@@ -3,6 +3,12 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
+import { BASE_PATH } from '../app/variables';
+
 export const environment = {
   production: false
 };
+
+export const ENV_PROVIDERS = [
+  { provide: BASE_PATH, useValue: 'http://localhost:8080/api' }
+];
