@@ -1,0 +1,42 @@
+<nav class="pagination small-buttons">
+  <ul role="navigation">
+    <!-- Previous -->
+    <li class="directional-indicator"
+        [class.disabled]="!hasPreviousPage()">
+      <a *ngIf="hasPreviousPage()"
+         [routerLink]="getRouterLinkForPage(currentPage - 1)"
+         class="text-container">
+        <i class="fa fa-fw fa-chevron-left" aria-hidden="true"></i>
+      </a>
+      <span *ngIf="!hasPreviousPage()"
+            class="text-container">
+        <i class="fa fa-fw fa-chevron-left" aria-hidden="true"></i>
+      </span>
+    </li>
+    <!-- Main page count -->
+    <li *ngFor="let segment of segments"
+        [class.spacer]="!segment.isLink"
+        [class.active]="segment.pageNumber == currentPage">
+      <a *ngIf="segment.isLink"
+         [routerLink]="getRouterLinkForPage(segment.pageNumber)">
+        {{segment.pageNumber}}
+      </a>
+      <span *ngIf="!segment.isLink">
+        …
+      </span>
+    </li>
+    <!-- Next -->
+    <li class="directional-indicator"
+        [class.disabled]="!hasNextPage()">
+      <a *ngIf="hasNextPage()"
+         [routerLink]="getRouterLinkForPage(currentPage + 1)"
+         class="text-container">
+        <i class="fa fa-fw fa-chevron-right" aria-hidden="true"></i>
+      </a>
+      <span *ngIf="!hasNextPage()"
+            class="text-container">
+        <i class="fa fa-fw fa-chevron-right" aria-hidden="true"></i>
+      </span>
+    </li>
+  </ul>
+</nav>

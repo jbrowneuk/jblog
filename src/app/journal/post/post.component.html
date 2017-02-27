@@ -1,0 +1,25 @@
+<article class="container post" id="{{data.postId}}" *ngIf="data">
+  <h1>{{data.title}}</h1>
+  <div class="content-info-area">
+    <ul>
+      <li>
+        <a [routerLink]="['/journal/post', data.postId]" title="Show only this post"><i class="fa fa-fw fa-thumb-tack" aria-hidden="true"></i> Post {{data.postId}}</a>
+      </li>
+      <li><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{data.date * 1000 | date:'medium'}}</li>
+    </ul>
+  </div>
+  <div class="outdated-content"
+       *ngIf="ageInYearsGreaterThan(2)">
+    This post is over two years old. The content here might not be relevant any more.
+  </div>
+  <div class="content-area" [innerHTML]="getParsedContent()"></div>
+  <div class="content-info-area">
+    <ul>
+      <li><i class="fa fa-tags" aria-hidden="true"></i></li>
+      <li *ngFor="let tag of data.tags">
+        <a [routerLink]="['/journal/tag', tag]">{{tag}}</a>
+      </li>
+      <li *ngIf="!hasTags()">Not tagged</li>
+    </ul>
+  </div>
+</article>

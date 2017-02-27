@@ -1,48 +1,38 @@
-import { NgModule }       from "@angular/core";
-import { HttpModule }     from "@angular/http";
-import { BrowserModule }  from "@angular/platform-browser";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 
-import { MomentModule } from "angular2-moment";
+import { ENV_PROVIDERS } from '../environments/environment';
 
-import { AppComponent }     from "./core/app.component";
-import { AppRoutingModule } from "./core/app-routing.module";
+import { SharedModule } from './shared/shared.module';
+import { CodeModule } from './code/code.module';
+import { GalleryModule } from './gallery/gallery.module';
+import { HomeModule } from './home/home.module';
+import { JournalModule } from './journal/journal.module';
 
-import { ErrorComponent }       from "./shared/error.component";
-import { PaginationComponent }  from "./shared/pagination.component";
-
-import { AlbumFolderComponent }   from "./gallery/album-folder.component";
-import { AlbumListComponent }     from "./gallery/album-list.component";
-import { ImageViewComponent }     from "./gallery/image-view.component";
-import { AboutComponent }         from "./home/about.component";
-import { ArtInsightsComponent }   from "./home/art-insights.component";
-import { HomeComponent }          from "./home/home.component";
-import { JournalComponent }       from "./journal/journal.component";
-import { PostComponent }          from "./journal/post.component";
-import { PostViewComponent }      from "./journal/post-view.component";
-import { ProjectListComponent }   from "./projects/project-list.component";
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
-  imports: [
-    AppRoutingModule,
-    BrowserModule,
-    HttpModule,
-    MomentModule
-  ],
   declarations: [
-    AboutComponent,
-    AlbumFolderComponent,
-    AlbumListComponent,
     AppComponent,
-    ArtInsightsComponent,
-    ErrorComponent,
-    HomeComponent,
-    ImageViewComponent,
-    JournalComponent,
-    PaginationComponent,
-    PostComponent,
-    PostViewComponent,
-    ProjectListComponent,
+    ErrorComponent
   ],
-  bootstrap: [ AppComponent ]
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    SharedModule.forRoot(),
+    CodeModule,
+    GalleryModule,
+    HomeModule,
+    JournalModule,
+    AppRoutingModule
+  ],
+  providers: [ENV_PROVIDERS],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

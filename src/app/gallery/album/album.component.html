@@ -1,0 +1,49 @@
+<section id="information" class="panel">
+  <div class="container" *ngIf="!data || isLoadingAlbumData">
+    Loading…
+  </div>
+  <div class="container" *ngIf="data">
+    <div class="row">
+      <div class="col-sm-8">
+        <h1>{{data.title}}</h1>
+        <div class="content-info-area">
+          <ul>
+            <i class="fa fa-fw fa-info-circle" aria-hidden="true"></i>
+            {{data.imagesInAlbum}} image{{data.imagesInAlbum === 1 ? '' : 's'}}
+          </ul>
+        </div>
+        <article class="content-area">
+          <p *ngFor='let para of data.description | lineSplitting'>{{para}}</p>
+        </article>
+        <div class="controls">
+          <a routerLink="/art/albums" class="button default">
+            <i class="fa fa-fw fa-folder" aria-hidden="true"></i>
+            Pick a different album
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-4 align-center">
+        <img src="{{data.iconUrl}}" alt="icon" class="card">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="thumbnails" class="panel well">
+
+  <div class="container" *ngIf="!data || isLoadingImages">
+    Loading…
+  </div>
+
+  <jblog-pagination *ngIf="data && !isLoadingImages"
+                    [urlComponents]="['art', 'album', data.name]"
+                    [currentPage]="page"
+                    [totalPages]="data.totalPages"></jblog-pagination>
+
+  <jblog-thumbnail *ngFor="let image of images" [data]="image"></jblog-thumbnail>
+
+  <jblog-pagination *ngIf="data && !isLoadingImages"
+                    [urlComponents]="['art', 'album', data.name]"
+                    [currentPage]="page"
+                    [totalPages]="data.totalPages"></jblog-pagination>
+</div>
