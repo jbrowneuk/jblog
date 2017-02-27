@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 interface PaginationSegment {
   isLink: boolean;
@@ -10,7 +10,7 @@ interface PaginationSegment {
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.sass']
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnChanges {
 
   @Input() public currentPage: number;
   @Input() public totalPages: number;
@@ -21,6 +21,15 @@ export class PaginationComponent implements OnInit {
   public segments: PaginationSegment[];
 
   ngOnInit() {
+    this.generateNumericLinks();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // Only update the pagination links if the page has changed
+    if (!changes['currentPage']) {
+      return;
+    }
+
     this.generateNumericLinks();
   }
 
