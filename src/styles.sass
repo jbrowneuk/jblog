@@ -68,6 +68,9 @@ blockquote
 .align-right
   text-align: right
 
+.contain-content
+  overflow: auto
+
 .inline-block
   display: inline-block
 
@@ -137,6 +140,59 @@ blockquote
     &:active
       background-color: $color-theme-1-darker
       color: $color-bright-secondary
+
+/* Uncoverable links */
+a.uncoverable
+  $uncover-area-width: 1.5em
+
+  position: relative
+  display: inline-block
+  outline: none
+  padding: 0 0.25em
+  vertical-align: bottom
+  white-space: nowrap
+
+  transition: transform $animation-time-medium
+  transform: translateX(0)
+
+  .fa,
+  .fa::before
+    vertical-align: middle
+
+  .fa
+    background-color: $color-theme-1
+    color: $color-bright-primary
+    left: 100%
+    z-index: -2
+    width: $uncover-area-width
+    text-align: center
+
+    transition: transform $animation-time-medium, background-color $animation-time-medium
+
+    &::before
+      position: relative
+      top: 25%
+
+  &:hover,
+  .fa
+    transform: translateX(-$uncover-area-width)
+
+  &::before,
+  .fa
+    position: absolute
+    height: 100%
+    content: ''
+
+  &::before
+    left: 0
+    z-index: -1
+    width: 100%
+    background: $color-page-backdrop
+
+  &:hover .fa,
+  &:focus .fa
+    background-color: $color-anchor
+    transform: translateX(0)
 
 // Components
 %card
