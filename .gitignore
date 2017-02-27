@@ -39,8 +39,9 @@ testem.log
 Thumbs.db
 
 # Project-specific
+/api/conf/production\.sqlite
 /public/theme
-/public/thirdparty
 
 # Third-party assets
-/src/app/thirdparty
+/public/thirdparty
+/src/assets/thirdparty
