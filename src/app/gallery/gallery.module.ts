@@ -5,8 +5,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
 import { AlbumComponent } from './album/album.component';
-import { ImageComponent } from './image/image.component';
 import { AlbumListComponent } from './album-list/album-list.component';
+import { ImageComponent } from './image/image.component';
+import { ImageContainerComponent } from './image-container/image-container.component';
 import { ThumbnailComponent } from './thumbnail/thumbnail.component';
 
 import { ImageService } from './image.service';
@@ -28,8 +29,8 @@ const galleryRoutes: Routes = [
     RouterModule.forChild(galleryRoutes),
     SharedModule
   ],
-  declarations: [AlbumComponent, ImageComponent, AlbumListComponent, ThumbnailComponent, GalleryFormatPipe],
-  exports: [RouterModule, AlbumComponent, ImageComponent, AlbumListComponent],
+  declarations: [AlbumComponent, AlbumListComponent, GalleryFormatPipe, ImageComponent, ImageContainerComponent, ThumbnailComponent],
+  exports: [RouterModule, AlbumComponent, AlbumListComponent, ImageComponent, ImageContainerComponent],
   providers: [ImageService, AlbumService]
 })
 export class GalleryModule { }
