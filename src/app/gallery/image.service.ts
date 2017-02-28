@@ -31,17 +31,22 @@ export class ImageService {
    *
    * @param {string} albumName - a string containing the textual album name.
    * @param {number} pageId - page number to load images for.
+   * @param {number} [count] - amount of images to load.
    * @return {Observable<ImageInfo[]>} - an Observable that returns an array of
    *                                     ImageInfo-implementing objects that map
    *                                     to album images.
    */
-  public getImagesFromAlbum(albumName: string, pageId: number): Observable<ImageInfo[]> {
+  public getImagesFromAlbum(albumName: string, pageId: number, count: number): Observable<ImageInfo[]> {
     if (albumName === '') {
       albumName = DEFAULT_ALBUM_NAME;
     }
 
-    const endpoint = `${this.basePath}${API_URL}&images&albumName=${albumName}&page=${pageId}`;
-    console.log(`Calling ${endpoint}.`);
+    let endpoint = `${this.basePath}${API_URL}&images&albumName=${albumName}&page=${pageId}`;
+
+    if (count && count > 0) {
+      endpoint += `&count=${count}`;
+    }
+
     return this.http.get(endpoint)
       .map((response: Response) => response.json().data as ImageInfo[])
       .catch((error: any) => this.errorHandler(error));
