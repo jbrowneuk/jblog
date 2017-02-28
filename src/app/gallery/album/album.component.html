@@ -29,22 +29,24 @@
   </div>
 </section>
 
-<div id="thumbnails" class="panel well">
+<div id="thumbnails" class="panel well align-center">
+  <div class="container">
 
-  <jblog-pagination *ngIf="data && !isLoadingImages"
-                    [urlComponents]="['art', 'album', data.name]"
-                    [currentPage]="page"
-                    [totalPages]="data.totalPages"></jblog-pagination>
+    <jblog-pagination *ngIf="data && !isLoadingImages"
+                      [urlComponents]="['art', 'album', data.name]"
+                      [currentPage]="page"
+                      [totalPages]="data.totalPages"></jblog-pagination>
 
-  <div class="container" *ngIf="!data || isLoadingImages">
-    Loading…
+    <div class="container" *ngIf="!data || isLoadingImages">
+      Loading…
+    </div>
+    <jblog-image-container *ngIf="data"
+                           [albumName]="data.name"
+                           [page]="page"></jblog-image-container>
+
+    <jblog-pagination *ngIf="data && !isLoadingImages"
+                      [urlComponents]="['art', 'album', data.name]"
+                      [currentPage]="page"
+                      [totalPages]="data.totalPages"></jblog-pagination>
   </div>
-  <jblog-image-container *ngIf="data"
-                         [albumName]="data.name"
-                         [page]="page"></jblog-image-container>
-
-  <jblog-pagination *ngIf="data && !isLoadingImages"
-                    [urlComponents]="['art', 'album', data.name]"
-                    [currentPage]="page"
-                    [totalPages]="data.totalPages"></jblog-pagination>
 </div>
