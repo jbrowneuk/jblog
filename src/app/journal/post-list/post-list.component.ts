@@ -27,26 +27,26 @@ export class PostListComponent implements OnInit {
         this.page = +params['page'] || 1;
         this.postsService.getPostsForPage(this.page).subscribe(
           x => this.handlePostListResponse(x),
-          e => console.log('Error: %s', e),
-          () => console.log('Got post list')
+          e => console.log('Error: %s', e)
         );
       } else {
         const id = +idParam;
         this.postsService.getPost(id).subscribe(
           x => this.handlePostResponse(x),
-          e => console.log('Error: %s', e),
-          () => console.log('Got post %s', id)
+          e => console.log('Error: %s', e)
         );
       }
     });
   }
 
   private handlePostResponse(response: PostData): void {
+    this.posts = []; // Fix for Safari hanging
     this.posts = [response];
     this.totalPages = 1;
   }
 
   private handlePostListResponse(response: PostDataWrapper): void {
+    this.posts = []; // Fix for Safari hanging
     this.posts = response.posts;
     this.totalPages = response.totalPages;
   }
