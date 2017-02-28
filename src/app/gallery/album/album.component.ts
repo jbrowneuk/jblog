@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { AlbumInfo } from '../album-info';
-import { ImageInfo } from '../image-info';
 
 import { AlbumService } from '../album.service';
-import { ImageService } from '../image.service';
 
 @Component({
   selector: 'jblog-album',
@@ -14,17 +12,12 @@ import { ImageService } from '../image.service';
 })
 export class AlbumComponent implements OnInit {
 
-  public images: ImageInfo[];
   public data: AlbumInfo;
-
-  public isLoadingImages = false;
   public isLoadingAlbumData = false;
-
   public page: number;
 
   constructor(
     private route: ActivatedRoute,
-    private imageService: ImageService,
     private albumService: AlbumService
   ) { }
 
@@ -34,7 +27,6 @@ export class AlbumComponent implements OnInit {
       this.page = +params['page'] || 1;
 
       this.getAlbumData(albumName);
-      this.getAlbumImageData(albumName, this.page);
     });
   }
 
@@ -42,28 +34,13 @@ export class AlbumComponent implements OnInit {
     this.isLoadingAlbumData = true;
     this.albumService.getAlbumInfo(albumName).subscribe(
       x => this.handleAlbumResponse(x),
-      e => console.error('Error: %s', e),
-      () => console.log('Completed album data request.')
+      e => console.error('Error: %s', e)
     );
   }
 
   private handleAlbumResponse(response: AlbumInfo): void {
     this.isLoadingAlbumData = false;
     this.data = response;
-  }
-
-  private getAlbumImageData(albumName: string, page: number): void {
-    this.isLoadingImages = true;
-    this.imageService.getImagesFromAlbum(albumName, page).subscribe(
-      x => this.handleImageResponse(x),
-      e => console.log('Error: %s', e),
-      () => console.log('Completed image data request.')
-    );
-  }
-
-  private handleImageResponse(response: ImageInfo[]): void {
-    this.isLoadingImages = false;
-    this.images = response;
   }
 
 }
