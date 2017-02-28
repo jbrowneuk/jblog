@@ -5,5 +5,5 @@ export const environment = {
 };
 
 export const ENV_PROVIDERS = [
-  { provide: BASE_PATH, useValue: 'http://jbrowne.me.uk/api' }
+  { provide: BASE_PATH, useValue: '/api' }
 ];
