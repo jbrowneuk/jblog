@@ -41,6 +41,10 @@ export class ImageService {
       albumName = DEFAULT_ALBUM_NAME;
     }
 
+    if (pageId <= 0) {
+      pageId = 1;
+    }
+
     let endpoint = `${this.basePath}${API_URL}&images&albumName=${albumName}&page=${pageId}`;
 
     if (count && count > 0) {

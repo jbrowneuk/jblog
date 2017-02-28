@@ -12,7 +12,7 @@ import { ImageService } from '../image.service';
 export class ImageContainerComponent implements OnChanges {
 
   @Input() public albumName: string;
-  @Input() public page: number;
+  @Input() public page = 1;
   @Input() public imageCount = -1;
 
   public images: ImageInfo[];
