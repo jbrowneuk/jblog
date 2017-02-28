@@ -36,7 +36,7 @@ export class ImageService {
    *                                     ImageInfo-implementing objects that map
    *                                     to album images.
    */
-  public getImagesFromAlbum(albumName: string, pageId: number, count: number): Observable<ImageInfo[]> {
+  public getImagesFromAlbum(albumName: string, pageId: number, count: number = 0): Observable<ImageInfo[]> {
     if (albumName === '') {
       albumName = DEFAULT_ALBUM_NAME;
     }
