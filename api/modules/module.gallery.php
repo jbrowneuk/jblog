@@ -3,7 +3,7 @@
 const FEATURED_FOLDER_ID = 1;
 const LATEST_ALBUM_ID = 0;
 const LATEST_ALBUM_NAME = "latest";
-const IMAGES_PER_PAGE = 9;
+const IMAGES_PER_PAGE = 12;
 const GALLERY_ROOT = "http://jbrowne.me.uk/art/";
 const THUMBNAIL_URL = GALLERY_ROOT . "thumbs/";
 const IMAGE_URL = GALLERY_ROOT . "images/";
