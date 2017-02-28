@@ -31,16 +31,17 @@
 
 <div id="thumbnails" class="panel well">
 
-  <div class="container" *ngIf="!data || isLoadingImages">
-    Loading…
-  </div>
-
   <jblog-pagination *ngIf="data && !isLoadingImages"
                     [urlComponents]="['art', 'album', data.name]"
                     [currentPage]="page"
                     [totalPages]="data.totalPages"></jblog-pagination>
 
-  <jblog-thumbnail *ngFor="let image of images" [data]="image"></jblog-thumbnail>
+  <div class="container" *ngIf="!data || isLoadingImages">
+    Loading…
+  </div>
+  <jblog-image-container *ngIf="data"
+                         [albumName]="data.name"
+                         [page]="page"></jblog-image-container>
 
   <jblog-pagination *ngIf="data && !isLoadingImages"
                     [urlComponents]="['art', 'album', data.name]"
