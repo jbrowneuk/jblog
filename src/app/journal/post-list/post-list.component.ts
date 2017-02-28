@@ -21,6 +21,7 @@ export class PostListComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
+      this.posts = []; // Fix for Safari hanging
       const idParam = params['id'];
 
       if (!idParam || idParam.length === 0) {
@@ -40,13 +41,11 @@ export class PostListComponent implements OnInit {
   }
 
   private handlePostResponse(response: PostData): void {
-    this.posts = []; // Fix for Safari hanging
     this.posts = [response];
     this.totalPages = 1;
   }
 
   private handlePostListResponse(response: PostDataWrapper): void {
-    this.posts = []; // Fix for Safari hanging
     this.posts = response.posts;
     this.totalPages = response.totalPages;
   }
