@@ -1,2 +1,6 @@
+<div class="panel" *ngIf="!images || images.length == 0">
+  Loading…
+</div>
+
 <jblog-thumbnail *ngFor="let image of images" [data]="image"></jblog-thumbnail>
 <br />
