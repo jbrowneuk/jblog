@@ -59,6 +59,9 @@ nav.page-navigation
     li
       float: left
 
+  .collapse-only
+    display: none
+
   .covered-area
     background-color: $color-bright-primary
     height: $nav-height
@@ -81,3 +84,49 @@ nav.page-navigation
 
 #page-content
   padding-top: $nav-height
+
+@media (max-width: $screen-sm-max)
+  $small-nav-height: 50px
+
+  nav.page-navigation
+    $small-nav-tab-yoffset: 4px
+    height: $small-nav-height
+    line-height: 1
+
+    ul
+      margin-top: $small-nav-tab-yoffset
+      height: $small-nav-height - $small-nav-tab-yoffset
+      line-height: $small-nav-height - $small-nav-tab-yoffset
+
+      a
+        display: inline-block
+        padding: 0 8px
+        border-radius: 2px 2px 0 0
+        height: 100%
+        line-height: inherit
+
+        &:hover,
+        &.active
+          height: 100%
+
+        &.active
+          background-color: $color-bright-primary
+          color: $color-theme-1
+
+      li
+        display: inline-block
+        float: none
+
+    .collapse-only
+      display: inline-block
+
+    .covered-area
+      background-color: transparent
+      height: auto
+
+    .home-link
+      height: $small-nav-height
+      line-height: $small-nav-height
+
+  #page-content
+    padding-top: $small-nav-height
