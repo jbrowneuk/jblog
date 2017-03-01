@@ -3,11 +3,11 @@
     <span class="inline-block covered-area">
       <a class="home-link" [routerLink]="['/']">
         <img class="icon" src="assets/images/logo.svg">
-        Jason Browne
+        <span class="hidden-sm hidden-xs">Jason Browne</span>
       </a>
     </span>
     <ul class="right covered-area">
-      <li><a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">portfolio</a></li>
+      <li><a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><i class="fa fa-fw fa-home collapse-only"></i><span class="hidden-sm hidden-xs">portfolio</span></a></li>
       <li><a [routerLink]="['/about']" routerLinkActive="active">about</a></li>
       <li><a [routerLink]="['/art']" routerLinkActive="active">art</a></li>
       <li><a [routerLink]="['/code']" routerLinkActive="active">code</a></li>
