@@ -36,19 +36,16 @@
 <div id="thumbnails" class="panel align-center">
   <div class="container">
 
-    <jblog-pagination *ngIf="data && !isLoadingImages"
+    <jblog-pagination *ngIf="data"
                       [urlComponents]="['art', 'album', data.name]"
                       [currentPage]="page"
                       [totalPages]="data.totalPages"></jblog-pagination>
 
-    <div class="container" *ngIf="!data || isLoadingImages">
-      Loading…
-    </div>
     <jblog-image-container *ngIf="data"
                            [albumName]="data.name"
                            [page]="page"></jblog-image-container>
 
-    <jblog-pagination *ngIf="data && !isLoadingImages"
+    <jblog-pagination *ngIf="data"
                       [urlComponents]="['art', 'album', data.name]"
                       [currentPage]="page"
                       [totalPages]="data.totalPages"></jblog-pagination>
