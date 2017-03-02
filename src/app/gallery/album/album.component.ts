@@ -16,6 +16,8 @@ export class AlbumComponent implements OnInit {
   public isLoadingAlbumData = false;
   public page: number;
 
+  private lastLoadedAlbum: string;
+
   constructor(
     private route: ActivatedRoute,
     private albumService: AlbumService
@@ -31,6 +33,11 @@ export class AlbumComponent implements OnInit {
   }
 
   private getAlbumData(albumName: string): void {
+    // Only load album data if album has changed.
+    if (albumName === this.lastLoadedAlbum) {
+      return;
+    }
+
     this.isLoadingAlbumData = true;
     this.albumService.getAlbumInfo(albumName).subscribe(
       x => this.handleAlbumResponse(x),
@@ -41,6 +48,7 @@ export class AlbumComponent implements OnInit {
   private handleAlbumResponse(response: AlbumInfo): void {
     this.isLoadingAlbumData = false;
     this.data = response;
+    this.lastLoadedAlbum = response.name;
   }
 
 }
