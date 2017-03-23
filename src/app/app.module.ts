@@ -10,7 +10,6 @@ import { SharedModule } from './shared/shared.module';
 import { CodeModule } from './code/code.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { HomeModule } from './home/home.module';
-import { JournalModule } from './journal/journal.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -29,7 +28,6 @@ import { ErrorComponent } from './error/error.component';
     CodeModule,
     GalleryModule,
     HomeModule,
-    JournalModule,
     AppRoutingModule
   ],
   providers: [ENV_PROVIDERS],

@@ -10,9 +10,9 @@ import { PostListComponent } from './post-list/post-list.component';
 import { PostService } from './post.service';
 
 const journalRoutes: Routes = [
-  {path: 'journal', component: PostListComponent },
-  {path: 'journal/page/:page', component: PostListComponent },
-  {path: 'journal/post/:id', component: PostListComponent }
+  {path: '', component: PostListComponent },
+  {path: 'page/:page', component: PostListComponent },
+  {path: 'post/:id', component: PostListComponent }
 ];
 
 @NgModule({
