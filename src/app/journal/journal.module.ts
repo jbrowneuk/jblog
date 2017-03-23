@@ -10,7 +10,7 @@ import { PostListComponent } from './post-list/post-list.component';
 import { PostService } from './post.service';
 
 const journalRoutes: Routes = [
-  {path: '', component: PostListComponent },
+  {path: '', redirectTo: 'page/1', pathMatch: 'full' },
   {path: 'page/:page', component: PostListComponent },
   {path: 'post/:id', component: PostListComponent }
 ];
