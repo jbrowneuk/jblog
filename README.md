@@ -1,1 +1,3 @@
-jblog3
+# jBlog
+
+// TODO: readme
