@@ -1,22 +1,33 @@
 @import '../../../shared-sass/palette'
+@import '../../../shared-sass/variables'
 
 \:host
   display: inline-block
   line-height: 1
-  margin: 8px
+  margin: 4px
 
 a
   display: inline-block
   line-height: 1.9
   overflow: hidden
+  position: relative
   text-decoration: none
-  max-height: 290px
+  max-height: 200px
   width: 300px
+
+  &:hover
+    .text-area
+      background-color: transparentize($color-main-foreground, 0.2)
 
   span
     overflow: hidden
     text-overflow: ellipsis
     white-space: nowrap
+
+  .text-area
+    background: $color-main-foreground
+    background-color: transparentize($color-main-foreground, 0.4)
+    color: $color-bright-primary
 
 .image-area,
 .text-area,
@@ -27,11 +38,17 @@ img
   height: 200px
 
 .text-area
-  padding: 15px
+  line-height: 1.5
+  padding: 8px 15px
   text-align: left
+  transition: background-color $animation-time-medium
+
+  position: absolute
+  left: 0
+  right: 0
+  bottom: 0
 
   .galleries
-    color: $color-theme-1-darker
+    color: $color-bright-secondary
     display: block
-    font-size: 8pt
-    text-transform: uppercase
+    font-size: 12px
