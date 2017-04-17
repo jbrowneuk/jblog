@@ -11,6 +11,10 @@ import 'rxjs/add/observable/throw';
 
 const API_URL = '/?posts';
 
+/**
+ * A service which handles requesting posts and their details from an API
+ * backend.
+ */
 @Injectable()
 export class PostService {
 
@@ -64,9 +68,13 @@ export class PostService {
       .map((response: Response) => response.json().data as PostData);
   }
 
+  /**
+   * Wrapper method for error handling
+   */
   private errorHandler(error: any): Observable<any> {
-    console.log(error);
-    return Observable.throw(error.json().error || 'Server error.');
+    console.error(error);
+    const errorMessage = error.json().error || error || 'Server error.';
+    return Observable.throw(errorMessage);
   }
 
 }
