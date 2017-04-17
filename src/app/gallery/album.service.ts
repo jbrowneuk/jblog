@@ -19,6 +19,9 @@ const DEFAULT_ALBUM_NAME = '_default';
 @Injectable()
 export class AlbumService {
 
+  /**
+   * The fallback base URL to use if one is not provided by the environment.
+   */
   protected basePath = 'http://localhost/api';
 
   /**
