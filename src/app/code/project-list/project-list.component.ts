@@ -8,7 +8,7 @@ import { ProjectService } from '../project.service';
  * project is selected, a separate detailed view should be shown.
  *
  * The component calls out to the backend for a list of projects, with the help
- * of the {ProjectService}.
+ * of the {@link ProjectService}.
  */
 @Component({
   selector: 'jblog-project-list',
