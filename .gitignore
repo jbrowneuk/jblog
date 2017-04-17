@@ -34,7 +34,7 @@ testem.log
 /e2e/*.js
 /e2e/*.map
 
-#System Files
+# System Files
 .DS_Store
 Thumbs.db
 
@@ -45,3 +45,6 @@ Thumbs.db
 # Third-party assets
 /public/thirdparty
 /src/assets/thirdparty
+
+# Documentation is auto-generated
+/documentation
