@@ -1,22 +1,22 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 /**
- * An interface which can be used by a class to encapsulate a pagination segment
+ * An interface which can be used by a class to encapsulate a pagination segment.
  */
 interface PaginationSegment {
   /**
-   * Whether this segment is clickable or not
+   * Whether this segment is clickable or not.
    */
   isLink: boolean;
 
   /**
-   * Which page this segment represents
+   * Which page this segment represents.
    */
   pageNumber: number;
 }
 
 /**
- * A component that shows pagination links for multiple-page views
+ * A component that shows pagination links for multiple-page views.
  */
 @Component({
   selector: 'jblog-pagination',
@@ -26,24 +26,24 @@ interface PaginationSegment {
 export class PaginationComponent implements OnInit, OnChanges {
 
   /**
-   * The current page in the view
+   * The current page in the view.
    */
   @Input() public currentPage: number;
 
   /**
-   * The total number of pages in the view
+   * The total number of pages in the view.
    */
   @Input() public totalPages: number;
 
   /**
-   * The name of the containing component, so generated links point to it
+   * The name of the containing component, so generated links point to it.
    */
   @Input() public componentName: string;
 
   /**
-   * Optional URL components to put before the page number
+   * Optional URL components to put before the page number.
    * @example if ['a', 'b', 'c'] is specified, the resulting URL will be in the
-   * format `/a/b/c/pageNumber`
+   * format `/a/b/c/pageNumber`.
    */
   @Input() public urlComponents: string[];
 
@@ -54,17 +54,22 @@ export class PaginationComponent implements OnInit, OnChanges {
   @Input() public isLoading = false;
 
   /**
-   * List of pagination segments
+   * List of {@link PaginationSegment}s.
    */
   public segments: PaginationSegment[];
 
   /**
-   * Generates pagination segments when the component is initialized
+   * Called when the component is initialized. Uased to generate
+   * {@link PaginationSegment}s.
    */
   ngOnInit() {
     this.generateNumericLinks();
   }
 
+  /**
+   * Called when the component inputs are changed. Uased to generate
+   * {@link PaginationSegment}s.
+   */
   ngOnChanges(changes: SimpleChanges) {
     // Only update the pagination links if the page has changed
     if (!changes['currentPage']) {
@@ -74,18 +79,27 @@ export class PaginationComponent implements OnInit, OnChanges {
     this.generateNumericLinks();
   }
 
+  /**
+   * Gets whether there is a next page.
+   */
   public hasNextPage(): boolean {
     return !this.isLoading &&
            this.currentPage < this.totalPages &&
            this.totalPages > 1;
   }
 
+  /**
+   * Gets whether there is a previous page.
+   */
   public hasPreviousPage(): boolean {
     return !this.isLoading &&
            this.currentPage > 1 &&
            this.totalPages > 1;
   }
 
+  /**
+   * Gets a full Angular Router path for a specific page.
+   */
   public getRouterLinkForPage(page: number): any[] {
     let bits: any[] = [];
     if (this.componentName) {
@@ -101,6 +115,9 @@ export class PaginationComponent implements OnInit, OnChanges {
     return bits;
   }
 
+  /**
+   * Generates the main {@link PaginationSegment}s that build up the view.
+   */
   private generateNumericLinks(): void {
     const segmentPaddedBy = 2;
     const topEnd = this.totalPages + 1;
@@ -139,10 +156,18 @@ export class PaginationComponent implements OnInit, OnChanges {
     this.segments.push(this.generateNumericSegmentForPage(this.totalPages));
   }
 
+  /**
+   * Convenience method that wraps the generation of a {@link PaginationSegment}
+   * for a page.
+   */
   private generateNumericSegmentForPage(page: number): PaginationSegment {
     return { isLink: true, pageNumber: page };
   }
 
+  /**
+   * Convenience method that wraps the generation of a {@link PaginationSegment}
+   * for a non-page spacer.
+   */
   private generateSpacerSegment(): PaginationSegment {
     return { isLink: false, pageNumber: 0 };
   }
