@@ -1,13 +1,15 @@
 {
   "name": "jblog",
-  "version": "3.1.0",
+  "version": "3.1.0-beta1",
   "description": "JBlog Angular Frontend",
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:docs": "compodoc -p src/tsconfig.app.json -s -r 8081 --theme Readthedocs",
     "build": "ng build",
+    "build:docs": "compodoc -p src/tsconfig.app.json --theme Readthedocs",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -31,6 +33,7 @@
   "devDependencies": {
     "@angular/cli": "1.0.0",
     "@angular/compiler-cli": "^4.0.0",
+    "@compodoc/compodoc": "^1.0.0-beta.3",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
     "codelyzer": "~2.0.0",
@@ -39,9 +42,9 @@
     "karma": "~1.4.1",
     "karma-chrome-launcher": "~2.0.0",
     "karma-cli": "~1.0.1",
+    "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "karma-coverage-istanbul-reporter": "^0.2.0",
     "protractor": "~5.1.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",

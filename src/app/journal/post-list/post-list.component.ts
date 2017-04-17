@@ -5,6 +5,9 @@ import { PostData, PostDataWrapper } from '../post-data';
 
 import { PostService } from '../post.service';
 
+/**
+ * The post list component that is used to render a list of post data
+ */
 @Component({
   selector: 'jblog-post-list',
   templateUrl: './post-list.component.html',
@@ -12,13 +15,34 @@ import { PostService } from '../post.service';
 })
 export class PostListComponent implements OnInit {
 
+  /**
+   * The post list
+   */
   public posts: PostData[];
+
+  /**
+   * List title
+   */
   public title = 'All posts';
+
+  /**
+   * Current page
+   */
   public page: number;
+
+  /**
+   * Total number of pages
+   */
   public totalPages: number;
 
+  /**
+   * Constructor
+   */
   constructor(private route: ActivatedRoute, private postsService: PostService) { }
 
+  /**
+   * On component initialization, load posts
+   */
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.posts = []; // Fix for Safari hanging
@@ -40,11 +64,17 @@ export class PostListComponent implements OnInit {
     });
   }
 
+  /**
+   * Handle a single post response
+   */
   private handlePostResponse(response: PostData): void {
     this.posts = [response];
     this.totalPages = 1;
   }
 
+  /**
+   * Handle a post list response
+   */
   private handlePostListResponse(response: PostDataWrapper): void {
     this.posts = response.posts;
     this.totalPages = response.totalPages;

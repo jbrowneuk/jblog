@@ -12,9 +12,16 @@ import 'rxjs/add/observable/throw';
 const API_URL = '/?gallery';
 const DEFAULT_ALBUM_NAME = '_default';
 
+/**
+ * A service which handles requesting albums and their details from an API
+ * backend.
+ */
 @Injectable()
 export class AlbumService {
 
+  /**
+   * The fallback base URL to use if one is not provided by the environment.
+   */
   protected basePath = 'http://localhost/api';
 
   /**
