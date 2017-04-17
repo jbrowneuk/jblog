@@ -18,6 +18,9 @@ const API_URL = '/?posts';
 @Injectable()
 export class PostService {
 
+  /**
+   * The fallback base URL to use if one is not provided by the environment.
+   */
   protected basePath = 'http://localhost/api';
 
   /**
