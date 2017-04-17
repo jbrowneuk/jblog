@@ -1,10 +1,23 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
+/**
+ * An interface which can be used by a class to encapsulate a pagination segment
+ */
 interface PaginationSegment {
+  /**
+   * Whether this segment is clickable or not
+   */
   isLink: boolean;
+
+  /**
+   * Which page this segment represents
+   */
   pageNumber: number;
 }
 
+/**
+ * A component that shows pagination links for multiple-page views
+ */
 @Component({
   selector: 'jblog-pagination',
   templateUrl: './pagination.component.html',
@@ -12,14 +25,42 @@ interface PaginationSegment {
 })
 export class PaginationComponent implements OnInit, OnChanges {
 
+  /**
+   * The current page in the view
+   */
   @Input() public currentPage: number;
+
+  /**
+   * The total number of pages in the view
+   */
   @Input() public totalPages: number;
+
+  /**
+   * The name of the containing component, so generated links point to it
+   */
   @Input() public componentName: string;
+
+  /**
+   * Optional URL components to put before the page number
+   * @example if ['a', 'b', 'c'] is specified, the resulting URL will be in the
+   * format `/a/b/c/pageNumber`
+   */
   @Input() public urlComponents: string[];
+
+  /**
+   * Boolean to signify whether parent component is loading that can prevent
+   * pagination segments from appering before data is completely loaded
+   */
   @Input() public isLoading = false;
 
+  /**
+   * List of pagination segments
+   */
   public segments: PaginationSegment[];
 
+  /**
+   * Generates pagination segments when the component is initialized
+   */
   ngOnInit() {
     this.generateNumericLinks();
   }
