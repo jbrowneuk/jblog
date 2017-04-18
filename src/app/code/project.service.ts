@@ -25,10 +25,11 @@ export class ProjectService {
    * Calls out to the backend and gets a list of projects.
    *
    * @param pageNumber {number} the page number to load.
+   * @param amount {number} optional number of projects to load.
    */
-  public getProjectsForPage(pageNumber: 1): Observable<Project[]> {
+  public getProjects(pageNumber: number, amount: number = 0): Observable<Project[]> {
     return this.http.get('/assets/mock-data/projects.json')
-      .map((response: Response) => response.json().data as Project[])
+      .map((response: Response) => (response.json().data as Project[]).slice(0, amount))
       .catch((error: any) => this.errorHandler(error));
   }
 

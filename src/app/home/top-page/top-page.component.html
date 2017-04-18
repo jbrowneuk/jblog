@@ -1,5 +1,6 @@
-<div class="panel">
+<div class="panel heroic-padding">
   <div class="container align-center">
+    <img src="/assets/images/signature.svg" alt="siggy" />
     <h1>Hi. I’m Jason. I’m a <strong>computer guy</strong>.</h1>
     <div>
       <small class="uppercase-text">web development • desktop app development • photography • vectors</small>
@@ -13,7 +14,6 @@
 
 <div class="panel">
   <div class="container align-center">
-    <h2>Latest featured images</h2>
     <jblog-image-container [albumName]="'featured'" [imageCount]="6"></jblog-image-container>
   </div>
 </div>
@@ -22,19 +22,4 @@
   <hr />
 </div>
 
-<div class="panel align-center">
-  <div class="container align-center">
-    <h2>Latest vector images</h2>
-    <jblog-image-container [albumName]="'vector'" [imageCount]="3"></jblog-image-container>
-  </div>
-</div>
-
-<div class="container">
-  <hr />
-</div>
-
-<div class="panel align-center">
-  <div class="container">
-    <h2>Latest projects</h2>
-  </div>
-</div>
+<jblog-projects-container [projectCount]="2"></jblog-projects-container>

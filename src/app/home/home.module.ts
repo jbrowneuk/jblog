@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { GalleryModule } from '../gallery/gallery.module';
+import { CodeModule } from '../code/code.module';
 
 import { TopPageComponent } from './top-page/top-page.component';
 import { AboutComponent } from './about/about.component';
@@ -16,7 +17,8 @@ const homeRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(homeRoutes),
-    GalleryModule
+    GalleryModule,
+    CodeModule
   ],
   declarations: [TopPageComponent, AboutComponent]
 })

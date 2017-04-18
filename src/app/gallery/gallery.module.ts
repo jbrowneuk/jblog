@@ -30,7 +30,7 @@ const galleryRoutes: Routes = [
     SharedModule
   ],
   declarations: [AlbumComponent, AlbumListComponent, GalleryFormatPipe, ImageComponent, ImageContainerComponent, ThumbnailComponent],
-  exports: [RouterModule, AlbumComponent, AlbumListComponent, ImageComponent, ImageContainerComponent],
+  exports: [ImageContainerComponent],
   providers: [ImageService, AlbumService]
 })
 export class GalleryModule { }
