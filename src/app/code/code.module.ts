@@ -8,6 +8,7 @@ import { ProjectService } from './project.service';
 
 import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { ProjectsContainerComponent } from './projects-container/projects-container.component';
 
 const codeRoutes: Routes = [
   {path: 'code', component: ProjectListComponent},
@@ -20,7 +21,8 @@ const codeRoutes: Routes = [
     RouterModule.forChild(codeRoutes),
     SharedModule
   ],
-  declarations: [ProjectListComponent, ProjectDetailComponent],
+  declarations: [ProjectListComponent, ProjectDetailComponent, ProjectsContainerComponent],
+  exports: [ProjectsContainerComponent],
   providers: [ProjectService]
 })
 export class CodeModule { }
