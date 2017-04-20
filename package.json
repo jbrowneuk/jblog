@@ -2,7 +2,7 @@
   "name": "jblog",
   "version": "3.1.0-beta1",
   "description": "JBlog Angular Frontend",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
