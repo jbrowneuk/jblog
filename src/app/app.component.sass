@@ -38,7 +38,9 @@ nav.page-navigation
   a
     background-color: $color-theme-1
     color: $color-bright-secondary
+    display: block
     height: $nav-height
+    padding: 0 15px
     text-decoration: none
     transition: color 250ms, height 250ms
 
@@ -53,10 +55,6 @@ nav.page-navigation
     margin: 0
     padding: 0
     float: right
-
-    a
-      display: block
-      padding: 0 15px
 
     li
       float: left
@@ -117,9 +115,6 @@ nav.page-navigation
         display: inline-block
         float: none
 
-    .collapse-only
-      display: inline-block
-
     .covered-area
       background-color: transparent
       height: auto
@@ -130,3 +125,17 @@ nav.page-navigation
 
   #page-content
     padding-top: $small-nav-height
+
+@media (max-width: $screen-xs-max)
+  nav.page-navigation
+    .collapse-only
+      display: inline-block
+
+// 360 is currently the upper height for the tabs, this will probably change
+@media (max-width: 360px)
+  nav.page-navigation
+    a
+      margin-right: -0.25em
+
+    .home-link
+      padding: 0
