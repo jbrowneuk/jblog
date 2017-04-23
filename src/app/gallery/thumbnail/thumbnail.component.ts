@@ -8,7 +8,7 @@ import { ImageInfo } from '../image-info';
 @Component({
   selector: 'jblog-thumbnail',
   templateUrl: './thumbnail.component.html',
-  styleUrls: ['./thumbnail.component.sass']
+  styleUrls: ['./thumbnail.component.scss']
 })
 export class ThumbnailComponent {
 

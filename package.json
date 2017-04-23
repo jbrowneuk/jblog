@@ -9,9 +9,10 @@
     "start": "ng serve",
     "start:docs": "compodoc -p src/tsconfig.app.json -s -r 8081 --theme Readthedocs",
     "build": "ng build",
+    "build:prod": "ng build --prod --aot",
     "build:docs": "compodoc -p src/tsconfig.app.json --theme Readthedocs",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint && stylelint \"src/**/*.scss\"",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -46,6 +47,8 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.1.0",
+    "stylelint": "^7.10.1",
+    "stylelint-config-standard": "^16.0.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~2.2.0"

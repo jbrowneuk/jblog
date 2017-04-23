@@ -11,7 +11,7 @@ import { PostService } from '../post.service';
 @Component({
   selector: 'jblog-post-list',
   templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.sass']
+  styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
 

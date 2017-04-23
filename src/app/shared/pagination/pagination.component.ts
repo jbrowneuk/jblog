@@ -21,7 +21,7 @@ interface PaginationSegment {
 @Component({
   selector: 'jblog-pagination',
   templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.sass']
+  styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent implements OnInit, OnChanges {
 

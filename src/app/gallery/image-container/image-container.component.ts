@@ -11,7 +11,7 @@ import { ImageService } from '../image.service';
 @Component({
   selector: 'jblog-image-container',
   templateUrl: './image-container.component.html',
-  styleUrls: ['./image-container.component.sass']
+  styleUrls: ['./image-container.component.scss']
 })
 export class ImageContainerComponent implements OnChanges {
 
