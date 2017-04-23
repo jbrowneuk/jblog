@@ -11,7 +11,6 @@ import { AlbumService } from '../album.service';
   selector: 'jblog-album-list',
   templateUrl: './album-list.component.html',
   styleUrls: [
-    './album-list.component.scss',
     '../../../shared-sass/content-info-area.scss'
   ]
 })

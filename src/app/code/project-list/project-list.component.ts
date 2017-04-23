@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
   selector: 'jblog-project-list',
   templateUrl: './project-list.component.html',
   styleUrls: [
-    './project-list.component.scss',
     '../../../shared-sass/content-info-area.scss'
   ]
 })

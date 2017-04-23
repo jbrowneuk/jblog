@@ -13,7 +13,6 @@ import { AlbumService } from '../album.service';
   selector: 'jblog-album',
   templateUrl: './album.component.html',
   styleUrls: [
-    './album.component.scss',
     '../../../shared-sass/content-info-area.scss'
   ]
 })

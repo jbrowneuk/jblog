@@ -14,7 +14,6 @@ import { ProjectService } from '../project.service';
   selector: 'jblog-projects-container',
   templateUrl: './projects-container.component.html',
   styleUrls: [
-    './projects-container.component.scss',
     '../../../shared-sass/content-info-area.scss'
   ]
 })
