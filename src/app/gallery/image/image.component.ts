@@ -15,8 +15,8 @@ import { TextParsingService } from '../../shared/text-parsing.service';
   selector: 'jblog-image',
   templateUrl: './image.component.html',
   styleUrls: [
-    './image.component.sass',
-    '../../../shared-sass/content-info-area.sass'
+    './image.component.scss',
+    '../../../shared-sass/content-info-area.scss'
   ]
 })
 export class ImageComponent implements OnInit {

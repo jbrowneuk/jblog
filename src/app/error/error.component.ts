@@ -8,8 +8,8 @@ import { Component } from '@angular/core';
   selector: 'jblog-error',
   templateUrl: './error.component.html',
   styleUrls: [
-    './error.component.sass',
-    '../../shared-sass/content-info-area.sass'
+    './error.component.scss',
+    '../../shared-sass/content-info-area.scss'
   ]
 })
 export class ErrorComponent {

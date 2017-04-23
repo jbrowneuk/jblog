@@ -13,8 +13,8 @@ import { AlbumService } from '../album.service';
   selector: 'jblog-album',
   templateUrl: './album.component.html',
   styleUrls: [
-    './album.component.sass',
-    '../../../shared-sass/content-info-area.sass'
+    './album.component.scss',
+    '../../../shared-sass/content-info-area.scss'
   ]
 })
 export class AlbumComponent implements OnInit {

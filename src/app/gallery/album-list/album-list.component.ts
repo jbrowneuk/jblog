@@ -11,8 +11,8 @@ import { AlbumService } from '../album.service';
   selector: 'jblog-album-list',
   templateUrl: './album-list.component.html',
   styleUrls: [
-    './album-list.component.sass',
-    '../../../shared-sass/content-info-area.sass'
+    './album-list.component.scss',
+    '../../../shared-sass/content-info-area.scss'
   ]
 })
 export class AlbumListComponent implements OnInit {
