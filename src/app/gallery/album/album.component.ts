@@ -30,6 +30,12 @@ export class AlbumComponent implements OnInit {
   public isLoadingAlbumData = false;
 
   /**
+   * A boolean used to signify whether the image data loading has failed. Used
+   * to show feedback to the user.
+   */
+  public loadingFailed = false;
+
+  /**
    * The current page to display.
    */
   public page: number;
@@ -68,10 +74,11 @@ export class AlbumComponent implements OnInit {
       return;
     }
 
+    this.loadingFailed = false;
     this.isLoadingAlbumData = true;
     this.albumService.getAlbumInfo(albumName).subscribe(
       x => this.handleAlbumResponse(x),
-      e => console.error('Error: %s', e)
+      e => this.handleImageLoadFailure(e)
     );
   }
 
@@ -82,6 +89,15 @@ export class AlbumComponent implements OnInit {
     this.isLoadingAlbumData = false;
     this.data = response;
     this.lastLoadedAlbum = response.name;
+  }
+
+  /**
+   * Convenience method to handle a failure response from the image service.
+   */
+  private handleImageLoadFailure(error: Error): void {
+    this.isLoadingAlbumData = false;
+    this.loadingFailed = true;
+    console.log('Error: %s', error);
   }
 
 }
