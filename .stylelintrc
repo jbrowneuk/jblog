@@ -4,8 +4,8 @@
     "max-empty-lines": 1,
     "string-quotes": "single",
     "color-hex-length": "long",
-    "color-hex-case": "lower",
-    "declaration-colon-newline-after": null,
+    "color-hex-case": "upper",
+    "declaration-colon-newline-after": "always-multi-line",
     "max-nesting-depth": 2,
     "selector-type-no-unknown": [ true, {
       "ignoreTypes": ["/^jblog-/"]
