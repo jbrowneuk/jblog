@@ -12,7 +12,7 @@
     "build:prod": "ng build --prod --aot",
     "build:docs": "compodoc -p src/tsconfig.app.json --theme Readthedocs",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint && stylelint \"src/**/*.scss\"",
     "e2e": "ng e2e"
   },
   "private": true,
