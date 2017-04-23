@@ -9,8 +9,7 @@ import { Component } from '@angular/core';
  */
 @Component({
   selector: 'jblog-project-detail',
-  templateUrl: './project-detail.component.html',
-  styleUrls: ['./project-detail.component.scss']
+  templateUrl: './project-detail.component.html'
 })
 export class ProjectDetailComponent {
   // TODO: implement this
