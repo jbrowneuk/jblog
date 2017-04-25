@@ -16,35 +16,41 @@ import { ImageService } from '../image.service';
 export class ImageContainerComponent implements OnChanges {
 
   /**
-   * The name of the album to load images from
+   * The name of the album to load images from.
    */
   @Input() public albumName: string;
 
   /**
-   * The current page to display
+   * The current page to display.
    */
   @Input() public page = 1;
 
   /**
    * A customisable number of images to load. If zero or negative, uses the
-   * default value provided by the service
+   * default value provided by the service.
    */
   @Input() public imageCount = -1;
 
   /**
    * A collection of {@link ImageInfo} that describe the thumbanils to be
-   * rendered in the view
+   * rendered in the view.
    */
   public images: ImageInfo[];
 
   /**
    * A boolean used to signify whether the image data is loading. Used to show
-   * loading feedback to the user
+   * loading feedback to the user.
    */
   public isLoadingImages = false;
 
   /**
-   * Constructor with injected services
+   * A boolean used to signify whether the image data loading has failed. Used
+   * to show feedback to the user.
+   */
+  public loadingFailed = false;
+
+  /**
+   * Constructor with injected services.
    */
   constructor(private imageService: ImageService) { }
 
@@ -65,9 +71,10 @@ export class ImageContainerComponent implements OnChanges {
    */
   private getAlbumImageData(): void {
     this.isLoadingImages = true;
+    this.loadingFailed = false;
     this.imageService.getImagesFromAlbum(this.albumName, this.page, this.imageCount).subscribe(
       x => this.handleImageResponse(x),
-      e => console.log('Error: %s', e)
+      e => this.handleImageLoadFailure(e)
     );
   }
 
@@ -77,6 +84,15 @@ export class ImageContainerComponent implements OnChanges {
   private handleImageResponse(response: ImageInfo[]): void {
     this.isLoadingImages = false;
     this.images = response;
+  }
+
+  /**
+   * Convenience method to handle a failure response from the image service.
+   */
+  private handleImageLoadFailure(error: Error): void {
+    this.isLoadingImages = false;
+    this.loadingFailed = true;
+    console.log('Error: %s', error);
   }
 
 }

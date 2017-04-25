@@ -1,6 +1,12 @@
-<div class="panel" *ngIf="!images || images.length == 0">
+<div class="panel" *ngIf="isLoadingImages && (!images || images.length == 0)">
   <div class="card loading-area">
     <i class="fa fa-circle-o-notch fa-spin fa-fw" aria-hidden="true"></i> Loading…
+  </div>
+</div>
+
+<div class="panel" *ngIf="!isLoadingImages && loadingFailed">
+  <div class="card loading-area">
+    <i class="fa fa-frown-o fa-fw" aria-hidden="true"></i> Nothing found
   </div>
 </div>
 

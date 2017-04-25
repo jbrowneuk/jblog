@@ -1,6 +1,11 @@
 <section id="information" class="panel">
-  <div class="container" *ngIf="!data || isLoadingAlbumData">
+  <div class="container" *ngIf="isLoadingAlbumData">
     Loading…
+  </div>
+  <div class="container" *ngIf="!data || loadingFailed">
+    <h1>No album data</h1>
+    <p><i class="fa fa-frown-o fa-fw" aria-hidden="true"></i> Nothing was found.</p>
+    <p>Try refreshing the page or <a routerLink="/art">going back to the main album</a>.</p>
   </div>
   <div class="container" *ngIf="data">
     <div class="row">
@@ -29,24 +34,21 @@
   </div>
 </section>
 
-<div class="container">
+<div class="container" *ngIf="data">
   <hr />
 </div>
 
-<div id="thumbnails" class="panel align-center">
+<div id="thumbnails" class="panel align-center" *ngIf="data">
   <div class="container">
 
-    <jblog-pagination *ngIf="data"
-                      [urlComponents]="['art', 'album', data.name]"
+    <jblog-pagination [urlComponents]="['art', 'album', data.name]"
                       [currentPage]="page"
                       [totalPages]="data.totalPages"></jblog-pagination>
 
-    <jblog-image-container *ngIf="data"
-                           [albumName]="data.name"
+    <jblog-image-container [albumName]="data.name"
                            [page]="page"></jblog-image-container>
 
-    <jblog-pagination *ngIf="data"
-                      [urlComponents]="['art', 'album', data.name]"
+    <jblog-pagination [urlComponents]="['art', 'album', data.name]"
                       [currentPage]="page"
                       [totalPages]="data.totalPages"></jblog-pagination>
   </div>
