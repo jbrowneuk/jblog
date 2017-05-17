@@ -16,9 +16,8 @@
   <div class="panel">
     <jblog-post [data]="post"></jblog-post>
   </div>
-  <div class="container" *ngIf="i < posts.length - 1">
-    <hr />
-  </div>
+
+  <hr *ngIf="i < posts.length - 1" />
 </div>
 
 <div class="contain-content align-center"

@@ -5,6 +5,7 @@ import { ErrorComponent } from './error/error.component';
 
 const appRoutes: Routes = [
   { path: 'journal', loadChildren: 'app/journal/journal.module#JournalModule' },
+  { path: 'code', loadChildren: 'app/code/code.module#CodeModule' },
   { path: '**', component: ErrorComponent }
 ];
 

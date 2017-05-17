@@ -3,9 +3,9 @@
     <h1>All albums</h1>
   </div>
 </div>
-<div class="container">
-  <hr />
-</div>
+
+<hr />
+
 <div *ngFor="let album of albums; let i = index">
   <section class="panel">
     <div class="container">
@@ -34,7 +34,6 @@
       </div>
     </div>
   </section>
-  <div class="container" *ngIf="i < albums.length - 1">
-    <hr />
-  </div>
+
+  <hr *ngIf="i < albums.length - 1" />
 </div>
