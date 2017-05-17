@@ -11,8 +11,8 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 import { ProjectsContainerComponent } from './projects-container/projects-container.component';
 
 const codeRoutes: Routes = [
-  {path: 'code', component: ProjectListComponent},
-  {path: 'code/project/:name', component: ProjectDetailComponent}
+  {path: '', component: ProjectListComponent, pathMatch: 'full'},
+  {path: 'project/:name', component: ProjectDetailComponent}
 ];
 
 @NgModule({
