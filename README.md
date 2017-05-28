@@ -27,3 +27,36 @@ The backend is written in PHP, as that is all my web hosting provider allows me
 to use on my hosting package - these scripts are what remain of the original
 site. They expect to find a SQLite database at the location defined in
 `/api/conf/settings.php`
+
+Creating the SQLite database
+----------------------------
+
+```sql
+BEGIN TRANSACTION;
+CREATE TABLE "blog_posts" (
+	`post_id`	INTEGER PRIMARY KEY,
+	`title`	TEXT,
+	`content`	TEXT,
+	`post_date`	INTEGER,
+	`status`	TEXT,
+	`tag`	TEXT,
+	`comment_status`	TEXT,
+	`comment_count`	INTEGER,
+	`modification_date`	INTEGER
+);
+CREATE TABLE `blog_gallery` (
+	`image_id`	INTEGER PRIMARY KEY,
+	`galleries`	TEXT,
+	`file`	TEXT,
+	`title`	TEXT,
+	`description`	TEXT,
+	`image_date`	INTEGER
+);
+CREATE TABLE "blog_albums" (
+	`album_id`	INTEGER PRIMARY KEY,
+	`title`	TEXT,
+	`name`	TEXT,
+	`description`	TEXT
+);
+COMMIT;
+```
