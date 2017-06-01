@@ -39,7 +39,8 @@ testem.log
 Thumbs.db
 
 # Project-specific
-/api/conf/production\.sqlite
+/src/api/conf/production\.sqlite
+/src/api/conf/development\.sqlite
 /public/theme
 
 # Third-party assets
