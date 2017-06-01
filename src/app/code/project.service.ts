@@ -29,7 +29,7 @@ export class ProjectService {
    */
   public getProjects(pageNumber: number, amount: number = 0): Observable<Project[]> {
     return this.http.get('/assets/mock-data/projects.json')
-      .map((response: Response) => (response.json().data as Project[]).slice(0, amount))
+      .map((response: Response) => this.handleResponse(response, amount))
       .catch((error: any) => this.errorHandler(error));
   }
 
@@ -39,6 +39,20 @@ export class ProjectService {
   private errorHandler(error: any): Observable<any> {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error.');
+  }
+
+  /**
+   * Helper method to handle the response from the backend.
+   * Note: since the projects backend is currently hardcoded, the logic contained
+   * within this method is more than it should be.
+   */
+  private handleResponse(response: Response, amountToReturn: number): Project[] {
+    const projects = response.json().data as Project[];
+    if (amountToReturn > 0) {
+      return projects.slice(0, amountToReturn);
+    }
+
+    return projects;
   }
 
 }
