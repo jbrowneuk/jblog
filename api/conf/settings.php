@@ -1,8 +1,0 @@
-<?php
-
-$settings = array(
-  'Database' => array('Prefix' => 'blog_', 'Database' => './conf/production.sqlite'),
-  'Formats' => array('ShortDateTime' => 'd M Y, H:i', 'LongDateTime' => 'l, jS F Y, H:i T'),
-  'Defaults' => array('PostsVisible' => 5),
-  'Environment' => array('Production' => !file_exists('/Users/jbrowne/Sites/'))
-);
