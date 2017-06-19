@@ -8,24 +8,13 @@ import { LineSplittingPipe } from '../../shared/line-splitting.pipe';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { ImageContainerComponent } from '../image-container/image-container.component';
 import { GalleryFormatPipe } from '../gallery-format.pipe';
-import { AlbumInfo } from '../album-info';
 import { ImageInfo } from '../image-info';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { AlbumService } from '../album.service';
+import { MockAlbumService } from '../mocks/mock-album.service';
 import { ImageService } from '../image.service';
 
 import { AlbumComponent } from './album.component';
-
-const mockAlbumData = {
-  albumId: 1,
-  title: 'title',
-  name: 'name',
-  description: 'description',
-  imagesInAlbum: 8,
-  imagesPerPage: 4,
-  totalPages: 2,
-  iconUrl: 'http://url/jpg.jpg'
-};
 
 const mockImageData = {
   id: 1,
@@ -37,16 +26,6 @@ const mockImageData = {
   containingAlbums: [{name: 'name', title: 'album name'}],
   featured: false
 };
-
-class MockAlbumService {
-  getAllAlbumInfo(): Observable<AlbumInfo[]> {
-    return Observable.of([mockAlbumData]);
-  }
-
-  getAlbumInfo(albumName: string): Observable<AlbumInfo> {
-    return Observable.of(mockAlbumData);
-  }
-}
 
 class MockImageService {
   public getImagesFromAlbum(albumName: string, pageId: number, count: number = 0): Observable<ImageInfo[]> {
