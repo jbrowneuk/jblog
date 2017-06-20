@@ -84,7 +84,7 @@ describe('AlbumService', () => {
   it('should get a single album from backend',
     inject([AlbumService, XHRBackend], (service, mockBackend) => {
       const mockResponse = {
-        data: [ firstAlbum ]
+        data: firstAlbum
       };
 
       mockBackend.connections.subscribe((connection) => {
