@@ -19,7 +19,12 @@ describe('ErrorComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create and show 404 text', () => {
     expect(component).toBeTruthy();
+
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('404');
+    expect(compiled.querySelector('.content-area > p > strong').textContent)
+      .toContain('You’re looking a little lost there.');
   });
 });
