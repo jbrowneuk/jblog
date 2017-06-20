@@ -32,13 +32,15 @@
     <h1>{{data.title}}</h1>
     <div class="content-info-area">
       <ul>
-        <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
-        {{data.date * 1000 | date:'medium'}}
+        <li class="date-area">
+          <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
+          {{data.date * 1000 | date:'medium'}}
+        </li>
       </ul>
     </div>
     <div class="content-area" [innerHTML]="getParsedContent()"></div>
     <div class="content-info-area">
-      <ul>
+      <ul class="tag-list">
         <li><i class="fa fa-tags" aria-hidden="true"></i></li>
         <li *ngFor="let gallery of data.containingAlbums">
           <a [routerLink]="['/art/album', gallery.name]">{{gallery.title}}</a>

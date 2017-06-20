@@ -1,4 +1,4 @@
-import { AlbumDescriptionPipe } from './album-description.pipe';
+import { LineSplittingPipe } from './line-splitting.pipe';
 
 describe('LineSplittingPipe', () => {
   it('create an instance', () => {

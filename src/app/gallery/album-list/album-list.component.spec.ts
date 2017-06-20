@@ -29,7 +29,8 @@ describe('AlbumListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should load albums on component initialization', () => {
+    spyOn(mockAlbumService, 'getAllAlbumInfo');
+    expect(component.albums.length).toBe(1);
   });
 });
