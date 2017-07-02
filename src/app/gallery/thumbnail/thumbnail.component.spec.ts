@@ -42,7 +42,8 @@ describe('ThumbnailComponent', () => {
 
   it('should render elements correctly', () => {
     expect(component).toBeTruthy();
-    expect(compiled.querySelector('.image-area img').src).toBe('./src.jpg');
+    const imageElement = <HTMLImageElement>compiled.querySelector('.image-area img');
+    expect(imageElement.src.endsWith('/thumb.jpg')).toBe(true);
     expect(compiled.querySelector('.text-area .title').textContent.trim()).toBe('title');
     expect(compiled.querySelector('.text-area .galleries').textContent.trim()).toBe('Album');
   });
