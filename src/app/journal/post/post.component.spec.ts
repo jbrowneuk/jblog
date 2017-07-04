@@ -44,7 +44,6 @@ describe('PostComponent', () => {
     expect(compiled.querySelector('article h1').textContent.trim()).toBe('post title');
     expect(compiled.querySelector('.content-info-area ul li').textContent.trim()).toBe('Post 1');
     expect(compiled.querySelector('.content-area').textContent.trim()).toBe('long content here was parsed');
-    // expect(compiled.querySelector('').textContent.trim()).toBe('');
     expect(component.hasTags()).toBeTruthy();
   });
 });
