@@ -1,6 +1,6 @@
-@import '../../../shared-sass/mixins';
-@import '../../../shared-sass/palette';
-@import '../../../shared-sass/variables';
+@import 'mixins';
+@import 'palette';
+@import 'variables';
 
 :host {
   display: inline-block;
