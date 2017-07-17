@@ -39,8 +39,7 @@ testem.log
 Thumbs.db
 
 # Project-specific
-/src/api/conf/production\.sqlite
-/src/api/conf/development\.sqlite
+/src/api/conf/*.sqlite
 /src/api/conf/settings.php
 /public/theme
 
