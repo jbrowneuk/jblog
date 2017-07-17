@@ -2,7 +2,7 @@
   <div class="container" *ngIf="isLoadingAlbumData">
     Loading…
   </div>
-  <div class="container" *ngIf="!data || loadingFailed">
+  <div class="container" *ngIf="!isLoadingAlbumData && loadingFailed">
     <h1>No album data</h1>
     <p><i class="fa fa-frown-o fa-fw" aria-hidden="true"></i> Nothing was found.</p>
     <p>Try refreshing the page or <a routerLink="/art">going back to the main album</a>.</p>
