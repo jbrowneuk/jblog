@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { PostData } from '../post-data';
@@ -16,7 +16,7 @@ import { TextParsingService } from '../../shared/text-parsing.service';
     '../../../shared-sass/content-info-area.scss'
   ]
 })
-export class PostComponent {
+export class PostComponent implements AfterViewInit {
 
   /**
    * The post data to render
@@ -26,7 +26,20 @@ export class PostComponent {
   /**
    * Constructor
    */
-  constructor(private domSanitizer: DomSanitizer, private parser: TextParsingService) {}
+  constructor(
+    private domSanitizer: DomSanitizer,
+    private parser: TextParsingService,
+    private element: ElementRef
+  ) {}
+
+  ngAfterViewInit() {
+    if (!this.data) {
+      return;
+    }
+
+    const contentArea = this.element.nativeElement.querySelector('.content-area');
+    contentArea.innerHTML = this.getParsedContent();
+  }
 
   /**
    * Returns whether a post has tags
@@ -53,13 +66,14 @@ export class PostComponent {
   /**
    * Returns the parsed post content
    */
-  public getParsedContent(): SafeHtml {
+  public getParsedContent() {
     if (!this.data) {
       return '';
     }
 
     const parsed = this.parser.parse(this.data.content);
-    return this.domSanitizer.bypassSecurityTrustHtml(parsed);
+    return parsed;
+    // return this.domSanitizer.bypassSecurityTrustHtml(parsed);
   }
 
 }
