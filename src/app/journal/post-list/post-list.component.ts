@@ -35,6 +35,11 @@ export class PostListComponent implements OnInit {
   public totalPages: number;
 
   /**
+   * Control variable that changes the display of the page if loading or not
+   */
+  public isLoading: boolean;
+
+  /**
    * Constructor
    */
   constructor(private route: ActivatedRoute, private postsService: PostService) { }
@@ -43,6 +48,8 @@ export class PostListComponent implements OnInit {
    * On component initialization, load posts
    */
   ngOnInit() {
+    this.onStartLoading();
+
     this.route.params.forEach((params: Params) => {
       this.posts = []; // Fix for Safari hanging
       const idParam = params['id'];
@@ -51,13 +58,15 @@ export class PostListComponent implements OnInit {
         this.page = +params['page'] || 1;
         this.postsService.getPostsForPage(this.page).subscribe(
           x => this.handlePostListResponse(x),
-          e => console.log('Error: %s', e)
+          e => this.handlePostErrorResponse(e),
+          () => this.onEndLoading()
         );
       } else {
         const id = +idParam;
         this.postsService.getPost(id).subscribe(
           x => this.handlePostResponse(x),
-          e => console.log('Error: %s', e)
+          e => this.handlePostErrorResponse(e),
+          () => this.onEndLoading()
         );
       }
     });
@@ -77,6 +86,28 @@ export class PostListComponent implements OnInit {
   private handlePostListResponse(response: PostDataWrapper): void {
     this.posts = response.posts;
     this.totalPages = response.totalPages;
+  }
+
+  /**
+   * Handle an error response
+   */
+  private handlePostErrorResponse(e: Error): void {
+    console.log('Error: %s', e);
+    this.onEndLoading();
+  }
+
+  /**
+   * Helper method to call when the page 'starts' loading
+   */
+  private onStartLoading(): void {
+    this.isLoading = true;
+  }
+
+  /**
+   * Helper method to call when the page 'finishes' loading
+   */
+  private onEndLoading(): void {
+    this.isLoading = false;
   }
 
 }

@@ -5,10 +5,16 @@
                     [totalPages]="totalPages"></jblog-pagination>
 </div>
 
-<div class="panel" *ngIf="!posts || posts.length === 0">
+<div class="panel" *ngIf="(!posts || posts.length === 0) && isLoading">
   <div class="container">
     <h1>Hang tight!</h1>
     <i class="fa fa-circle-o-notch fa-spin fa-fw" aria-hidden="true"></i> Loading…
+  </div>
+</div>
+
+<div class="panel" *ngIf="(!posts || posts.length === 0) && !isLoading">
+  <div class="container">
+    <h1>No posts</h1>
   </div>
 </div>
 
