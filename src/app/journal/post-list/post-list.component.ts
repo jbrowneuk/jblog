@@ -48,9 +48,8 @@ export class PostListComponent implements OnInit {
    * On component initialization, load posts
    */
   ngOnInit() {
-    this.onStartLoading();
-
     this.route.params.forEach((params: Params) => {
+      this.onStartLoading();
       this.posts = []; // Fix for Safari hanging
       const idParam = params['id'];
 
