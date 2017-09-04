@@ -10,7 +10,7 @@ const mockPostData = {
   postId: 1,
   date: Date.now(),
   title: 'post title',
-  content: 'long content here',
+  content: '<p>Example post content with an emoji :smile: . Yay!</p>',
   tags: ['one', 'two']
 };
 
@@ -43,7 +43,9 @@ describe('PostComponent', () => {
   it('should render content correctly', () => {
     expect(compiled.querySelector('article h1').textContent.trim()).toBe('post title');
     expect(compiled.querySelector('.content-info-area ul li').textContent.trim()).toBe('Post 1');
-    expect(compiled.querySelector('.content-area').textContent.trim()).toBe('long content here was parsed');
     expect(component.hasTags()).toBeTruthy();
+
+    const output = compiled.querySelector('.content-area').textContent.trim();
+    expect(output).toContain('Example post content with an emoji :smile: . Yay! was parsed');
   });
 });
