@@ -51,9 +51,11 @@ hr {
   @media (min-width: $screen-sm-min) {
     width: $container-sm - $grid-gutter-width;
   }
+
   @media (min-width: $screen-md-min) {
     width: $container-md - $grid-gutter-width;
   }
+
   @media (min-width: $screen-lg-min) {
     width: $container-lg - $grid-gutter-width;
   }
@@ -299,6 +301,56 @@ a.uncoverable {
   &.hoverable {
     @extend %card-hoverable;
   }
+}
+
+.load-spinner {
+  $dimension: 64px;
+  $speed: 800ms;
+
+  height: $dimension;
+  margin: 15px auto;
+  position: relative;
+  width: $dimension;
+
+  &::after,
+  &::before,
+  & > div {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &::after,
+  &::before {
+    content: '';
+  }
+
+  &::after {
+    background: transparent url('/assets/images/logo.svg') no-repeat center center;
+  }
+
+  &::before {
+    background-color: $color-theme-1;
+    animation-duration: $speed;
+    animation-name: load-spin;
+    animation-iteration-count: infinite;
+  }
+
+  & > div {
+    border: 2px solid $color-theme-1;
+    animation-delay: 80ms;
+    animation-duration: $speed;
+    animation-name: load-spin;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes load-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(89deg); }
 }
 
 .panel {
