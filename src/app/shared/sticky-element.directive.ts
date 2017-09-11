@@ -2,7 +2,7 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({ selector: '[jblogStickyElement]' })
 export class StickyElementDirective {
-  @Input() public scrollStartOffset = 128;
+  @Input() public scrollStartOffset = 64;
   @Input() public stickyClassName = 'scrolled';
 
   private lastKnownScrollPosition = 0;
