@@ -1,6 +1,8 @@
 <div class="panel" *ngIf="isLoadingImages && (!images || images.length == 0)">
-  <div class="card loading-area">
-    <i class="fa fa-circle-o-notch fa-spin fa-fw" aria-hidden="true"></i> Loading…
+  <div class="container align-center">
+    <jblog-load-spinner></jblog-load-spinner>
+    <h1>Hang tight!</h1>
+    <p>Loading images…</p>
   </div>
 </div>
 

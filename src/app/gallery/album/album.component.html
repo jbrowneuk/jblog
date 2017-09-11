@@ -1,6 +1,8 @@
 <section id="information" class="panel">
-  <div class="container" *ngIf="isLoadingAlbumData">
-    Loading…
+  <div class="container align-center" *ngIf="isLoadingAlbumData">
+    <jblog-load-spinner></jblog-load-spinner>
+    <h1>Hang tight!</h1>
+    <p>Loading posts…</p>
   </div>
   <div class="container" *ngIf="!isLoadingAlbumData && loadingFailed">
     <h1>No album data</h1>
