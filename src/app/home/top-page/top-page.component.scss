@@ -3,16 +3,17 @@
 .heroic-padding {
   $move-up: 32px;
 
-  background: $color-bright-secondary url('/assets/images/backdrop-01.jpg') center;
+  background: black url('/assets/images/backdrop-01.jpg') center;
   background-size: cover;
-  color: $color-main-foreground;
+  color: $color-bright-secondary;
+  fill: $color-bright-secondary;
   margin-top: -$move-up;
   padding: (128px + $move-up) 0 128px;
-  text-shadow: 0 0 2px $color-bright-secondary;
+  text-shadow: 0 0 2px $color-main-foreground;
 }
 
 .tagline {
-  background-color: transparentize($color-bright-secondary, 0.5);
+  background-color: transparentize($color-theme-1, 0.25);
   text-align: center;
 
   span {
