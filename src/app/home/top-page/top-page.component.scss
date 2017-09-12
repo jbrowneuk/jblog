@@ -1,15 +1,18 @@
 @import 'palette';
 
 .heroic-padding {
+  $move-up: 32px;
+
   background: $color-bright-secondary url('/assets/images/backdrop-01.jpg') center;
   background-size: cover;
   color: $color-main-foreground;
-  padding: 128px 0;
+  margin-top: -$move-up;
+  padding: (128px + $move-up) 0 128px;
   text-shadow: 0 0 2px $color-bright-secondary;
 }
 
 .tagline {
-  background-color: transparentize($color-bright-secondary, 0.8);
+  background-color: transparentize($color-bright-secondary, 0.5);
   text-align: center;
 
   span {
