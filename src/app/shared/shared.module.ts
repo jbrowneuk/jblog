@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { TextParsingService } from './text-parsing.service';
+import { TitleService } from './title.service';
 
 import { LineSplittingPipe } from './line-splitting.pipe';
 import { PaginationComponent } from './pagination/pagination.component';
@@ -28,7 +29,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [TextParsingService]
+      providers: [TextParsingService, TitleService]
     };
   }
 }
