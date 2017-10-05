@@ -6,6 +6,7 @@ import { AlbumNameTitlePair, ImageInfo } from '../image-info';
 
 import { ImageService } from '../image.service';
 import { TextParsingService } from '../../shared/text-parsing.service';
+import { TitleService } from '../../shared/title.service';
 
 /**
  * The component used to display the full-sized image and related metadata, as
@@ -38,7 +39,9 @@ export class ImageComponent implements OnInit {
     private route: ActivatedRoute,
     private domSanitizer: DomSanitizer,
     private imageService: ImageService,
-    private parser: TextParsingService) { }
+    private parser: TextParsingService,
+    private titleService: TitleService
+  ) { }
 
   /**
    * Called when the component is initialized. Used to get image data from a
@@ -103,6 +106,7 @@ export class ImageComponent implements OnInit {
    */
   private handleImageResponse(response: ImageInfo): void {
     this.data = response;
+    this.titleService.setTitle(response.title);
   }
 
 }

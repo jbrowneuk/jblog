@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { TitleService } from '../../shared/title.service';
 
 /**
  * This component wraps the {@link ProjectsContainerComponent} and adds some
@@ -12,5 +14,10 @@ import { Component } from '@angular/core';
     '../../../shared-sass/content-info-area.scss'
   ]
 })
-export class ProjectListComponent {
+export class ProjectListComponent implements OnInit {
+  constructor(private titleService: TitleService) {}
+
+  ngOnInit() {
+    this.titleService.setTitle('Code');
+  }
 }

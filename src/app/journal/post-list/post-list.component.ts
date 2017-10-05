@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { PostData, PostDataWrapper } from '../post-data';
 
 import { PostService } from '../post.service';
+import { TitleService } from '../../shared/title.service';
 
 /**
  * The post list component that is used to render a list of post data
@@ -42,7 +43,11 @@ export class PostListComponent implements OnInit {
   /**
    * Constructor
    */
-  constructor(private route: ActivatedRoute, private postsService: PostService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private postsService: PostService,
+    private titleService: TitleService
+  ) { }
 
   /**
    * On component initialization, load posts
@@ -77,6 +82,7 @@ export class PostListComponent implements OnInit {
   private handlePostResponse(response: PostData): void {
     this.posts = [response];
     this.totalPages = 1;
+    this.titleService.setTitle(response.title);
   }
 
   /**
@@ -85,6 +91,7 @@ export class PostListComponent implements OnInit {
   private handlePostListResponse(response: PostDataWrapper): void {
     this.posts = response.posts;
     this.totalPages = response.totalPages;
+    this.titleService.setTitle('Journal');
   }
 
   /**
