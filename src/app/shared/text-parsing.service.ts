@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
+import * as emojione from 'emojione';
 
 /**
  * A service used to parse text from its stored format into a form that can be
@@ -17,7 +18,7 @@ export class TextParsingService {
    * Constructor
    */
   constructor() {
-    this.emojiParser = require('emojione');
+    this.emojiParser = emojione;
   }
 
   /**
