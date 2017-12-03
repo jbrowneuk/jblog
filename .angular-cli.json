@@ -23,7 +23,7 @@
         "styles.scss", "grid.scss"
       ],
       "stylePreprocessorOptions": {
-        "includePaths": ["shared-sass"]
+        "includePaths": ["theme"]
       },
       "scripts": [],
       "environmentSource": "environments/environment.ts",

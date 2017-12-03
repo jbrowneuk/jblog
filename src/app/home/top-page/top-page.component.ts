@@ -10,7 +10,7 @@ import { TitleService } from '../../shared/title.service';
   templateUrl: './top-page.component.html',
   styleUrls: [
     './top-page.component.scss',
-    '../../../shared-sass/content-info-area.scss'
+    '../../../theme/content-info-area.scss'
   ]
 })
 export class TopPageComponent implements OnInit {

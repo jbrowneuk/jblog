@@ -13,7 +13,7 @@ import { TextParsingService } from '../../shared/text-parsing.service';
   templateUrl: './post.component.html',
   styleUrls: [
     './post.component.scss',
-    '../../../shared-sass/content-info-area.scss'
+    '../../../theme/content-info-area.scss'
   ]
 })
 export class PostComponent implements AfterViewInit {

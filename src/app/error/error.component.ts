@@ -10,7 +10,7 @@ import { TitleService } from '../shared/title.service';
   selector: 'jblog-error',
   templateUrl: './error.component.html',
   styleUrls: [
-    '../../shared-sass/content-info-area.scss'
+    '../../theme/content-info-area.scss'
   ]
 })
 export class ErrorComponent implements OnInit {

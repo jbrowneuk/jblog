@@ -11,7 +11,7 @@ import { TitleService } from '../../shared/title.service';
   selector: 'jblog-project-list',
   templateUrl: './project-list.component.html',
   styleUrls: [
-    '../../../shared-sass/content-info-area.scss'
+    '../../../theme/content-info-area.scss'
   ]
 })
 export class ProjectListComponent implements OnInit {

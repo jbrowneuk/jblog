@@ -17,7 +17,7 @@ import { TitleService } from '../../shared/title.service';
   templateUrl: './image.component.html',
   styleUrls: [
     './image.component.scss',
-    '../../../shared-sass/content-info-area.scss'
+    '../../../theme/content-info-area.scss'
   ]
 })
 export class ImageComponent implements OnInit {

@@ -12,7 +12,7 @@ import { TitleService } from '../../shared/title.service';
   selector: 'jblog-album-list',
   templateUrl: './album-list.component.html',
   styleUrls: [
-    '../../../shared-sass/content-info-area.scss'
+    '../../../theme/content-info-area.scss'
   ]
 })
 export class AlbumListComponent implements OnInit {

@@ -14,7 +14,7 @@ import { TitleService } from '../../shared/title.service';
   selector: 'jblog-album',
   templateUrl: './album.component.html',
   styleUrls: [
-    '../../../shared-sass/content-info-area.scss'
+    '../../../theme/content-info-area.scss'
   ]
 })
 export class AlbumComponent implements OnInit {
