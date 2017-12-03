@@ -10,6 +10,7 @@ const IMAGE_URL = GALLERY_ROOT . "images/";
 const ICON_URL = GALLERY_ROOT . "icons/";
 
 const DEFAULT_ALBUM_NAME_QUERY = "_default";
+const DEFAULT_ALBUM_NAME = "featured";
 
 // Relative to the file that includes this one
 require "lib/framework.gallery.php";
@@ -97,7 +98,11 @@ class ApiModule {
     }
 
     $requestedAlbumId = LATEST_ALBUM_ID;
-    if ($requestedName !== LATEST_ALBUM_NAME && $requestedName !== DEFAULT_ALBUM_NAME_QUERY) {
+    if ($requestedName !== LATEST_ALBUM_NAME) {
+      if ($requestedName === DEFAULT_ALBUM_NAME_QUERY) {
+        $requestedName = DEFAULT_ALBUM_NAME;
+      }
+
       // Look up album - returns null if it doesn't exist.
       $currentAlbum = GalleryAlbumList::getAlbumByName($this->db, $requestedName);
       if ($currentAlbum === NULL) {
@@ -179,14 +184,18 @@ class ApiModule {
     }
 
     $album = NULL;
-    if ($requestedAlbumName != LATEST_ALBUM_NAME && $requestedAlbumName != DEFAULT_ALBUM_NAME_QUERY) {
+    if ($requestedAlbumName != LATEST_ALBUM_NAME) {
+      if ($requestedAlbumName === DEFAULT_ALBUM_NAME_QUERY) {
+        $requestedAlbumName = DEFAULT_ALBUM_NAME;
+      }
+
       $album = GalleryAlbumList::getAlbumByName($this->db, $requestedAlbumName);
     } else {
       $album = $this->generateLatestAlbumInfo();
     }
 
     if ($album === NULL) {
-      respondNotFound();
+      ResponseHelpers::respondNotFound();
       return;
     }
 
