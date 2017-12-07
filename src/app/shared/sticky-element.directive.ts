@@ -12,7 +12,6 @@ export class StickyElementDirective {
 
   @HostListener('window:scroll', ['$event'])
   public onScroll(evt: Event) {
-    console.log('onscroll');
     this.lastKnownScrollPosition = window.scrollY;
     if (!this.isTicking) {
       window.requestAnimationFrame(() => {
