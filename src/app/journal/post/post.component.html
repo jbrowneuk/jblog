@@ -1,25 +1,18 @@
-<article class="container post" id="{{data.postId}}" *ngIf="data">
-  <h1>{{data.title}}</h1>
-  <div class="content-info-area">
-    <ul>
-      <li>
-        <a [routerLink]="['/journal/post', data.postId]" title="Show only this post"><i class="fa fa-fw fa-thumb-tack" aria-hidden="true"></i> Post {{data.postId}}</a>
-      </li>
-      <li><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{data.date * 1000 | date:'medium'}}</li>
-    </ul>
+<article class="horizontal-feature segmented-container light-shadow" id="{{data.postId}}" *ngIf="data">
+  <div class="top-segment basic-card letter">
+    <h2>{{data.title}}</h2>
+    <div class="card-info">{{data.date * 1000 | date:'medium'}}</div>
+    <div class="outdated-content"
+         *ngIf="ageInYearsGreaterThan(2)">
+      This post is over two years old. The content here might not be relevant any more.
+    </div>
+    <div class="content-area"></div>
   </div>
-  <div class="outdated-content"
-       *ngIf="ageInYearsGreaterThan(2)">
-    This post is over two years old. The content here might not be relevant any more.
-  </div>
-  <div class="content-area"></div>
-  <div class="content-info-area">
-    <ul>
-      <li><i class="fa fa-tags" aria-hidden="true"></i></li>
-      <li *ngFor="let tag of data.tags">
-        <a [routerLink]="['/journal/tag', tag]">{{tag}}</a>
-      </li>
-      <li *ngIf="!hasTags()">Not tagged</li>
-    </ul>
+  <div class="bottom-segment align-center faux-button-container tags">
+    <a class="tag"
+       [routerLink]="['/journal/tag', tag]"
+       *ngFor="let tag of data.tags">{{tag}}</a>
+    <span class="tagless"
+          *ngIf="!hasTags()">Not tagged</span>
   </div>
 </article>

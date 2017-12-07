@@ -1,103 +1,5 @@
-@import '../theme/palette';
-@import '../theme/variables';
-
-$nav-height: 64px;
-$nav-border-width: 4px;
-
-$small-nav-height: 50px;
-
-footer.page-footer,
-#page-header {
-  background-color: $color-theme-1;
-  color: $color-bright-secondary;
-}
-
-footer.page-footer,
-#page-header.scrolled {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-}
-
-main {
-  background-color: $color-bright-primary;
-}
-
-footer.page-footer {
-  font-size: $font-size-smaller;
-  padding-top: 15px;
-  text-align: center;
-
-  a {
-    color: $color-bright-primary;
-    text-decoration: underline;
-  }
-
-  .copyright {
-    padding: 8px 0;
-  }
-}
-
-#page-header {
-  $header-height: 64px;
-  $header-height-scrolled: 48px;
-
-  height: $header-height;
-  line-height: $header-height;
-  position: fixed;
-  width: 100%;
-  z-index: 10;
-  transition:
-    height $animation-time-medium,
-    line-height $animation-time-medium;
-
-  &.scrolled {
-    height: $header-height-scrolled;
-    line-height: $header-height-scrolled;
-
-    ul,
-    li {
-      height: $header-height-scrolled;
-    }
-  }
-
-  a {
-    border-bottom: 5px solid transparent;
-    transition: border-bottom-color $animation-time-slow;
-
-    &:hover {
-      border-bottom-color: transparentize($color-bright-primary, 0.25);
-    }
-
-    &.selected {
-      border-bottom-color: $color-bright-primary;
-    }
-  }
-
-  ul,
-  li {
-    height: $header-height;
-    transition: height $animation-time-medium;
-  }
-
-  .page-top-navigation {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: stretch;
-    justify-content: space-between;
-  }
-}
-
-.home-link {
-  display: inline-block;
-  padding: 0 4px;
-
-  .icon {
-    $logo-width: 32px;
-
-    height: $logo-width;
-    width: $logo-width;
-    vertical-align: middle;
-  }
-}
+@import 'palette';
+@import 'variables';
 
 .nav-links {
   list-style-position: inside;
@@ -131,100 +33,73 @@ footer.page-footer {
   }
 }
 
-#page-content {
-  padding-top: $nav-height;
-}
+#page-header {
+  color: $color-palette4;
+  background-color: transparentize($color-palette2, 0.5);
+  height: $header-height;
+  line-height: $header-height;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  transition:
+    height $animation-time-medium,
+    line-height $animation-time-medium,
+    background-color $animation-time-medium;
 
-@media (max-width: $screen-sm-max) {
-  #page-header {
-    a {
-      border: none;
-      border-radius: 10px 10px 0 0;
-      padding: 0 8px;
+  a {
+    border-bottom: 5px solid transparent;
+    transition: border-bottom-color $animation-time-slow;
 
-      &.selected {
-        background-color: $color-bright-primary;
-        color: $color-theme-1;
-      }
+    &:hover {
+      border-bottom-color: transparentize($color-palette4, 0.25);
     }
 
-    .home-link {
-      padding: 0;
-    }
-  }
-}
-
-/* TODO
-@media (max-width: $screen-sm-max) {
-  nav.page-navigation {
-    $small-nav-tab-yoffset: 4px;
-
-    height: $small-nav-height;
-    line-height: 1;
-
-    a {
-      display: inline-block;
-      padding: 0 8px;
-      border-radius: 2px 2px 0 0;
-      height: 100%;
-      line-height: inherit;
-
-      &:hover,
-      &.active {
-        height: 100%;
-      }
-
-      &.active {
-        background-color: $color-bright-primary;
-        color: $color-theme-1;
-      }
-    }
-
-    ul {
-      margin-top: $small-nav-tab-yoffset;
-      height: $small-nav-height - $small-nav-tab-yoffset;
-      line-height: $small-nav-height - $small-nav-tab-yoffset;
-
-      li {
-        display: inline-block;
-        float: none;
-      }
-    }
-
-    .covered-area {
-      background-color: transparent;
-      height: auto;
-    }
-
-    .home-link {
-      height: $small-nav-height;
-      line-height: $small-nav-height;
+    &.selected {
+      border-bottom-color: $color-palette4;
     }
   }
 
-  #page-content {
-    padding-top: $small-nav-height;
+  ul,
+  li {
+    height: $header-height;
+    transition: height $animation-time-medium;
+  }
+
+  &.scrolled {
+    height: $header-height-scrolled;
+    line-height: $header-height-scrolled;
+    background-color: $color-palette2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+
+    ul,
+    li {
+      height: $header-height-scrolled;
+    }
+  }
+
+  .page-top-navigation {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    justify-content: space-between;
   }
 }
 
-@media (max-width: $screen-xs-max) {
-  nav.page-navigation {
-    .collapse-only {
-      display: inline-block;
-    }
+.home-link {
+  display: inline-block;
+  padding: 0 4px;
+
+  .icon {
+    $logo-width: 32px;
+
+    height: $logo-width;
+    width: $logo-width;
+    vertical-align: middle;
   }
 }
 
-// 360 is currently the upper width for the tabs, this will probably change
-@media (max-width: 360px) {
-  nav.page-navigation {
-    a {
-      margin-right: -0.25em;
-    }
-
-    .home-link {
-      padding: 0;
-    }
-  }
+#page-footer {
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: center;
 }
-*/

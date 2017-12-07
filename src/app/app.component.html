@@ -1,23 +1,23 @@
 <header id="page-header" jblogStickyElement>
   <div class="container">
     <nav class="page-top-navigation">
-  <ul class="nav-links">
-    <li>
-      <a class="home-link"
-        [routerLink]="['/']">
-        <img class="icon" src="assets/images/logo.svg">
-        <span class="hidden-xs">Jason Browne</span>
-      </a>
-    </li>
-  </ul>
-  <ul class="nav-links map-area">
-    <li><a [routerLink]="['/about']" routerLinkActive="selected">about</a></li>
-    <li><a [routerLink]="['/art']" routerLinkActive="selected">art</a></li>
-    <li><a [routerLink]="['/code']" routerLinkActive="selected">code</a></li>
-    <li><a [routerLink]="['/journal']" routerLinkActive="selected">posts</a></li>
-  </ul>
-</nav>
-</div>
+      <ul class="nav-links">
+        <li>
+          <a class="home-link"
+            [routerLink]="['/']">
+            <img class="icon" src="assets/images/logo.svg">
+            <span class="hidden-xs">Jason Browne</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav-links map-area">
+        <li><a [routerLink]="['/about']" routerLinkActive="selected">about</a></li>
+        <li><a [routerLink]="['/art']" routerLinkActive="selected">art</a></li>
+        <li><a [routerLink]="['/code']" routerLinkActive="selected">code</a></li>
+        <li><a [routerLink]="['/journal']" routerLinkActive="selected">posts</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 <main id="page-content">
   <router-outlet></router-outlet>

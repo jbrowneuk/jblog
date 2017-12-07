@@ -1,0 +1,40 @@
+@import 'palette';
+@import 'variables';
+
+#page-title-box {
+  background: $default-linear-gradient;
+  color: $color-palette4;
+  line-height: 1;
+  margin-bottom: $hero-bottom-margin;
+  padding: 64px 0 40px;
+
+  h1 {
+    font-size: 72px;
+    font-weight: normal;
+    line-height: 1;
+    margin: 5px 0 -40px 0;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  .inner-box {
+    border-radius: $default-radius 0;
+    background: $color-palette2;
+    display: inline-block;
+    margin: 53px 0 0 -10px;
+    padding: 10px 32px 10px 10px;
+    min-width: 270px;
+  }
+
+  .breadcrumb {
+    font-size: 14px;
+
+    a {
+      color: inherit;
+    }
+  }
+
+  .summary-area {
+    margin: 21px 0 32px 0;
+  }
+}

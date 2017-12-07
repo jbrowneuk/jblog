@@ -1,57 +1,69 @@
 @import 'palette';
 @import 'variables';
 
-$height: 30px;
-
-.pagination {
-  color: $color-main-foreground;
-  list-style-position: inside;
-  list-style-type: none;
-  line-height: $height;
-  margin: 16px;
+ul {
+  list-style: none inside;
+  margin: 0;
   padding: 0;
+}
 
-  .active {
-    a,
-    span {
-      background-color: $color-theme-1;
-      color: $color-bright-primary;
-    }
+li {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+a,
+span {
+  display: inline-block;
+  min-width: 30px;
+  padding: 0 20px;
+}
+
+a {
+  background-color: $color-palette5;
+  color: $color-palette3;
+  text-decoration: none;
+  transition: color $animation-time-medium, background-color $animation-time-medium;
+
+  &:hover {
+    background-color: $color-palette4;
   }
+}
 
+.active {
   a,
   span {
-    border-radius: 2px;
-    display: inline-block;
-    padding: 0 8px;
+    background-color: $color-palette3;
+    color: $color-palette5;
   }
+}
 
-  a {
-    text-decoration: none;
-    transition: color $animation-time-medium, background-color $animation-time-medium;
+.spacer {
+  background-color: $color-palette5;
+}
 
-    &:hover {
-      background-color: $color-bright-secondary;
-    }
-
-    &:active {
-      background-color: $color-theme-1;
-      color: $color-bright-primary;
-    }
-  }
+.pagination {
+  color: $color-palette4;
 
   ul {
-    margin: 0;
-    padding: 0;
-
-    li {
-      display: inline-block;
-      margin: 0 4px;
-    }
+    background-color: $color-backdrop;
+    border: 1px solid $color-palette4;
+    display: inline-block;
+    margin: 10px auto;
   }
 
-  .directional-indicator,
-  .spacer {
-    margin: 0 8px;
+  li {
+    &:first-child a {
+      border-radius: $default-radius 0 0 0;
+      border-right: 1px solid $color-palette4;
+      margin-right: -0.25em;
+    }
+
+    &:last-child a {
+      border-left: 1px solid $color-palette4;
+      border-radius: 0 0 $default-radius 0;
+      margin-left: -0.25em;
+    }
   }
 }

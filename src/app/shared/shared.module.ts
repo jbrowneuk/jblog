@@ -6,14 +6,16 @@ import { TextParsingService } from './text-parsing.service';
 import { TitleService } from './title.service';
 
 import { LineSplittingPipe } from './line-splitting.pipe';
-import { PaginationComponent } from './pagination/pagination.component';
 import { LoadSpinnerComponent } from './load-spinner/load-spinner.component';
+import { PageHeroComponent } from './page-hero/page-hero.component';
+import { PaginationComponent } from './pagination/pagination.component';
 import { StickyElementDirective } from './sticky-element.directive';
 
 const CORE_COMPONENTS = [
   LineSplittingPipe,
-  PaginationComponent,
   LoadSpinnerComponent,
+  PaginationComponent,
+  PageHeroComponent,
   StickyElementDirective
 ];
 

@@ -1,27 +1,58 @@
 @import 'palette';
+@import 'variables';
 
-.heroic-padding {
-  $move-up: 32px;
-
-  background: black url('/assets/images/backdrop-01.jpg') center;
+.super-hero {
+  align-items: center;
+  background: $color-palette3 url('/assets/images/backdrop-02.jpg') center;
   background-size: cover;
-  color: $color-bright-secondary;
-  fill: $color-bright-secondary;
-  margin-top: -$move-up;
-  padding: (128px + $move-up) 0 128px;
-  text-shadow: 0 0 2px $color-main-foreground;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.hero-logo {
+  color: $color-palette5;
+  fill: $color-palette5;
+  text-align: center;
+  text-shadow: 0 0 2px $color-palette3;
 }
 
 .tagline {
-  background-color: transparentize($color-theme-1, 0.25);
-  text-align: center;
+  background-color: transparentize($color-palette3, 0.25);
 
   span {
     display: inline-block;
     min-width: 10%;
+    padding: 0 5%;
   }
 }
 
-.whitespace-weight-balancing {
-  height: 32px;
+$scroll-default-bottom: 20px;
+
+.scrolly-scroll {
+  animation-name: scroll-bounce;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  bottom: 20px;
+  color: $color-palette5;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  transition: opacity $animation-time-slow;
+  width: 30px;
+
+  &.scrolled {
+    animation-name: none;
+    opacity: 0;
+  }
+}
+
+@keyframes scroll-bounce {
+  $scroll-amount: 5px;
+
+  0% { bottom: $scroll-default-bottom; }
+  50% { bottom: $scroll-default-bottom - $scroll-amount; }
+  100% { bottom: $scroll-default-bottom; }
 }

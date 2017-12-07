@@ -1,14 +1,16 @@
-$font-size-smallest: 10px;
-$font-size-smaller: 14px;
+//
 $font-size-default: 18px;
-$font-size-larger: 24px;
-$font-size-largest: 28px;
 
-$font-size-main-heading: 44px;
+$default-radius: 8px;
 
 $animation-time-fast: 100ms;
 $animation-time-medium: 250ms;
 $animation-time-slow: 300ms;
+
+$header-height: 64px;
+$header-height-scrolled: 48px;
+
+$hero-bottom-margin: -40px;
 
 // Screen sizes
 $screen-sm-min:       768px;

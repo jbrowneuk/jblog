@@ -8,32 +8,6 @@
   margin: 4px;
 }
 
-a {
-  display: inline-block;
-  line-height: 1.9;
-  overflow: hidden;
-  position: relative;
-  text-decoration: none;
-  max-height: 200px;
-  width: 300px;
-
-  &:hover {
-    .text-area {
-      background-color: transparentize($color-main-foreground, 0.2);
-    }
-  }
-
-  span {
-    @include truncate-text();
-  }
-
-  .text-area {
-    background: $color-main-foreground;
-    background-color: transparentize($color-main-foreground, 0.4);
-    color: $color-bright-primary;
-  }
-}
-
 .image-area,
 .text-area,
 img {
@@ -55,8 +29,34 @@ img {
   bottom: 0;
 
   .galleries {
-    color: $color-bright-secondary;
+    color: $color-palette4;
     display: block;
     font-size: 12px;
+  }
+}
+
+a {
+  display: inline-block;
+  line-height: 1.9;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  max-height: 200px;
+  width: 300px;
+
+  span {
+    @include truncate-text();
+  }
+
+  .text-area {
+    background: $color-palette1;
+    background-color: transparentize($color-palette1, 0.4);
+    color: $color-palette5;
+  }
+
+  &:hover {
+    .text-area {
+      background-color: transparentize($color-palette1, 0.2);
+    }
   }
 }

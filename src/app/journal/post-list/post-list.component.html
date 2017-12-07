@@ -1,35 +1,25 @@
-<div class="contain-content align-center"
-     *ngIf="totalPages > 1">
-  <jblog-pagination [urlComponents]="['journal']"
-                    [currentPage]="page"
-                    [totalPages]="totalPages"></jblog-pagination>
-</div>
+<jblog-page-hero heading="Journal" subheading="Thoughts, ramblings, musings."></jblog-page-hero>
 
-<div class="panel" *ngIf="(!posts || posts.length === 0) && isLoading">
-  <div class="container align-center">
+<div class="container">
+  <div class="horizontal-feature align-center"
+       *ngIf="(!posts || posts.length === 0) && isLoading">
     <jblog-load-spinner></jblog-load-spinner>
     <h1>Hang tight!</h1>
     <p>Loading posts…</p>
   </div>
-</div>
 
-<div class="panel" *ngIf="(!posts || posts.length === 0) && !isLoading">
-  <div class="container">
+  <div class="horizontal-feature"
+       *ngIf="(!posts || posts.length === 0) && !isLoading">
     <h1>No posts</h1>
   </div>
-</div>
 
-<div *ngFor="let post of posts; let i = index">
-  <div class="panel">
-    <jblog-post [data]="post"></jblog-post>
+  <jblog-post [data]="post"
+              *ngFor="let post of posts"></jblog-post>
+
+  <div class="contain-content align-center"
+       *ngIf="totalPages > 1">
+    <jblog-pagination [urlComponents]="['journal']"
+                      [currentPage]="page"
+                      [totalPages]="totalPages"></jblog-pagination>
   </div>
-
-  <hr *ngIf="i < posts.length - 1" />
-</div>
-
-<div class="contain-content align-center"
-     *ngIf="totalPages > 1">
-  <jblog-pagination [urlComponents]="['journal']"
-                    [currentPage]="page"
-                    [totalPages]="totalPages"></jblog-pagination>
 </div>
