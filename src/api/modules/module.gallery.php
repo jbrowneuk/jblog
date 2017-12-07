@@ -106,7 +106,7 @@ class ApiModule {
       // Look up album - returns null if it doesn't exist.
       $currentAlbum = GalleryAlbumList::getAlbumByName($this->db, $requestedName);
       if ($currentAlbum === NULL) {
-        respondNotFound();
+        ResponseHelpers::respondNotFound();
         return;
       }
 
