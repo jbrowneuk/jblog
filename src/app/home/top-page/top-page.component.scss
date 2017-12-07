@@ -3,7 +3,6 @@
 
 .super-hero {
   align-items: center;
-  background: $color-palette3 url('/assets/images/backdrop-02.jpg') center;
   background-size: cover;
   display: flex;
   height: 100vh;
@@ -12,11 +11,30 @@
   position: relative;
 }
 
+.parallax {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+
+  img {
+    position: absolute;
+    min-height: 100%;
+    min-width: 100%;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%);
+  }
+}
+
 .hero-logo {
   color: $color-palette5;
   fill: $color-palette5;
   text-align: center;
   text-shadow: 0 0 2px $color-palette3;
+  z-index: 1;
 }
 
 .tagline {
