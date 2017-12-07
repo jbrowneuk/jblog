@@ -9,10 +9,7 @@ import { TitleService } from '../../shared/title.service';
  */
 @Component({
   selector: 'jblog-project-list',
-  templateUrl: './project-list.component.html',
-  styleUrls: [
-    '../../../theme/content-info-area.scss'
-  ]
+  templateUrl: './project-list.component.html'
 })
 export class ProjectListComponent implements OnInit {
   constructor(private titleService: TitleService) {}

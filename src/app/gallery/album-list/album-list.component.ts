@@ -10,10 +10,7 @@ import { TitleService } from '../../shared/title.service';
  */
 @Component({
   selector: 'jblog-album-list',
-  templateUrl: './album-list.component.html',
-  styleUrls: [
-    '../../../theme/content-info-area.scss'
-  ]
+  templateUrl: './album-list.component.html'
 })
 export class AlbumListComponent implements OnInit {
 

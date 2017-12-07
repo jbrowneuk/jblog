@@ -9,8 +9,7 @@ import { TitleService } from '../../shared/title.service';
   selector: 'jblog-top-page',
   templateUrl: './top-page.component.html',
   styleUrls: [
-    './top-page.component.scss',
-    '../../../theme/content-info-area.scss'
+    './top-page.component.scss'
   ]
 })
 export class TopPageComponent implements OnInit {

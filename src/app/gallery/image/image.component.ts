@@ -16,8 +16,7 @@ import { TitleService } from '../../shared/title.service';
   selector: 'jblog-image',
   templateUrl: './image.component.html',
   styleUrls: [
-    './image.component.scss',
-    '../../../theme/content-info-area.scss'
+    './image.component.scss'
   ]
 })
 export class ImageComponent implements OnInit {
