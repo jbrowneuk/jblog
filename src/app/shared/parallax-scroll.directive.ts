@@ -30,6 +30,8 @@ export class ParallaxScrollDirective implements OnInit {
     if (!this.imageElement) {
       const children = Array.from(element.children);
       this.imageElement = children.find(c => c.tagName.toLowerCase() === 'img') as HTMLElement;
+      // this.imageElement.style.display = 'inline';
+      this.imageElement.style.opacity = '1';
     }
 
     // Adapted from the Materialize CSS parallax plugin,

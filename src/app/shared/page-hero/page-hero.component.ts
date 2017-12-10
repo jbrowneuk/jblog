@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class PageHeroComponent {
   @Input() public heading: string;
   @Input() public subheading: string;
+  @Input() public parallaxImage: string;
 }

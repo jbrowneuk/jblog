@@ -3,30 +3,13 @@
 
 .super-hero {
   align-items: center;
-  background-size: cover;
+  background: $default-linear-gradient;
   display: flex;
   height: 100vh;
   justify-content: center;
   margin-bottom: 40px;
   position: relative;
-}
-
-.parallax {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  overflow: hidden;
-
-  img {
-    position: absolute;
-    min-height: 100%;
-    min-width: 100%;
-    left: 50%;
-    bottom: 0;
-    transform: translate(-50%);
-  }
+  z-index: 0;
 }
 
 .hero-logo {
@@ -38,7 +21,7 @@
 }
 
 .tagline {
-  background-color: transparentize($color-palette3, 0.25);
+  background-color: transparentize($color-palette2, 0.25);
 
   span {
     display: inline-block;
@@ -47,13 +30,15 @@
   }
 }
 
-$scroll-default-bottom: 20px;
+$scroll-default-bottom: 30px;
 
 .scrolly-scroll {
   animation-name: scroll-bounce;
-  animation-duration: 1s;
+  animation-direction: alternate;
+  animation-duration: 500ms;
   animation-iteration-count: infinite;
-  bottom: 20px;
+  animation-timing-function: ease-in-out;
+  bottom: $scroll-default-bottom;
   color: $color-palette5;
   left: 50%;
   position: absolute;
@@ -68,9 +53,8 @@ $scroll-default-bottom: 20px;
 }
 
 @keyframes scroll-bounce {
-  $scroll-amount: 5px;
+  $distance: 5px;
 
-  0% { bottom: $scroll-default-bottom; }
-  50% { bottom: $scroll-default-bottom - $scroll-amount; }
-  100% { bottom: $scroll-default-bottom; }
+  from { bottom: $scroll-default-bottom - $distance; }
+  to { bottom: $scroll-default-bottom + $distance; }
 }
