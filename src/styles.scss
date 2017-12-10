@@ -111,7 +111,7 @@ a {
 .basic-card {
   background: $color-palette5;
   border: 1px solid $color-palette4;
-  padding: 20px;
+  padding: $basic-card-padding;
 
   h2 {
     font-size: 36px;
@@ -146,7 +146,7 @@ a {
 }
 
 .horizontal-feature {
-  margin: 0 -20px 40px -20px;
+  margin-bottom: 40px;
 }
 
 .inline-block {

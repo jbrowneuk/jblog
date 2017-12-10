@@ -12,6 +12,10 @@ $header-height-scrolled: 48px;
 
 $hero-bottom-margin: -40px;
 
+$generic-horizontal-padding: 20px;
+$generic-vertical-padding: 10px;
+$basic-card-padding: $generic-vertical-padding $generic-horizontal-padding;
+
 // Screen sizes
 $screen-sm-min:       768px;
 $screen-md-min:       992px;
