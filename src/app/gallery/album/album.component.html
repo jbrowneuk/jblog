@@ -2,6 +2,23 @@
                  subheading="Artworks I have drawn, painted or created some way or another.">
 </jblog-page-hero>
 
+<div class="container" *ngIf="isLoadingAlbumData">
+  <div class="horizontal-feature align-center">
+    <jblog-load-spinner></jblog-load-spinner>
+    <h2>Hang tight!</h2>
+    <p>Loading album…</p>
+  </div>
+</div>
+
+<div class="container" *ngIf="loadingFailed">
+  <div class="horizontal-feature">
+    <div class="basic-card rounded light-shadow">
+      <h2>There was a problem</h2>
+      <p>Please <a href=".">refresh the page</a> or try again later.</p>
+    </div>
+  </div>
+</div>
+
 <div class="container" *ngIf="data">
   <article class="horizontal-feature segmented-container light-shadow">
     <div class="top-segment basic-card">

@@ -4,13 +4,15 @@
   <div class="horizontal-feature align-center"
        *ngIf="(!posts || posts.length === 0) && isLoading">
     <jblog-load-spinner></jblog-load-spinner>
-    <h1>Hang tight!</h1>
+    <h2>Hang tight!</h2>
     <p>Loading posts…</p>
   </div>
 
   <div class="horizontal-feature"
        *ngIf="(!posts || posts.length === 0) && !isLoading">
-    <h1>No posts</h1>
+    <div class="basic-card rounded light-shadow">
+      <h2>No posts</h2>
+    </div>
   </div>
 
   <jblog-post [data]="post"
