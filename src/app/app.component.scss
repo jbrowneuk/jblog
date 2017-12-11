@@ -1,172 +1,105 @@
-@import '../shared-sass/palette';
-@import '../shared-sass/variables';
+@import 'palette';
+@import 'variables';
 
-$nav-height: 64px;
-$nav-border-width: 4px;
-
-$small-nav-height: 50px;
-
-footer.page-footer,
-nav.page-navigation {
-  background-color: $color-theme-1;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-  color: $color-bright-secondary;
-}
-
-main {
-  background-color: $color-bright-primary;
-}
-
-footer.page-footer {
-  font-size: $font-size-smaller;
-  padding-top: 15px;
-  text-align: center;
+.nav-links {
+  list-style-position: inside;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  white-space: nowrap;
 
   a {
-    color: $color-bright-primary;
-    text-decoration: underline;
+    color: inherit;
+    text-decoration: none;
+    display: inline-block;
+    height: 100%;
   }
 
-  .copyright {
-    padding: 8px 0;
+  li {
+    display: block;
+    flex-shrink: 0;
   }
 }
 
-nav.page-navigation {
-  height: $nav-height;
-  line-height: $nav-height;
+.map-area {
+  align-self: flex-end;
+
+  a {
+    padding: 0 15px;
+    position: relative;
+  }
+}
+
+#page-header {
+  color: $color-palette4;
+  background-color: transparentize($color-palette2, 0.5);
+  height: $header-height;
+  line-height: $header-height;
   position: fixed;
   width: 100%;
   z-index: 10;
+  transition:
+    height $animation-time-medium,
+    line-height $animation-time-medium,
+    background-color $animation-time-medium;
 
   a {
-    background-color: $color-theme-1;
-    color: $color-bright-secondary;
-    display: block;
-    height: $nav-height;
-    padding: 0 15px;
-    text-decoration: none;
-    transition: color 250ms, height 250ms;
+    border-bottom: 5px solid transparent;
+    transition: border-bottom-color $animation-time-slow;
 
-    &:hover,
-    &.active {
-      color: $color-bright-primary;
-      height: $nav-height - $nav-border-width;
+    &:hover {
+      border-bottom-color: transparentize($color-palette4, 0.25);
+    }
+
+    &.selected {
+      border-bottom-color: $color-palette4;
     }
   }
 
-  ul {
-    list-style-position: inside;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    float: right;
+  ul,
+  li {
+    height: $header-height;
+    transition: height $animation-time-medium;
+  }
 
+  &.scrolled {
+    height: $header-height-scrolled;
+    line-height: $header-height-scrolled;
+    background-color: $color-palette2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+
+    ul,
     li {
-      float: left;
+      height: $header-height-scrolled;
     }
   }
 
-  .collapse-only {
-    display: none;
-  }
-
-  .covered-area {
-    background-color: $color-bright-primary;
-    height: $nav-height;
-  }
-
-  .home-link {
-    display: inline-block;
-    font-size: $font-size-larger;
-    padding: 0 15px 0 4px;
-
-    .icon {
-      $logo-width: 32px;
-      $top-offset: -2px;
-
-      height: $logo-width;
-      width: $logo-width;
-      vertical-align: middle;
-      position: relative;
-      top: $top-offset;
-    }
+  .page-top-navigation {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    justify-content: space-between;
   }
 }
 
-#page-content {
-  padding-top: $nav-height;
-}
+.home-link {
+  display: inline-block;
+  padding: 0 4px;
 
-@media (max-width: $screen-sm-max) {
-  nav.page-navigation {
-    $small-nav-tab-yoffset: 4px;
+  .icon {
+    $logo-width: 32px;
 
-    height: $small-nav-height;
-    line-height: 1;
-
-    a {
-      display: inline-block;
-      padding: 0 8px;
-      border-radius: 2px 2px 0 0;
-      height: 100%;
-      line-height: inherit;
-
-      &:hover,
-      &.active {
-        height: 100%;
-      }
-
-      &.active {
-        background-color: $color-bright-primary;
-        color: $color-theme-1;
-      }
-    }
-
-    ul {
-      margin-top: $small-nav-tab-yoffset;
-      height: $small-nav-height - $small-nav-tab-yoffset;
-      line-height: $small-nav-height - $small-nav-tab-yoffset;
-
-      li {
-        display: inline-block;
-        float: none;
-      }
-    }
-
-    .covered-area {
-      background-color: transparent;
-      height: auto;
-    }
-
-    .home-link {
-      height: $small-nav-height;
-      line-height: $small-nav-height;
-    }
-  }
-
-  #page-content {
-    padding-top: $small-nav-height;
+    height: $logo-width;
+    width: $logo-width;
+    vertical-align: middle;
   }
 }
 
-@media (max-width: $screen-xs-max) {
-  nav.page-navigation {
-    .collapse-only {
-      display: inline-block;
-    }
-  }
-}
-
-// 360 is currently the upper width for the tabs, this will probably change
-@media (max-width: 360px) {
-  nav.page-navigation {
-    a {
-      margin-right: -0.25em;
-    }
-
-    .home-link {
-      padding: 0;
-    }
-  }
+#page-footer {
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: center;
 }

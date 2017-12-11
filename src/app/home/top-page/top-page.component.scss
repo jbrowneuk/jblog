@@ -1,7 +1,60 @@
-.heroic-padding {
-  padding: 128px 0;
+@import 'palette';
+@import 'variables';
+
+.super-hero {
+  align-items: center;
+  background: $default-linear-gradient;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 0;
 }
 
-.whitespace-weight-balancing {
-  height: 32px;
+.hero-logo {
+  color: $color-palette5;
+  fill: $color-palette5;
+  text-align: center;
+  text-shadow: 0 0 2px $color-palette3;
+  z-index: 1;
+}
+
+.tagline {
+  background-color: transparentize($color-palette2, 0.25);
+
+  span {
+    display: inline-block;
+    min-width: 10%;
+    padding: 0 5%;
+  }
+}
+
+$scroll-default-bottom: 30px;
+
+.scrolly-scroll {
+  animation-name: scroll-bounce;
+  animation-direction: alternate;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  bottom: $scroll-default-bottom;
+  color: $color-palette5;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  transition: opacity $animation-time-slow;
+  width: 30px;
+
+  &.scrolled {
+    animation-name: none;
+    opacity: 0;
+  }
+}
+
+@keyframes scroll-bounce {
+  $distance: 5px;
+
+  from { bottom: $scroll-default-bottom - $distance; }
+  to { bottom: $scroll-default-bottom + $distance; }
 }

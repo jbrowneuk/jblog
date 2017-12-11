@@ -1,44 +1,51 @@
-<section id="information" class="panel">
-  <div class="container" *ngIf="isLoadingAlbumData">
-    Loading…
+<jblog-page-hero heading="Gallery"
+                 subheading="Artworks I have drawn, painted or created some way or another."
+                 parallaxImage="/assets/images/gallery-01.jpg">
+</jblog-page-hero>
+
+<div class="container" *ngIf="isLoadingAlbumData">
+  <div class="horizontal-feature align-center">
+    <jblog-load-spinner></jblog-load-spinner>
+    <h2>Hang tight!</h2>
+    <p>Loading album…</p>
   </div>
-  <div class="container" *ngIf="!isLoadingAlbumData && loadingFailed">
-    <h1>No album data</h1>
-    <p><i class="fa fa-frown-o fa-fw" aria-hidden="true"></i> Nothing was found.</p>
-    <p>Try refreshing the page or <a routerLink="/art">going back to the main album</a>.</p>
-  </div>
-  <div class="container" *ngIf="data">
-    <div class="row">
-      <div class="col-md-8">
-        <h1>{{data.title}}</h1>
-        <div class="content-info-area">
-          <ul>
-            <li>
-              <i class="fa fa-fw fa-info-circle" aria-hidden="true"></i>
-              {{data.imagesInAlbum}} image{{data.imagesInAlbum === 1 ? '' : 's'}}
-            </li>
-          </ul>
-        </div>
-        <article class="content-area">
-          <p *ngFor='let para of data.description | lineSplitting'>{{para}}</p>
-        </article>
-        <div class="controls">
-          <a routerLink="/art/albums" class="button default">
-            <i class="fa fa-fw fa-folder" aria-hidden="true"></i>
-            Pick a different album
-          </a>
-        </div>
-      </div>
-      <div class="col-md-4 align-center hidden-sm hidden-xs">
-        <img src="{{data.iconUrl}}" alt="icon" class="card">
-      </div>
+</div>
+
+<div class="container" *ngIf="loadingFailed">
+  <div class="horizontal-feature">
+    <div class="basic-card rounded light-shadow">
+      <h2>There was a problem</h2>
+      <p>Please <a href=".">refresh the page</a> or try again later.</p>
     </div>
   </div>
-</section>
+</div>
 
-<hr *ngIf="data" />
+<div class="container" *ngIf="data">
+  <article class="horizontal-feature segmented-container light-shadow">
+    <div class="top-segment basic-card">
+      <div class="row">
+        <div class="col-md-8">
+          <h2>{{data.title}}</h2>
+          <div class="card-info">
+            {{data.imagesInAlbum}} image{{data.imagesInAlbum === 1 ? '' : 's'}}
+          </div>
+          <p *ngFor='let para of data.description | lineSplitting'>{{para}}</p>
+        </div>
+        <div class="col-md-4 align-center hidden-sm hidden-xs">
+          <img src="{{data.iconUrl}}" alt="album preview image" class="light-shadow" />
+        </div>
+      </div>
+    </div>
+    <div class="bottom-segment faux-button-container align-center">
+      <a routerLink="/art/albums" class="button default">
+        <i class="fa fa-fw fa-folder" aria-hidden="true"></i>
+        Pick a different album
+      </a>
+    </div>
+  </article>
+</div>
 
-<div id="thumbnails" class="panel align-center" *ngIf="data">
+<div id="thumbnails" class="align-center" *ngIf="data">
   <div class="container">
 
     <jblog-pagination [urlComponents]="['art', 'album', data.name]"

@@ -1,9 +1,19 @@
 @import 'palette';
+@import 'variables';
 
 .outdated-content {
-  background-color: #D9EDF7;
-  border: 1px solid #BCE8F1;
+  background-color: $color-backdrop;
+  border: 1px solid $color-palette4;
   border-radius: 4px;
   margin: 15px 0;
   padding: 15px;
+}
+
+.tags {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/deep/ img.posted {
+  max-width: 100%;
 }

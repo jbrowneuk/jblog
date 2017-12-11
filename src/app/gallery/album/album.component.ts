@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { AlbumInfo } from '../album-info';
 
 import { AlbumService } from '../album.service';
+import { TitleService } from '../../shared/title.service';
 
 /**
  * The component which represents a paginated collection of images that are
@@ -11,10 +12,7 @@ import { AlbumService } from '../album.service';
  */
 @Component({
   selector: 'jblog-album',
-  templateUrl: './album.component.html',
-  styleUrls: [
-    '../../../shared-sass/content-info-area.scss'
-  ]
+  templateUrl: './album.component.html'
 })
 export class AlbumComponent implements OnInit {
 
@@ -50,7 +48,8 @@ export class AlbumComponent implements OnInit {
    */
   constructor(
     private route: ActivatedRoute,
-    private albumService: AlbumService
+    private albumService: AlbumService,
+    private titleService: TitleService
   ) { }
 
   /**
@@ -89,6 +88,7 @@ export class AlbumComponent implements OnInit {
     this.isLoadingAlbumData = false;
     this.data = response;
     this.lastLoadedAlbum = response.name;
+    this.titleService.setTitle(response.title);
   }
 
   /**

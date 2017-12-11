@@ -1,14 +1,20 @@
-$font-size-smallest: 10px;
-$font-size-smaller: 14px;
+//
 $font-size-default: 18px;
-$font-size-larger: 24px;
-$font-size-largest: 28px;
 
-$font-size-main-heading: 44px;
+$default-radius: 8px;
 
 $animation-time-fast: 100ms;
 $animation-time-medium: 250ms;
 $animation-time-slow: 300ms;
+
+$header-height: 64px;
+$header-height-scrolled: 48px;
+
+$hero-bottom-margin: -40px;
+
+$generic-horizontal-padding: 20px;
+$generic-vertical-padding: 10px;
+$basic-card-padding: $generic-vertical-padding $generic-horizontal-padding;
 
 // Screen sizes
 $screen-sm-min:       768px;

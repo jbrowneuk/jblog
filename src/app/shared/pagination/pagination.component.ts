@@ -51,19 +51,23 @@ export class PaginationComponent implements OnInit, OnChanges {
    * Boolean to signify whether parent component is loading that can prevent
    * pagination segments from appering before data is completely loaded
    */
-  @Input() public isLoading = false;
+  @Input() public isLoading: boolean;
 
   /**
    * List of {@link PaginationSegment}s.
    */
   public segments: PaginationSegment[];
 
+  constructor() {
+    this.isLoading = false;
+  }
+
   /**
    * Called when the component is initialized. Uased to generate
    * {@link PaginationSegment}s.
    */
   ngOnInit() {
-    this.generateNumericLinks();
+    this.generateSegments();
   }
 
   /**
@@ -76,7 +80,7 @@ export class PaginationComponent implements OnInit, OnChanges {
       return;
     }
 
-    this.generateNumericLinks();
+    this.generateSegments();
   }
 
   /**
@@ -106,7 +110,7 @@ export class PaginationComponent implements OnInit, OnChanges {
       bits.push(`${this.componentName}`);
     }
 
-    if (this.urlComponents) {
+    if (this.urlComponents && this.urlComponents.length > 0) {
       bits = ['/'].concat(this.urlComponents);
     }
 
@@ -118,7 +122,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   /**
    * Generates the main {@link PaginationSegment}s that build up the view.
    */
-  private generateNumericLinks(): void {
+  private generateSegments(): void {
     const segmentPaddedBy = 2;
     const topEnd = this.totalPages + 1;
 

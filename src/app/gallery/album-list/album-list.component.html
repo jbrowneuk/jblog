@@ -1,41 +1,30 @@
-<div id="information" class="panel">
-  <div class="container">
-    <h1>All albums</h1>
-  </div>
-</div>
+<jblog-page-hero heading="All albums"
+                 subheading="Groups of related images.">
+</jblog-page-hero>
 
-<hr />
-
-<div *ngFor="let album of albums; let i = index">
-  <section class="panel">
-    <div class="container">
+<div class="container">
+  <article class="horizontal-feature segmented-container light-shadow"
+           *ngFor="let album of albums; let i = index">
+    <div class="top-segment basic-card">
       <div class="row">
         <div class="col-md-8">
           <h2>{{album.title}}</h2>
-          <div class="content-info-area">
-            <ul>
-              <li>
-                <i class="fa fa-fw fa-info-circle" aria-hidden="true"></i>
-                {{album.imagesInAlbum}} image{{album.imagesInAlbum === 1 ? '' : 's'}}
-              </li>
-            </ul>
+          <div class="card-info">
+            <i class="fa fa-fw fa-info-circle" aria-hidden="true"></i>
+            {{album.imagesInAlbum}} image{{album.imagesInAlbum === 1 ? '' : 's'}}
           </div>
-          <article class="content-area">
-            <p *ngFor='let para of album.description | lineSplitting'>{{para}}</p>
-          </article>
-          <div class="controls">
-            <a [routerLink]="['/art/album', album.name]" class="button default">
-              <i class="fa fa-fw fa-th-large" aria-hidden="true"></i>
-              Explore album
-            </a>
-          </div>
+          <p *ngFor='let para of album.description | lineSplitting'>{{para}}</p>
         </div>
         <div class="col-md-4 align-center hidden-sm hidden-xs">
           <img src="{{album.iconUrl}}" alt="icon" class="card">
         </div>
       </div>
     </div>
-  </section>
-
-  <hr *ngIf="i < albums.length - 1" />
+    <div class="bottom-segment faux-button-container align-center">
+      <a [routerLink]="['/art/album', album.name]" class="button default">
+        <i class="fa fa-fw fa-th-large" aria-hidden="true"></i>
+        Explore album
+      </a>
+    </div>
+  </article>
 </div>

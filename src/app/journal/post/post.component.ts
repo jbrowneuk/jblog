@@ -12,8 +12,7 @@ import { TextParsingService } from '../../shared/text-parsing.service';
   selector: 'jblog-post',
   templateUrl: './post.component.html',
   styleUrls: [
-    './post.component.scss',
-    '../../../shared-sass/content-info-area.scss'
+    './post.component.scss'
   ]
 })
 export class PostComponent implements AfterViewInit {

@@ -1,22 +1,24 @@
-<nav id="page-header" class="page-navigation">
+<header id="page-header" jblogStickyElement>
   <div class="container">
-    <span class="inline-block covered-area">
-      <a class="home-link" [routerLink]="['/']">
-        <img class="icon" src="assets/images/logo.svg">
-        <span class="hidden-xs">Jason Browne</span>
-      </a>
-    </span>
-    <ul class="right covered-area menu">
-      <li><a [routerLink]="['/']"
-             routerLinkActive="active"
-             [routerLinkActiveOptions]="{exact: true}"><i class="fa fa-fw fa-home collapse-only"></i><span class="hidden-xs">portfolio</span></a></li>
-      <li><a [routerLink]="['/about']" routerLinkActive="active">about</a></li>
-      <li><a [routerLink]="['/art']" routerLinkActive="active">art</a></li>
-      <li><a [routerLink]="['/code']" routerLinkActive="active">code</a></li>
-      <li><a [routerLink]="['/journal']" routerLinkActive="active">posts</a></li>
-    </ul>
+    <nav class="page-top-navigation">
+      <ul class="nav-links">
+        <li>
+          <a class="home-link"
+            [routerLink]="['/']">
+            <img class="icon" src="assets/images/logo.svg">
+            <span class="hidden-xs">Jason Browne</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav-links map-area">
+        <li><a [routerLink]="['/about']" routerLinkActive="selected">about</a></li>
+        <li><a [routerLink]="['/art']" routerLinkActive="selected">art</a></li>
+        <li><a [routerLink]="['/code']" routerLinkActive="selected">code</a></li>
+        <li><a [routerLink]="['/journal']" routerLinkActive="selected">posts</a></li>
+      </ul>
+    </nav>
   </div>
-</nav>
+</header>
 <main id="page-content">
   <router-outlet></router-outlet>
 </main>

@@ -16,11 +16,11 @@ import { AlbumService } from './album.service';
 import { GalleryFormatPipe } from './gallery-format.pipe';
 
 const galleryRoutes: Routes = [
-  {path: 'art', component: AlbumComponent },
-  {path: 'art/albums', component: AlbumListComponent },
-  {path: 'art/album/:name', component: AlbumComponent },
-  {path: 'art/album/:name/page/:page', component: AlbumComponent },
-  {path: 'art/view/:id', component: ImageComponent },
+  {path: '', component: AlbumComponent, pathMatch: 'full' },
+  {path: 'albums', component: AlbumListComponent },
+  {path: 'album/:name/page/:page', component: AlbumComponent },
+  {path: 'album/:name', component: AlbumComponent },
+  {path: 'view/:id', component: ImageComponent },
 ];
 
 @NgModule({

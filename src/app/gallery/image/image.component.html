@@ -1,7 +1,10 @@
+<div class="micro-hero">
+</div>
+
 <div class="panel" *ngIf="!data">
   Loading…
 </div>
-<div class="panel" *ngIf="data">
+<div *ngIf="data">
   <div class="presenter" [class.container]="isZoomedOut"
     [class.zoomed-out]="isZoomedOut"
     [class.zoomed-in]="!isZoomedOut">
@@ -9,17 +12,19 @@
       <div class="featured" *ngIf="data.featured" title="Featured">
         <i class="fa fa-fw fa-trophy" aria-hidden="true"></i>
       </div>
-      <img src="{{data.src}}" alt="full sized image" class="card"
-        [class.responsive]="isZoomedOut"
-        (click)="toggleZoom($event)">
+      <img src="{{data.src}}"
+           alt="full sized image"
+           class="light-shadow"
+           [class.responsive]="isZoomedOut"
+           (click)="toggleZoom($event)">
     </div>
   </div>
-  <div class="controls align-center">
-    <a [routerLink]="['/art/album', getPrimaryAlbum().name]" class="button flat">
+  <div class="controls faux-button-container align-center">
+    <a [routerLink]="['/art/album', getPrimaryAlbum().name]">
       <i class="fa fa-fw fa-th-large" aria-hidden="true"></i>
       Back to <em>{{getPrimaryAlbum().title}}</em>
     </a>
-    <a href="#" (click)="toggleZoom($event)" class="button flat">
+    <a href="#" (click)="toggleZoom($event)">
       <i class="fa fa-fw" aria-hidden="true"
         [class.fa-search-plus]="isZoomedOut"
         [class.fa-search-minus]="!isZoomedOut"></i>
@@ -29,23 +34,19 @@
     </a>
   </div>
   <div class="container">
-    <h1>{{data.title}}</h1>
-    <div class="content-info-area">
-      <ul>
-        <li class="date-area">
+    <div class="horizontal-feature segmented-container light-shadow">
+      <div class="top-segment basic-card">
+        <h2>{{data.title}}</h2>
+        <div class="card-info">
           <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
           {{data.date * 1000 | date:'medium'}}
-        </li>
-      </ul>
-    </div>
-    <div class="content-area" [innerHTML]="getParsedContent()"></div>
-    <div class="content-info-area">
-      <ul class="tag-list">
-        <li><i class="fa fa-tags" aria-hidden="true"></i></li>
-        <li *ngFor="let gallery of data.containingAlbums">
-          <a [routerLink]="['/art/album', gallery.name]">{{gallery.title}}</a>
-        </li>
-      </ul>
+        </div>
+        <div class="content-area" [innerHTML]="getParsedContent()"></div>
+      </div>
+      <div class="bottom-segment faux-button-container align-center">
+        <a *ngFor="let gallery of data.containingAlbums"
+           [routerLink]="['/art/album', gallery.name]">{{gallery.title}}</a>
+      </div>
     </div>
   </div>
 </div>

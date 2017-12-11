@@ -12,10 +12,7 @@ import { ProjectService } from '../project.service';
  */
 @Component({
   selector: 'jblog-projects-container',
-  templateUrl: './projects-container.component.html',
-  styleUrls: [
-    '../../../shared-sass/content-info-area.scss'
-  ]
+  templateUrl: './projects-container.component.html'
 })
 export class ProjectsContainerComponent implements OnInit {
 

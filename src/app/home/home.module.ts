@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
-import { GalleryModule } from '../gallery/gallery.module';
+import { SharedModule } from '../shared/shared.module';
 
 import { TopPageComponent } from './top-page/top-page.component';
 import { AboutComponent } from './about/about.component';
@@ -16,7 +16,7 @@ const homeRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(homeRoutes),
-    GalleryModule
+    SharedModule
   ],
   declarations: [TopPageComponent, AboutComponent]
 })

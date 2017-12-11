@@ -10,83 +10,150 @@
   box-sizing: border-box;
 }
 
-a {
-  color: $color-anchor;
-  text-decoration: none;
-  transition: color $animation-time-medium;
-
-  &:hover {
-    color: $color-anchor-hover;
-    text-decoration: underline;
-  }
-}
-
-body {
-  background-color: $color-page-backdrop;
-  color: $color-main-foreground;
+body,
+html {
+  background: $color-backdrop;
+  color: $color-palette3;
   font-family: Geomanist, sans-serif;
   font-size: $font-size-default;
   line-height: 1.9;
+  margin: 0;
+  overflow: auto;
+  padding: 0;
 }
 
-body,
-html {
-  height: 100%;
+::selection {
+  background: $color-selection;
+}
+
+::-moz-selection {
+  background: $color-selection;
+}
+
+// =============================================================================
+// Shared loading spinner style
+// =============================================================================
+.load-spinner {
+  $dimension: 64px;
+
+  height: $dimension;
+  margin: 15px auto;
   position: relative;
-}
+  width: $dimension;
 
-h1,
-h2,
-h3 {
-  color: $color-theme-1;
-}
-
-hr {
-  background-color: #DDDDDD;
-  border: none;
-  height: 1px;
-  margin-right: auto;
-  margin-left: auto;
-
-  @media (min-width: $screen-sm-min) {
-    width: $container-sm - $grid-gutter-width;
+  &::after,
+  &::before,
+  & > div {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
   }
-  @media (min-width: $screen-md-min) {
-    width: $container-md - $grid-gutter-width;
-  }
-  @media (min-width: $screen-lg-min) {
-    width: $container-lg - $grid-gutter-width;
-  }
-}
 
-blockquote,
-p {
-  margin: auto auto 8pt;
-}
+  &::after,
+  &::before {
+    content: '';
+  }
 
-blockquote {
-  border-left: 2px solid $color-theme-1;
-  color: $color-theme-1;
-  font-style: italic;
-  margin-left: 48px;
-  padding-left: 8px;
-  position: relative;
+  &::after {
+    background: transparent url('./assets/images/logo.svg') no-repeat center center;
+  }
+
+  $speed: 800ms;
 
   &::before {
-    color: $color-theme-1-lighter;
-    content: '\f10d';
-    font-family: FontAwesome, serif;
-    font-size: 32px;
-    font-style: normal;
-    left: -40px;
-    line-height: 100%;
-    position: absolute;
+    background-color: $color-palette2;
+    animation-duration: $speed;
+    animation-name: load-spin;
+    animation-iteration-count: infinite;
+  }
+
+  & > div {
+    border: 2px solid $color-palette2;
+    animation-delay: 80ms;
+    animation-duration: $speed;
+    animation-name: load-spin;
+    animation-iteration-count: infinite;
   }
 }
 
-// generics
-.align-left {
-  text-align: left;
+@keyframes load-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(89deg); }
+}
+
+// =============================================================================
+// Global styles
+// =============================================================================
+a {
+  color: $color-link;
+  transition: color $animation-time-medium;
+
+  &:hover {
+    color: lighten($color-link, 20%);
+  }
+}
+
+a.uncoverable {
+  $accessory-width: 30px;
+
+  display: inline-block;
+  padding: 0 5px;
+  position: relative;
+  text-decoration: underline;
+  z-index: 0;
+
+  &::before,
+  .fa {
+    position: absolute;
+  }
+
+  &::before {
+    background-color: $color-palette5;
+    border-radius: 0 0 4px 0;
+    content: '';
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
+
+  .fa,
+  .fa::before {
+    vertical-align: middle;
+  }
+
+  .fa {
+    background-color: $color-palette3;
+    border-radius: 4px 0 0 0;
+    color: $color-palette5;
+    height: 100%;
+    left: 0;
+    text-align: center;
+    transition: transform $animation-time-medium;
+    width: $accessory-width;
+    z-index: -2;
+
+    &::before {
+      position: relative;
+      top: 25%;
+    }
+  }
+
+  &:hover {
+    text-decoration: none;
+
+    &::before {
+      background-color: $color-backdrop;
+    }
+
+    .fa {
+      transform: translateX(-$accessory-width);
+    }
+  }
 }
 
 .align-center {
@@ -97,246 +164,112 @@ blockquote {
   text-align: right;
 }
 
-.contain-content {
-  overflow: auto;
+.basic-card {
+  background: $color-palette5;
+  border: 1px solid $color-palette4;
+  padding: $basic-card-padding;
+
+  h2 {
+    font-size: 36px;
+    font-weight: normal;
+    line-height: 45px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .card-info {
+    color: $color-palette4;
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+
+.faux-button-container {
+  a {
+    background-color: $color-palette5;
+    border: 1px solid $color-palette4;
+    border-radius: 2px 0;
+    color: $color-palette3;
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: background-color $animation-time-medium;
+
+    &:hover {
+      background-color: $color-palette4;
+    }
+  }
+}
+
+.horizontal-feature {
+  margin-bottom: 40px;
+  position: relative;
 }
 
 .inline-block {
   display: inline-block;
 }
 
-.uppercase-text {
-  text-transform: uppercase;
-}
-
-// buttons
-%button-base {
-  border-radius: 2px;
-  display: inline-block;
-  margin: 0 10px 0 0;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: color $animation-time-medium, background-color $animation-time-medium;
-
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-.button {
-  @extend %button-base;
-
-  &.flat {
-    background-color: transparent;
-    color: $color-theme-1;
-
-    &:hover {
-      background-color: $color-bright-secondary;
-    }
-
-    &:active {
-      background-color: $color-bright-secondary;
-      color: $color-theme-1-darker;
-    }
-  }
-
-  &.default,
-  &.primary {
-    @include vertical-background-gradient(transparent, rgba(0, 0, 0, 0.1));
-
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    position: relative;
-    top: 0;
-
-    &:hover {
-      box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12);
-    }
-
-    &:active {
-      box-shadow: none;
-      top: 1px;
-    }
-  }
-
-  &.default {
-    background-color: $color-bright-secondary;
-    color: $color-main-foreground;
-
-    &:hover {
-      background-color: $color-bright-primary;
-      color: $color-theme-1-darker;
-    }
-
-    &:active {
-      background-color: #E0E0E0;
-    }
-  }
-
-  &.primary {
-    background-color: $color-theme-1;
-    color: $color-bright-secondary;
-
-    &:hover {
-      background-color: $color-theme-1-lighter;
-      color: $color-bright-primary;
-    }
-
-    &:active {
-      background-color: $color-theme-1-darker;
-      color: $color-bright-secondary;
-    }
-  }
-}
-
-/* Uncoverable links */
-a.uncoverable {
-  $uncover-area-width: 1.5em;
-
-  position: relative;
-  display: inline-block;
-  outline: none;
-  padding: 0 0.25em;
-  vertical-align: bottom;
-  white-space: nowrap;
-  transition: transform $animation-time-medium;
-  transform: translateX(0);
-
-  .fa,
-  .fa::before {
-    vertical-align: middle;
-  }
-
-  .fa {
-    background-color: $color-theme-1;
-    color: $color-bright-primary;
-    left: 100%;
-    z-index: -2;
-    width: $uncover-area-width;
-    text-align: center;
-    transition: transform $animation-time-medium, background-color $animation-time-medium;
-
-    &::before {
-      position: relative;
-      top: 25%;
-    }
-  }
-
-  &:hover,
-  .fa {
-    transform: translateX(-$uncover-area-width);
-  }
-
-  &::before,
-  .fa {
-    position: absolute;
-    height: 100%;
-    content: '';
-  }
-
-  &::before {
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    background: $color-page-backdrop;
-  }
-
-  &:hover .fa,
-  &:focus .fa {
-    background-color: $color-anchor;
-    transform: translateX(0);
-  }
-}
-
-// Screen reader
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
-.sr-only-focusable {
-  &:active,
-  &:focus {
-    position: static;
-    width: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    clip: auto;
-  }
-}
-
-// Components
-%card {
-  background-color: $color-card-backdrop;
-  border-radius: 2px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 2px 8px 0 rgba(0, 0, 0, 0.1);
-}
-
-%card-hoverable {
-  position: relative;
-  top: 0;
-  transition: color 250ms, background-color $animation-time-medium, box-shadow $animation-time-medium;
-
-  &:hover {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 16px 0 rgba(0, 0, 0, 0.15);
-  }
-
-  &:active {
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15), 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-    top: 1px;
-  }
-}
-
-.card {
-  @extend %card;
+.light-shadow {
+  box-shadow: 0 1px 1px 0 $color-palette4;
 
   &.hoverable {
-    @extend %card-hoverable;
+    transition: box-shadow $animation-time-medium;
+
+    &:hover {
+      box-shadow: 0 2px 2px 0 $color-palette3;
+    }
   }
 }
 
-.panel {
-  padding: 32px 0;
+.parallax {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: -1;
 
-  h1 {
-    font-size: $font-size-main-heading;
-    font-weight: 300;
-    margin: 4px 0;
-    padding: 0;
-  }
-
-  h2 {
-    font-size: $font-size-largest;
-    font-weight: 400;
+  img {
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate3D(-50%, 0px, 0);
+    transition: opacity $animation-time-slow, transform $animation-time-fast;
   }
 }
 
-.responsive,
-img.posted {
+.responsive {
   max-width: 100%;
 }
 
-.well {
-  background-color: #EEEEEF;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+.rounded,
+.segmented-container {
+  border-radius: $default-radius 0;
 }
 
-// Specific styles
-img.posted {
-  @extend %card;
+.segmented-container {
+  .top-segment {
+    border-radius: $default-radius 0 0 0;
+  }
+
+  .bottom-segment {
+    background: $color-backdrop;
+    border: 1px solid $color-palette4;
+    border-top: none;
+    border-radius: 0 0 $default-radius 0;
+    padding: 12px;
+  }
 }
 
-a img.posted {
-  @extend %card-hoverable;
-}
-
+// =============================================================================
 // EmojiOne support
+// =============================================================================
 .emojione {
   font-size: inherit;
   height: 3ex;

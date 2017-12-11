@@ -1,0 +1,19 @@
+<div id="page-title-box"
+     [class.has-parallax]="parallaxImage">
+  <div class="parallax"
+       *ngIf="parallaxImage"
+       jblogParallaxBackground>
+    <img src="{{parallaxImage}}" alt="backdrop"/>
+  </div>
+  <div class="container">
+    <div class="inner-box">
+      <div class="breadcrumb">
+        <a routerLink="/">home</a> &ndash; {{heading | lowercase }}
+      </div>
+      <h1>{{heading}}</h1>
+    </div>
+    <div class="summary-area">
+      {{subheading}}
+    </div>
+  </div>
+</div>

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { TitleService } from '../../shared/title.service';
 
 /**
  * The component that renders the top (home) page.
@@ -7,9 +9,13 @@ import { Component } from '@angular/core';
   selector: 'jblog-top-page',
   templateUrl: './top-page.component.html',
   styleUrls: [
-    './top-page.component.scss',
-    '../../../shared-sass/content-info-area.scss'
+    './top-page.component.scss'
   ]
 })
-export class TopPageComponent {
+export class TopPageComponent implements OnInit {
+  constructor(private titleService: TitleService) {}
+
+  ngOnInit() {
+    this.titleService.resetTitle();
+  }
 }

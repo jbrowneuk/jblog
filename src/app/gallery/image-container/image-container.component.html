@@ -1,15 +1,18 @@
-<div class="panel" *ngIf="isLoadingImages && (!images || images.length == 0)">
-  <div class="card loading-area">
-    <i class="fa fa-circle-o-notch fa-spin fa-fw" aria-hidden="true"></i> Loading…
+<div class="container">
+  <div class="horizontal-feature align-center"
+       *ngIf="isLoadingImages && (!images || images.length == 0)">
+    <jblog-load-spinner></jblog-load-spinner>
+    <h1>Hang tight!</h1>
+    <p>Loading…</p>
   </div>
-</div>
 
-<div class="panel" *ngIf="!isLoadingImages && loadingFailed">
-  <div class="card loading-area">
+  <div class="horizontal-feature loading-area"
+       *ngIf="!isLoadingImages && loadingFailed">
     <i class="fa fa-frown-o fa-fw" aria-hidden="true"></i> Nothing found
   </div>
-</div>
 
-<div class="image-container">
-  <jblog-thumbnail *ngFor="let image of images" [data]="image"></jblog-thumbnail>
+  <div class="image-container">
+    <jblog-thumbnail *ngFor="let image of images"
+                     [data]="image"></jblog-thumbnail>
+  </div>
 </div>

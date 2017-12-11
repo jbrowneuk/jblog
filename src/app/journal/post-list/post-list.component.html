@@ -1,34 +1,30 @@
-<div class="contain-content align-center"
-     *ngIf="totalPages > 1">
-  <jblog-pagination [urlComponents]="['journal']"
-                    [currentPage]="page"
-                    [totalPages]="totalPages"></jblog-pagination>
-</div>
+<jblog-page-hero heading="Journal"
+                 subheading="Thoughts, ramblings, musings."
+                 parallaxImage="/assets/images/mug-01.jpg">
+</jblog-page-hero>
 
-<div class="panel" *ngIf="(!posts || posts.length === 0) && isLoading">
-  <div class="container">
-    <h1>Hang tight!</h1>
-    <i class="fa fa-circle-o-notch fa-spin fa-fw" aria-hidden="true"></i> Loading…
-  </div>
-</div>
-
-<div class="panel" *ngIf="(!posts || posts.length === 0) && !isLoading">
-  <div class="container">
-    <h1>No posts</h1>
-  </div>
-</div>
-
-<div *ngFor="let post of posts; let i = index">
-  <div class="panel">
-    <jblog-post [data]="post"></jblog-post>
+<div class="container">
+  <div class="horizontal-feature align-center"
+       *ngIf="(!posts || posts.length === 0) && isLoading">
+    <jblog-load-spinner></jblog-load-spinner>
+    <h2>Hang tight!</h2>
+    <p>Loading posts…</p>
   </div>
 
-  <hr *ngIf="i < posts.length - 1" />
-</div>
+  <div class="horizontal-feature"
+       *ngIf="(!posts || posts.length === 0) && !isLoading">
+    <div class="basic-card rounded light-shadow">
+      <h2>No posts</h2>
+    </div>
+  </div>
 
-<div class="contain-content align-center"
-     *ngIf="totalPages > 1">
-  <jblog-pagination [urlComponents]="['journal']"
-                    [currentPage]="page"
-                    [totalPages]="totalPages"></jblog-pagination>
+  <jblog-post [data]="post"
+              *ngFor="let post of posts"></jblog-post>
+
+  <div class="contain-content align-center"
+       *ngIf="totalPages > 1">
+    <jblog-pagination [urlComponents]="['journal']"
+                      [currentPage]="page"
+                      [totalPages]="totalPages"></jblog-pagination>
+  </div>
 </div>

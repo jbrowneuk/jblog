@@ -1,4 +1,16 @@
 @import 'palette';
+@import 'variables';
+
+.controls {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.micro-hero {
+  background: $default-linear-gradient;
+  height: $header-height - (2 * $hero-bottom-margin);
+  margin-bottom: $hero-bottom-margin;
+}
 
 .presenter {
   padding: 10px;

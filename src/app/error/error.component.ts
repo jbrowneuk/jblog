@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { TitleService } from '../shared/title.service';
 
 /**
  * This component is used to surface an error to the user. It's mainly used for
@@ -6,10 +8,12 @@ import { Component } from '@angular/core';
  */
 @Component({
   selector: 'jblog-error',
-  templateUrl: './error.component.html',
-  styleUrls: [
-    '../../shared-sass/content-info-area.scss'
-  ]
+  templateUrl: './error.component.html'
 })
-export class ErrorComponent {
+export class ErrorComponent implements OnInit {
+  constructor(private titleService: TitleService) {}
+
+  ngOnInit() {
+    this.titleService.resetTitle();
+  }
 }

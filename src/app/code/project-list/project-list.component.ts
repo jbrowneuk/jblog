@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { TitleService } from '../../shared/title.service';
 
 /**
  * This component wraps the {@link ProjectsContainerComponent} and adds some
@@ -7,10 +9,12 @@ import { Component } from '@angular/core';
  */
 @Component({
   selector: 'jblog-project-list',
-  templateUrl: './project-list.component.html',
-  styleUrls: [
-    '../../../shared-sass/content-info-area.scss'
-  ]
+  templateUrl: './project-list.component.html'
 })
-export class ProjectListComponent {
+export class ProjectListComponent implements OnInit {
+  constructor(private titleService: TitleService) {}
+
+  ngOnInit() {
+    this.titleService.setTitle('Code');
+  }
 }
