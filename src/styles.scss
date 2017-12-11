@@ -239,8 +239,8 @@ a.uncoverable {
     position: absolute;
     left: 50%;
     bottom: 0;
-    transform: translate(-50%);
-    transition: opacity $animation-time-slow, transform $animation-time-slow ease-out;
+    transform: translate3D(-50%, 0px, 0);
+    transition: opacity $animation-time-slow, transform $animation-time-fast;
   }
 }
 
