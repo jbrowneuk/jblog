@@ -97,47 +97,61 @@ a {
 }
 
 a.uncoverable {
-  $accessory-width: 25px;
+  $accessory-width: 30px;
 
-  padding: 0 4px;
+  display: inline-block;
+  padding: 0 5px;
   position: relative;
-  text-decoration: none;
+  text-decoration: underline;
   z-index: 0;
 
-  &::after {
-    background-color: $color-backdrop;
-    content: '';
+  &::before,
+  .fa {
     position: absolute;
+  }
+
+  &::before {
+    background-color: $color-palette5;
+    border-radius: 0 0 4px 0;
+    content: '';
     top: 0;
-    right: 0;
     bottom: 0;
     left: 0;
+    right: 0;
     z-index: -1;
+  }
+
+  .fa,
+  .fa::before {
+    vertical-align: middle;
   }
 
   .fa {
     background-color: $color-palette3;
+    border-radius: 4px 0 0 0;
     color: $color-palette5;
-    display: table;
     height: 100%;
-    // padding-top: 3px;
-    position: absolute;
-    top: 0;
     left: 0;
     text-align: center;
-    transition: left $animation-time-medium;
+    transition: transform $animation-time-medium;
     width: $accessory-width;
     z-index: -2;
 
     &::before {
-      display: table-cell;
-      vertical-align: middle;
+      position: relative;
+      top: 25%;
     }
   }
 
   &:hover {
+    text-decoration: none;
+
+    &::before {
+      background-color: $color-backdrop;
+    }
+
     .fa {
-      left: -$accessory-width;
+      transform: translateX(-$accessory-width);
     }
   }
 }
