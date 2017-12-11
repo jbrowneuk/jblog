@@ -96,6 +96,52 @@ a {
   }
 }
 
+a.uncoverable {
+  $accessory-width: 25px;
+
+  padding: 0 4px;
+  position: relative;
+  text-decoration: none;
+  z-index: 0;
+
+  &::after {
+    background-color: $color-backdrop;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  .fa {
+    background-color: $color-palette3;
+    color: $color-palette5;
+    display: table;
+    height: 100%;
+    // padding-top: 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    transition: left $animation-time-medium;
+    width: $accessory-width;
+    z-index: -2;
+
+    &::before {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  &:hover {
+    .fa {
+      left: -$accessory-width;
+    }
+  }
+}
+
 .align-center {
   text-align: center;
 }
