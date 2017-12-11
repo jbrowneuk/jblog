@@ -7,12 +7,15 @@ export class ParallaxScrollDirective implements OnInit {
   private imageElement: HTMLElement;
 
   constructor(private relatedElement: ElementRef) {
-    this.lastKnownScrollPosition = 0;
+    this.lastKnownScrollPosition = -1;
     this.isTicking = false;
   }
 
   ngOnInit() {
-    setTimeout(() => this.handleUpdate(), 0);
+    setTimeout(() => {
+      this.lastKnownScrollPosition = window.scrollY;
+      this.handleUpdate();
+    }, 16);
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -30,6 +33,7 @@ export class ParallaxScrollDirective implements OnInit {
 
   private handleUpdate(): void {
     const element = this.relatedElement.nativeElement as HTMLElement;
+    let isFirstRun = false;
     if (!this.imageElement) {
       const children = Array.from(element.children);
       this.imageElement = children.find(c => c.tagName.toLowerCase() === 'img') as HTMLElement;
@@ -39,7 +43,8 @@ export class ParallaxScrollDirective implements OnInit {
       }
 
       this.imageElement.style.opacity = '1';
-      this.lastKnownScrollPosition = 1; // force movement down to calculate parallax on first run
+      this.lastKnownScrollPosition = window.scrollY;
+      isFirstRun = true;
     }
 
     // Adapted from the Materialize CSS parallax plugin,
@@ -59,7 +64,8 @@ export class ParallaxScrollDirective implements OnInit {
     const percentScrolled = (windowBottom - element.getBoundingClientRect().top) / (containerHeight + windowHeight);
     const parallax = parallaxDist * percentScrolled;
 
-    if (bottom > this.lastKnownScrollPosition && top < this.lastKnownScrollPosition + windowHeight) {
+    if (isFirstRun ||
+      (bottom > this.lastKnownScrollPosition && top < this.lastKnownScrollPosition + windowHeight)) {
       this.imageElement.style.transform = `translate3D(-50%, ${parallax}px, 0)`;
     }
   }
