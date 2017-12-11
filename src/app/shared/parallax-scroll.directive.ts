@@ -2,11 +2,14 @@ import { Directive, ElementRef, HostListener, OnInit } from '@angular/core';
 
 @Directive({ selector: '[jblogParallaxBackground]'})
 export class ParallaxScrollDirective implements OnInit {
-  private lastKnownScrollPosition = 0;
-  private isTicking = false;
+  private lastKnownScrollPosition;
+  private isTicking;
   private imageElement: HTMLElement;
 
-  constructor(private relatedElement: ElementRef) {}
+  constructor(private relatedElement: ElementRef) {
+    this.lastKnownScrollPosition = 0;
+    this.isTicking = false;
+  }
 
   ngOnInit() {
     setTimeout(() => this.handleUpdate(), 0);
@@ -30,8 +33,13 @@ export class ParallaxScrollDirective implements OnInit {
     if (!this.imageElement) {
       const children = Array.from(element.children);
       this.imageElement = children.find(c => c.tagName.toLowerCase() === 'img') as HTMLElement;
-      // this.imageElement.style.display = 'inline';
+
+      if (!this.imageElement) {
+        return;
+      }
+
       this.imageElement.style.opacity = '1';
+      this.lastKnownScrollPosition = 1; // force movement down to calculate parallax on first run
     }
 
     // Adapted from the Materialize CSS parallax plugin,
