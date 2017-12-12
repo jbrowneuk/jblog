@@ -6,6 +6,8 @@ import { PostData, PostDataWrapper } from '../post-data';
 import { PostService } from '../post.service';
 import { TitleService } from '../../shared/title.service';
 
+const maximumPostsOnScroll = 16;
+
 /**
  * The post list component that is used to render a list of post data
  */
@@ -41,13 +43,32 @@ export class PostListComponent implements OnInit {
   public isLoading: boolean;
 
   /**
+   * Method to call after the page scrolls a certain amount
+   */
+  public scrollCallback: () => void;
+
+  /**
+   * Control flag to prevent further loading of items on scroll
+   */
+  public showNavigation: boolean;
+
+  /**
+   * The page number that was loaded when the component was initialized.
+   * Used as a reference for page-scroll post loading
+   */
+  public initialPage: number;
+
+  /**
    * Constructor
    */
   constructor(
     private route: ActivatedRoute,
     private postsService: PostService,
     private titleService: TitleService
-  ) { }
+  ) {
+    this.scrollCallback = this.onScrollReached.bind(this);
+    this.showNavigation = false;
+  }
 
   /**
    * On component initialization, load posts
@@ -59,7 +80,8 @@ export class PostListComponent implements OnInit {
       const idParam = params['id'];
 
       if (!idParam || idParam.length === 0) {
-        this.page = +params['page'] || 1;
+        this.initialPage = +params['page'] || 1;
+        this.page = this.initialPage;
         this.postsService.getPostsForPage(this.page).subscribe(
           x => this.handlePostListResponse(x),
           e => this.handlePostErrorResponse(e),
@@ -76,12 +98,39 @@ export class PostListComponent implements OnInit {
     });
   }
 
+  public onScrollReached(): void {
+    if (this.showNavigation) {
+      return;
+    }
+
+    // Sanity check
+    if (typeof(this.totalPages) === 'undefined') {
+      return;
+    }
+
+    if (this.page === this.totalPages) {
+      return;
+    }
+
+    // Increment a page
+    this.page += 1;
+
+    // Load the next set of posts
+    this.onStartLoading();
+    this.postsService.getPostsForPage(this.page).subscribe(
+      x => this.handlePostListResponse(x),
+      e => this.handlePostErrorResponse(e),
+      () => this.onEndLoading()
+    );
+  }
+
   /**
    * Handle a single post response
    */
   private handlePostResponse(response: PostData): void {
     this.posts = [response];
-    this.totalPages = 1;
+    this.initialPage = 1;
+    this.totalPages = this.initialPage;
     this.titleService.setTitle(response.title);
   }
 
@@ -89,9 +138,13 @@ export class PostListComponent implements OnInit {
    * Handle a post list response
    */
   private handlePostListResponse(response: PostDataWrapper): void {
-    this.posts = response.posts;
+    this.posts = this.posts.concat(response.posts);
     this.totalPages = response.totalPages;
     this.titleService.setTitle('Journal');
+
+    const maxPostsDisplayed = this.posts.length >= maximumPostsOnScroll;
+    const isLastPage = this.page === this.totalPages;
+    this.showNavigation = maxPostsDisplayed && !isLastPage;
   }
 
   /**
