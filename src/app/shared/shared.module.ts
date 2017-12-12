@@ -11,6 +11,7 @@ import { PageHeroComponent } from './page-hero/page-hero.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { StickyElementDirective } from './sticky-element.directive';
 import { ParallaxScrollDirective } from './parallax-scroll.directive';
+import { InfiniteScrollDirective } from './infinite-scroll.directive';
 
 const CORE_COMPONENTS = [
   LineSplittingPipe,
@@ -18,7 +19,8 @@ const CORE_COMPONENTS = [
   PaginationComponent,
   PageHeroComponent,
   StickyElementDirective,
-  ParallaxScrollDirective
+  ParallaxScrollDirective,
+  InfiniteScrollDirective
 ];
 
 @NgModule({
