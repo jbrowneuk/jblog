@@ -1,9 +1,9 @@
-import { Directive, ElementRef, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostListener } from '@angular/core';
 
-@Directive({ selector: '[jblogParallaxBackground]'})
-export class ParallaxScrollDirective implements OnInit {
-  private lastKnownScrollPosition;
-  private isTicking;
+@Directive({ selector: '[jblogParallaxBackground]' })
+export class ParallaxScrollDirective implements AfterViewInit {
+  private lastKnownScrollPosition: number;
+  private isTicking: boolean;
   private imageElement: HTMLElement;
 
   constructor(private relatedElement: ElementRef) {
@@ -11,7 +11,7 @@ export class ParallaxScrollDirective implements OnInit {
     this.isTicking = false;
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     setTimeout(() => {
       this.lastKnownScrollPosition = window.scrollY;
       this.handleUpdate();
@@ -42,8 +42,6 @@ export class ParallaxScrollDirective implements OnInit {
         return;
       }
 
-      this.imageElement.style.opacity = '1';
-      this.lastKnownScrollPosition = window.scrollY;
       isFirstRun = true;
     }
 
@@ -67,6 +65,7 @@ export class ParallaxScrollDirective implements OnInit {
     if (isFirstRun ||
       (bottom > this.lastKnownScrollPosition && top < this.lastKnownScrollPosition + windowHeight)) {
       this.imageElement.style.transform = `translate3D(-50%, ${parallax}px, 0)`;
+      this.imageElement.style.opacity = '1';
     }
   }
 }
