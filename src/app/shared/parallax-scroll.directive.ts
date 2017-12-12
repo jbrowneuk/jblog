@@ -1,37 +1,15 @@
-import { AfterViewInit, Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
+import { ScrollDirectiveBase } from './scroll-directive.base';
 
 @Directive({ selector: '[jblogParallaxBackground]' })
-export class ParallaxScrollDirective implements AfterViewInit {
-  private lastKnownScrollPosition: number;
-  private isTicking: boolean;
+export class ParallaxScrollDirective extends ScrollDirectiveBase {
   private imageElement: HTMLElement;
 
   constructor(private relatedElement: ElementRef) {
-    this.lastKnownScrollPosition = -1;
-    this.isTicking = false;
+    super(relatedElement);
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.lastKnownScrollPosition = window.scrollY;
-      this.handleUpdate();
-    }, 16);
-  }
-
-  @HostListener('window:scroll', ['$event'])
-  public onScroll(evt: Event) {
-    this.lastKnownScrollPosition = window.scrollY;
-    if (!this.isTicking) {
-      window.requestAnimationFrame(() => {
-        this.handleUpdate();
-        this.isTicking = false;
-      });
-    }
-
-    this.isTicking = true;
-  }
-
-  private handleUpdate(): void {
+  protected handleUpdate(): void {
     const element = this.relatedElement.nativeElement as HTMLElement;
     let isFirstRun = false;
     if (!this.imageElement) {
@@ -57,13 +35,13 @@ export class ParallaxScrollDirective implements AfterViewInit {
     const bottom = top + containerHeight;
 
     const windowHeight = window.innerHeight;
-    const windowBottom = this.lastKnownScrollPosition + windowHeight;
+    const windowBottom = this.yPosition + windowHeight;
 
     const percentScrolled = (windowBottom - element.getBoundingClientRect().top) / (containerHeight + windowHeight);
     const parallax = parallaxDist * percentScrolled;
 
     if (isFirstRun ||
-      (bottom > this.lastKnownScrollPosition && top < this.lastKnownScrollPosition + windowHeight)) {
+      (bottom > this.yPosition && top < this.yPosition + windowHeight)) {
       this.imageElement.style.transform = `translate3D(-50%, ${parallax}px, 0)`;
       this.imageElement.style.opacity = '1';
     }
