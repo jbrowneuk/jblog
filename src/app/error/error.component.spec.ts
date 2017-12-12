@@ -1,14 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { TitleService } from '../shared/title.service';
+import { MockTitleService } from '../shared/mocks/mock-title.service';
+
+import { PageHeroComponent } from '../shared/page-hero/page-hero.component';
+
 import { ErrorComponent } from './error.component';
 
 describe('ErrorComponent', () => {
+  const mockTitleService = new MockTitleService();
   let component: ErrorComponent;
   let fixture: ComponentFixture<ErrorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ErrorComponent ]
+      declarations: [
+        PageHeroComponent,
+        ErrorComponent
+      ],
+      providers: [
+        { provide: TitleService, useValue: mockTitleService }
+      ]
     })
     .compileComponents();
   }));
@@ -23,8 +35,11 @@ describe('ErrorComponent', () => {
     expect(component).toBeTruthy();
 
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('404');
-    expect(compiled.querySelector('.content-area > p > strong').textContent)
+    expect(compiled.querySelector('.basic-card > h2').textContent)
       .toContain('You’re looking a little lost there.');
+  });
+
+  it('should reset title', () => {
+    expect(mockTitleService.mockTitle).toBe('');
   });
 });

@@ -1,5 +1,5 @@
 <article class="horizontal-feature segmented-container light-shadow"
-     *ngFor="let project of projects">
+         *ngFor="let project of projects">
   <div class="top-segment basic-card">
     <div class="row">
       <div class="col-md-8">
@@ -16,11 +16,13 @@
     </div>
   </div>
   <div class="bottom-segment faux-button-container align-center">
-    <a *ngIf="project.link.length > 0" href="{{project.link}}" class="button default">
+    <a *ngIf="project.link.length > 0" href="{{project.link}}"
+       id="project-link">
       <i class="fa fa-rocket"></i>
       Go to project page
     </a>
-    <a *ngIf="project.link.length === 0" [routerLink]="['/code/project', project.name]">
+    <a *ngIf="project.link.length === 0" [routerLink]="['/code/project', project.name]"
+       id="project-link">
       <i class="fa fa-rocket"></i>
       Go to project page
     </a>

@@ -41,8 +41,7 @@ describe('PostComponent', () => {
   });
 
   it('should render content correctly', () => {
-    expect(compiled.querySelector('article h1').textContent.trim()).toBe('post title');
-    expect(compiled.querySelector('.content-info-area ul li').textContent.trim()).toBe('Post 1');
+    expect(compiled.querySelector('article h2').textContent.trim()).toBe('post title');
     expect(component.hasTags()).toBeTruthy();
 
     const output = compiled.querySelector('.content-area').textContent.trim();

@@ -1,28 +1,39 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { ActivatedRoute, Params } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ImageService } from '../image.service';
 import { MockImageService } from '../mocks/mock-image.service';
 import { TextParsingService } from '../../shared/text-parsing.service';
 import { MockTextParsingService } from '../../shared/mocks/mock-text-parsing.service';
+import { TitleService } from '../../shared/title.service';
+import { MockTitleService } from '../../shared/mocks/mock-title.service';
+
+// import { ActivatedRouteStub } from '../../../testing/router.stubs';
 
 import { ImageComponent } from './image.component';
 
 describe('ImageComponent', () => {
   const mockImageService = new MockImageService();
   const mockTextParsingService = new MockTextParsingService();
+  const mockTitleService = new MockTitleService();
 
   let component: ImageComponent;
   let fixture: ComponentFixture<ImageComponent>;
   let compiled: HTMLElement;
 
   beforeEach(async(() => {
+    // cnst activatedRoute = new ActivatedRouteStub();
+    // activatedRoute.testParamMap = { id: 1 };
+
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule ],
       declarations: [ ImageComponent ],
       providers: [
-        {provide: ImageService, useValue: mockImageService},
-        {provide: TextParsingService, useValue: mockTextParsingService}
+        // { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: ImageService, useValue: mockImageService },
+        { provide: TextParsingService, useValue: mockTextParsingService },
+        { provide: TitleService, useValue: mockTitleService }
       ]
     })
     .compileComponents();
@@ -58,7 +69,7 @@ describe('ImageComponent', () => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
-      expect(compiled.querySelector('.controls .button').textContent.trim())
+      expect(compiled.querySelector('#parent-folder-link').textContent.trim())
         .toBe('Back to album name');
     });
   }));
@@ -68,7 +79,7 @@ describe('ImageComponent', () => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
-      expect(compiled.querySelector('.container h1').textContent.trim())
+      expect(compiled.querySelector('#image-title').textContent.trim())
         .toBe('img_title');
     });
   }));
@@ -78,7 +89,7 @@ describe('ImageComponent', () => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
-      expect(compiled.querySelector('.date-area').textContent.trim())
+      expect(compiled.querySelector('.card-info').textContent.trim())
         .toBe('Nov 29, 1973, 9:33:09 PM');
     });
   }));
@@ -89,10 +100,21 @@ describe('ImageComponent', () => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
 
-      const tagListElements = compiled.querySelectorAll('.tag-list li');
-      expect(tagListElements.length).toBe(3); // Add one for the icon element
-      expect(tagListElements[1].textContent.trim()).toBe('album name');
-      expect(tagListElements[2].textContent.trim()).toBe('album name 2');
+      const tagListElements = compiled.querySelectorAll('#gallery-area a');
+      expect(tagListElements.length).toBe(2); // Add one for the icon element
+      expect(tagListElements[0].textContent.trim()).toBe('album name');
+      expect(tagListElements[1].textContent.trim()).toBe('album name 2');
+    });
+  }));
+
+  // Cannot get this to work currently; ActivatedRouteStub causes the tests to all fail
+  xit('should set title', fakeAsync(() => {
+    component.ngOnInit();
+    tick();
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      expect(mockTitleService.mockTitle).toBe('title');
     });
   }));
 });

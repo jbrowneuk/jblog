@@ -49,6 +49,7 @@ export class ImageComponent implements OnInit {
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       const imageId = +params['id'];
+
       if (!imageId || imageId <= 0) {
         return;
       }

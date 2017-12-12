@@ -46,17 +46,17 @@ describe('ProjectsContainerComponent', () => {
   });
 
   it('should display project information', () => {
-    expect(compiled.querySelector('.content-info-area > ul > li').textContent)
+    expect(compiled.querySelector('.card-info').textContent)
       .toContain('JSON data');
   });
 
   it('should display project information', () => {
-    expect(compiled.querySelector('.content-area > p').textContent)
+    expect(compiled.querySelector('.basic-card p').textContent)
       .toContain('Description of the test project');
   });
 
   it('should display project link', () => {
-    expect(compiled.querySelector('.button.default').textContent)
+    expect(compiled.querySelector('#project-link').textContent)
       .toContain('Go to project page');
   });
 });
