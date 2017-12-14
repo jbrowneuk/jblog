@@ -1,6 +1,18 @@
 @import 'palette';
 @import 'variables';
 
+.collapse-only {
+  display: none;
+}
+
+@media (max-width: $screen-xs-max) {
+  nav.page-navigation {
+    .collapse-only {
+      display: inline-block;
+    }
+  }
+}
+
 .nav-links {
   list-style-position: inside;
   list-style-type: none;

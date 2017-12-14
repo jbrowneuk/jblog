@@ -7,6 +7,7 @@ import { GalleryFormatPipe } from '../gallery-format.pipe';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { ImageService } from '../image.service';
 import { MockImageService } from '../mocks/mock-image.service';
+import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.component';
 
 import { ImageContainerComponent } from './image-container.component';
 
@@ -24,7 +25,8 @@ describe('ImageContainerComponent', () => {
       declarations: [
         ImageContainerComponent,
         GalleryFormatPipe,
-        ThumbnailComponent
+        ThumbnailComponent,
+        LoadSpinnerComponent
       ],
       providers: [
         {provide: ImageService, useValue: mockImageService}

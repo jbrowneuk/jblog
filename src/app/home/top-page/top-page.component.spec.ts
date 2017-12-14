@@ -1,16 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ImageService } from '../../gallery/image.service';
-import { MockImageService } from '../../gallery/mocks/mock-image.service';
-import { GalleryFormatPipe } from '../../gallery/gallery-format.pipe';
-import { ThumbnailComponent } from '../../gallery/thumbnail/thumbnail.component';
-import { ImageContainerComponent } from '../../gallery/image-container/image-container.component';
+import { TitleService } from '../../shared/title.service';
+import { MockTitleService } from '../../shared/mocks/mock-title.service';
 
 import { TopPageComponent } from './top-page.component';
 
 describe('TopPageComponent', () => {
-  const mockImageService = new MockImageService();
+  const mockTitleService = new MockTitleService();
 
   let component: TopPageComponent;
   let fixture: ComponentFixture<TopPageComponent>;
@@ -20,13 +17,10 @@ describe('TopPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule ],
       declarations: [
-        GalleryFormatPipe,
-        ThumbnailComponent,
-        ImageContainerComponent,
         TopPageComponent
       ],
       providers: [
-        { provide: ImageService, useValue: mockImageService }
+        { provide: TitleService, useValue: mockTitleService }
       ]
     })
     .compileComponents();
@@ -41,7 +35,5 @@ describe('TopPageComponent', () => {
 
   it('should create and load images', () => {
     expect(component).toBeTruthy();
-    const thumbnails = compiled.querySelectorAll('jblog-thumbnail');
-    expect(thumbnails.length).toBe(1);
   });
 });

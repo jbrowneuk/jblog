@@ -7,15 +7,19 @@ import { PostData, PostDataWrapper } from '../post-data';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PostComponent } from '../post/post.component';
 import { PostService } from '../post.service';
-// import { LineSplittingPipe } from '../../shared/line-splitting.pipe';
 import { TextParsingService } from '../../shared/text-parsing.service';
 import { MockTextParsingService } from '../../shared/mocks/mock-text-parsing.service';
+import { PageHeroComponent } from '../../shared/page-hero/page-hero.component';
+import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.component';
+import { InfiniteScrollDirective } from '../../shared/infinite-scroll.directive';
+import { TitleService } from '../../shared/title.service';
+import { MockTitleService } from '../../shared/mocks/mock-title.service';
 
 import { PostListComponent } from './post-list.component';
 
 const mockPostData = {
   postId: 1,
-  date: Date.now(),
+  date: 1024,
   title: 'post title',
   content: 'long content here',
   tags: ['one', 'two']
@@ -38,6 +42,7 @@ class MockPostService {
 describe('PostListComponent', () => {
   const mockPostService = new MockPostService();
   const mockTextParsingService = new MockTextParsingService();
+  const mockTitleService = new MockTitleService();
 
   let component: PostListComponent;
   let fixture: ComponentFixture<PostListComponent>;
@@ -49,11 +54,15 @@ describe('PostListComponent', () => {
       declarations: [
         PaginationComponent,
         PostComponent,
-        PostListComponent
+        PostListComponent,
+        PageHeroComponent,
+        LoadSpinnerComponent,
+        InfiniteScrollDirective
       ],
       providers: [
         { provide: PostService, useValue: mockPostService },
-        { provide: TextParsingService, useValue: mockTextParsingService }
+        { provide: TextParsingService, useValue: mockTextParsingService },
+        { provide: TitleService, useValue: mockTitleService }
       ]
     })
     .compileComponents();
@@ -68,12 +77,7 @@ describe('PostListComponent', () => {
 
   it('should render content correctly', () => {
     // Has a post
-    expect(compiled.querySelector('jblog-post article h1').textContent.trim()).toBe('post title');
-    expect(compiled.querySelector('jblog-post .content-info-area ul li').textContent.trim()).toBe('Post 1');
+    expect(compiled.querySelector('jblog-post article h2').textContent.trim()).toBe('post title');
     expect(compiled.querySelector('jblog-post .content-area').textContent.trim()).toBe('long content here was parsed');
-
-    // Has a pagination area
-    expect(compiled.querySelector('jblog-pagination')).toBeTruthy();
-    expect(compiled.querySelector('jblog-pagination li.active').textContent.trim()).toBe('1');
   });
 });

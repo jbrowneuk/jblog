@@ -34,7 +34,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
 
-    const menu = compiled.querySelectorAll('.menu > li > a');
+    const menu = compiled.querySelectorAll('#menu > li > a');
     expect(menu[0].textContent).toContain('portfolio');
     expect(menu[1].textContent).toContain('about');
     expect(menu[2].textContent).toContain('art');

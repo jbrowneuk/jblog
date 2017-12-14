@@ -21,7 +21,8 @@
 </div>
 
 <div class="container" *ngIf="data">
-  <article class="horizontal-feature segmented-container light-shadow">
+  <article class="horizontal-feature segmented-container light-shadow"
+           id="album-description">
     <div class="top-segment basic-card">
       <div class="row">
         <div class="col-md-8">
@@ -37,7 +38,7 @@
       </div>
     </div>
     <div class="bottom-segment faux-button-container align-center">
-      <a routerLink="/art/albums" class="button default">
+      <a routerLink="/art/albums" id="album-choice">
         <i class="fa fa-fw fa-folder" aria-hidden="true"></i>
         Pick a different album
       </a>
