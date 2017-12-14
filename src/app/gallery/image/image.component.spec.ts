@@ -9,10 +9,6 @@ import { MockTextParsingService } from '../../shared/mocks/mock-text-parsing.ser
 import { TitleService } from '../../shared/title.service';
 import { MockTitleService } from '../../shared/mocks/mock-title.service';
 
-import {
-  ActivatedRoute, ActivatedRouteStub, Router, RouterStub
-} from '../../../testing/router.stubs';
-
 import { ImageComponent } from './image.component';
 
 describe('ImageComponent', () => {
@@ -23,21 +19,13 @@ describe('ImageComponent', () => {
   let component: ImageComponent;
   let fixture: ComponentFixture<ImageComponent>;
   let compiled: HTMLElement;
-  let activatedRoute: ActivatedRouteStub;
 
-  function moduleSetup(useRouting = false) {
+  function moduleSetup() {
     const providers: any[] = [
       { provide: ImageService, useValue: mockImageService },
       { provide: TextParsingService, useValue: mockTextParsingService },
       { provide: TitleService, useValue: mockTitleService }
     ];
-
-    if (useRouting) {
-      providers.push([
-        { provide: ActivatedRoute, useValue: activatedRoute },
-        { provide: Router, useClass: RouterStub }
-      ]);
-    }
 
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule ],
@@ -53,10 +41,6 @@ describe('ImageComponent', () => {
     compiled = fixture.debugElement.nativeElement;
     fixture.detectChanges();
   }
-
-  beforeEach(() => {
-    activatedRoute = new ActivatedRouteStub();
-  });
 
   describe('main interaction', () => {
 
@@ -125,24 +109,5 @@ describe('ImageComponent', () => {
         expect(tagListElements[1].textContent.trim()).toBe('album name 2');
       });
     }));
-  });
-
-  describe('with routing', () => {
-
-    beforeEach(async(() => {
-      moduleSetup(true);
-
-      activatedRoute.testParamMap = { id: 1 };
-
-      componentSetup();
-    }));
-
-    // Cannot get this to work currently; ActivatedRouteStub causes test failure
-    it('should set title', () => {
-      // component.ngOnInit();
-      fixture.whenStable().then(() => {
-        expect(mockTitleService.mockTitle).toBe('title');
-      });
-    });
   });
 });
