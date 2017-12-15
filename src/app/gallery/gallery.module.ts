@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { AlbumComponent } from './album/album.component';
 import { AlbumListComponent } from './album-list/album-list.component';
+import { InsightsComponent } from './insights/insights.component';
 import { ImageComponent } from './image/image.component';
 import { ImageContainerComponent } from './image-container/image-container.component';
 import { ThumbnailComponent } from './thumbnail/thumbnail.component';
@@ -20,6 +21,7 @@ const galleryRoutes: Routes = [
   {path: 'albums', component: AlbumListComponent },
   {path: 'album/:name/page/:page', component: AlbumComponent },
   {path: 'album/:name', component: AlbumComponent },
+  {path: 'insights', component: InsightsComponent },
   {path: 'view/:id', component: ImageComponent },
 ];
 
@@ -29,7 +31,15 @@ const galleryRoutes: Routes = [
     RouterModule.forChild(galleryRoutes),
     SharedModule
   ],
-  declarations: [AlbumComponent, AlbumListComponent, GalleryFormatPipe, ImageComponent, ImageContainerComponent, ThumbnailComponent],
+  declarations: [
+    AlbumComponent,
+    AlbumListComponent,
+    GalleryFormatPipe,
+    ImageComponent,
+    ImageContainerComponent,
+    ThumbnailComponent,
+    InsightsComponent
+  ],
   exports: [ImageContainerComponent],
   providers: [ImageService, AlbumService]
 })
