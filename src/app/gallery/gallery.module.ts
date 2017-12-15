@@ -17,7 +17,7 @@ import { AlbumService } from './album.service';
 import { GalleryFormatPipe } from './gallery-format.pipe';
 
 const galleryRoutes: Routes = [
-  {path: '', component: AlbumComponent, pathMatch: 'full' },
+  {path: '', redirectTo: 'album/_default/page/1', pathMatch: 'full' },
   {path: 'albums', component: AlbumListComponent },
   {path: 'album/:name/page/:page', component: AlbumComponent },
   {path: 'album/:name', component: AlbumComponent },
