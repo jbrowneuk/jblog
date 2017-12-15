@@ -2,6 +2,10 @@
 @import 'palette';
 @import 'variables';
 
+$overlay-background: $color-backdrop;
+$overlay-foreground: $color-palette2;
+$overlay-foreground-alt: $color-palette3;
+
 :host {
   display: inline-block;
   line-height: 1;
@@ -29,13 +33,14 @@ img {
   bottom: 0;
 
   .galleries {
-    color: $color-palette4;
+    color: $overlay-foreground-alt;
     display: block;
     font-size: 12px;
   }
 }
 
 a {
+  border: 1px solid $color-palette4;
   display: inline-block;
   line-height: 1.9;
   overflow: hidden;
@@ -49,14 +54,14 @@ a {
   }
 
   .text-area {
-    background: $color-palette1;
-    background-color: transparentize($color-palette1, 0.4);
-    color: $color-palette5;
+    background: $overlay-background;
+    background-color: transparentize($overlay-background, 0.4);
+    color: $overlay-foreground;
   }
 
   &:hover {
     .text-area {
-      background-color: transparentize($color-palette1, 0.2);
+      background-color: transparentize($overlay-background, 0.2);
     }
   }
 }
