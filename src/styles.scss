@@ -156,6 +156,59 @@ a.uncoverable {
   }
 }
 
+blockquote {
+  background-color: $color-backdrop;
+  border-left: 40px solid $color-palette3;
+  border-radius: $default-radius 0;
+  box-shadow: 0 1px 3px $color-palette4;
+  color: $color-palette2;
+  font-style: italic;
+  text-align: center;
+  margin: 0 auto;
+  padding: 15px 20px;
+  position: relative;
+  width: 70%;
+  min-width: 500px;
+
+  @media (max-width: $screen-xs-max) {
+    width: 100%;
+    min-width: auto;
+  }
+
+  &::before {
+    color: $color-palette3;
+    text-shadow:
+      0 -1px 0 $color-palette2,
+      0 1px 0 $color-palette4;
+    font-size: 72px;
+    font-style: normal;
+    line-height: 1;
+    pointer-events: none;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    content: '\275d';
+    left: -40px;
+    width: 40px;
+  }
+
+  & > cite {
+    color: $color-palette3;
+    border-top: 1px solid $color-palette4;
+    display: block;
+    font-size: 16px;
+    font-style: normal;
+    margin-top: 20px;
+    padding-top: 4px;
+    text-align: right;
+
+    &::before {
+      content: '-';
+      margin-right: 0.5em;
+    }
+  }
+}
+
 .align-center {
   text-align: center;
 }
