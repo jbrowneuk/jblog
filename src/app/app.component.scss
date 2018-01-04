@@ -42,6 +42,10 @@
   a {
     padding: 0 15px;
     position: relative;
+
+    @media (max-width: $screen-xs-max) {
+      padding: 0 8px;
+    }
   }
 }
 
