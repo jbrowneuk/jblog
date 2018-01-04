@@ -41,6 +41,7 @@ $scroll-default-bottom: 30px;
   bottom: $scroll-default-bottom;
   color: $color-palette5;
   left: 50%;
+  margin-left: -15px;
   position: absolute;
   text-align: center;
   transition: opacity $animation-time-slow;
