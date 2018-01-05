@@ -13,7 +13,8 @@ const maximumPostsOnScroll = 16;
  */
 @Component({
   selector: 'jblog-post-list',
-  templateUrl: './post-list.component.html'
+  templateUrl: './post-list.component.html',
+  styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
 
@@ -58,6 +59,11 @@ export class PostListComponent implements OnInit {
   public showNavigation: boolean;
 
   /**
+   * Control flag to show a notification when at the end of the infinite scroll
+   */
+  public reachedEnd: boolean;
+
+  /**
    * The page number that was loaded when the component was initialized.
    * Used as a reference for page-scroll post loading
    */
@@ -73,6 +79,7 @@ export class PostListComponent implements OnInit {
   ) {
     this.scrollCallback = this.onScrollReached.bind(this);
     this.showNavigation = false;
+    this.reachedEnd = false;
   }
 
   /**
@@ -115,6 +122,7 @@ export class PostListComponent implements OnInit {
     }
 
     if (this.page === this.totalPages) {
+      this.reachedEnd = true;
       return;
     }
 
