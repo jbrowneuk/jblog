@@ -12,6 +12,14 @@
 .tags {
   font-size: 14px;
   line-height: 1;
+
+  a {
+    margin-right: .5em;
+
+    &:first-child {
+      margin-left: .5em;
+    }
+  }
 }
 
 /deep/ img.posted {

@@ -13,7 +13,8 @@ const maximumPostsOnScroll = 16;
  */
 @Component({
   selector: 'jblog-post-list',
-  templateUrl: './post-list.component.html'
+  templateUrl: './post-list.component.html',
+  styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
 
@@ -38,6 +39,11 @@ export class PostListComponent implements OnInit {
   public totalPages: number;
 
   /**
+   * The current tag used to filter posts with
+   */
+  public currentTag: string;
+
+  /**
    * Control variable that changes the display of the page if loading or not
    */
   public isLoading: boolean;
@@ -51,6 +57,11 @@ export class PostListComponent implements OnInit {
    * Control flag to prevent further loading of items on scroll
    */
   public showNavigation: boolean;
+
+  /**
+   * Control flag to show a notification when at the end of the infinite scroll
+   */
+  public reachedEnd: boolean;
 
   /**
    * The page number that was loaded when the component was initialized.
@@ -68,6 +79,7 @@ export class PostListComponent implements OnInit {
   ) {
     this.scrollCallback = this.onScrollReached.bind(this);
     this.showNavigation = false;
+    this.reachedEnd = false;
   }
 
   /**
@@ -81,8 +93,9 @@ export class PostListComponent implements OnInit {
 
       if (!idParam || idParam.length === 0) {
         this.initialPage = +params['page'] || 1;
+        this.currentTag = params['tag'] || null;
         this.page = this.initialPage;
-        this.postsService.getPostsForPage(this.page).subscribe(
+        this.postsService.getPostsForPage(this.page, this.currentTag).subscribe(
           x => this.handlePostListResponse(x),
           e => this.handlePostErrorResponse(e),
           () => this.onEndLoading()
@@ -109,6 +122,7 @@ export class PostListComponent implements OnInit {
     }
 
     if (this.page === this.totalPages) {
+      this.reachedEnd = true;
       return;
     }
 
@@ -117,7 +131,7 @@ export class PostListComponent implements OnInit {
 
     // Load the next set of posts
     this.onStartLoading();
-    this.postsService.getPostsForPage(this.page).subscribe(
+    this.postsService.getPostsForPage(this.page, this.currentTag).subscribe(
       x => this.handlePostListResponse(x),
       e => this.handlePostErrorResponse(e),
       () => this.onEndLoading()

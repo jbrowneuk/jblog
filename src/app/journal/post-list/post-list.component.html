@@ -26,6 +26,15 @@
     <p>Loading posts…</p>
   </div>
 
+  <div class="align-center end-notification"
+       *ngIf="reachedEnd">
+    <span *ngIf="currentTag; else reachedBottom">That’s all the posts tagged “{{currentTag}}”</span>
+  </div>
+
+  <ng-template #reachedBottom>
+    <span>Congratulations; You’ve read all the posts in the journal</span>
+  </ng-template>
+
   <div class="align-center faux-button-container">
     <a *ngIf="initialPage > 1"
        routerLink="/journal/page/1">Latest posts</a>

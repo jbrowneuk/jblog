@@ -41,10 +41,14 @@ export class PostService {
    *                                         contains information relating to a
    *                                         set of posts.
    */
-  public getPostsForPage(pageNumber: number): Observable<PostDataWrapper> {
+  public getPostsForPage(pageNumber: number, tag?: string): Observable<PostDataWrapper> {
     let apiRequestUrl = `${this.basePath}${API_URL}`;
     if (pageNumber > 0) {
       apiRequestUrl += `&page=${pageNumber}`;
+    }
+
+    if (tag && tag !== null) {
+      apiRequestUrl += `&tag=${tag}`;
     }
 
     return this.http.get(apiRequestUrl)
