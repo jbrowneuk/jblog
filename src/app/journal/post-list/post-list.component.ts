@@ -123,7 +123,7 @@ export class PostListComponent implements OnInit {
 
     // Load the next set of posts
     this.onStartLoading();
-    this.postsService.getPostsForPage(this.page).subscribe(
+    this.postsService.getPostsForPage(this.page, this.currentTag).subscribe(
       x => this.handlePostListResponse(x),
       e => this.handlePostErrorResponse(e),
       () => this.onEndLoading()
