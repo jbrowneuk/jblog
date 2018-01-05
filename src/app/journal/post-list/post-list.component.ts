@@ -38,6 +38,11 @@ export class PostListComponent implements OnInit {
   public totalPages: number;
 
   /**
+   * The current tag used to filter posts with
+   */
+  public currentTag: string;
+
+  /**
    * Control variable that changes the display of the page if loading or not
    */
   public isLoading: boolean;
@@ -81,8 +86,9 @@ export class PostListComponent implements OnInit {
 
       if (!idParam || idParam.length === 0) {
         this.initialPage = +params['page'] || 1;
+        this.currentTag = params['tag'] || null;
         this.page = this.initialPage;
-        this.postsService.getPostsForPage(this.page).subscribe(
+        this.postsService.getPostsForPage(this.page, this.currentTag).subscribe(
           x => this.handlePostListResponse(x),
           e => this.handlePostErrorResponse(e),
           () => this.onEndLoading()
