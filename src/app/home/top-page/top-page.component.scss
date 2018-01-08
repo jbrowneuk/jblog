@@ -31,6 +31,7 @@
 }
 
 $scroll-default-bottom: 30px;
+$scroll-distance: 5px;
 
 .scrolly-scroll {
   animation-name: scroll-bounce;
@@ -54,8 +55,6 @@ $scroll-default-bottom: 30px;
 }
 
 @keyframes scroll-bounce {
-  $distance: 5px;
-
-  from { bottom: $scroll-default-bottom - $distance; }
-  to { bottom: $scroll-default-bottom + $distance; }
+  from { bottom: $scroll-default-bottom - $scroll-distance; }
+  to { bottom: $scroll-default-bottom + $scroll-distance; }
 }
