@@ -171,11 +171,6 @@ blockquote {
   text-align: center;
   width: 70%;
 
-  @media (max-width: $screen-xs-max) {
-    min-width: auto;
-    width: 100%;
-  }
-
   &::before {
     color: $color-palette3;
     content: '\275d';
@@ -206,6 +201,20 @@ blockquote {
     &::before {
       content: '-';
       margin-right: 0.5em;
+    }
+  }
+
+  @media (max-width: $screen-xs-max) {
+    border-left-width: 20px;
+    min-width: auto;
+    padding: 8px 10px;
+    width: 100%;
+
+    &::before {
+      font-size: 32px;
+      left: -20px;
+      top: 15px;
+      width: 20px;
     }
   }
 }
