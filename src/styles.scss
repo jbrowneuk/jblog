@@ -219,6 +219,14 @@ blockquote {
   }
 }
 
+ul {
+  list-style: square;
+
+  @media (max-width: $screen-xs-max) {
+    padding-left: 20px;
+  }
+}
+
 .align-center {
   text-align: center;
 }
