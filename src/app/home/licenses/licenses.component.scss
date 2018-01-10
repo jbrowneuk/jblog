@@ -1,0 +1,9 @@
+ul.credits {
+  li {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: none;
+    }
+  }
+}
