@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'jblog-licenses',
   templateUrl: './licenses.component.html',
   styleUrls: ['./licenses.component.scss']
 })
-export class LicensesComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class LicensesComponent {
 }
