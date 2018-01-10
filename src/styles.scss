@@ -293,6 +293,12 @@ ul {
   }
 }
 
+.micro-hero {
+  background: $default-linear-gradient;
+  height: $header-height - (2 * $hero-bottom-margin);
+  margin-bottom: $hero-bottom-margin;
+}
+
 .parallax {
   position: absolute;
   top: 0;
