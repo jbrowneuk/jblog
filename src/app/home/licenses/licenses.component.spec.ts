@@ -19,7 +19,9 @@ describe('LicensesComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should have an element with third-party credits', () => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('#foss-credits h2').textContent)
+      .toContain('Credits and Open Source libraries');
   });
 });
