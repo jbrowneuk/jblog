@@ -11,16 +11,52 @@ export abstract class ScrollDirectiveBase implements AfterViewInit {
   private lastScrollWasDown: boolean;
   private isTicking: boolean;
 
+  /**
+   * Gets the vertical distance down the page
+   */
   protected get yPosition(): number {
     return this.lastKnownPosition.scrollTop;
   }
 
+  /**
+   * Gets whether the last scroll direction was downwards
+   */
   protected get isScrollingDown(): boolean {
     return this.lastScrollWasDown;
   }
 
+  /**
+   * Gets all the information related to the current scroll position
+   */
   protected get scrollPosition(): ScrollPosition {
     return this.lastKnownPosition;
+  }
+
+  /**
+   * Gets the element this directive is placed upon
+   */
+  protected get relatedElement(): HTMLElement {
+    return this.element.nativeElement as HTMLElement;
+  }
+
+  /**
+   * Gets the bounds of the related element
+   */
+  protected get relatedElementBounds(): ClientRect {
+    return this.relatedElement.getBoundingClientRect();
+  }
+
+  /**
+   * Gets whether the element is within the screen bounds
+   */
+  protected get isOnScreen(): boolean {
+    const containerHeight = this.relatedElementBounds.height;
+
+    const top = this.relatedElement.offsetTop;
+    const bottom = top + containerHeight;
+    const windowHeight = window.innerHeight;
+
+    return bottom > this.yPosition && top < this.yPosition + windowHeight;
   }
 
   constructor(private element: ElementRef) {
