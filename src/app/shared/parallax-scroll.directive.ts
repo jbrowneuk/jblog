@@ -1,7 +1,7 @@
 import { Directive, ElementRef } from '@angular/core';
 import { ScrollDirectiveBase } from './scroll-directive.base';
 
-@Directive({ selector: '[jblogParallaxBackground]' })
+@Directive({ selector: '[appParallaxBackground]' })
 export class ParallaxScrollDirective extends ScrollDirectiveBase {
   private imageElement: HTMLImageElement;
   private isLoadingImage: boolean;
@@ -65,10 +65,9 @@ export class ParallaxScrollDirective extends ScrollDirectiveBase {
     // licensed under MIT.
     const parallaxDist = imageHeight - containerHeight;
 
-    const windowHeight = window.innerHeight;
-    const windowBottom = this.yPosition + windowHeight;
+    const windowBottom = this.yPosition + this.viewportHeight;
 
-    const percentScrolled = (windowBottom - this.relatedElementBounds.top) / (containerHeight + windowHeight);
+    const percentScrolled = (windowBottom - this.relatedElementBounds.top) / (containerHeight + this.viewportHeight);
     const parallaxPosition = parallaxDist * percentScrolled;
 
     this.imageElement.style.transform = `translate3D(-50%, ${parallaxPosition}px, 0)`;
