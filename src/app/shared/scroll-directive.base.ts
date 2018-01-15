@@ -59,6 +59,13 @@ export abstract class ScrollDirectiveBase implements AfterViewInit {
     return bottom > 0 && top < windowHeight;
   }
 
+  /**
+   * Convenience - gets the height of the viewport, i.e. window or scrollable view
+   */
+  protected get viewportHeight(): number {
+    return window.innerHeight;
+  }
+
   constructor(private element: ElementRef) {
     this.lastKnownPosition = {
       scrollHeight: 0,
