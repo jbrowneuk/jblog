@@ -3,12 +3,12 @@ import { ScrollDirectiveBase, ScrollPosition } from './scroll-directive.base';
 
 @Directive({ selector: '[jblogInfiniteScroll]' })
 export class InfiniteScrollDirective extends ScrollDirectiveBase {
-  @Input() callbackPercentage = 70;
+  @Input() callbackPercentage = 80;
   @Input() callback: () => void;
   @Input() shouldBlockAfterCallback = true;
   private lastCallbackPosition: number;
 
-  constructor(private relatedElement: ElementRef) {
+  constructor(relatedElement: ElementRef) {
     super(relatedElement);
     this.lastCallbackPosition = 0;
   }
