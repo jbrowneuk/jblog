@@ -52,11 +52,11 @@ export abstract class ScrollDirectiveBase implements AfterViewInit {
   protected get isOnScreen(): boolean {
     const containerHeight = this.relatedElementBounds.height;
 
-    const top = this.relatedElement.offsetTop;
-    const bottom = top + containerHeight;
+    const top = this.relatedElementBounds.top;
+    const bottom = this.relatedElementBounds.bottom;
     const windowHeight = window.innerHeight;
 
-    return bottom > this.yPosition && top < this.yPosition + windowHeight;
+    return bottom > 0 && top < windowHeight;
   }
 
   constructor(private element: ElementRef) {
