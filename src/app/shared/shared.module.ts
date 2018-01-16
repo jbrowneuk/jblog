@@ -12,6 +12,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { StickyElementDirective } from './sticky-element.directive';
 import { ParallaxScrollDirective } from './parallax-scroll.directive';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
+import { OnScreenDirective } from './on-screen.directive';
 
 const CORE_COMPONENTS = [
   LineSplittingPipe,
@@ -20,7 +21,8 @@ const CORE_COMPONENTS = [
   PageHeroComponent,
   StickyElementDirective,
   ParallaxScrollDirective,
-  InfiniteScrollDirective
+  InfiniteScrollDirective,
+  OnScreenDirective
 ];
 
 @NgModule({
