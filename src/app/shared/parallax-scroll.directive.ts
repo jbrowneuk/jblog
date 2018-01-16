@@ -1,7 +1,7 @@
 import { Directive, ElementRef } from '@angular/core';
 import { ScrollDirectiveBase } from './scroll-directive.base';
 
-@Directive({ selector: '[appParallaxBackground]' })
+@Directive({ selector: '[jblogParallaxBackground]' })
 export class ParallaxScrollDirective extends ScrollDirectiveBase {
   private imageElement: HTMLImageElement;
   private isLoadingImage: boolean;
