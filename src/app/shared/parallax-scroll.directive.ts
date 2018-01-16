@@ -57,6 +57,7 @@ export class ParallaxScrollDirective extends ScrollDirectiveBase {
     // Don't waste processor time if the image is the same height or smaller
     // than the container element
     if (imageHeight <= containerHeight) {
+      this.imageElement.style.opacity = '1';
       return;
     }
 
