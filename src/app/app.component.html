@@ -22,8 +22,10 @@
     </nav>
   </div>
 </header>
-<main id="page-content">
-  <router-outlet></router-outlet>
+<main id="page-content"
+      [@routerAnimations]="prepareRouteTransition(outlet)"
+      (@routerAnimations.done)="onPageTransitionComplete($event)">
+  <router-outlet #outlet="outlet"></router-outlet>
 </main>
 <footer id="page-footer" class="page-footer">
   <div class="container">
