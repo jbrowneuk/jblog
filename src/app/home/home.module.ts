@@ -9,9 +9,9 @@ import { AboutComponent } from './about/about.component';
 import { LicensesComponent } from './licenses/licenses.component';
 
 const homeRoutes: Routes = [
-  {path: 'about', component: AboutComponent },
+  {path: 'about', component: AboutComponent, data: { sectionId: 1 } },
   {path: 'licenses', component: LicensesComponent },
-  {path: '', component: TopPageComponent, pathMatch: 'full' }
+  {path: '', component: TopPageComponent, data: { sectionId: 0 }, pathMatch: 'full' }
 ];
 
 @NgModule({
