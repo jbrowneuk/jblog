@@ -1,0 +1,51 @@
+@import 'palette';
+@import 'variables';
+
+.select-button-area {
+  text-align: center;
+}
+
+.select-button {
+  display: inline-block;
+  text-align: left;
+  text-decoration: none;
+  margin-bottom: .5em;
+  min-width: 200px;
+  overflow: hidden;
+  position: relative;
+  width: 33%;
+
+  .image-area {
+    $height: 320px;
+
+    background-color: $color-palette2;
+    display: block;
+    height: $height;
+    overflow: hidden;
+
+    img {
+      height: $height;
+      min-height: 100%;
+      min-width: 100%;
+    }
+  }
+
+  .text-area {
+    background: $color-palette5;
+    background-color: transparentize($color-palette5, 0.4);
+    color: $color-palette2;
+    display: block;
+    padding: 8px 15px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: background-color $animation-time-medium;
+  }
+
+  &:hover {
+    .text-area {
+      background-color: $color-palette5;
+    }
+  }
+}
