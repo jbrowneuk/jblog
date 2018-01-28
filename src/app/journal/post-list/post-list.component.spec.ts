@@ -14,6 +14,7 @@ import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.com
 import { InfiniteScrollDirective } from '../../shared/infinite-scroll.directive';
 import { TitleService } from '../../shared/title.service';
 import { MockTitleService } from '../../shared/mocks/mock-title.service';
+import { TransitionCompleteService } from '../../shared/transition-complete.service';
 
 import { PostListComponent } from './post-list.component';
 
@@ -44,6 +45,11 @@ describe('PostListComponent', () => {
   const mockTextParsingService = new MockTextParsingService();
   const mockTitleService = new MockTitleService();
 
+  const mockTransitionCompleteService = {
+    completedTransition(s: string, s1: string) {},
+    subscribe() { return { unsubscribe() {} }; }
+  };
+
   let component: PostListComponent;
   let fixture: ComponentFixture<PostListComponent>;
   let compiled: HTMLElement;
@@ -62,7 +68,8 @@ describe('PostListComponent', () => {
       providers: [
         { provide: PostService, useValue: mockPostService },
         { provide: TextParsingService, useValue: mockTextParsingService },
-        { provide: TitleService, useValue: mockTitleService }
+        { provide: TitleService, useValue: mockTitleService },
+        { provide: TransitionCompleteService, useValue: mockTransitionCompleteService }
       ]
     })
     .compileComponents();

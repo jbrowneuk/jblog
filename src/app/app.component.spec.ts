@@ -2,9 +2,15 @@ import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { TransitionCompleteService } from './shared/transition-complete.service';
+
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+  const mockTransitionCompleteService = {
+    completedTransition(s: string, s1: string) {}
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -14,6 +20,9 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers: [
+        { provide: TransitionCompleteService, useValue: mockTransitionCompleteService }
+      ]
     }).compileComponents();
   }));
 

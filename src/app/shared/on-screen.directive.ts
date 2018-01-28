@@ -1,6 +1,8 @@
 import { Directive, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { ScrollDirectiveBase } from './scroll-directive.base';
 
+import { TransitionCompleteService } from './transition-complete.service';
+
 @Directive({ selector: '[jblogIsOnScreen]' })
 export class OnScreenDirective extends ScrollDirectiveBase {
   @Input() targetPercentage = 70;
@@ -9,8 +11,8 @@ export class OnScreenDirective extends ScrollDirectiveBase {
   private isFirstRun: boolean;
   private lastValue: boolean;
 
-  constructor(relatedElement: ElementRef) {
-    super(relatedElement);
+  constructor(relatedElement: ElementRef, transitionService: TransitionCompleteService) {
+    super(relatedElement, transitionService);
     this.lastValue = false;
     this.isFirstRun = true;
   }
