@@ -1,67 +1,8 @@
-@import 'mixins';
 @import 'palette';
 @import 'variables';
 
-$overlay-background: $color-backdrop;
-$overlay-foreground: $color-palette2;
-$overlay-foreground-alt: $color-palette3;
-
-:host {
-  display: inline-block;
-  line-height: 1;
-  margin: 4px;
-}
-
-.image-area,
-.text-area,
-img {
+.galleries {
+  color: $color-palette3;
   display: block;
-}
-
-.image-area {
-  height: 200px;
-}
-
-.text-area {
-  line-height: 1.5;
-  padding: 8px 15px;
-  text-align: left;
-  transition: background-color $animation-time-medium;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  .galleries {
-    color: $overlay-foreground-alt;
-    display: block;
-    font-size: 12px;
-  }
-}
-
-a {
-  border: 1px solid $color-palette4;
-  display: inline-block;
-  line-height: 1.9;
-  overflow: hidden;
-  position: relative;
-  text-decoration: none;
-  max-height: 200px;
-  width: 300px;
-
-  span {
-    @include truncate-text();
-  }
-
-  .text-area {
-    background: $overlay-background;
-    background-color: transparentize($overlay-background, 0.4);
-    color: $overlay-foreground;
-  }
-
-  &:hover {
-    .text-area {
-      background-color: transparentize($overlay-background, 0.2);
-    }
-  }
+  font-size: 12px;
 }

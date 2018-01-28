@@ -8,6 +8,7 @@ import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import { RecipeComponent } from './recipe/recipe.component';
 
 import { RecipesService } from './recipes.service';
+import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 
 const sectionId = 3.3;
 const routes: Routes = [
@@ -23,7 +24,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule
   ],
-  declarations: [RecipesListComponent, RecipeComponent],
+  declarations: [RecipesListComponent, RecipeComponent, RecipeCardComponent],
   providers: [ RecipesService ]
 })
 export class RecipesModule { }
