@@ -15,11 +15,10 @@ const animationEasing = '250ms ease-out';
 const optionalAnimation: AnimationQueryOptions = { optional: true };
 
 const percentageOut = 100;
-const scaleOut = 0.75;
-const pageOutLeft = `translateX(-${percentageOut}%) scale(${scaleOut})`;
-const pageOutRight = `translateX(${percentageOut}%) scale(${scaleOut})`;
-const pageOutTop = `translateY(-${percentageOut}%) scale(${scaleOut})`;
-const pageOutBottom = `translateY(${percentageOut}%) scale(${scaleOut})`;
+const pageOutLeft = `translateX(-${percentageOut}%)`;
+const pageOutRight = `translateX(${percentageOut}%)`;
+const pageOutTop = `translateY(-${percentageOut}%)`;
+const pageOutBottom = `translateY(${percentageOut}%)`;
 
 const enterLeaveQuery = query(':enter, :leave',
   style({ position: 'absolute', left: 0, right: 0 }),
