@@ -7,6 +7,8 @@ import { SharedModule } from '../shared/shared.module';
 import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import { RecipeComponent } from './recipe/recipe.component';
 
+import { RecipesService } from './recipes.service';
+
 const sectionId = 3.3;
 const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
@@ -21,6 +23,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule
   ],
-  declarations: [RecipesListComponent, RecipeComponent]
+  declarations: [RecipesListComponent, RecipeComponent],
+  providers: [ RecipesService ]
 })
 export class RecipesModule { }
