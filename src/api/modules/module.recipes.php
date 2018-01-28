@@ -15,14 +15,19 @@ class ApiModule {
   // Main entry point.
   //============================================================================
   public function handleResponse() {
-    $food = array(
-      "id"          => "foooooo",
-      "title"       => "work in progress",
-      "description" => "still being coded here",
-      "imageHref"   => ""
-    );
+    $output = array();
 
-    $output = array($food);
+    for ($i = 0; $i < 16; $i++) {
+      $food = array(
+        "id"          => "food" . $i,
+        "title"       => "Food ID " . $i,
+        "description" => "WIP: still being coded here",
+        "imageSrc"    => "//picsum.photos/300/200/?image=" . ($i + 1)
+      );
+
+      $output[] = $food;
+    }
+
     ResponseHelpers::outputWithJsonHeader($output);
   }
 
