@@ -5,9 +5,7 @@ import { ErrorComponent } from './error/error.component';
 
 const appRoutes: Routes = [
   { path: 'art', loadChildren: 'app/gallery/gallery.module#GalleryModule' },
-  { path: 'code', loadChildren: 'app/code/code.module#CodeModule' },
   { path: 'journal', loadChildren: 'app/journal/journal.module#JournalModule' },
-  { path: 'recipes', loadChildren: 'app/recipes/recipes.module#RecipesModule' },
   { path: '**', component: ErrorComponent }
 ];
 

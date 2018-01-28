@@ -1,6 +1,7 @@
 <jblog-page-hero heading="Recipes"
                  subheading="Things to cook and eat."
-                 parallaxImage="/assets/images/mug-01.jpg">
+                 parallaxImage="/assets/images/mug-01.jpg"
+                 [parents]="[{title:'projects',link:'/projects'}]">
 </jblog-page-hero>
 
 <article class="container">
@@ -18,7 +19,7 @@
       </div>
       <div class="bottom-segment faux-button-container align-center">
         <a class="tag"
-           [routerLink]="['/recipes/recipe', recipe.id]">See recipe</a>
+           [routerLink]="['/projects/recipes/recipe', recipe.id]">See recipe</a>
       </div>
     </section>
   </div>

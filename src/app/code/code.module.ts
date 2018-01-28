@@ -10,7 +10,7 @@ import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { ProjectsContainerComponent } from './projects-container/projects-container.component';
 
-const sectionId = 3;
+const sectionId = 3.1;
 const codeRoutes: Routes = [
   { path: '', component: ProjectListComponent, pathMatch: 'full', data: { sectionId: sectionId } },
   { path: 'project/:name', component: ProjectDetailComponent, data: { sectionId: sectionId } }
