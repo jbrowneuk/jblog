@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { RecipeData } from '../recipe-data';
+
 @Component({
   selector: 'jblog-recipes-list',
   templateUrl: './recipes-list.component.html',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipesListComponent implements OnInit {
 
-  constructor() { }
+  public isLoading: boolean;
+  public recipes: RecipeData[];
+
+  constructor() {
+    this.isLoading = false;
+  }
 
   ngOnInit() {
+    this.recipes = [
+      { id: 'food001', title: 'some dish', description: 'food' }
+    ];
   }
 
 }

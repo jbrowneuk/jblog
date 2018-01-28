@@ -1,3 +1,32 @@
-<p>
-  recipes-list works!
-</p>
+<jblog-page-hero heading="Recipes"
+                 subheading="Things to cook and eat."
+                 parallaxImage="/assets/images/mug-01.jpg">
+</jblog-page-hero>
+
+<article class="container">
+  <section class="horizontal-feature basic-card light-shadow rounded">
+    <h2>Recipes go here</h2>
+    <p>The recipes section is a work in progress right now.</p>
+  </section>
+
+  <div *ngIf="(recipes && recipes.length > 0)">
+    <section *ngFor="let recipe of recipes"
+         class="horizontal-feature segmented-container light-shadow">
+      <div class="top-segment basic-card">
+        <h2>{{recipe.title}}</h2>
+        <p *ngFor='let para of recipe.description | lineSplitting'>{{para}}</p>
+      </div>
+      <div class="bottom-segment faux-button-container align-center">
+        <a class="tag"
+           [routerLink]="['/recipes/recipe', recipe.id]">See recipe</a>
+      </div>
+    </section>
+  </div>
+
+  <div class="horizontal-feature align-center"
+       *ngIf="isLoading">
+    <jblog-load-spinner></jblog-load-spinner>
+    <h2>Hang tight!</h2>
+    <p>Loading recipes…</p>
+  </div>
+</article>
