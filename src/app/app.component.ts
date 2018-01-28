@@ -1,5 +1,7 @@
-import { AfterViewInit, AnimationTransitionEvent, Component, ViewChild } from '@angular/core';
+import { AnimationTransitionEvent, Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
+import { TransitionCompleteService } from './shared/transition-complete.service';
 
 import { TRANSITIONS } from './route-transitions';
 
@@ -11,17 +13,13 @@ const invalidIdentifier = -1;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   private currentSectionId: number;
 
   @ViewChild('outlet') outlet: RouterOutlet;
 
-  constructor() {
+  constructor(private transitionCompleteService: TransitionCompleteService) {
     this.currentSectionId = invalidIdentifier;
-  }
-
-  public ngAfterViewInit() {
-    console.log(this.outlet.activatedRouteData);
   }
 
   public prepareRouteTransition(outlet): string {
@@ -40,6 +38,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   public onPageTransitionComplete(event: AnimationTransitionEvent): void {
-    console.log(`Completed ${event.fromState} => ${event.toState}. Now on sId ${this.currentSectionId}`);
+    this.transitionCompleteService.completedTransition(event.fromState, event.toState);
   }
 }

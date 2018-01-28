@@ -1,4 +1,7 @@
-import { AfterViewInit, ElementRef, HostListener } from '@angular/core';
+import { AfterViewInit, ElementRef, HostListener, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+
+import { TransitionCompleteService } from './transition-complete.service';
 
 export interface ScrollPosition {
   scrollHeight: number;
@@ -6,10 +9,11 @@ export interface ScrollPosition {
   clientHeight: number;
 }
 
-export abstract class ScrollDirectiveBase implements AfterViewInit {
+export abstract class ScrollDirectiveBase implements AfterViewInit, OnDestroy {
   private lastKnownPosition: ScrollPosition;
   private lastScrollWasDown: boolean;
   private isTicking: boolean;
+  private subscription: Subscription;
 
   /**
    * Gets the vertical distance down the page
@@ -66,12 +70,16 @@ export abstract class ScrollDirectiveBase implements AfterViewInit {
     return window.innerHeight;
   }
 
-  constructor(private element: ElementRef) {
+  constructor(private element: ElementRef, private transitionCompleteService: TransitionCompleteService) {
     this.lastKnownPosition = {
       scrollHeight: 0,
       scrollTop: 0,
       clientHeight: 0
     };
+
+    this.subscription = transitionCompleteService.subscribe((fromState: string, toState: string) => {
+      this.onScroll({ target: document });
+    });
   }
 
   ngAfterViewInit() {
@@ -83,6 +91,10 @@ export abstract class ScrollDirectiveBase implements AfterViewInit {
       };
       this.handleUpdate();
     }, 100);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   @HostListener('window:scroll', ['$event'])

@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { TextParsingService } from './text-parsing.service';
 import { TitleService } from './title.service';
+import { TransitionCompleteService } from './transition-complete.service';
 
 import { LineSplittingPipe } from './line-splitting.pipe';
 import { LoadSpinnerComponent } from './load-spinner/load-spinner.component';
@@ -37,7 +38,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [TextParsingService, TitleService]
+      providers: [TextParsingService, TitleService, TransitionCompleteService]
     };
   }
 }

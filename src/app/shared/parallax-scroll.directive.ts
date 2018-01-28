@@ -1,6 +1,8 @@
 import { Directive, ElementRef } from '@angular/core';
 import { ScrollDirectiveBase } from './scroll-directive.base';
 
+import { TransitionCompleteService } from './transition-complete.service';
+
 @Directive({ selector: '[jblogParallaxBackground]' })
 export class ParallaxScrollDirective extends ScrollDirectiveBase {
   private imageElement: HTMLImageElement;
@@ -9,8 +11,8 @@ export class ParallaxScrollDirective extends ScrollDirectiveBase {
   /**
    * Constructs an instance of this directive.
    */
-  constructor(relatedElement: ElementRef) {
-    super(relatedElement);
+  constructor(relatedElement: ElementRef, transitionService: TransitionCompleteService) {
+    super(relatedElement, transitionService);
     this.isLoadingImage = false;
   }
 
