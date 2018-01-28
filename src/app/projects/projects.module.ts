@@ -2,15 +2,13 @@ import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
-@Component({
-  selector: 'jblog-pdc',
-  template: '<div class="micro-hero"></div><p>Temporary!</p>'
-})
-class ProjectDisambiguationComponent {}
+import { SharedModule } from '../shared/shared.module';
+
+import { DisambiguationPageComponent } from './disambiguation-page/disambiguation-page.component';
 
 const sectionId = 3.0;
 const routes: Routes = [
-  { path: 'projects', component: ProjectDisambiguationComponent, pathMatch: 'full', data: { sectionId: sectionId } },
+  { path: 'projects', component: DisambiguationPageComponent, pathMatch: 'full', data: { sectionId: sectionId } },
   { path: 'projects/code', loadChildren: '../code/code.module#CodeModule' },
   { path: 'projects/recipes', loadChildren: '../recipes/recipes.module#RecipesModule' },
   { path: 'code', redirectTo: 'projects/code' }
@@ -20,7 +18,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    SharedModule
   ],
-  declarations: [ProjectDisambiguationComponent]
+  declarations: [DisambiguationPageComponent]
 })
 export class ProjectsModule { }
