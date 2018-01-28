@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { TextParsingService } from './text-parsing.service';
 import { TitleService } from './title.service';
+import { TransitionCompleteService } from './transition-complete.service';
 
 import { LineSplittingPipe } from './line-splitting.pipe';
 import { LoadSpinnerComponent } from './load-spinner/load-spinner.component';
@@ -12,6 +13,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { StickyElementDirective } from './sticky-element.directive';
 import { ParallaxScrollDirective } from './parallax-scroll.directive';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
+import { OnScreenDirective } from './on-screen.directive';
 
 const CORE_COMPONENTS = [
   LineSplittingPipe,
@@ -20,7 +22,8 @@ const CORE_COMPONENTS = [
   PageHeroComponent,
   StickyElementDirective,
   ParallaxScrollDirective,
-  InfiniteScrollDirective
+  InfiniteScrollDirective,
+  OnScreenDirective
 ];
 
 @NgModule({
@@ -35,7 +38,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [TextParsingService, TitleService]
+      providers: [TextParsingService, TitleService, TransitionCompleteService]
     };
   }
 }

@@ -1,49 +1,79 @@
 import { Directive, ElementRef } from '@angular/core';
 import { ScrollDirectiveBase } from './scroll-directive.base';
 
+import { TransitionCompleteService } from './transition-complete.service';
+
 @Directive({ selector: '[jblogParallaxBackground]' })
 export class ParallaxScrollDirective extends ScrollDirectiveBase {
-  private imageElement: HTMLElement;
+  private imageElement: HTMLImageElement;
+  private isLoadingImage: boolean;
 
-  constructor(private relatedElement: ElementRef) {
-    super(relatedElement);
+  /**
+   * Constructs an instance of this directive.
+   */
+  constructor(relatedElement: ElementRef, transitionService: TransitionCompleteService) {
+    super(relatedElement, transitionService);
+    this.isLoadingImage = false;
   }
 
+  /**
+   * Handles updating of the directive when scrolled.
+   */
   protected handleUpdate(): void {
-    const element = this.relatedElement.nativeElement as HTMLElement;
-    let isFirstRun = false;
     if (!this.imageElement) {
-      const children = Array.from(element.children);
-      this.imageElement = children.find(c => c.tagName.toLowerCase() === 'img') as HTMLElement;
+      const children = Array.from(this.relatedElement.children);
+      this.imageElement = children.find(c => c.tagName.toLowerCase() === 'img') as HTMLImageElement;
+
+      // If the image hasn't loaded yet
+      if (!this.imageElement.complete) {
+        if (!this.isLoadingImage) {
+          this.isLoadingImage = true;
+          this.imageElement.addEventListener('load', this.onImageLoaded.bind(this));
+        }
+
+        return;
+      }
 
       if (!this.imageElement) {
         return;
       }
-
-      isFirstRun = true;
     }
 
-    // Adapted from the Materialize CSS parallax plugin,
+    if (!this.isOnScreen) {
+      return;
+    }
+
+    this.recalculateParallax();
+  }
+
+  private onImageLoaded(): void {
+    this.imageElement.removeEventListener('load', this.onImageLoaded);
+    this.isLoadingImage = false;
+    this.recalculateParallax();
+  }
+
+  private recalculateParallax(): void {
+    const containerHeight = this.relatedElementBounds.height;
+    const imageHeight = this.imageElement.getBoundingClientRect().height;
+
+    // Don't waste processor time if the image is the same height or smaller
+    // than the container element
+    if (imageHeight <= containerHeight) {
+      this.imageElement.style.opacity = '1';
+      return;
+    }
+
+    // Parallax calculation adapted from the Materialize CSS parallax plugin,
     // https://github.com/Dogfalo/materialize/blob/v1-dev/js/parallax.js
     // licensed under MIT.
-    const containerHeight = element.getBoundingClientRect().height;
-    const imageHeight = this.imageElement.offsetHeight;
-
     const parallaxDist = imageHeight - containerHeight;
 
-    const top = element.offsetTop;
-    const bottom = top + containerHeight;
+    const windowBottom = this.yPosition + this.viewportHeight;
 
-    const windowHeight = window.innerHeight;
-    const windowBottom = this.yPosition + windowHeight;
+    const percentScrolled = (windowBottom - this.relatedElementBounds.top) / (containerHeight + this.viewportHeight);
+    const parallaxPosition = parallaxDist * percentScrolled;
 
-    const percentScrolled = (windowBottom - element.getBoundingClientRect().top) / (containerHeight + windowHeight);
-    const parallax = parallaxDist * percentScrolled;
-
-    if (isFirstRun ||
-      (bottom > this.yPosition && top < this.yPosition + windowHeight)) {
-      this.imageElement.style.transform = `translate3D(-50%, ${parallax}px, 0)`;
-      this.imageElement.style.opacity = '1';
-    }
+    this.imageElement.style.transform = `translate3D(-50%, ${parallaxPosition}px, 0)`;
+    this.imageElement.style.opacity = '1';
   }
 }

@@ -16,13 +16,14 @@ import { AlbumService } from './album.service';
 
 import { GalleryFormatPipe } from './gallery-format.pipe';
 
+const sectionId = 2;
 const galleryRoutes: Routes = [
   {path: '', redirectTo: 'album/_default/page/1', pathMatch: 'full' },
-  {path: 'albums', component: AlbumListComponent },
-  {path: 'album/:name/page/:page', component: AlbumComponent },
-  {path: 'album/:name', component: AlbumComponent },
-  {path: 'insights', component: InsightsComponent },
-  {path: 'view/:id', component: ImageComponent },
+  {path: 'albums', component: AlbumListComponent, data: { sectionId: sectionId } },
+  {path: 'album/:name/page/:page', component: AlbumComponent, data: { sectionId: sectionId } },
+  {path: 'album/:name', component: AlbumComponent, data: { sectionId: sectionId } },
+  {path: 'insights', component: InsightsComponent, data: { sectionId: sectionId } },
+  {path: 'view/:id', component: ImageComponent, data: { sectionId: sectionId } },
 ];
 
 @NgModule({

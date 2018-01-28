@@ -12,7 +12,7 @@
       </ul>
       <ul class="nav-links map-area" id="menu">
         <li><a [routerLink]="['/']"
-               routerLinkActive="active"
+               routerLinkActive="selected"
                [routerLinkActiveOptions]="{exact: true}"><i class="fa fa-fw fa-home collapse-only"></i><span class="hidden-xs">portfolio</span></a></li>
         <li><a [routerLink]="['/about']" routerLinkActive="selected">about</a></li>
         <li><a [routerLink]="['/art']" routerLinkActive="selected">art</a></li>
@@ -22,8 +22,10 @@
     </nav>
   </div>
 </header>
-<main id="page-content">
-  <router-outlet></router-outlet>
+<main id="page-content"
+      [@routerAnimations]="prepareRouteTransition(outlet)"
+      (@routerAnimations.done)="onPageTransitionComplete($event)">
+  <router-outlet #outlet="outlet"></router-outlet>
 </main>
 <footer id="page-footer" class="page-footer">
   <div class="container">
