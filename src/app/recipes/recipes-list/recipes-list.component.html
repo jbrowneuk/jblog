@@ -18,20 +18,6 @@
     </p>
   </section>
 
-  <!--<div *ngIf="(recipes && recipes.length > 0)">
-    <section *ngFor="let recipe of recipes"
-         class="horizontal-feature segmented-container light-shadow">
-      <div class="top-segment basic-card">
-        <h2>{{recipe.title}}</h2>
-        <p *ngFor='let para of recipe.description | lineSplitting'>{{para}}</p>
-      </div>
-      <div class="bottom-segment faux-button-container align-center">
-        <a class="tag"
-           [routerLink]="['/projects/recipes/recipe', recipe.id]">See recipe</a>
-      </div>
-    </section>
-  </div>-->
-
   <div class="gallery-container"
        *ngIf="(recipes && recipes.length > 0)">
     <jblog-recipe-card *ngFor="let recipe of recipes"
