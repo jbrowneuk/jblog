@@ -33,5 +33,5 @@ if (!$settings["Environment"]["Production"]) {
 
 // Run module
 require $apiFilePath;
-$module = new ApiModule($database);
+$module = new ApiModule($database, $settings);
 $module->handleResponse();
