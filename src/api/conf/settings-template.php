@@ -18,5 +18,6 @@ $settings = array(
   'Database' => array('Prefix' => $tablePrefix, 'Database' => $databaseFilePath),
   'Formats' => array('ShortDateTime' => 'd M Y, H:i', 'LongDateTime' => 'l, jS F Y, H:i T'),
   'Defaults' => array('PostsVisible' => $postsVisibleOnPage),
-  'Environment' => array('Production' => $isProduction)
+  'Environment' => array('Production' => $isProduction),
+  'URLs' => array('GalleryRoot' => 'http://my.site/gallery/')
 );

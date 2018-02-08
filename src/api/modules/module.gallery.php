@@ -16,6 +16,11 @@ class ApiModule {
   private $db;
   private $galleryAlbumCache;
 
+  private $galleryRoot;
+  private $thumbnailUrl;
+  private $imageUrl;
+  private $iconUrl;
+
   //============================================================================
   // Constructor.
   //============================================================================
@@ -23,7 +28,7 @@ class ApiModule {
     $this->db = $db;
     $this->galleryAlbumCache = new GalleryAlbumList($this->db);
 
-    $this->galleryRoot = "https://jbrowne.io/art/";
+    $this->galleryRoot = $settings["URLs"]["GalleryRoot"];
     $this->thumbnailUrl = $this->galleryRoot . "thumbs/";
     $this->imageUrl = $this->galleryRoot . "images/";
     $this->iconUrl = $this->galleryRoot . "icons/";
