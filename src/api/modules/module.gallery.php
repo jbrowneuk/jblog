@@ -17,13 +17,13 @@ require "lib/framework.gallery.php";
 
 class ApiModule {
 
-  private $db = NULL;
-  private $galleryAlbumCache = null;
+  private $db;
+  private $galleryAlbumCache;
 
   //============================================================================
   // Constructor.
   //============================================================================
-  public function __construct($db) {
+  public function __construct($db, $settings) {
     $this->db = $db;
 
     $this->galleryAlbumCache = new GalleryAlbumList($this->db);
