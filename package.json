@@ -16,6 +16,10 @@
     "e2e": "ng e2e"
   },
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jbrowneuk/jblog.git"
+  },
   "dependencies": {
     "@angular-devkit/core": "^0.0.28",
     "@angular/animations": "^5.0.0",

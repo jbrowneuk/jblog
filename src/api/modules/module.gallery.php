@@ -4,10 +4,6 @@ const FEATURED_FOLDER_ID = 1;
 const LATEST_ALBUM_ID = 0;
 const LATEST_ALBUM_NAME = "latest";
 const IMAGES_PER_PAGE = 12;
-const GALLERY_ROOT = "http://jbrowne.me.uk/art/";
-const THUMBNAIL_URL = GALLERY_ROOT . "thumbs/";
-const IMAGE_URL = GALLERY_ROOT . "images/";
-const ICON_URL = GALLERY_ROOT . "icons/";
 
 const DEFAULT_ALBUM_NAME_QUERY = "_default";
 const DEFAULT_ALBUM_NAME = "featured";
@@ -17,16 +13,25 @@ require "lib/framework.gallery.php";
 
 class ApiModule {
 
-  private $db = NULL;
-  private $galleryAlbumCache = null;
+  private $db;
+  private $galleryAlbumCache;
+
+  private $galleryRoot;
+  private $thumbnailUrl;
+  private $imageUrl;
+  private $iconUrl;
 
   //============================================================================
   // Constructor.
   //============================================================================
-  public function __construct($db) {
+  public function __construct($db, $settings) {
     $this->db = $db;
-
     $this->galleryAlbumCache = new GalleryAlbumList($this->db);
+
+    $this->galleryRoot = $settings["URLs"]["GalleryRoot"];
+    $this->thumbnailUrl = $this->galleryRoot . "thumbs/";
+    $this->imageUrl = $this->galleryRoot . "images/";
+    $this->iconUrl = $this->galleryRoot . "icons/";
   }
 
   //============================================================================
@@ -123,9 +128,9 @@ class ApiModule {
     ResponseHelpers::outputWithJsonHeader($output);
   }
 
-  //
+  //============================================================================
   // Creates a JSON-serializable key-value pair encompassing the album name & title.
-  //
+  //============================================================================
   private function generateAlbumNameTitlePair($album) {
     return array(
       "name"  => $album->getName(),
@@ -133,9 +138,9 @@ class ApiModule {
     );
   }
 
-  //
+  //============================================================================
   // Creates a JSON-serializable key-value pair encompassing an album image
-  //
+  //============================================================================
   private function generateImageInfo($image) {
     $isFeatured = false;
     $containingGalleries = array();
@@ -166,8 +171,8 @@ class ApiModule {
       "title"             => $image->getTitle(),
       "date"              => $image->getDate(),
       "description"       => $image->getDescription(),
-      "thumbnail"         => THUMBNAIL_URL . $image->getImageUri(),
-      "src"               => IMAGE_URL . $image->getImageUri(),
+      "thumbnail"         => $this->thumbnailUrl . $image->getImageUri(),
+      "src"               => $this->imageUrl . $image->getImageUri(),
       "containingAlbums"  => $containingGalleries,
       "featured"          => $isFeatured
     );
@@ -203,9 +208,9 @@ class ApiModule {
     ResponseHelpers::outputWithJsonHeader($output);
   }
 
-  //
+  //============================================================================
   // Generates album data for the 'latest uploads' pseudo-album.
-  //
+  //============================================================================
   private function generateLatestAlbumInfo() {
     // TODO: get from settings or something.
     $latestAlbumInfo = array(
@@ -217,9 +222,9 @@ class ApiModule {
     return new GalleryAlbum($latestAlbumInfo);
   }
 
-  //
+  //============================================================================
   // Creates a JSON-serializable key-value pair encompassing an album.
-  //
+  //============================================================================
   private function generateAlbumInfo($album) {
     $totalImages = GalleryAlbumList::getTotalImagesInAlbum($this->db, $album->getId());
     $totalPages = ceil($totalImages / IMAGES_PER_PAGE);
@@ -232,7 +237,7 @@ class ApiModule {
       "imagesInAlbum" => $totalImages,
       "imagesPerPage" => IMAGES_PER_PAGE,
       "totalPages"    => $totalPages,
-      "iconUrl"       => ICON_URL . $album->getName() . ".jpg"
+      "iconUrl"       => $this->iconUrl . $album->getName() . ".jpg"
     );
   }
 
