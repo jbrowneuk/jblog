@@ -235,9 +235,13 @@ ul {
   text-align: right;
 }
 
-.basic-card {
+.basic-card,
+.unpadded-card {
   background: $color-palette5;
   border: 1px solid $color-palette4;
+}
+
+.basic-card {
   padding: $basic-card-padding;
 
   h2 {

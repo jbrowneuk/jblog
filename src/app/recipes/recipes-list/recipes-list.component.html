@@ -1,0 +1,33 @@
+<jblog-page-hero heading="Recipes"
+                 subheading="Things to cook and eat."
+                 parallaxImage="/assets/images/mug-01.jpg"
+                 [parents]="[{title:'projects',link:'/projects'}]">
+</jblog-page-hero>
+
+<article class="container">
+  <section class="horizontal-feature basic-card light-shadow rounded">
+    <h2>Recipes go here</h2>
+    <p>
+      Throwing cold food in a microwave can be a time saver, but let’s face it:
+      nothing beats a warm meal, prepared with a choice of finely selected
+      ingredients.
+    </p>
+    <p>
+      I’ve got my love of cooking from my aunts and have decided to share some
+      of the recipes that have been popular here on my site.
+    </p>
+  </section>
+
+  <div class="gallery-container"
+       *ngIf="(recipes && recipes.length > 0)">
+    <jblog-recipe-card *ngFor="let recipe of recipes"
+                       [recipe]="recipe"></jblog-recipe-card>
+  </div>
+
+  <div class="horizontal-feature align-center"
+       *ngIf="isLoading">
+    <jblog-load-spinner></jblog-load-spinner>
+    <h2>Hang tight!</h2>
+    <p>Loading recipes…</p>
+  </div>
+</article>

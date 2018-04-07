@@ -9,6 +9,7 @@ import { ENV_PROVIDERS } from '../environments/environment';
 
 import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
+import { ProjectsModule } from './projects/projects.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +27,7 @@ import { ErrorComponent } from './error/error.component';
     HttpModule,
     SharedModule.forRoot(),
     HomeModule,
+    ProjectsModule,
     AppRoutingModule
   ],
   providers: [ENV_PROVIDERS],
