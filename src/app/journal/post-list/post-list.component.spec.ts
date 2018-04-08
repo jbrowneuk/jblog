@@ -1,7 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/of'; // TODO: lettable/pipable import needed
+
+import { It, Mock } from 'typemoq';
 
 import { PostData, PostDataWrapper } from '../post-data';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
@@ -13,7 +15,6 @@ import { PageHeroComponent } from '../../shared/page-hero/page-hero.component';
 import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.component';
 import { InfiniteScrollDirective } from '../../shared/infinite-scroll.directive';
 import { TitleService } from '../../shared/title.service';
-import { MockTitleService } from '../../shared/mocks/mock-title.service';
 import { TransitionCompleteService } from '../../shared/transition-complete.service';
 
 import { PostListComponent } from './post-list.component';
@@ -43,7 +44,9 @@ class MockPostService {
 describe('PostListComponent', () => {
   const mockPostService = new MockPostService();
   const mockTextParsingService = new MockTextParsingService();
-  const mockTitleService = new MockTitleService();
+  const mockTitleService = Mock.ofType<TitleService>();
+  mockTitleService.setup(x => x.setTitle(It.isAnyString()));
+  mockTitleService.setup(x => x.resetTitle());
 
   const mockTransitionCompleteService = {
     completedTransition(s: string, s1: string) {},
@@ -68,7 +71,7 @@ describe('PostListComponent', () => {
       providers: [
         { provide: PostService, useValue: mockPostService },
         { provide: TextParsingService, useValue: mockTextParsingService },
-        { provide: TitleService, useValue: mockTitleService },
+        { provide: TitleService, useFactory: () => mockTitleService.object },
         { provide: TransitionCompleteService, useValue: mockTransitionCompleteService }
       ]
     })
