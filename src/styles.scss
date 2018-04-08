@@ -243,7 +243,10 @@ ul {
 
 .basic-card {
   padding: $basic-card-padding;
+}
 
+.basic-card,
+.post {
   h2 {
     font-size: 36px;
     font-weight: normal;
@@ -252,7 +255,8 @@ ul {
     padding: 0;
   }
 
-  .card-info {
+  .card-info,
+  .info {
     color: $color-palette4;
     font-size: 14px;
     line-height: 24px;
