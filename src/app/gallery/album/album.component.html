@@ -50,16 +50,17 @@
   </article>
 </div>
 
-<div id="thumbnails" class="align-center" *ngIf="data">
-  <div class="container">
-
+<div id="thumbnails" *ngIf="data">
+  <div class="align-center">
     <jblog-pagination [urlComponents]="['art', 'album', data.name]"
                       [currentPage]="page"
                       [totalPages]="data.totalPages"></jblog-pagination>
-
+  </div>
+  <div class="container">
     <jblog-image-container [albumName]="data.name"
                            [page]="page"></jblog-image-container>
-
+  </div>
+  <div class="align-center">
     <jblog-pagination [urlComponents]="['art', 'album', data.name]"
                       [currentPage]="page"
                       [totalPages]="data.totalPages"></jblog-pagination>

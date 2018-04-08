@@ -6,7 +6,8 @@
 import { BASE_PATH } from '../app/variables';
 
 export const environment = {
-  production: false
+  production: false,
+  featureToggles: []
 };
 
 export const ENV_PROVIDERS = [

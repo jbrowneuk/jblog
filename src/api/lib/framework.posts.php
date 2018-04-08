@@ -195,7 +195,7 @@ class PostList extends ArrayObject
     {
       $offset = $pageOffset * $amount;
       $options = array(
-        'ORDER BY' => 'datetime(`post_date`) DESC',
+        'ORDER BY' => '`post_date` DESC',
         'LIMIT' => "$offset, $amount"
       );
     }

@@ -24,8 +24,8 @@
   </div>
 </div>
 
-<div class="container">
-  <article class="horizontal-feature segmented-container light-shadow">
+<article class="container">
+  <section class="horizontal-feature segmented-container light-shadow">
     <div class="top-segment basic-card">
       <div class="row">
         <div class="col-md-8">
@@ -39,14 +39,14 @@
       </div>
     </div>
     <div class="bottom-segment faux-button-container align-center">
-      <a routerLink="/code">
+      <a routerLink="/projects/code">
         <i class="fa fa-code"></i>
         View the source
       </a>
     </div>
-  </article>
+  </section>
 
-  <article class="horizontal-feature segmented-container light-shadow">
+  <section class="horizontal-feature segmented-container light-shadow">
     <div class="top-segment basic-card">
       <div class="row">
         <div class="col-md-8">
@@ -68,8 +68,50 @@
         View the gallery
       </a>
     </div>
-  </article>
-</div>
+  </section>
+
+  <section class="horizontal-feature segmented-container light-shadow" *ngIf="hasDetailedProjects">
+    <div class="top-segment basic-card">
+      <div class="row">
+        <div class="col-md-8">
+          <h2>Hardware</h2>
+          <p>I’ve been fascinated in what makes things work from an early age, often trying to take apart broken things and fix them–without much success.</p>
+          <p>While those days are long behind me, I still keep up the learning by piecing together my own hardware projects using off-the-shelf components.</p>
+        </div>
+        <div class="col-md-4 align-center hidden-sm hidden-xs">
+          <img src="/assets/images/overview-hardware.svg" alt="project image" width="320" />
+        </div>
+      </div>
+    </div>
+    <div class="bottom-segment faux-button-container align-center">
+      <a routerLink="/projects/hardware">
+        <i class="fa fa-wrench"></i>
+        Browse current projects
+      </a>
+    </div>
+  </section>
+
+  <section class="horizontal-feature segmented-container light-shadow" *ngIf="hasDetailedProjects">
+    <div class="top-segment basic-card">
+      <div class="row">
+        <div class="col-md-8">
+          <h2>Recipes</h2>
+          <p>Throwing cold food in a microwave can be a time saver, but let’s face it: nothing beats a warm meal, prepared with a choice of finely selected ingredients.</p>
+          <p>I’ve got my love of cooking from my aunts and have decided to share some of the recipes that have been popular here on my site.</p>
+        </div>
+        <div class="col-md-4 align-center hidden-sm hidden-xs">
+          <img src="/assets/images/overview-recipes.svg" alt="project image" width="320" />
+        </div>
+      </div>
+    </div>
+    <div class="bottom-segment faux-button-container align-center">
+      <a routerLink="/projects/recipes">
+        <i class="fa fa-cutlery"></i>
+        Browse recipes
+      </a>
+    </div>
+  </section>
+</article>
 
 <div class="whitespace-weight-balancing">
 </div>

@@ -1,0 +1,77 @@
+@import 'mixins';
+@import 'palette';
+@import 'variables';
+
+$margin: 2px;
+$breakpoint-dual-column: 380px;
+$breakpoint-triple-column: 680px;
+
+$overlay-background: $color-backdrop;
+$overlay-foreground: $color-palette2;
+$overlay-foreground-alt: $color-palette3;
+
+:host,
+a {
+  display: block;
+  line-height: 1;
+  margin: $margin;
+  overflow: hidden;
+  position: relative;
+}
+
+.image-area,
+.text-area,
+img {
+  display: block;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+span {
+  @include truncate-text();
+}
+
+.text-area {
+  background: $overlay-background;
+  background-color: transparentize($overlay-background, 0.4);
+  color: $overlay-foreground;
+  line-height: 1.5;
+  transition: background-color $animation-time-medium;
+  padding: 8px 15px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+a {
+  border: 1px solid $color-palette4;
+  text-decoration: none;
+
+  &:hover {
+    .text-area {
+      background-color: transparentize($overlay-background, 0.2);
+    }
+  }
+}
+
+@media (min-width: $breakpoint-dual-column) {
+  :host {
+    width: calc(50% - #{$margin * 2});
+  }
+}
+
+@media (min-width: $breakpoint-triple-column) {
+  :host {
+    width: calc(33.33% - #{$margin * 2});
+  }
+}
+
+@media (min-width: $screen-md-min) {
+  :host {
+    width: calc(25% - #{$margin * 2});
+  }
+}

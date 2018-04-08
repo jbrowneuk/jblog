@@ -38,7 +38,7 @@ describe('ErrorComponent', () => {
 
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.basic-card > h2').textContent)
-      .toContain('You’re looking a little lost there.');
+      .toContain('Feeling lost? Don’t worry');
   });
 
   it('should reset title', () => {
