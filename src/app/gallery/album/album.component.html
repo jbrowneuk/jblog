@@ -21,30 +21,28 @@
 </div>
 
 <div class="container" *ngIf="data">
-  <article class="horizontal-feature segmented-container light-shadow"
+  <article class="horizontal-feature post"
            id="album-description">
-    <div class="top-segment basic-card">
-      <div class="row">
-        <div class="col-md-8">
-          <h2>{{data.title}}</h2>
-          <div class="card-info">
-            {{data.imagesInAlbum}} image{{data.imagesInAlbum === 1 ? '' : 's'}}
-          </div>
-          <p *ngFor='let para of data.description | lineSplitting'>{{para}}</p>
+    <div class="row">
+      <div class="col-md-8">
+        <h2>{{data.title}}</h2>
+        <div class="card-info">
+          {{data.imagesInAlbum}} image{{data.imagesInAlbum === 1 ? '' : 's'}}
         </div>
-        <div class="col-md-4 align-center hidden-sm hidden-xs">
-          <img src="{{data.iconUrl}}" alt="album preview image" class="light-shadow" />
-        </div>
+        <p *ngFor='let para of data.description | lineSplitting'>{{para}}</p>
+      </div>
+      <div class="col-md-4 align-center hidden-sm hidden-xs">
+        <img src="{{data.iconUrl}}" alt="album preview image" class="light-shadow" />
       </div>
     </div>
-    <div class="bottom-segment faux-button-container align-center">
+    <div class="faux-button-container">
+      <a routerLink="/art/albums" class="primary" id="album-choice">
+        <i class="fa fa-fw fa-folder" aria-hidden="true"></i>
+        Pick a different album
+      </a>
       <a routerLink="/art/insights">
         <i class="fa fa-binoculars"></i>
         Behind the scenes
-      </a>
-      <a routerLink="/art/albums" id="album-choice">
-        <i class="fa fa-fw fa-folder" aria-hidden="true"></i>
-        Pick a different album
       </a>
     </div>
   </article>

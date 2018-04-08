@@ -15,7 +15,6 @@ a {
   display: block;
   line-height: 1;
   margin: $margin;
-  overflow: hidden;
   position: relative;
 }
 
@@ -49,9 +48,12 @@ span {
 
 a {
   border: 1px solid $color-palette4;
+  overflow: hidden; // Cuts the underlying image on the border-radius
   text-decoration: none;
 
   &:hover {
+    top: -1px;
+
     .text-area {
       background-color: transparentize($overlay-background, 0.2);
     }

@@ -248,8 +248,8 @@ ul {
 .basic-card,
 .post {
   h2 {
-    font-size: 36px;
-    font-weight: normal;
+    font-size: 40px;
+    font-weight: 300;
     line-height: 45px;
     margin: 0;
     padding: 0;
@@ -257,15 +257,16 @@ ul {
 
   .card-info,
   .info {
-    color: $color-palette4;
+    color: lighten($color-palette3, 25%);
     font-size: 14px;
     line-height: 24px;
+    margin: 20px 0 0 0;
   }
 }
 
 .faux-button-container {
   a {
-    background-color: $color-palette5;
+    background: $fill-button-default;
     border: 1px solid $color-palette4;
     border-radius: 4px 0;
     color: $color-palette3;
@@ -275,7 +276,17 @@ ul {
     transition: background-color $animation-time-medium;
 
     &:hover {
-      background-color: $color-palette4;
+      background-color: $color-button-default-hover;
+    }
+
+    &.primary {
+      background: $fill-button-primary;
+      border-color: $color-palette3;
+      color: $color-palette5;
+
+      &:hover {
+        background-color: $color-button-primary-hover;
+      }
     }
   }
 }
@@ -290,13 +301,13 @@ ul {
 }
 
 .light-shadow {
-  box-shadow: 0 1px 1px 0 $color-palette4;
+  box-shadow: $shadow-default;
 
   &.hoverable {
     transition: box-shadow $animation-time-medium;
 
     &:hover {
-      box-shadow: 0 2px 2px 0 $color-palette3;
+      box-shadow: $shadow-default-hover;
     }
   }
 }
@@ -326,6 +337,48 @@ ul {
     bottom: 0;
     transform: translate3d(-50%, 0, 0);
     transition: opacity $animation-time-slow;
+  }
+}
+
+.post {
+  border-bottom: 1px solid $color-subtle-separator;
+  padding: 30px 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  ul.tags {
+    font-size: 14px;
+    line-height: 1;
+    list-style-type: none;
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+  
+    li {
+      display: inline-block;
+      margin-right: 0.5em;
+  
+      &:first-child {
+        margin-left: 0.5em;
+      }
+    }
+  
+    a {
+      background-color: $color-backdrop-recessed;
+      color: $color-palette2;
+      display: inline-block;
+      line-height: 16px;
+      padding: 8px 12px;
+      text-decoration: none;
+      transition: background-color $animation-time-medium, color $animation-time-medium;
+  
+      &:hover {
+        background-color: #E0E0E0;
+        color: $color-palette1
+      }
+    }
   }
 }
 

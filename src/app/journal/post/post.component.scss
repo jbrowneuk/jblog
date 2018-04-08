@@ -1,27 +1,13 @@
 @import 'palette';
-@import 'variables';
 
 .outdated-content {
-  background-color: $color-backdrop;
+  background-color: $color-subtle-separator;
   border: 1px solid $color-palette4;
   border-radius: 4px;
   margin: 15px 0;
   padding: 15px;
 }
 
-.tags {
-  font-size: 14px;
-  line-height: 1;
-
-  a {
-    margin-right: 0.5em;
-
-    &:first-child {
-      margin-left: 0.5em;
-    }
-  }
-}
-
-/deep/ img.posted {
+.content-area /deep/ img.posted {
   max-width: 100%;
 }

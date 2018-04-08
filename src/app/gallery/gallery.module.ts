@@ -17,13 +17,17 @@ import { AlbumService } from './album.service';
 import { GalleryFormatPipe } from './gallery-format.pipe';
 
 const sectionId = 2;
+const leftSection = sectionId;
+const mainSection = sectionId + 0.1;
+const detailSection = sectionId + 0.2;
+
 const galleryRoutes: Routes = [
   {path: '', redirectTo: 'album/_default/page/1', pathMatch: 'full' },
-  {path: 'albums', component: AlbumListComponent, data: { sectionId: sectionId } },
-  {path: 'album/:name/page/:page', component: AlbumComponent, data: { sectionId: sectionId } },
-  {path: 'album/:name', component: AlbumComponent, data: { sectionId: sectionId } },
-  {path: 'insights', component: InsightsComponent, data: { sectionId: sectionId } },
-  {path: 'view/:id', component: ImageComponent, data: { sectionId: sectionId } },
+  {path: 'albums', component: AlbumListComponent, data: { sectionId: leftSection } },
+  {path: 'album/:name/page/:page', component: AlbumComponent, data: { sectionId: mainSection } },
+  {path: 'album/:name', component: AlbumComponent, data: { sectionId: mainSection } },
+  {path: 'view/:id', component: ImageComponent, data: { sectionId: detailSection } },
+  {path: 'insights', component: InsightsComponent, data: { sectionId: sectionId + 0.5 } }
 ];
 
 @NgModule({

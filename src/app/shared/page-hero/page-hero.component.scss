@@ -6,8 +6,8 @@
   color: $color-palette4;
   line-height: 1;
   margin-bottom: $hero-bottom-margin;
-  padding-top: 30px;
-  padding-bottom: 20px;
+  padding-top: 50px;
+  padding-bottom: 30px;
 
   &.has-parallax {
     position: relative;
@@ -24,12 +24,23 @@
   }
 
   .inner-box {
-    border-radius: $default-radius 0;
-    background-color: transparentize($color-palette2, 0.25);
     display: inline-block;
     margin-top: 50px;
-    padding: 10px $generic-horizontal-padding 10px;
     min-width: 270px;
+    position: relative;
+    padding-right: $generic-horizontal-padding;
+
+    .visual {
+      border-radius: $default-radius 0;
+      background-color: transparentize($color-palette2, 0.25);
+      pointer-events: none;
+      position: absolute;
+      left: -$generic-horizontal-padding;
+      right: 0;
+      top: -10px;
+      bottom: -10px;
+      z-index: -1;
+    }
   }
 
   .breadcrumb {
@@ -41,6 +52,6 @@
   }
 
   .summary-area {
-    margin: 20px $generic-horizontal-padding 0;
+    margin: 20px 0 0;
   }
 }

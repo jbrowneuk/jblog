@@ -25,65 +25,59 @@
 </div>
 
 <article class="container">
-  <section class="horizontal-feature segmented-container light-shadow">
-    <div class="top-segment basic-card">
-      <div class="row">
-        <div class="col-md-8">
-          <h2>Software</h2>
-          <p>I’m a Front-End software developer currently working on Web apps using Angular, NodeJS, JavaScript and Docker.</p>
-          <p>I also have a very basic User Experience skill set which I am actively building upon.</p>
-        </div>
-        <div class="col-md-4 align-center hidden-sm hidden-xs">
-          <img src="/assets/images/overview-programming.svg" alt="project image" width="320" />
-        </div>
+  <section class="horizontal-feature post">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>Software</h2>
+        <p>I’m a Front-End software developer currently working on Web apps using Angular, NodeJS, JavaScript and Docker.</p>
+        <p>I also have a very basic User Experience skill set which I am actively building upon.</p>
+      </div>
+      <div class="col-md-4 align-center hidden-sm hidden-xs">
+        <img src="/assets/images/overview-programming.svg" alt="project image" width="320" />
       </div>
     </div>
-    <div class="bottom-segment faux-button-container align-center">
-      <a routerLink="/projects/code">
+    <div class="faux-button-container">
+      <a class="primary" routerLink="/projects/code">
         <i class="fa fa-code"></i>
         View the source
       </a>
     </div>
   </section>
 
-  <section class="horizontal-feature segmented-container light-shadow">
-    <div class="top-segment basic-card">
-      <div class="row">
-        <div class="col-md-8">
-          <h2>Visuals and artworks</h2>
-          <p>I spend a lot of my life being visually creative, and strive to bring those skills into my daily work.</p>
-        </div>
-        <div class="col-md-4 align-center hidden-sm hidden-xs">
-          <img src="/assets/images/overview-art.svg" alt="gallery image" width="320" />
-        </div>
+  <section class="horizontal-feature post">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>Visuals and artworks</h2>
+        <p>I spend a lot of my life being visually creative, and strive to bring those skills into my daily work.</p>
+      </div>
+      <div class="col-md-4 align-center hidden-sm hidden-xs">
+        <img src="/assets/images/overview-art.svg" alt="gallery image" width="320" />
       </div>
     </div>
-    <div class="bottom-segment faux-button-container align-center">
+    <div class="faux-button-container">
+      <a class="primary" routerLink="/art">
+        <i class="fa fa-rocket"></i>
+        View the gallery
+      </a>
       <a routerLink="/art/insights">
         <i class="fa fa-binoculars"></i>
         Behind the scenes
       </a>
-      <a routerLink="/art">
-        <i class="fa fa-rocket"></i>
-        View the gallery
-      </a>
     </div>
   </section>
 
-  <section class="horizontal-feature segmented-container light-shadow" *ngIf="hasDetailedProjects">
-    <div class="top-segment basic-card">
-      <div class="row">
-        <div class="col-md-8">
-          <h2>Hardware</h2>
-          <p>I’ve been fascinated in what makes things work from an early age, often trying to take apart broken things and fix them–without much success.</p>
-          <p>While those days are long behind me, I still keep up the learning by piecing together my own hardware projects using off-the-shelf components.</p>
-        </div>
-        <div class="col-md-4 align-center hidden-sm hidden-xs">
-          <img src="/assets/images/overview-hardware.svg" alt="project image" width="320" />
-        </div>
+  <section class="horizontal-feature post" *ngIf="hasDetailedProjects">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>Hardware</h2>
+        <p>I’ve been fascinated in what makes things work from an early age, often trying to take apart broken things and fix them–without much success.</p>
+        <p>While those days are long behind me, I still keep up the learning by piecing together my own hardware projects using off-the-shelf components.</p>
+      </div>
+      <div class="col-md-4 align-center hidden-sm hidden-xs">
+        <img src="/assets/images/overview-hardware.svg" alt="project image" width="320" />
       </div>
     </div>
-    <div class="bottom-segment faux-button-container align-center">
+    <div class="faux-button-container">
       <a routerLink="/projects/hardware">
         <i class="fa fa-wrench"></i>
         Browse current projects
@@ -91,20 +85,18 @@
     </div>
   </section>
 
-  <section class="horizontal-feature segmented-container light-shadow" *ngIf="hasDetailedProjects">
-    <div class="top-segment basic-card">
-      <div class="row">
-        <div class="col-md-8">
-          <h2>Recipes</h2>
-          <p>Throwing cold food in a microwave can be a time saver, but let’s face it: nothing beats a warm meal, prepared with a choice of finely selected ingredients.</p>
-          <p>I’ve got my love of cooking from my aunts and have decided to share some of the recipes that have been popular here on my site.</p>
-        </div>
-        <div class="col-md-4 align-center hidden-sm hidden-xs">
-          <img src="/assets/images/overview-recipes.svg" alt="project image" width="320" />
-        </div>
+  <section class="horizontal-feature post" *ngIf="hasDetailedProjects">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>Recipes</h2>
+        <p>Throwing cold food in a microwave can be a time saver, but let’s face it: nothing beats a warm meal, prepared with a choice of finely selected ingredients.</p>
+        <p>I’ve got my love of cooking from my aunts and have decided to share some of the recipes that have been popular here on my site.</p>
+      </div>
+      <div class="col-md-4 align-center hidden-sm hidden-xs">
+        <img src="/assets/images/overview-recipes.svg" alt="project image" width="320" />
       </div>
     </div>
-    <div class="bottom-segment faux-button-container align-center">
+    <div class="faux-button-container">
       <a routerLink="/projects/recipes">
         <i class="fa fa-cutlery"></i>
         Browse recipes
