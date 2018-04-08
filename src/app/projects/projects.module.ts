@@ -9,18 +9,19 @@ import { environment } from '../../environments/environment.prod';
 
 const sectionId = 3.0;
 
-let routes: Routes = [];
+let routes: Routes = [
+  { path: 'projects/code', loadChildren: '../code/code.module#CodeModule' },
+  { path: 'code', redirectTo: 'projects/code' }
+];
+
 if (environment.featureToggles.includes('newProjectStructure')) {
   routes.push(...[
-    { path: 'projects', component: DisambiguationPageComponent, pathMatch: 'full', data: { sectionId: sectionId } },
-    { path: 'projects/code', loadChildren: '../code/code.module#CodeModule' },
     { path: 'projects/recipes', loadChildren: '../recipes/recipes.module#RecipesModule' },
-    { path: 'code', redirectTo: 'projects/code' }
+    { path: 'projects', component: DisambiguationPageComponent, pathMatch: 'full', data: { sectionId: sectionId } }
   ]);
 } else {
   routes.push(...[
-    { path: 'code', loadChildren: '../code/code.module#CodeModule' },
-    { path: 'projects', redirectTo: 'code' }
+    { path: 'projects', redirectTo: 'code', pathMatch: 'full' }
   ]);
 }
 
