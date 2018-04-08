@@ -10,7 +10,7 @@
     [class.zoomed-in]="!isZoomedOut">
     <div class="picture-area inline-block">
       <div class="featured" *ngIf="data.featured" title="Featured">
-        <i class="fa fa-fw fa-trophy" aria-hidden="true"></i>
+        <i class="far fa-fw fa-trophy" aria-hidden="true"></i>
       </div>
       <img src="{{data.src}}"
            alt="full sized image"
@@ -22,11 +22,11 @@
   <div class="controls faux-button-container align-center">
     <a [routerLink]="['/art/album', getPrimaryAlbum().name]"
        id="parent-folder-link">
-      <i class="fa fa-fw fa-th-large" aria-hidden="true"></i>
+      <i class="far fa-fw fa-th-large" aria-hidden="true"></i>
       Back to <em>{{getPrimaryAlbum().title}}</em>
     </a>
     <a href="#" (click)="toggleZoom($event)">
-      <i class="fa fa-fw" aria-hidden="true"
+      <i class="far fa-fw" aria-hidden="true"
         [class.fa-search-plus]="isZoomedOut"
         [class.fa-search-minus]="!isZoomedOut"></i>
       Zoom
@@ -38,13 +38,13 @@
     <div class="horizontal-feature post">
       <h2 id="image-title">{{data.title}}</h2>
       <div class="card-info">
-        <i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
+        <i class="far fa-fw fa-calendar" aria-hidden="true"></i>
         {{data.date * 1000 | date:'medium'}}
       </div>
       <div class="content-area" [innerHTML]="getParsedContent()"></div>
       <ul class="tags"
            id="gallery-area">
-        <li><i class="fa fa-tags" aria-hidden="true"></i></li>
+        <li><i class="far fa-tags" aria-hidden="true"></i></li>
         <li class="tag" *ngFor="let gallery of data.containingAlbums">
           <a class="rounded" [routerLink]="['/art/album', gallery.name]">{{gallery.title}}</a>
         </li>
