@@ -8,7 +8,8 @@ import { TitleService } from '../shared/title.service';
  */
 @Component({
   selector: 'jblog-error',
-  templateUrl: './error.component.html'
+  templateUrl: './error.component.html',
+  styleUrls: ['./error.component.scss']
 })
 export class ErrorComponent implements OnInit {
   constructor(private titleService: TitleService) {}
