@@ -1,21 +1,21 @@
-<article class="horizontal-feature segmented-container light-shadow"
+<article class="horizontal-feature post"
          *ngFor="let project of projects">
-  <div class="top-segment basic-card">
-    <div class="row">
-      <div class="col-md-8">
-        <h2>{{project.title}}</h2>
-        <div class="card-info">
-          <i class="fa fa-code" aria-hidden="true"></i>
-          {{project.info}}
-        </div>
-        <p *ngFor='let para of project.summary | lineSplitting'>{{para}}</p>
+
+  <div class="row">
+    <div class="col-md-8">
+      <h2>{{project.title}}</h2>
+      <div class="card-info">
+        <i class="fa fa-code" aria-hidden="true"></i>
+        {{project.info}}
       </div>
-      <div class="col-md-4 align-center hidden-sm hidden-xs">
-        <img src="{{project.resourcesUrl}}folder.jpg" alt="project image" class="light-shadow" />
-      </div>
+      <p *ngFor='let para of project.summary | lineSplitting'>{{para}}</p>
+    </div>
+    <div class="col-md-4 align-center hidden-sm hidden-xs">
+      <img src="{{project.resourcesUrl}}folder.jpg" alt="project image" class="light-shadow" />
     </div>
   </div>
-  <div class="bottom-segment faux-button-container align-center">
+
+  <div class="faux-button-container">
     <a *ngIf="project.link.length > 0" href="{{project.link}}"
        id="project-link">
       <i class="fa fa-rocket"></i>
