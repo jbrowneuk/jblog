@@ -49,7 +49,7 @@ describe('AppComponent', () => {
     expect(menu[0].textContent).toContain('portfolio');
     expect(menu[1].textContent).toContain('about');
     expect(menu[2].textContent).toContain('art');
-    expect(menu[3].textContent).toContain('code');
+    expect(menu[3].textContent).toContain('projects');
     expect(menu[4].textContent).toContain('posts');
   }));
 
