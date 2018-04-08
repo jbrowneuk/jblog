@@ -197,7 +197,7 @@ class GalleryImageList extends ArrayObject
     {
       $offset = $pageOffset * $amount;
       $options = array(
-        'ORDER BY' => 'datetime(`image_date`) DESC',
+        'ORDER BY' => '`image_date` DESC',
         'LIMIT' => "$offset,$amount"
       );
     }
