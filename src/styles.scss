@@ -178,9 +178,11 @@ blockquote {
 
   &::before {
     color: $color-palette3;
-    content: '\275d';
-    font-size: 64px;
+    content: '\f10d';
+    font-family: 'Font Awesome 5 Pro';
+    font-size: 28px;
     font-style: normal;
+    font-weight: 300;
     left: -40px;
     line-height: 1;
     pointer-events: none;
