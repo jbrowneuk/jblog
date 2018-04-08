@@ -8,25 +8,14 @@ import { LineSplittingPipe } from '../../shared/line-splitting.pipe';
 import { AlbumService } from '../album.service';
 import { TitleService } from '../../shared/title.service';
 import { PageHeroComponent } from '../../shared/page-hero/page-hero.component';
+import { MOCK_ALBUMDATA } from '../mocks/mock-data';
 
 import { AlbumListComponent } from './album-list.component';
-import { AlbumInfo } from '../album-info';
-
-const mockAlbumData = [{
-  albumId: 1,
-  title: 'title',
-  name: 'name',
-  description: 'description',
-  imagesInAlbum: 8,
-  imagesPerPage: 4,
-  totalPages: 2,
-  iconUrl: 'http://url/jpg.jpg'
-}];
 
 describe('AlbumListComponent', () => {
   const mockAlbumService = Mock.ofType<AlbumService>();
   mockAlbumService.setup(s => s.getAllAlbumInfo())
-    .returns(() => Observable.of(mockAlbumData));
+    .returns(() => Observable.of([MOCK_ALBUMDATA]));
 
   const mockTitleService = Mock.ofType<TitleService>();
   mockTitleService.setup(x => x.setTitle(It.isAnyString()));
