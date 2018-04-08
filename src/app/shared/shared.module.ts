@@ -14,6 +14,7 @@ import { StickyElementDirective } from './sticky-element.directive';
 import { ParallaxScrollDirective } from './parallax-scroll.directive';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
 import { OnScreenDirective } from './on-screen.directive';
+import { FeatureToggleService } from './feature-toggle.service';
 
 const CORE_COMPONENTS = [
   LineSplittingPipe,
@@ -38,7 +39,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [TextParsingService, TitleService, TransitionCompleteService]
+      providers: [FeatureToggleService, TextParsingService, TitleService, TransitionCompleteService]
     };
   }
 }
