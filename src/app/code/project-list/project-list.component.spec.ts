@@ -41,6 +41,8 @@ describe('ProjectListComponent', () => {
   let compiled: HTMLElement;
 
   beforeEach(() => {
+    mockTitleService.reset();
+
     TestBed.configureTestingModule({
       imports: [
         HttpModule,
@@ -72,10 +74,6 @@ describe('ProjectListComponent', () => {
     component = fixture.componentInstance;
     compiled = fixture.debugElement.nativeElement;
     fixture.detectChanges();
-  });
-
-  afterEach(() => {
-    mockTitleService.reset();
   });
 
   it('should create', () => {
