@@ -29,6 +29,7 @@
     min-width: 270px;
     position: relative;
     padding-right: $generic-horizontal-padding;
+    z-index: 1;
 
     .visual {
       border-radius: $default-radius 0;
