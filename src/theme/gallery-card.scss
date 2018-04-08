@@ -52,6 +52,8 @@ a {
   text-decoration: none;
 
   &:hover {
+    top: -1px;
+
     .text-area {
       background-color: transparentize($overlay-background, 0.2);
     }
