@@ -1,16 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { HttpModule, Http, BaseRequestOptions, XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
+import { Observable } from 'rxjs/Observable';
+
+import { It, Mock, Times } from 'typemoq';
 
 import { PageHeroComponent } from '../../shared/page-hero/page-hero.component';
 import { ProjectsContainerComponent } from '../projects-container/projects-container.component';
 
 import { ProjectService } from '../project.service';
-import { MockProjectService } from '../mock-project.service';
 import { TitleService } from '../../shared/title.service';
-import { MockTitleService } from '../../shared/mocks/mock-title.service';
 
 import { LineSplittingPipe } from '../../shared/line-splitting.pipe';
 
@@ -19,14 +19,28 @@ import { Project } from '../project';
 // Classes under test
 import { ProjectListComponent } from './project-list.component';
 
+const mockProjects = [{
+  'name': 'test',
+  'title': 'A test project',
+  'summary': 'Description of the test project',
+  'info': 'JSON data',
+  'link': 'https://www.google.com/',
+  'resourcesUrl': 'http://localhost:4200/assets/images/'
+}];
+
 describe('ProjectListComponent', () => {
-  const mockService = new MockProjectService();
-  const mockTitleService = new MockTitleService();
+  const mockTitleService = Mock.ofType<TitleService>();
+  mockTitleService.setup(x => x.setTitle(It.isAnyString()));
+
+  const mockProjectService = Mock.ofType<ProjectService>();
+  mockProjectService.setup(x => x.getProjects(It.isAnyNumber(), It.isAnyNumber()))
+    .returns(() => Observable.of(mockProjects));
+
   let component: ProjectListComponent;
   let fixture: ComponentFixture<ProjectListComponent>;
   let compiled: HTMLElement;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpModule,
@@ -48,18 +62,20 @@ describe('ProjectListComponent', () => {
             return new Http(backend, defaultOptions);
           }
         },
-        { provide: ProjectService, useValue: mockService },
-        { provide: TitleService, useValue: mockTitleService }
+        { provide: ProjectService, useFactory: () => mockProjectService.object },
+        { provide: TitleService, useFactory: () => mockTitleService.object }
       ]
     })
     .compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ProjectListComponent);
     component = fixture.componentInstance;
     compiled = fixture.debugElement.nativeElement;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    mockTitleService.reset();
   });
 
   it('should create', () => {
@@ -74,6 +90,6 @@ describe('ProjectListComponent', () => {
   });
 
   it('should change page title', () => {
-    expect(mockTitleService.mockTitle).toBe('Code');
+    mockTitleService.verify(x => x.setTitle(It.isValue('Code')), Times.once());
   });
 });
