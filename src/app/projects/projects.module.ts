@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { DisambiguationPageComponent } from './disambiguation-page/disambiguation-page.component';
 import { environment } from '../../environments/environment.prod';
+import { FEATURE_TOGGLES } from '../shared/feature-toggles';
 
 const sectionId = 3.0;
 
@@ -14,7 +15,7 @@ const routes: Routes = [
   { path: 'code', redirectTo: 'projects/code' }
 ];
 
-if (environment.featureToggles.includes('newProjectStructure')) {
+if (environment.featureToggles.includes(FEATURE_TOGGLES.improvedProjectOutline)) {
   routes.push(...[
     { path: 'projects/recipes', loadChildren: '../recipes/recipes.module#RecipesModule' },
     { path: 'projects', component: DisambiguationPageComponent, pathMatch: 'full', data: { sectionId: sectionId } }
