@@ -1,45 +1,11 @@
 @import 'palette';
-@import 'variables';
 
 .outdated-content {
-  background-color: $color-backdrop;
+  background-color: $color-subtle-separator;
   border: 1px solid $color-palette4;
   border-radius: 4px;
   margin: 15px 0;
   padding: 15px;
-}
-
-ul.tags {
-  font-size: 14px;
-  line-height: 1;
-  list-style-type: none;
-  list-style-position: inside;
-  margin: 0;
-  padding: 0;
-
-  li {
-    display: inline-block;
-    margin-right: 0.5em;
-
-    &:first-child {
-      margin-left: 0.5em;
-    }
-  }
-
-  a {
-    background-color: $color-backdrop-recessed;
-    color: $color-palette2;
-    display: inline-block;
-    line-height: 16px;
-    padding: 8px 12px;
-    text-decoration: none;
-    transition: background-color $animation-time-medium, color $animation-time-medium;
-
-    &:hover {
-      background-color: #E0E0E0;
-      color: $color-palette1
-    }
-  }
 }
 
 .content-area /deep/ img.posted {
