@@ -106,7 +106,8 @@ a.uncoverable {
   z-index: 0;
 
   &::before,
-  .fa {
+  .fa,
+  .far {
     position: absolute;
   }
 
@@ -122,11 +123,14 @@ a.uncoverable {
   }
 
   .fa,
-  .fa::before {
+  .fa::before,
+  .far,
+  .far::before {
     vertical-align: middle;
   }
 
-  .fa {
+  .fa,
+  .far {
     background-color: $color-palette3;
     border-radius: 4px 0 0 0;
     color: $color-palette5;
@@ -150,7 +154,8 @@ a.uncoverable {
       background-color: $color-backdrop;
     }
 
-    .fa {
+    .fa,
+    .far {
       transform: translateX(-$accessory-width);
     }
   }
