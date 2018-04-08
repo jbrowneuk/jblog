@@ -1,19 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { TitleService } from '../shared/title.service';
-import { MockTitleService } from '../shared/mocks/mock-title.service';
+import { It, Mock, Times } from 'typemoq';
 
+import { TitleService } from '../shared/title.service';
 import { PageHeroComponent } from '../shared/page-hero/page-hero.component';
 
 import { ErrorComponent } from './error.component';
 
 describe('ErrorComponent', () => {
-  const mockTitleService = new MockTitleService();
+  const mockTitleService = Mock.ofType<TitleService>();
+  mockTitleService.setup(x => x.setTitle(It.isAnyString()));
+  mockTitleService.setup(x => x.resetTitle());
+
   let component: ErrorComponent;
   let fixture: ComponentFixture<ErrorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
+    mockTitleService.reset();
+
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule ],
       declarations: [
@@ -21,13 +26,11 @@ describe('ErrorComponent', () => {
         ErrorComponent
       ],
       providers: [
-        { provide: TitleService, useValue: mockTitleService }
+        { provide: TitleService, useFactory: () => mockTitleService.object }
       ]
     })
     .compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ErrorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -42,6 +45,6 @@ describe('ErrorComponent', () => {
   });
 
   it('should reset title', () => {
-    expect(mockTitleService.mockTitle).toBe('');
+    mockTitleService.verify(s => s.resetTitle(), Times.once());
   });
 });
