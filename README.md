@@ -34,18 +34,13 @@ Requirements for back-end work:
 
 Also, optionally:
  - Global install of [Angular CLI](https://cli.angular.io)
- - [Yarn](https://yarnpkg.org) for more precise npm package management
 
-If you're unsure what editor to use for coding, [Atom](https://atom.io/) or
-[Visual Studio Code](https://code.visualstudio.com/) are two suggestions. For
-both of these tools, you should probably install the following plugins to make
-development easier:
- - A TypeScript grammars/syntax plugin (not required for VS Code)
- - A SCSS grammars/syntax plugin
- - The TSLint and Stylelint plugins to ensure that code follows the style guide
- - Atom has a plugin called [pigments](https://atom.io/packages/pigments) that
-   allows you to view the SCSS-defined colors in other SCSS files (not sure what
-   the equivalent in VS Code is)
+If you're unsure what editor to use for coding, I recommend
+[Visual Studio Code](https://code.visualstudio.com/) with the following plugins:
+- CodeMetrics
+- Prettier - Code formatter (enable format on save)
+- stylelint
+- SCSS IntelliSense
 
 ## Building the site
 ### Front-end
