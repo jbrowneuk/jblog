@@ -1,3 +1,13 @@
 {
-    "typescript.tsdk": "./node_modules/typescript/lib"
+    "typescript.tsdk": "./node_modules/typescript/lib",
+
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+
+    "codemetrics.basics.ComplexityLevelExtremeDescription": "(Extreme)",
+    "codemetrics.basics.ComplexityLevelHighDescription": "(High)",
+    "codemetrics.basics.ComplexityLevelNormalDescription": "(Medium)",
+    "codemetrics.basics.ComplexityLevelLowDescription": "(Low)",
+
+    "prettier.singleQuote": true
 }
