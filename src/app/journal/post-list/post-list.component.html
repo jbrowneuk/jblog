@@ -35,7 +35,7 @@
     <span>Congratulations; You’ve read all the posts in the journal</span>
   </ng-template>
 
-  <div class="align-center faux-button-container">
+  <div class="align-center faux-button-container" id="post-limit-button-area">
     <a *ngIf="initialPage > 1"
        routerLink="/journal/page/1">Latest posts</a>
     <a *ngIf="showNavigation"
