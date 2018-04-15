@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
-import { Params } from '@angular/router';
+import { Params, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
 
@@ -12,10 +12,13 @@ import { TitleService } from '../../shared/title.service';
 import { MOCK_IMAGEDATA } from '../mocks/mock-data';
 
 import { ImageComponent } from './image.component';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+const PARSED_SUFFIX = ' was parsed';
 
 describe('ImageComponent', () => {
   const mockImageService = Mock.ofType<ImageService>();
-  const mockTextParsingService = new TextParsingService();
+  const mockTextParsingService = Mock.ofType<TextParsingService>();
 
   const mockTitleService = Mock.ofType<TitleService>();
   mockTitleService.setup(x => x.setTitle(It.isAnyString()));
@@ -32,12 +35,15 @@ describe('ImageComponent', () => {
       .returns(() => Observable.of(MOCK_IMAGEDATA));
     mockImageService.setup(s => s.getImagesFromAlbum(It.isAnyString(), It.isAnyNumber(), It.isAnyNumber()))
       .returns(() => Observable.of([MOCK_IMAGEDATA]));
+
+    mockTextParsingService.reset();
+    mockTextParsingService.setup(s => s.parse(It.isAnyString())).returns((s: string) => `${s}${PARSED_SUFFIX}`);
   }
 
   function moduleSetup() {
     const providers: any[] = [
       { provide: ImageService, useFactory: () => mockImageService.object },
-      { provide: TextParsingService, useValue: mockTextParsingService },
+      { provide: TextParsingService, useFactory: () => mockTextParsingService.object },
       { provide: TitleService, useFactory: () => mockTitleService.object }
     ];
 
@@ -72,14 +78,13 @@ describe('ImageComponent', () => {
     });
 
     it('should parse description text', async(() => {
-      const expectedParsedOutput = `${MOCK_IMAGEDATA.description} was parsed`;
-      spyOn(mockTextParsingService, 'parse').and.returnValue(expectedParsedOutput);
+      const expectedParsedOutput = `${MOCK_IMAGEDATA.description}${PARSED_SUFFIX}`;
 
       component.data = MOCK_IMAGEDATA;
       fixture.detectChanges();
       fixture.whenStable().then(() => {
         fixture.detectChanges();
-        expect(mockTextParsingService.parse).toHaveBeenCalled();
+        mockTextParsingService.verify(x => x.parse(It.isValue(MOCK_IMAGEDATA.description)), Times.atLeastOnce());
         expect(compiled.querySelector('.content-area').textContent).toBe(expectedParsedOutput);
       });
     }));
@@ -124,6 +129,32 @@ describe('ImageComponent', () => {
         expect(tagListElements.length).toBe(2);
         expect(tagListElements[0].textContent.trim()).toBe(MOCK_IMAGEDATA.containingAlbums[0].title);
         expect(tagListElements[1].textContent.trim()).toBe(MOCK_IMAGEDATA.containingAlbums[1].title);
+      });
+    }));
+
+    it('should toggle zoom', () => {
+      const originalZoomedOut = component.isZoomedOut;
+
+      const mockEvent = Mock.ofType<Event>();
+      mockEvent.setup(e => e.preventDefault());
+
+      component.toggleZoom(mockEvent.object);
+
+      expect(component.isZoomedOut).not.toBe(originalZoomedOut);
+    });
+
+    it('should request image on load', async(() => {
+      const mockParam: Params = { id: '1' };
+      const route = TestBed.get(ActivatedRoute) as ActivatedRoute;
+      const params = route.params as BehaviorSubject<Params>;
+      params.next(mockParam);
+
+      component.ngOnInit();
+
+      fixture.whenStable().then(() => {
+        fixture.detectChanges();
+
+        expect(component.data).toEqual(MOCK_IMAGEDATA);
       });
     }));
   });
