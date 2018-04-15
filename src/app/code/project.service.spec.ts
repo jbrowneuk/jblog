@@ -7,9 +7,28 @@ import {
   XHRBackend
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
+import { Observable } from 'rxjs/Observable';
 
 import { Project } from './project';
 import { ProjectService } from './project.service';
+
+const mockFirstProject: Project = {
+  name: 'test',
+  title: 'test project',
+  summary: 'test summary',
+  info: 'some info',
+  link: 'http://some.location/here',
+  resourcesUrl: 'http://some.location/'
+};
+
+const mockSecondProject: Project = {
+  name: 'test2',
+  title: 'test project2',
+  summary: 'test2 summary',
+  info: 'some info2',
+  link: 'http://some.location/here/2',
+  resourcesUrl: 'http://some.location/2'
+};
 
 describe('ProjectService', () => {
   beforeEach(() => {
@@ -17,57 +36,80 @@ describe('ProjectService', () => {
       imports: [HttpModule],
       providers: [
         ProjectService,
-        { provide: XHRBackend, useClass: MockBackend },
+        { provide: XHRBackend, useClass: MockBackend }
       ]
     });
   });
 
-  it('should get all projects from backend',
+  it(
+    'should get all projects from backend',
     inject([ProjectService, XHRBackend], (service, mockBackend) => {
       const mockResponse = {
-        data: [
-          {
-            name: 'test',
-            title: 'test project',
-            summary: 'test summary',
-            info: 'some info',
-            link: 'http://some.location/here',
-            resourcesUrl: 'http://some.location/'
-          },
-          {
-            name: 'test2',
-            title: 'test project2',
-            summary: 'test2 summary',
-            info: 'some info2',
-            link: 'http://some.location/here/2',
-            resourcesUrl: 'http://some.location/2'
-          }
-        ]
+        data: [mockFirstProject, mockSecondProject]
       };
 
-      mockBackend.connections.subscribe((connection) => {
-        connection.mockRespond(new Response(new ResponseOptions({
-          body: JSON.stringify(mockResponse)
-        })));
+      mockBackend.connections.subscribe(connection => {
+        connection.mockRespond(
+          new Response(
+            new ResponseOptions({
+              body: JSON.stringify(mockResponse)
+            })
+          )
+        );
       });
 
       service.getProjects(0).subscribe((projects: Project[]) => {
         expect(projects.length).toBe(2);
-
-        expect(projects[0].name).toBe('test');
-        expect(projects[0].title).toBe('test project');
-        expect(projects[0].summary).toBe('test summary');
-        expect(projects[0].info).toBe('some info');
-        expect(projects[0].link).toBe('http://some.location/here');
-        expect(projects[0].resourcesUrl).toBe('http://some.location/');
-
-        expect(projects[1].name).toBe('test2');
-        expect(projects[1].title).toBe('test project2');
-        expect(projects[1].summary).toBe('test2 summary');
-        expect(projects[1].info).toBe('some info2');
-        expect(projects[1].link).toBe('http://some.location/here/2');
-        expect(projects[1].resourcesUrl).toBe('http://some.location/2');
+        expect(projects[0]).toEqual(mockFirstProject);
+        expect(projects[1]).toEqual(mockSecondProject);
       });
+    })
+  );
+
+  it(
+    'should get specific number of projects from backend',
+    inject([ProjectService, XHRBackend], (service, mockBackend) => {
+      const numberToFetch = 2;
+
+      const mockResponse = {
+        data: [
+          mockFirstProject,
+          mockSecondProject,
+          mockFirstProject,
+          mockSecondProject
+        ]
+      };
+
+      mockBackend.connections.subscribe(connection => {
+        connection.mockRespond(
+          new Response(
+            new ResponseOptions({
+              body: JSON.stringify(mockResponse)
+            })
+          )
+        );
+      });
+
+      service.getProjects(0, numberToFetch).subscribe((projects: Project[]) => {
+        expect(projects.length).toBe(numberToFetch);
+        expect(projects[0]).toEqual(mockFirstProject);
+        expect(projects[1]).toEqual(mockSecondProject);
+      });
+    })
+  );
+
+  it(
+    'Should handle errors when getting single album info',
+    inject([ProjectService], (service: ProjectService) => {
+      const http = TestBed.get(Http);
+      spyOn(http, 'get').and.returnValue(Observable.throw(new Error()));
+
+      service
+        .getProjects(0)
+        .subscribe(
+          (response: Project[]) => fail('should not get here'),
+          (err: Error) => expect(err).toBeTruthy()
+        );
     })
   );
 });
