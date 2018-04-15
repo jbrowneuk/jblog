@@ -17,7 +17,6 @@ const API_URL = '/?posts';
  */
 @Injectable()
 export class PostService {
-
   /**
    * The fallback base URL to use if one is not provided by the environment.
    */
@@ -26,7 +25,12 @@ export class PostService {
   /**
    * Injecting constructor.
    */
-  constructor(private http: Http, @Optional()@Inject(BASE_PATH) basePath: string) {
+  constructor(
+    private http: Http,
+    @Optional()
+    @Inject(BASE_PATH)
+    basePath: string
+  ) {
     if (basePath) {
       this.basePath = basePath;
     }
@@ -41,7 +45,10 @@ export class PostService {
    *                                         contains information relating to a
    *                                         set of posts.
    */
-  public getPostsForPage(pageNumber: number, tag?: string): Observable<PostDataWrapper> {
+  public getPostsForPage(
+    pageNumber: number,
+    tag?: string
+  ): Observable<PostDataWrapper> {
     let apiRequestUrl = `${this.basePath}${API_URL}`;
     if (pageNumber > 0) {
       apiRequestUrl += `&page=${pageNumber}`;
@@ -51,9 +58,10 @@ export class PostService {
       apiRequestUrl += `&tag=${tag}`;
     }
 
-    return this.http.get(apiRequestUrl)
-      .catch((error: any) => this.errorHandler(error))
-      .map((response: Response) => response.json().data as PostDataWrapper);
+    return this.http
+      .get(apiRequestUrl)
+      .map((response: Response) => response.json().data as PostDataWrapper)
+      .catch((error: any) => this.errorHandler(error));
   }
 
   /**
@@ -66,22 +74,20 @@ export class PostService {
    */
   public getPost(postId: number): Observable<PostData> {
     if (postId <= 0) {
-      return this.errorHandler('Post does not exist');
+      return Observable.throw(new Error('Post does not exist'));
     }
 
     const apiRequestUrl = `${this.basePath}${API_URL}&postId=${postId}`;
-    return this.http.get(apiRequestUrl)
-      .catch((error: any) => this.errorHandler(error))
-      .map((response: Response) => response.json().data[0] as PostData);
+    return this.http
+      .get(apiRequestUrl)
+      .map((response: Response) => response.json().data[0] as PostData)
+      .catch((error: any) => this.errorHandler(error));
   }
 
   /**
    * Wrapper method for error handling
    */
   private errorHandler(error: any): Observable<any> {
-    console.error(error);
-    const errorMessage = error.json().error || error || 'Server error.';
-    return Observable.throw(errorMessage);
+    throw error || new Error('server error');
   }
-
 }
