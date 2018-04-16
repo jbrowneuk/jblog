@@ -306,8 +306,7 @@ ul {
 }
 
 .horizontal-feature {
-  margin-bottom: 40px;
-  position: relative;
+  background-color: lime;
 }
 
 .inline-block {
@@ -356,7 +355,9 @@ ul {
 
 .post {
   border-bottom: 1px solid $color-subtle-separator;
+  margin-bottom: 40px;
   padding: 30px 0;
+  position: relative;
 
   &:last-child {
     border-bottom: none;
