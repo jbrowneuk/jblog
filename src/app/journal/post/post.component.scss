@@ -1,5 +1,9 @@
 @import 'palette';
 
+:host {
+  display: block;
+}
+
 .outdated-content {
   background-color: $color-subtle-separator;
   border: 1px solid $color-palette4;

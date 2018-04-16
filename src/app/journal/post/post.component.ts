@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, HostBinding } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { PostData } from '../post-data';
@@ -16,6 +16,11 @@ import { TextParsingService } from '../../shared/text-parsing.service';
   ]
 })
 export class PostComponent implements AfterViewInit {
+
+  /**
+   * Sets the post CSS class for styling
+   */
+  @HostBinding('class.post') public hostClassPost = true;
 
   /**
    * The post data to render

@@ -358,6 +358,10 @@ ul {
   border-bottom: 1px solid $color-subtle-separator;
   padding: 30px 0;
 
+  &:last-child {
+    border-bottom: none;
+  }
+
   ul.tags {
     font-size: 14px;
     line-height: 1;
