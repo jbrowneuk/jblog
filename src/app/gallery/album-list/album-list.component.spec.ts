@@ -1,45 +1,51 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Observable } from 'rxjs/Observable';
+
+import { It, Mock, Times } from 'typemoq';
 
 import { LineSplittingPipe } from '../../shared/line-splitting.pipe';
 import { AlbumService } from '../album.service';
-import { MockAlbumService } from '../mocks/mock-album.service';
 import { TitleService } from '../../shared/title.service';
-import { MockTitleService } from '../../shared/mocks/mock-title.service';
 import { PageHeroComponent } from '../../shared/page-hero/page-hero.component';
+import { MOCK_ALBUMDATA } from '../mocks/mock-data';
 
 import { AlbumListComponent } from './album-list.component';
 
 describe('AlbumListComponent', () => {
-  const mockAlbumService = new MockAlbumService();
-  const mockTitleService = new MockTitleService();
+  const mockAlbumService = Mock.ofType<AlbumService>();
+  mockAlbumService.setup(s => s.getAllAlbumInfo())
+    .returns(() => Observable.of([MOCK_ALBUMDATA]));
+
+  const mockTitleService = Mock.ofType<TitleService>();
+  mockTitleService.setup(x => x.setTitle(It.isAnyString()));
+
   let component: AlbumListComponent;
   let fixture: ComponentFixture<AlbumListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
+    mockTitleService.reset();
+
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule ],
       declarations: [ LineSplittingPipe, PageHeroComponent, AlbumListComponent ],
       providers: [
-        { provide: AlbumService, useValue: mockAlbumService },
-        { provide: TitleService, useValue: mockTitleService }
+        { provide: AlbumService, useFactory: () => mockAlbumService.object },
+        { provide: TitleService, useFactory: () => mockTitleService.object }
       ]
     })
     .compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(AlbumListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should load albums on component initialization', () => {
-    spyOn(mockAlbumService, 'getAllAlbumInfo');
     expect(component.albums.length).toBe(1);
   });
 
   it('should set title', () => {
-    expect(mockTitleService.mockTitle).toBe('All albums');
+    mockTitleService.verify(x => x.setTitle(It.isValue('All albums')), Times.once());
   });
 });

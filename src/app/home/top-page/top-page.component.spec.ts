@@ -4,13 +4,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { It, Mock } from 'typemoq';
 
 import { TitleService } from '../../shared/title.service';
-import { MockTitleService } from '../../shared/mocks/mock-title.service';
 import { FeatureToggleService } from '../../shared/feature-toggle.service';
 
 import { TopPageComponent } from './top-page.component';
 
 describe('TopPageComponent', () => {
-  const mockTitleService = new MockTitleService();
+  const mockTitleService = Mock.ofType<TitleService>();
+  mockTitleService.setup(x => x.setTitle(It.isAnyString()));
+  mockTitleService.setup(x => x.resetTitle());
 
   let component: TopPageComponent;
   let fixture: ComponentFixture<TopPageComponent>;
@@ -26,7 +27,7 @@ describe('TopPageComponent', () => {
         TopPageComponent
       ],
       providers: [
-        { provide: TitleService, useValue: mockTitleService },
+        { provide: TitleService, useFactory: () => mockTitleService.object },
         { provide: FeatureToggleService, useFactory: () => mockFeatureToggleService.object }
       ]
     })
