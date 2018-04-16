@@ -4,11 +4,9 @@
 </jblog-page-hero>
 
 <div class="container">
-  <div class="horizontal-feature"
+  <div class="post"
        *ngIf="(!posts || posts.length === 0) && !isLoading">
-    <div class="basic-card rounded light-shadow">
-      <h2>No posts</h2>
-    </div>
+    <h2>No posts</h2>
   </div>
 
   <div *ngIf="(posts && posts.length > 0)"
@@ -19,7 +17,7 @@
                 *ngFor="let post of posts"></jblog-post>
   </div>
 
-  <div class="horizontal-feature align-center"
+  <div class="post align-center"
        *ngIf="isLoading">
     <jblog-load-spinner></jblog-load-spinner>
     <h2>Hang tight!</h2>
