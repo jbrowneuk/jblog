@@ -30,6 +30,12 @@ html {
   background: $color-selection;
 }
 
+hr {
+  background-color: $color-subtle-separator;
+  border: none;
+  height: 1px;
+}
+
 // =============================================================================
 // Shared loading spinner style
 // =============================================================================
