@@ -278,6 +278,7 @@ ul {
     border-radius: 4px 0;
     color: $color-palette3;
     display: inline-block;
+    margin: 0 0.25em 0.5em 0;
     padding: 10px 20px;
     text-decoration: none;
     transition: background-color $animation-time-medium;
@@ -285,15 +286,21 @@ ul {
     &:hover {
       background-color: $color-button-default-hover;
     }
+  }
 
-    &.primary {
-      background: $fill-button-primary;
-      border-color: $color-palette3;
-      color: $color-palette5;
+  a.primary {
+    background: $fill-button-primary;
+    border-color: $color-palette3;
+    color: $color-palette5;
 
-      &:hover {
-        background-color: $color-button-primary-hover;
-      }
+    &:hover {
+      background-color: $color-button-primary-hover;
+    }
+  }
+
+  @media (max-width: $screen-xs-max) {
+    a {
+      width: 100%;
     }
   }
 }
