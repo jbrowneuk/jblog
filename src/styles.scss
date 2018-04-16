@@ -179,7 +179,7 @@ blockquote {
   &::before {
     color: $color-palette3;
     content: '\f10d';
-    font-family: 'Font Awesome 5 Pro';
+    font-family: 'Font Awesome 5 Pro', sans-serif;
     font-size: 28px;
     font-style: normal;
     font-weight: 300;
@@ -358,16 +358,16 @@ ul {
     list-style-position: inside;
     margin: 0;
     padding: 0;
-  
+
     li {
       display: inline-block;
       margin-right: 0.5em;
-  
+
       &:first-child {
         margin-left: 0.5em;
       }
     }
-  
+
     a {
       background-color: $color-backdrop-recessed;
       color: $color-palette2;
@@ -376,10 +376,10 @@ ul {
       padding: 8px 12px;
       text-decoration: none;
       transition: background-color $animation-time-medium, color $animation-time-medium;
-  
+
       &:hover {
         background-color: #E0E0E0;
-        color: $color-palette1
+        color: $color-palette1;
       }
     }
   }
