@@ -1,11 +1,11 @@
-<article class="horizontal-feature post" id="{{data.postId}}" *ngIf="data">
+<article id="{{data.postId}}" *ngIf="data">
 
   <h2>{{data.title}}</h2>
   <div class="card-info ">
     <i class="far fa-fw fa-calendar" aria-hidden="true"></i>
     {{data.date * 1000 | date:'medium'}}
   </div>
-  <div class="outdated-content"
+  <div class="outdated-content rounded"
         *ngIf="ageInYearsGreaterThan(2)">
     This post is over two years old. The content here might not be relevant any more.
   </div>
