@@ -17,7 +17,6 @@ const routes: Routes = [
 
 if (environment.featureToggles.includes(FEATURE_TOGGLES.improvedProjectOutline)) {
   routes.push(...[
-    { path: 'projects/recipes', loadChildren: '../recipes/recipes.module#RecipesModule' },
     { path: 'projects', component: DisambiguationPageComponent, pathMatch: 'full', data: { sectionId: sectionId } }
   ]);
 } else {
