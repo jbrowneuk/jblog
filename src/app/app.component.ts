@@ -1,4 +1,5 @@
-import { AnimationTransitionEvent, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { AnimationEvent } from '@angular/animations';
 import { RouterOutlet } from '@angular/router';
 
 import { TransitionCompleteService } from './shared/transition-complete.service';
@@ -37,7 +38,7 @@ export class AppComponent {
     return `${this.currentSectionId}`;
   }
 
-  public onPageTransitionComplete(event: AnimationTransitionEvent): void {
+  public onPageTransitionComplete(event: AnimationEvent): void {
     this.transitionCompleteService.completedTransition(event.fromState, event.toState);
   }
 }

@@ -1,7 +1,8 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import { async, fakeAsync, tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs/Observable';
 
 import { It, Mock, Times } from 'typemoq';
 
@@ -35,13 +36,13 @@ describe('AlbumComponent', () => {
 
     mockAlbumService.reset();
     mockAlbumService.setup(s => s.getAlbumInfo(It.isAnyString()))
-      .returns(() => Observable.of(MOCK_ALBUMDATA));
+      .returns(() => observableOf(MOCK_ALBUMDATA));
 
     mockImageService.reset();
     mockImageService.setup(s => s.getImageInfo(It.isAnyNumber()))
-      .returns(() => Observable.of(MOCK_IMAGEDATA));
+      .returns(() => observableOf(MOCK_IMAGEDATA));
     mockImageService.setup(s => s.getImagesFromAlbum(It.isAnyString(), It.isAnyNumber(), It.isAnyNumber()))
-      .returns(() => Observable.of([MOCK_IMAGEDATA]));
+      .returns(() => observableOf([MOCK_IMAGEDATA]));
 
     TestBed.configureTestingModule({
       imports: [
@@ -88,5 +89,6 @@ describe('AlbumComponent', () => {
 
   it('should set title', () => {
     mockTitleService.verify(x => x.setTitle(It.isValue(MOCK_ALBUMDATA.title)), Times.once());
+    expect().nothing();
   });
 });

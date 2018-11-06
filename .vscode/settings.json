@@ -1,6 +1,4 @@
 {
-    "typescript.tsdk": "./node_modules/typescript/lib",
-
     "editor.tabSize": 2,
     "editor.detectIndentation": false,
 
@@ -9,5 +7,6 @@
     "codemetrics.basics.ComplexityLevelNormalDescription": "(Medium)",
     "codemetrics.basics.ComplexityLevelLowDescription": "(Low)",
 
-    "prettier.singleQuote": true
+    "prettier.singleQuote": true,
+    "editor.formatOnSave": true
 }

@@ -1,6 +1,7 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs/Observable';
 
 import { It, Mock } from 'typemoq';
 
@@ -25,7 +26,7 @@ describe('ProjectsContainerComponent', () => {
 
   const mockProjectService = Mock.ofType<ProjectService>();
   mockProjectService.setup(x => x.getProjects(It.isAnyNumber(), It.isAnyNumber()))
-    .returns(() => Observable.of(mockProjects));
+    .returns(() => observableOf(mockProjects));
 
   beforeEach(() => {
     TestBed.configureTestingModule({

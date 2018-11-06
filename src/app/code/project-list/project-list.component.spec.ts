@@ -1,8 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import {of as observableOf } from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule, Http, BaseRequestOptions, XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { Observable } from 'rxjs/Observable';
 
 import { It, Mock, Times } from 'typemoq';
 
@@ -34,7 +35,7 @@ describe('ProjectListComponent', () => {
 
   const mockProjectService = Mock.ofType<ProjectService>();
   mockProjectService.setup(x => x.getProjects(It.isAnyNumber(), It.isAnyNumber()))
-    .returns(() => Observable.of(mockProjects));
+    .returns(() => observableOf(mockProjects));
 
   let component: ProjectListComponent;
   let fixture: ComponentFixture<ProjectListComponent>;
@@ -89,5 +90,6 @@ describe('ProjectListComponent', () => {
 
   it('should change page title', () => {
     mockTitleService.verify(x => x.setTitle(It.isValue('Code')), Times.once());
+    expect().nothing();
   });
 });
