@@ -1,6 +1,6 @@
 
 import {of as observableOf,  Observable } from 'rxjs';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { It, Mock, Times } from 'typemoq';
@@ -13,10 +13,12 @@ import { MOCK_ALBUMDATA } from '../mocks/mock-data';
 
 import { AlbumListComponent } from './album-list.component';
 
+const ALBUM_LIST = [MOCK_ALBUMDATA];
+
 describe('AlbumListComponent', () => {
   const mockAlbumService = Mock.ofType<AlbumService>();
   mockAlbumService.setup(s => s.getAllAlbumInfo())
-    .returns(() => observableOf([MOCK_ALBUMDATA]));
+    .returns(() => observableOf(ALBUM_LIST));
 
   const mockTitleService = Mock.ofType<TitleService>();
   mockTitleService.setup(x => x.setTitle(It.isAnyString()));
@@ -43,10 +45,11 @@ describe('AlbumListComponent', () => {
   });
 
   it('should load albums on component initialization', () => {
-    expect(component.albums.length).toBe(1);
+    expect(component.albums.length).toBe(ALBUM_LIST.length);
   });
 
   it('should set title', () => {
     mockTitleService.verify(x => x.setTitle(It.isValue('All albums')), Times.once());
+    expect().nothing();
   });
 });

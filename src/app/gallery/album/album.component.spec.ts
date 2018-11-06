@@ -89,5 +89,6 @@ describe('AlbumComponent', () => {
 
   it('should set title', () => {
     mockTitleService.verify(x => x.setTitle(It.isValue(MOCK_ALBUMDATA.title)), Times.once());
+    expect().nothing();
   });
 });

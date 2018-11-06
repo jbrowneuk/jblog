@@ -1,4 +1,4 @@
-import { SimpleChange, SimpleChanges } from '@angular/core';
+import { SimpleChange } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -24,7 +24,7 @@ describe('PaginationComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should paginate without spacing for less than 4 pages', () => {
+  it('should paginate without spacing for less than 4 pages', async(() => {
     component.currentPage = 1;
     component.totalPages = 4;
     component.ngOnChanges({currentPage: new SimpleChange(0, 6, true)});
@@ -41,9 +41,9 @@ describe('PaginationComponent', () => {
       expect(bits[4].textContent.trim()).toBe('4');
       expect(bits[5].classList).toContain('directional-indicator');
     });
-  });
+  }));
 
-  it('should paginate with spacing for greater than 4 pages', () => {
+  it('should paginate with spacing for greater than 4 pages', async(() => {
     component.currentPage = 1;
     component.totalPages = 5;
     component.ngOnChanges({currentPage: new SimpleChange(0, 6, true)});
@@ -61,9 +61,9 @@ describe('PaginationComponent', () => {
       expect(bits[5].textContent.trim()).toBe('5');
       expect(bits[6].classList).toContain('directional-indicator');
     });
-  });
+  }));
 
-  it('should paginate with spacing if required', () => {
+  it('should paginate with spacing if required', async(() => {
     component.currentPage = 10;
     component.totalPages = 20;
     component.ngOnChanges({currentPage: new SimpleChange(0, 6, true)});
@@ -85,17 +85,17 @@ describe('PaginationComponent', () => {
       expect(bits[9].textContent.trim()).toBe('20');
       expect(bits[10].classList).toContain('directional-indicator');
     });
-  });
+  }));
+
+  const updatePageNumberAndGetBits = (num: number): NodeListOf<Element> => {
+    component.currentPage = num;
+    component.ngOnChanges({currentPage: new SimpleChange(0, num, true)});
+    fixture.detectChanges();
+    return compiled.querySelectorAll('ul li');
+  };
+
 
   it('should add left spacing if required', () => {
-
-    const updatePageNumberAndGetBits = (num: number): NodeListOf<Element> => {
-      component.currentPage = num;
-      component.ngOnChanges({currentPage: new SimpleChange(0, num, true)});
-      fixture.detectChanges();
-      return compiled.querySelectorAll('ul li');
-    };
-
     component.totalPages = 20;
 
     // 1st page
@@ -150,14 +150,6 @@ describe('PaginationComponent', () => {
   });
 
   it('should add right spacing if required', () => {
-
-    const updatePageNumberAndGetBits = (num: number): NodeListOf<Element> => {
-      component.currentPage = num;
-      component.ngOnChanges({currentPage: new SimpleChange(0, num, true)});
-      fixture.detectChanges();
-      return compiled.querySelectorAll('ul li');
-    };
-
     component.totalPages = 20;
 
     // Nth page

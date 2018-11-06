@@ -1,16 +1,11 @@
-
 import {throwError as observableThrowError,  Observable } from 'rxjs';
 
 import {map, catchError} from 'rxjs/operators';
 import { Inject, Injectable, Optional } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
+import { Http, Response } from '@angular/http';
 
 import { BASE_PATH } from '../variables';
 import { ImageInfo } from './image-info';
-
-
-
-
 
 const API_URL = '/?gallery';
 const DEFAULT_ALBUM_NAME = '_default';
@@ -63,7 +58,7 @@ export class ImageService {
 
     return this.http.get(endpoint).pipe(
       map((response: Response) => response.json().data as ImageInfo[]),
-      catchError((error: any) => this.errorHandler(error)),);
+      catchError((error: any) => this.errorHandler(error)));
   }
 
   /**
@@ -78,7 +73,7 @@ export class ImageService {
     const endpoint = `${this.basePath}${API_URL}&imageData&imageId=${imageId}`;
     return this.http.get(endpoint).pipe(
       map((response: Response) => response.json().data as ImageInfo),
-      catchError((error: any) => this.errorHandler(error)),);
+      catchError((error: any) => this.errorHandler(error)));
   }
 
   /**

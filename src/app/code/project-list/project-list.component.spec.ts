@@ -1,6 +1,6 @@
 
-import {of as observableOf,  Observable } from 'rxjs';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {of as observableOf } from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule, Http, BaseRequestOptions, XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -90,5 +90,6 @@ describe('ProjectListComponent', () => {
 
   it('should change page title', () => {
     mockTitleService.verify(x => x.setTitle(It.isValue('Code')), Times.once());
+    expect().nothing();
   });
 });

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { It, Mock, Times } from 'typemoq';
@@ -46,5 +46,6 @@ describe('ErrorComponent', () => {
 
   it('should reset title', () => {
     mockTitleService.verify(s => s.resetTitle(), Times.once());
+    expect().nothing();
   });
 });

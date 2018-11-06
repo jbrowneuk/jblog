@@ -20,6 +20,7 @@ describe('Title Service wrapper', () => {
     service.setTitle(newTitle);
 
     mockTitle.verify(s => s.setTitle(It.isValue(expectedTitle)), Times.once());
+    expect().nothing();
   });
 
   it ('should set default title if empty string is passed', () => {
@@ -32,6 +33,7 @@ describe('Title Service wrapper', () => {
     service.setTitle(newTitle);
 
     mockTitle.verify(s => s.setTitle(It.isValue(expectedTitle)), Times.once());
+    expect().nothing();
   });
 
   it ('should set default title if reset is called', () => {
@@ -43,5 +45,6 @@ describe('Title Service wrapper', () => {
     service.resetTitle();
 
     mockTitle.verify(s => s.setTitle(It.isValue(expectedTitle)), Times.once());
+    expect().nothing();
   });
 });

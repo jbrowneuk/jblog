@@ -63,6 +63,7 @@ describe('ImageContainerComponent', () => {
     component.ngOnChanges({page: new SimpleChange(1, newPage, true)});
 
     mockImageService.verify(x => x.getImagesFromAlbum(It.isAnyString(), It.isValue(newPage), It.isAnyNumber()), Times.once());
+    expect().nothing();
   });
 
   it('should update images when album changed', () => {
@@ -72,6 +73,7 @@ describe('ImageContainerComponent', () => {
     component.ngOnChanges({albumName: new SimpleChange('_default', newAlbumName, true)});
 
     mockImageService.verify(x => x.getImagesFromAlbum(It.isValue(newAlbumName), It.isAnyNumber(), It.isAnyNumber()), Times.once());
+    expect().nothing();
   });
 
 });
