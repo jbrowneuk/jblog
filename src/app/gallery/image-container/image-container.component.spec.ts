@@ -1,8 +1,9 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import { SimpleChange, SimpleChanges } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs/Observable';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { It, Mock, Times } from 'typemoq';
@@ -23,7 +24,7 @@ describe('ImageContainerComponent', () => {
 
   const setupImagesFromAlbumCall = () => {
     mockImageService.setup(s => s.getImagesFromAlbum(It.isAnyString(), It.isAnyNumber(), It.isAnyNumber()))
-      .returns(() => Observable.of([MOCK_IMAGEDATA]));
+      .returns(() => observableOf([MOCK_IMAGEDATA]));
   };
 
   beforeEach(() => {

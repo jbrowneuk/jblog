@@ -1,7 +1,8 @@
+
+import {of as observableOf,  Observable ,  BehaviorSubject } from 'rxjs';
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { Params, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs/Observable';
 
 import { It, Mock, Times } from 'typemoq';
 
@@ -12,7 +13,6 @@ import { TitleService } from '../../shared/title.service';
 import { MOCK_IMAGEDATA } from '../mocks/mock-data';
 
 import { ImageComponent } from './image.component';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const PARSED_SUFFIX = ' was parsed';
 
@@ -32,9 +32,9 @@ describe('ImageComponent', () => {
 
     mockImageService.reset();
     mockImageService.setup(s => s.getImageInfo(It.isAnyNumber()))
-      .returns(() => Observable.of(MOCK_IMAGEDATA));
+      .returns(() => observableOf(MOCK_IMAGEDATA));
     mockImageService.setup(s => s.getImagesFromAlbum(It.isAnyString(), It.isAnyNumber(), It.isAnyNumber()))
-      .returns(() => Observable.of([MOCK_IMAGEDATA]));
+      .returns(() => observableOf([MOCK_IMAGEDATA]));
 
     mockTextParsingService.reset();
     mockTextParsingService.setup(s => s.parse(It.isAnyString())).returns((s: string) => `${s}${PARSED_SUFFIX}`);

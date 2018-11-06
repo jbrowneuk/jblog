@@ -1,13 +1,16 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
+
+import {catchError, map} from 'rxjs/operators';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 
 import { BASE_PATH } from '../variables';
 import { AlbumInfo } from './album-info';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+
+
+
 
 const API_URL = '/?gallery';
 const DEFAULT_ALBUM_NAME = '_default';
@@ -42,9 +45,9 @@ export class AlbumService {
    */
   public getAllAlbumInfo(): Observable<AlbumInfo[]> {
     const requestUrl = `${this.basePath}${API_URL}&albumData&all`;
-    return this.http.get(requestUrl)
-      .catch((error: any) => this.errorHandler(error))
-      .map((response: Response) => response.json().data as AlbumInfo[]);
+    return this.http.get(requestUrl).pipe(
+      catchError((error: any) => this.errorHandler(error)),
+      map((response: Response) => response.json().data as AlbumInfo[]),);
   }
 
   /**
@@ -61,9 +64,9 @@ export class AlbumService {
     }
 
     const endpoint = `${this.basePath}${API_URL}&albumData&albumName=${albumName}`;
-    return this.http.get(endpoint)
-      .map((response: Response) => response.json().data as AlbumInfo)
-      .catch((error: any) => this.errorHandler(error));
+    return this.http.get(endpoint).pipe(
+      map((response: Response) => response.json().data as AlbumInfo),
+      catchError((error: any) => this.errorHandler(error)),);
   }
 
   /**
@@ -74,6 +77,6 @@ export class AlbumService {
    */
   private errorHandler(error: any): Observable<any> {
     console.log(error);
-    return Observable.throw(error.json().error || 'Server error.');
+    return observableThrowError(error.json().error || 'Server error.');
   }
 }

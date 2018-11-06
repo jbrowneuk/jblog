@@ -1,13 +1,16 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
+
+import {map, catchError} from 'rxjs/operators';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 
 import { BASE_PATH } from '../variables';
 import { ImageInfo } from './image-info';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+
+
+
 
 const API_URL = '/?gallery';
 const DEFAULT_ALBUM_NAME = '_default';
@@ -58,9 +61,9 @@ export class ImageService {
       endpoint += `&count=${count}`;
     }
 
-    return this.http.get(endpoint)
-      .map((response: Response) => response.json().data as ImageInfo[])
-      .catch((error: any) => this.errorHandler(error));
+    return this.http.get(endpoint).pipe(
+      map((response: Response) => response.json().data as ImageInfo[]),
+      catchError((error: any) => this.errorHandler(error)),);
   }
 
   /**
@@ -73,9 +76,9 @@ export class ImageService {
    */
   public getImageInfo(imageId: number): Observable<ImageInfo> {
     const endpoint = `${this.basePath}${API_URL}&imageData&imageId=${imageId}`;
-    return this.http.get(endpoint)
-      .map((response: Response) => response.json().data as ImageInfo)
-      .catch((error: any) => this.errorHandler(error));
+    return this.http.get(endpoint).pipe(
+      map((response: Response) => response.json().data as ImageInfo),
+      catchError((error: any) => this.errorHandler(error)),);
   }
 
   /**
@@ -86,6 +89,6 @@ export class ImageService {
    */
   private errorHandler(error: any): Observable<any> {
     console.error(error);
-    return Observable.throw(error.json().error || 'Server error.');
+    return observableThrowError(error.json().error || 'Server error.');
   }
 }

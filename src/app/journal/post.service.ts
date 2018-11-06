@@ -1,13 +1,16 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
+
+import {map, catchError} from 'rxjs/operators';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 
 import { BASE_PATH } from '../variables';
 import { PostData, PostDataWrapper } from './post-data';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+
+
+
 
 const API_URL = '/?posts';
 
@@ -59,9 +62,9 @@ export class PostService {
     }
 
     return this.http
-      .get(apiRequestUrl)
-      .map((response: Response) => response.json().data as PostDataWrapper)
-      .catch((error: any) => this.errorHandler(error));
+      .get(apiRequestUrl).pipe(
+      map((response: Response) => response.json().data as PostDataWrapper),
+      catchError((error: any) => this.errorHandler(error)),);
   }
 
   /**
@@ -74,14 +77,14 @@ export class PostService {
    */
   public getPost(postId: number): Observable<PostData> {
     if (postId <= 0) {
-      return Observable.throw(new Error('Post does not exist'));
+      return observableThrowError(new Error('Post does not exist'));
     }
 
     const apiRequestUrl = `${this.basePath}${API_URL}&postId=${postId}`;
     return this.http
-      .get(apiRequestUrl)
-      .map((response: Response) => response.json().data[0] as PostData)
-      .catch((error: any) => this.errorHandler(error));
+      .get(apiRequestUrl).pipe(
+      map((response: Response) => response.json().data[0] as PostData),
+      catchError((error: any) => this.errorHandler(error)),);
   }
 
   /**

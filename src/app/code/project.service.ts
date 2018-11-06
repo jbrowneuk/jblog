@@ -1,12 +1,15 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
+
+import {catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 
 import { Project } from './project';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+
+
+
 
 /**
  * A service which handles requesting projects and their details from an API
@@ -28,9 +31,9 @@ export class ProjectService {
    * @param amount {number} optional number of projects to load.
    */
   public getProjects(pageNumber: number, amount: number = 0): Observable<Project[]> {
-    return this.http.get('/assets/mock-data/projects.json')
-      .map((response: Response) => this.handleResponse(response, amount))
-      .catch((error: any) => this.errorHandler(error));
+    return this.http.get('/assets/mock-data/projects.json').pipe(
+      map((response: Response) => this.handleResponse(response, amount)),
+      catchError((error: any) => this.errorHandler(error)),);
   }
 
   /**
@@ -38,7 +41,7 @@ export class ProjectService {
    */
   private errorHandler(error: any): Observable<any> {
     console.error(error);
-    return Observable.throw(error.json().error || 'Server error.');
+    return observableThrowError(error.json().error || 'Server error.');
   }
 
   /**

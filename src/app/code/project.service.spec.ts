@@ -1,3 +1,5 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { TestBed, async, inject } from '@angular/core/testing';
 import {
   HttpModule,
@@ -7,7 +9,6 @@ import {
   XHRBackend
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { Observable } from 'rxjs/Observable';
 
 import { Project } from './project';
 import { ProjectService } from './project.service';
@@ -102,7 +103,7 @@ describe('ProjectService', () => {
     'Should handle errors when getting single album info',
     inject([ProjectService], (service: ProjectService) => {
       const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(Observable.throw(new Error()));
+      spyOn(http, 'get').and.returnValue(observableThrowError(new Error()));
 
       service
         .getProjects(0)

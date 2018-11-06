@@ -1,3 +1,5 @@
+
+import {throwError as observableThrowError, of as observableOf,  Observable } from 'rxjs';
 import { TestBed, inject } from '@angular/core/testing';
 import {
   HttpModule,
@@ -7,7 +9,6 @@ import {
   XHRBackend
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { Observable } from 'rxjs/Observable';
 
 import { AlbumInfo } from './album-info';
 import { AlbumService } from './album.service';
@@ -96,7 +97,7 @@ describe('AlbumService', () => {
       const expectedAlbumName = '_default';
 
       const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(Observable.of(null));
+      spyOn(http, 'get').and.returnValue(observableOf(null));
 
       service.getAlbumInfo('');
 
@@ -110,7 +111,7 @@ describe('AlbumService', () => {
     'Should handle errors when getting all album info',
     inject([AlbumService], (service: AlbumService) => {
       const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(Observable.throw(new Error()));
+      spyOn(http, 'get').and.returnValue(observableThrowError(new Error()));
 
       service
         .getAllAlbumInfo()
@@ -125,7 +126,7 @@ describe('AlbumService', () => {
     'Should handle errors when getting single album info',
     inject([AlbumService], (service: AlbumService) => {
       const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(Observable.throw(new Error()));
+      spyOn(http, 'get').and.returnValue(observableThrowError(new Error()));
 
       service
         .getAlbumInfo('any')

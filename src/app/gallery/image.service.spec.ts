@@ -1,3 +1,5 @@
+
+import {throwError as observableThrowError, of as observableOf,  Observable } from 'rxjs';
 import { TestBed, inject } from '@angular/core/testing';
 import {
   HttpModule,
@@ -7,7 +9,6 @@ import {
   XHRBackend
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { Observable } from 'rxjs/Observable';
 
 import { ImageInfo } from './image-info';
 import { ImageService } from './image.service';
@@ -75,7 +76,7 @@ describe('ImageService', () => {
       const expectedPage = 1;
 
       const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(Observable.of(null));
+      spyOn(http, 'get').and.returnValue(observableOf(null));
 
       service.getImagesFromAlbum('', expectedPage);
 
@@ -92,7 +93,7 @@ describe('ImageService', () => {
       const expectedPage = 1;
 
       const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(Observable.of(null));
+      spyOn(http, 'get').and.returnValue(observableOf(null));
 
       service.getImagesFromAlbum(expectedAlbumName, -2);
 
@@ -110,7 +111,7 @@ describe('ImageService', () => {
       const expectedCount = 3;
 
       const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(Observable.of(null));
+      spyOn(http, 'get').and.returnValue(observableOf(null));
 
       service.getImagesFromAlbum(
         expectedAlbumName,
@@ -177,7 +178,7 @@ describe('ImageService', () => {
     inject([ImageService], (service) => {
       const http = TestBed.get(Http);
       spyOn(http, 'get').and.returnValue(
-        Observable.throw(new Error())
+        observableThrowError(new Error())
       );
 
       service
@@ -194,7 +195,7 @@ describe('ImageService', () => {
     inject([ImageService], (service) => {
       const http = TestBed.get(Http);
       spyOn(http, 'get').and.returnValue(
-        Observable.throw(new Error())
+        observableThrowError(new Error())
       );
 
       service

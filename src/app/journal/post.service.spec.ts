@@ -1,3 +1,5 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { TestBed, inject } from '@angular/core/testing';
 import {
   HttpModule,
@@ -7,7 +9,6 @@ import {
   XHRBackend
 } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import { Observable } from 'rxjs/Observable';
 
 import { PostData, PostDataWrapper } from './post-data';
 import { PostService } from './post.service';
@@ -163,7 +164,7 @@ describe('PostService', () => {
     'should handle errors when getting post list',
     inject([PostService], (service: PostService) => {
       const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(Observable.throw('any error'));
+      spyOn(http, 'get').and.returnValue(observableThrowError('any error'));
 
       service
         .getPostsForPage(1)
@@ -178,7 +179,7 @@ describe('PostService', () => {
     'should handle errors when getting single post information',
     inject([PostService], (service: PostService) => {
       const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(Observable.throw('any error'));
+      spyOn(http, 'get').and.returnValue(observableThrowError('any error'));
 
       service
         .getPost(1)
@@ -193,7 +194,7 @@ describe('PostService', () => {
     'should handle errors when getting post information for invalid id',
     inject([PostService], (service: PostService) => {
       const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(Observable.throw('any error'));
+      spyOn(http, 'get').and.returnValue(observableThrowError('any error'));
 
       service
         .getPost(0)

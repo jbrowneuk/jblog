@@ -1,9 +1,9 @@
+
+import {of as observableOf,  Observable ,  BehaviorSubject } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of'; // TODO: lettable/pipable import needed
+ // TODO: lettable/pipable import needed
 import { Params, ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { IMock, It, Mock, Times } from 'typemoq';
 
@@ -57,10 +57,10 @@ describe('PostListComponent', () => {
     mockPostService = Mock.ofType<PostService>();
     mockPostService
       .setup(mps => mps.getPostsForPage(It.isAnyNumber(), It.isAny()))
-      .returns(() => Observable.of(mockPostDataWrapper));
+      .returns(() => observableOf(mockPostDataWrapper));
     mockPostService
       .setup(mps => mps.getPost(It.isAnyNumber()))
-      .returns(() => Observable.of(mockPostData));
+      .returns(() => observableOf(mockPostData));
 
     mockTransitionCompleteService = Mock.ofType<TransitionCompleteService>();
   };

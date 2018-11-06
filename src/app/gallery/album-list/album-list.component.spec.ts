@@ -1,6 +1,7 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs/Observable';
 
 import { It, Mock, Times } from 'typemoq';
 
@@ -15,7 +16,7 @@ import { AlbumListComponent } from './album-list.component';
 describe('AlbumListComponent', () => {
   const mockAlbumService = Mock.ofType<AlbumService>();
   mockAlbumService.setup(s => s.getAllAlbumInfo())
-    .returns(() => Observable.of([MOCK_ALBUMDATA]));
+    .returns(() => observableOf([MOCK_ALBUMDATA]));
 
   const mockTitleService = Mock.ofType<TitleService>();
   mockTitleService.setup(x => x.setTitle(It.isAnyString()));
