@@ -137,7 +137,7 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "jblog",
-      "styleext": "scss"
+      "styleext": "css"
     },
     "@schematics/angular:directive": {
       "prefix": "jblog"
