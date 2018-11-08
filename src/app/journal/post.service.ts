@@ -1,16 +1,11 @@
+import { throwError as observableThrowError, Observable } from 'rxjs';
 
-import {throwError as observableThrowError,  Observable } from 'rxjs';
-
-import {map, catchError} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Inject, Injectable, Optional } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { BASE_PATH } from '../variables';
 import { PostData, PostDataWrapper } from './post-data';
-
-
-
-
 
 const API_URL = '/?posts';
 
@@ -29,7 +24,7 @@ export class PostService {
    * Injecting constructor.
    */
   constructor(
-    private http: Http,
+    private http: HttpClient,
     @Optional()
     @Inject(BASE_PATH)
     basePath: string
@@ -61,10 +56,7 @@ export class PostService {
       apiRequestUrl += `&tag=${tag}`;
     }
 
-    return this.http
-      .get(apiRequestUrl).pipe(
-      map((response: Response) => response.json().data as PostDataWrapper),
-      catchError((error: any) => this.errorHandler(error)),);
+    return this.http.get<PostDataWrapper>(apiRequestUrl);
   }
 
   /**
@@ -82,15 +74,7 @@ export class PostService {
 
     const apiRequestUrl = `${this.basePath}${API_URL}&postId=${postId}`;
     return this.http
-      .get(apiRequestUrl).pipe(
-      map((response: Response) => response.json().data[0] as PostData),
-      catchError((error: any) => this.errorHandler(error)),);
-  }
-
-  /**
-   * Wrapper method for error handling
-   */
-  private errorHandler(error: any): Observable<any> {
-    throw error || new Error('server error');
+      .get<PostDataWrapper>(apiRequestUrl)
+      .pipe(map((response: PostDataWrapper) => response.posts[0]));
   }
 }

@@ -1,16 +1,10 @@
+import { Observable } from 'rxjs';
 
-import {throwError as observableThrowError,  Observable } from 'rxjs';
-
-import {catchError, map} from 'rxjs/operators';
 import { Inject, Injectable, Optional } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { BASE_PATH } from '../variables';
 import { AlbumInfo } from './album-info';
-
-
-
-
 
 const API_URL = '/?gallery';
 const DEFAULT_ALBUM_NAME = '_default';
@@ -21,7 +15,6 @@ const DEFAULT_ALBUM_NAME = '_default';
  */
 @Injectable()
 export class AlbumService {
-
   /**
    * The fallback base URL to use if one is not provided by the environment.
    */
@@ -30,7 +23,7 @@ export class AlbumService {
   /**
    * Injecting constructor.
    */
-  constructor(private http: Http, @Optional()@Inject(BASE_PATH) basePath: string) {
+  constructor(private http: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string) {
     if (basePath) {
       this.basePath = basePath;
     }
@@ -45,9 +38,7 @@ export class AlbumService {
    */
   public getAllAlbumInfo(): Observable<AlbumInfo[]> {
     const requestUrl = `${this.basePath}${API_URL}&albumData&all`;
-    return this.http.get(requestUrl).pipe(
-      catchError((error: any) => this.errorHandler(error)),
-      map((response: Response) => response.json().data as AlbumInfo[]),);
+    return this.http.get<AlbumInfo[]>(requestUrl);
   }
 
   /**
@@ -64,19 +55,6 @@ export class AlbumService {
     }
 
     const endpoint = `${this.basePath}${API_URL}&albumData&albumName=${albumName}`;
-    return this.http.get(endpoint).pipe(
-      map((response: Response) => response.json().data as AlbumInfo),
-      catchError((error: any) => this.errorHandler(error)),);
-  }
-
-  /**
-   * Generic error handler.
-   *
-   * @return {Observable<any>} - an observable that throws and wraps the error
-   *                             when subscribed to.
-   */
-  private errorHandler(error: any): Observable<any> {
-    console.log(error);
-    return observableThrowError(error.json().error || 'Server error.');
+    return this.http.get<AlbumInfo>(endpoint);
   }
 }

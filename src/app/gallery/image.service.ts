@@ -1,8 +1,8 @@
-import {throwError as observableThrowError,  Observable } from 'rxjs';
+import { throwError as observableThrowError, Observable } from 'rxjs';
 
-import {map, catchError} from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Inject, Injectable, Optional } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { BASE_PATH } from '../variables';
 import { ImageInfo } from './image-info';
@@ -16,7 +16,6 @@ const DEFAULT_ALBUM_NAME = '_default';
  */
 @Injectable()
 export class ImageService {
-
   /**
    * The fallback base URL to use if one is not provided by the environment.
    */
@@ -25,7 +24,12 @@ export class ImageService {
   /**
    * Injecting constructor.
    */
-  constructor(private http: Http, @Optional()@Inject(BASE_PATH) basePath: string) {
+  constructor(
+    private http: HttpClient,
+    @Optional()
+    @Inject(BASE_PATH)
+    basePath: string
+  ) {
     if (basePath) {
       this.basePath = basePath;
     }
@@ -41,7 +45,11 @@ export class ImageService {
    *                                     ImageInfo-implementing objects that map
    *                                     to album images.
    */
-  public getImagesFromAlbum(albumName: string, pageId: number, count: number = 0): Observable<ImageInfo[]> {
+  public getImagesFromAlbum(
+    albumName: string,
+    pageId: number,
+    count: number = 0
+  ): Observable<ImageInfo[]> {
     if (albumName === '') {
       albumName = DEFAULT_ALBUM_NAME;
     }
@@ -56,9 +64,7 @@ export class ImageService {
       endpoint += `&count=${count}`;
     }
 
-    return this.http.get(endpoint).pipe(
-      map((response: Response) => response.json().data as ImageInfo[]),
-      catchError((error: any) => this.errorHandler(error)));
+    return this.http.get<ImageInfo[]>(endpoint);
   }
 
   /**
@@ -71,19 +77,6 @@ export class ImageService {
    */
   public getImageInfo(imageId: number): Observable<ImageInfo> {
     const endpoint = `${this.basePath}${API_URL}&imageData&imageId=${imageId}`;
-    return this.http.get(endpoint).pipe(
-      map((response: Response) => response.json().data as ImageInfo),
-      catchError((error: any) => this.errorHandler(error)));
-  }
-
-  /**
-   * Generic error handler.
-   *
-   * @return {Observable<any>} - an observable that throws and wraps the error
-   *                             when subscribed to.
-   */
-  private errorHandler(error: any): Observable<any> {
-    console.error(error);
-    return observableThrowError(error.json().error || 'Server error.');
+    return this.http.get<ImageInfo>(endpoint);
   }
 }

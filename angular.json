@@ -24,11 +24,15 @@
             "assets": [
               "src/api",
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              {
+                "glob": "**/*.min.css",
+                "input": "./node_modules/bootstrap/dist/css/",
+                "output": "./assets/thirdparty/bootstrap/"
+              }
             ],
             "styles": [
-              "src/styles.scss",
-              "src/grid.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -83,8 +87,7 @@
               ]
             },
             "styles": [
-              "src/styles.scss",
-              "src/grid.scss"
+              "src/styles.scss"
             ],
             "assets": [
               "src/api",

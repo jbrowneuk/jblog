@@ -11,7 +11,6 @@ class ResponseHelpers {
 
   public static function outputWithJsonHeader($obj) {
     @header("Content-Type:application/json; charset=utf-8");
-    $wrapper = array("data" => $obj);
-    print json_encode($wrapper);
+    print json_encode($obj);
   }
 }

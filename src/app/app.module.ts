@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ENV_PROVIDERS } from '../environments/environment';
 
@@ -16,15 +16,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { ErrorComponent } from './error/error.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrorComponent
-  ],
+  declarations: [AppComponent, ErrorComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     SharedModule.forRoot(),
     HomeModule,
     ProjectsModule,
@@ -33,4 +30,4 @@ import { ErrorComponent } from './error/error.component';
   providers: [ENV_PROVIDERS],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
