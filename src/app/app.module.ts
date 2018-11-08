@@ -21,7 +21,6 @@ import { ErrorComponent } from './error/error.component';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpModule, // TODO: REMOVE
     HttpClientModule,
     SharedModule.forRoot(),
     HomeModule,
