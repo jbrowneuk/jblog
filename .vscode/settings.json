@@ -1,12 +1,12 @@
 {
-    "editor.tabSize": 2,
-    "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
 
-    "codemetrics.basics.ComplexityLevelExtremeDescription": "(Extreme)",
-    "codemetrics.basics.ComplexityLevelHighDescription": "(High)",
-    "codemetrics.basics.ComplexityLevelNormalDescription": "(Medium)",
-    "codemetrics.basics.ComplexityLevelLowDescription": "(Low)",
+  "codemetrics.basics.ComplexityLevelExtremeDescription": "(Extreme)",
+  "codemetrics.basics.ComplexityLevelHighDescription": "(High)",
+  "codemetrics.basics.ComplexityLevelNormalDescription": "(Medium)",
+  "codemetrics.basics.ComplexityLevelLowDescription": "(Low)",
 
-    "prettier.singleQuote": true,
-    "editor.formatOnSave": true
+  "prettier.singleQuote": true,
+  "editor.formatOnSave": false
 }
