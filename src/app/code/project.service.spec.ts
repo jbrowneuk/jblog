@@ -1,14 +1,9 @@
-
-import {throwError as observableThrowError,  Observable } from 'rxjs';
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import {
-  HttpModule,
-  Http,
-  Response,
-  ResponseOptions,
-  XHRBackend
-} from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { Project } from './project';
 import { ProjectService } from './project.service';
@@ -32,85 +27,86 @@ const mockSecondProject: Project = {
 };
 
 describe('ProjectService', () => {
+  let httpTestingController: HttpTestingController;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
-      providers: [
-        ProjectService,
-        { provide: XHRBackend, useClass: MockBackend }
-      ]
+      imports: [HttpClientTestingModule],
+      providers: [ProjectService]
     });
+
+    httpTestingController = TestBed.get(HttpTestingController);
   });
 
-  it(
-    'should get all projects from backend',
-    inject([ProjectService, XHRBackend], (service, mockBackend) => {
-      const mockResponse = {
-        data: [mockFirstProject, mockSecondProject]
-      };
+  afterEach(() => {
+    httpTestingController.verify();
+  });
 
-      mockBackend.connections.subscribe(connection => {
-        connection.mockRespond(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify(mockResponse)
-            })
-          )
-        );
-      });
+  it('should get all projects from backend', inject(
+    [ProjectService],
+    (service: ProjectService) => {
+      const mockResponse = [mockFirstProject, mockSecondProject];
 
       service.getProjects(0).subscribe((projects: Project[]) => {
         expect(projects.length).toBe(2);
         expect(projects[0]).toEqual(mockFirstProject);
         expect(projects[1]).toEqual(mockSecondProject);
       });
-    })
-  );
 
-  it(
-    'should get specific number of projects from backend',
-    inject([ProjectService, XHRBackend], (service, mockBackend) => {
+      const req = httpTestingController.expectOne(
+        '/assets/mock-data/projects.json'
+      );
+      expect(req.request.method).toEqual('GET');
+      req.flush(mockResponse);
+    }
+  ));
+
+  it('should get specific number of projects from backend', inject(
+    [ProjectService],
+    (service: ProjectService) => {
       const numberToFetch = 2;
 
-      const mockResponse = {
-        data: [
-          mockFirstProject,
-          mockSecondProject,
-          mockFirstProject,
-          mockSecondProject
-        ]
-      };
-
-      mockBackend.connections.subscribe(connection => {
-        connection.mockRespond(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify(mockResponse)
-            })
-          )
-        );
-      });
+      const mockResponse = [
+        mockFirstProject,
+        mockSecondProject,
+        mockFirstProject,
+        mockSecondProject
+      ];
 
       service.getProjects(0, numberToFetch).subscribe((projects: Project[]) => {
         expect(projects.length).toBe(numberToFetch);
         expect(projects[0]).toEqual(mockFirstProject);
         expect(projects[1]).toEqual(mockSecondProject);
       });
-    })
-  );
 
-  it(
-    'Should handle errors when getting single album info',
-    inject([ProjectService], (service: ProjectService) => {
-      const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(observableThrowError(new Error()));
+      const req = httpTestingController.expectOne(
+        '/assets/mock-data/projects.json'
+      );
+      expect(req.request.method).toEqual('GET');
+      req.flush(mockResponse);
+    }
+  ));
+
+  it('Should handle errors when getting single album info', inject(
+    [ProjectService],
+    (service: ProjectService) => {
+      const emsg = 'deliberate 404 error';
 
       service
         .getProjects(0)
         .subscribe(
-          (response: Project[]) => fail('should not get here'),
-          (err: Error) => expect(err).toBeTruthy()
+          () => fail('should not get here'),
+          (error: HttpErrorResponse) => {
+            expect(error.status).toEqual(404, 'status');
+            expect(error.error).toEqual(emsg, 'message');
+          }
         );
-    })
-  );
+
+      const req = httpTestingController.expectOne(
+        '/assets/mock-data/projects.json'
+      );
+      expect(req.request.method).toEqual('GET');
+      req.flush(emsg, { status: 404, statusText: 'Not Found' });
+    }
+  ));
 });
