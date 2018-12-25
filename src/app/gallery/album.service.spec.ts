@@ -1,14 +1,8 @@
-
-import {throwError as observableThrowError, of as observableOf,  Observable } from 'rxjs';
 import { TestBed, inject } from '@angular/core/testing';
 import {
-  HttpModule,
-  Http,
-  Response,
-  ResponseOptions,
-  XHRBackend
-} from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
 
 import { AlbumInfo } from './album-info';
 import { AlbumService } from './album.service';
@@ -25,16 +19,24 @@ const firstAlbum = {
 };
 
 describe('AlbumService', () => {
+  let httpTestingController: HttpTestingController;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
-      providers: [AlbumService, { provide: XHRBackend, useClass: MockBackend }]
+      imports: [HttpClientTestingModule],
+      providers: [AlbumService]
     });
+
+    httpTestingController = TestBed.get(HttpTestingController);
   });
 
-  it(
-    'should get all albums from backend',
-    inject([AlbumService, XHRBackend], (service, mockBackend) => {
+  afterEach(() => {
+    httpTestingController.verify();
+  });
+
+  it('should get all albums from backend', inject(
+    [AlbumService],
+    (service: AlbumService) => {
       const secondAlbum = {
         albumId: 2,
         title: 'second album',
@@ -46,94 +48,95 @@ describe('AlbumService', () => {
         iconUrl: 'http://localhost:9876/img.png'
       };
 
-      const mockResponse = {
-        data: [firstAlbum, secondAlbum]
-      };
-
-      mockBackend.connections.subscribe(connection => {
-        connection.mockRespond(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify(mockResponse)
-            })
-          )
-        );
-      });
+      const mockResponse = [firstAlbum, secondAlbum];
 
       service.getAllAlbumInfo().subscribe((albums: AlbumInfo[]) => {
         expect(albums.length).toBe(2);
         expect(albums[0]).toEqual(firstAlbum);
         expect(albums[1]).toEqual(secondAlbum);
       });
-    })
-  );
 
-  it(
-    'should get a single album from backend',
-    inject([AlbumService, XHRBackend], (service, mockBackend) => {
-      const mockResponse = {
-        data: firstAlbum
-      };
+      const req = httpTestingController.expectOne(
+        'http://localhost/api/?gallery&albumData&all'
+      );
+      expect(req.request.method).toEqual('GET');
+      req.flush(mockResponse);
+    }
+  ));
 
-      mockBackend.connections.subscribe(connection => {
-        connection.mockRespond(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify(mockResponse)
-            })
-          )
-        );
-      });
+  it('should get a single album from backend', inject(
+    [AlbumService],
+    (service: AlbumService) => {
+      const albumName = firstAlbum.name;
+      const mockResponse = firstAlbum;
 
-      service.getAlbumInfo('mockAlbum').subscribe((album: AlbumInfo) => {
+      service.getAlbumInfo(albumName).subscribe((album: AlbumInfo) => {
         expect(album).toEqual(firstAlbum);
       });
-    })
-  );
 
-  it(
-    'Should get default album info if name is blank',
-    inject([AlbumService], (service: AlbumService) => {
+      const req = httpTestingController.expectOne(
+        `http://localhost/api/?gallery&albumData&albumName=${albumName}`
+      );
+      expect(req.request.method).toEqual('GET');
+      req.flush(mockResponse);
+    }
+  ));
+
+  it('Should get default album info if name is blank', inject(
+    [AlbumService],
+    (service: AlbumService) => {
       const expectedAlbumName = '_default';
 
-      const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(observableOf(null));
+      service
+        .getAlbumInfo('')
+        .subscribe((data: AlbumInfo) => expect(data).toEqual(firstAlbum));
 
-      service.getAlbumInfo('');
-
-      expect(http.get).toHaveBeenCalledWith(
+      const req = httpTestingController.expectOne(
         `http://localhost/api/?gallery&albumData&albumName=${expectedAlbumName}`
       );
-    })
-  );
+      expect(req.request.method).toEqual('GET');
+      req.flush(firstAlbum);
+    }
+  ));
 
-  it(
-    'Should handle errors when getting all album info',
-    inject([AlbumService], (service: AlbumService) => {
-      const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(observableThrowError(new Error()));
+  it('Should handle errors when getting all album info', inject(
+    [AlbumService],
+    (service: AlbumService) => {
+      const emsg = 'deliberate 404 error';
 
       service
         .getAllAlbumInfo()
         .subscribe(
-          (response: AlbumInfo[]) => fail('should not get here'),
+          () => fail('should not get here'),
           (err: Error) => expect(err).toBeTruthy()
         );
-    })
-  );
 
-  it(
-    'Should handle errors when getting single album info',
-    inject([AlbumService], (service: AlbumService) => {
-      const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(observableThrowError(new Error()));
+      const req = httpTestingController.expectOne(
+        `http://localhost/api/?gallery&albumData&all`
+      );
+      expect(req.request.method).toEqual('GET');
+      req.flush(emsg, { status: 404, statusText: 'Not Found' });
+    }
+  ));
+
+  it('Should handle errors when getting single album info', inject(
+    [AlbumService],
+    (service: AlbumService) => {
+      const emsg = 'deliberate 404 error';
+      const name = 'fake';
 
       service
-        .getAlbumInfo('any')
+        .getAlbumInfo(name)
         .subscribe(
-          (response: AlbumInfo) => fail('should not get here'),
+          () => fail('should not get here'),
           (err: Error) => expect(err).toBeTruthy()
         );
-    })
-  );
+
+      const req = httpTestingController.expectOne(
+        `http://localhost/api/?gallery&albumData&albumName=${name}`
+      );
+      expect(req.request.method).toEqual('GET');
+      req.flush(emsg, { status: 404, statusText: 'Not Found' });
+    }
+  ));
 });
