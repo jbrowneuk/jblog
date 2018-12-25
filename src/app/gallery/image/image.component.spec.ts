@@ -1,10 +1,10 @@
-
-import {of as observableOf,  Observable ,  BehaviorSubject } from 'rxjs';
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { of as observableOf, BehaviorSubject } from 'rxjs';
+import { Pipe, PipeTransform } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Params, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { It, Mock, Times } from 'typemoq';
+import { It, IMock, Mock, Times } from 'typemoq';
 
 import { ImageService } from '../image.service';
 import { TextParsingService } from '../../shared/text-parsing.service';
@@ -16,43 +16,64 @@ import { ImageComponent } from './image.component';
 
 const PARSED_SUFFIX = ' was parsed';
 
-describe('ImageComponent', () => {
-  const mockImageService = Mock.ofType<ImageService>();
-  const mockTextParsingService = Mock.ofType<TextParsingService>();
+@Pipe({
+  name: 'date',
+  pure: false
+})
+class MockDatePipe implements PipeTransform {
+  transform(value: any): string {
+    return `${value}`;
+  }
+}
 
-  const mockTitleService = Mock.ofType<TitleService>();
-  mockTitleService.setup(x => x.setTitle(It.isAnyString()));
+describe('ImageComponent', () => {
+  let mockImageService: IMock<ImageService>;
+  let mockTextParsingService: IMock<TextParsingService>;
+  let mockTitleService: IMock<TitleService>;
 
   let component: ImageComponent;
   let fixture: ComponentFixture<ImageComponent>;
   let compiled: HTMLElement;
 
   function resetMocks() {
-    mockTitleService.reset();
+    mockTitleService = Mock.ofType<TitleService>();
+    mockTitleService.setup(x => x.setTitle(It.isAnyString()));
 
-    mockImageService.reset();
-    mockImageService.setup(s => s.getImageInfo(It.isAnyNumber()))
+    mockImageService = Mock.ofType<ImageService>();
+    mockImageService
+      .setup(s => s.getImageInfo(It.isAnyNumber()))
       .returns(() => observableOf(MOCK_IMAGEDATA));
-    mockImageService.setup(s => s.getImagesFromAlbum(It.isAnyString(), It.isAnyNumber(), It.isAnyNumber()))
+    mockImageService
+      .setup(s =>
+        s.getImagesFromAlbum(
+          It.isAnyString(),
+          It.isAnyNumber(),
+          It.isAnyNumber()
+        )
+      )
       .returns(() => observableOf([MOCK_IMAGEDATA]));
 
-    mockTextParsingService.reset();
-    mockTextParsingService.setup(s => s.parse(It.isAnyString())).returns((s: string) => `${s}${PARSED_SUFFIX}`);
+    mockTextParsingService = Mock.ofType<TextParsingService>();
+    mockTextParsingService
+      .setup(s => s.parse(It.isAnyString()))
+      .returns((s: string) => `${s}${PARSED_SUFFIX}`);
   }
 
-  function moduleSetup() {
+  function moduleSetup(): Promise<any> {
     const providers: any[] = [
       { provide: ImageService, useFactory: () => mockImageService.object },
-      { provide: TextParsingService, useFactory: () => mockTextParsingService.object },
+      {
+        provide: TextParsingService,
+        useFactory: () => mockTextParsingService.object
+      },
       { provide: TitleService, useFactory: () => mockTitleService.object }
     ];
 
-    TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ ImageComponent ],
+    return TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
+      declarations: [MockDatePipe, ImageComponent],
       providers: providers
-    })
-    .compileComponents();
+    }).compileComponents();
   }
 
   function componentSetup() {
@@ -63,73 +84,83 @@ describe('ImageComponent', () => {
   }
 
   describe('main interaction', () => {
-
-    beforeEach(() => {
+    beforeEach(async(async () => {
       resetMocks();
-      moduleSetup();
+      await moduleSetup();
       componentSetup();
-    });
+    }));
 
     it('should create and have zoomed out state', () => {
       expect(component.isZoomedOut).toBeTruthy();
 
       // No image data, should show loading text
-      expect(compiled.querySelector('.panel').textContent.trim()).toBe('Loading…');
+      expect(compiled.querySelector('.panel').textContent.trim()).toBe(
+        'Loading…'
+      );
     });
 
-    it('should parse description text', async(() => {
-      const expectedParsedOutput = `${MOCK_IMAGEDATA.description}${PARSED_SUFFIX}`;
+    it('should parse description text', async(async () => {
+      const expectedParsedOutput = `${
+        MOCK_IMAGEDATA.description
+      }${PARSED_SUFFIX}`;
 
       component.data = MOCK_IMAGEDATA;
+
       fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        mockTextParsingService.verify(x => x.parse(It.isValue(MOCK_IMAGEDATA.description)), Times.atLeastOnce());
-        expect(compiled.querySelector('.content-area').textContent).toBe(expectedParsedOutput);
-      });
+      await fixture.whenStable();
+
+      mockTextParsingService.verify(
+        x => x.parse(It.isValue(MOCK_IMAGEDATA.description)),
+        Times.atLeastOnce()
+      );
+      expect(compiled.querySelector('.content-area').textContent).toBe(
+        expectedParsedOutput
+      );
     }));
 
-    it('should display parent folder name', async(() => {
+    it('should display parent folder name', async(async () => {
       component.data = MOCK_IMAGEDATA;
       fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        expect(compiled.querySelector('#parent-folder-link').textContent.trim())
-          .toBe(`Back to ${MOCK_IMAGEDATA.containingAlbums[0].title}`);
-      });
+      await fixture.whenStable();
+
+      expect(
+        compiled.querySelector('#parent-folder-link').textContent.trim()
+      ).toBe(`Back to ${MOCK_IMAGEDATA.containingAlbums[0].title}`);
     }));
 
-    it('should display image title', async(() => {
+    it('should display image title', async(async () => {
       component.data = MOCK_IMAGEDATA;
       fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        expect(compiled.querySelector('#image-title').textContent.trim())
-          .toBe(MOCK_IMAGEDATA.title);
-      });
+      await fixture.whenStable();
+
+      expect(compiled.querySelector('#image-title').textContent.trim()).toBe(
+        MOCK_IMAGEDATA.title
+      );
     }));
 
-    it('should display image date (locale dependent)', async(() => {
+    it('should display image date (locale dependent)', async(async () => {
       component.data = MOCK_IMAGEDATA;
+      const expectedDate = '' + (MOCK_IMAGEDATA.date * 1000);
+
       fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-        expect(compiled.querySelector('.card-info').textContent.trim())
-          .toBe('Nov 29, 1973, 9:33:09 PM');
-      });
+      await fixture.whenStable();
+
+      expect(compiled.querySelector('.card-info').textContent.trim()).toBe(expectedDate);
     }));
 
-    it('should display tag list', async(() => {
+    it('should display tag list', async(async () => {
       component.data = MOCK_IMAGEDATA;
       fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
+      await fixture.whenStable();
 
-        const tagListElements = compiled.querySelectorAll('#gallery-area a');
-        expect(tagListElements.length).toBe(2);
-        expect(tagListElements[0].textContent.trim()).toBe(MOCK_IMAGEDATA.containingAlbums[0].title);
-        expect(tagListElements[1].textContent.trim()).toBe(MOCK_IMAGEDATA.containingAlbums[1].title);
-      });
+      const tagListElements = compiled.querySelectorAll('#gallery-area a');
+      expect(tagListElements.length).toBe(2);
+      expect(tagListElements[0].textContent.trim()).toBe(
+        MOCK_IMAGEDATA.containingAlbums[0].title
+      );
+      expect(tagListElements[1].textContent.trim()).toBe(
+        MOCK_IMAGEDATA.containingAlbums[1].title
+      );
     }));
 
     it('should toggle zoom', () => {
@@ -143,7 +174,7 @@ describe('ImageComponent', () => {
       expect(component.isZoomedOut).not.toBe(originalZoomedOut);
     });
 
-    it('should request image on load', async(() => {
+    it('should request image on load', async(async () => {
       const mockParam: Params = { id: '1' };
       const route = TestBed.get(ActivatedRoute) as ActivatedRoute;
       const params = route.params as BehaviorSubject<Params>;
@@ -151,11 +182,10 @@ describe('ImageComponent', () => {
 
       component.ngOnInit();
 
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
+      fixture.detectChanges();
+      await fixture.whenStable();
 
-        expect(component.data).toEqual(MOCK_IMAGEDATA);
-      });
+      expect(component.data).toEqual(MOCK_IMAGEDATA);
     }));
   });
 });
