@@ -1,14 +1,8 @@
-
-import {throwError as observableThrowError, of as observableOf,  Observable } from 'rxjs';
 import { TestBed, inject } from '@angular/core/testing';
 import {
-  HttpModule,
-  Http,
-  Response,
-  ResponseOptions,
-  XHRBackend
-} from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
 
 import { ImageInfo } from './image-info';
 import { ImageService } from './image.service';
@@ -36,174 +30,158 @@ const mockUnfeaturedImageData = {
 };
 
 describe('ImageService', () => {
+  let httpTestingController: HttpTestingController;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
-      providers: [ImageService, { provide: XHRBackend, useClass: MockBackend }]
+      imports: [HttpClientTestingModule],
+      providers: [ImageService]
     });
+
+    httpTestingController = TestBed.get(HttpTestingController);
   });
 
-  it(
-    'should get all images from album',
-    inject([ImageService, XHRBackend], (service, mockBackend) => {
-      const mockResponse = {
-        data: [mockFeaturedImageData, mockUnfeaturedImageData]
-      };
+  afterEach(() => {
+    httpTestingController.verify();
+  });
 
-      mockBackend.connections.subscribe(connection => {
-        connection.mockRespond(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify(mockResponse)
-            })
-          )
-        );
-      });
+  it('should get all images from album', inject(
+    [ImageService],
+    (service: ImageService) => {
+      const albumName = 'any';
+      const expectedPage = 1;
+      const mockResponse = [mockFeaturedImageData, mockUnfeaturedImageData];
 
-      service.getImagesFromAlbum('any', 1).subscribe((images: ImageInfo[]) => {
-        expect(images.length).toBe(2);
+      service
+        .getImagesFromAlbum(albumName, expectedPage)
+        .subscribe((images: ImageInfo[]) => {
+          expect(images.length).toBe(2);
 
-        expect(images[0]).toEqual(mockFeaturedImageData);
-        expect(images[1]).toEqual(mockUnfeaturedImageData);
-      });
-    })
-  );
+          expect(images[0]).toEqual(mockFeaturedImageData);
+          expect(images[1]).toEqual(mockUnfeaturedImageData);
+        });
 
-  it(
-    'should get images from default album if album is blank',
-    inject([ImageService, XHRBackend], (service, mockBackend) => {
+      const req = httpTestingController.expectOne(
+        `http://localhost/api/?gallery&images&albumName=${albumName}&page=${expectedPage}`
+      );
+      expect(req.request.method).toEqual('GET');
+      req.flush(mockResponse);
+    }
+  ));
+
+  it('should get images from default album if album is blank', inject(
+    [ImageService],
+    (service: ImageService) => {
       const expectedAlbumName = '_default';
       const expectedPage = 1;
+      const mockResponse = [mockFeaturedImageData, mockUnfeaturedImageData];
 
-      const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(observableOf(null));
+      service
+        .getImagesFromAlbum('', expectedPage)
+        .subscribe((data: ImageInfo[]) => expect(data).toEqual(mockResponse));
 
-      service.getImagesFromAlbum('', expectedPage);
-
-      expect(http.get).toHaveBeenCalledWith(
+      const req = httpTestingController.expectOne(
         `http://localhost/api/?gallery&images&albumName=${expectedAlbumName}&page=${expectedPage}`
       );
-    })
-  );
+      expect(req.request.method).toEqual('GET');
+      req.flush(mockResponse);
+    }
+  ));
 
-  it(
-    'should get images from first page if page is less than zero',
-    inject([ImageService, XHRBackend], (service, mockBackend) => {
+  it('should get images from first page if page is less than zero', inject(
+    [ImageService],
+    (service: ImageService) => {
       const expectedAlbumName = 'any';
       const expectedPage = 1;
+      const mockResponse = [mockFeaturedImageData];
 
-      const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(observableOf(null));
+      service
+        .getImagesFromAlbum(expectedAlbumName, -2)
+        .subscribe((data: ImageInfo[]) => expect(data).toEqual(mockResponse));
 
-      service.getImagesFromAlbum(expectedAlbumName, -2);
-
-      expect(http.get).toHaveBeenCalledWith(
+      const req = httpTestingController.expectOne(
         `http://localhost/api/?gallery&images&albumName=${expectedAlbumName}&page=${expectedPage}`
       );
-    })
-  );
+      expect(req.request.method).toEqual('GET');
+      req.flush(mockResponse);
+    }
+  ));
 
-  it(
-    'should get a specified number of images if count is set',
-    inject([ImageService, XHRBackend], (service, mockBackend) => {
+  it('should get a specified number of images if count is set', inject(
+    [ImageService],
+    (service: ImageService) => {
       const expectedAlbumName = 'any';
       const expectedPage = 1;
       const expectedCount = 3;
+      const mockResponse = [mockFeaturedImageData];
 
-      const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(observableOf(null));
+      service
+        .getImagesFromAlbum(expectedAlbumName, expectedPage, expectedCount)
+        .subscribe(() => {});
 
-      service.getImagesFromAlbum(
-        expectedAlbumName,
-        expectedPage,
-        expectedCount
-      );
-
-      expect(http.get).toHaveBeenCalledWith(
+      const req = httpTestingController.expectOne(
         `http://localhost/api/?gallery&images&albumName=${expectedAlbumName}&page=${expectedPage}&count=${expectedCount}`
       );
-    })
-  );
+      expect(req.request.method).toEqual('GET');
+      req.flush(mockResponse);
+    }
+  ));
 
-  it(
-    'should get a single image',
-    inject([ImageService, XHRBackend], (service, mockBackend) => {
-      const mockResponse = { data: mockUnfeaturedImageData };
-
-      mockBackend.connections.subscribe(connection => {
-        connection.mockRespond(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify(mockResponse)
-            })
-          )
-        );
-      });
+  it('should get image information', inject(
+    [ImageService],
+    (service: ImageService) => {
+      const mockResponse = mockUnfeaturedImageData;
 
       service
-        .getImagesFromAlbum('any', mockUnfeaturedImageData.id)
+        .getImageInfo(mockUnfeaturedImageData.id)
         .subscribe(
           (image: ImageInfo) => expect(image).toEqual(mockUnfeaturedImageData),
-          (err: Error) => fail('should not get here')
+          () => fail('should not get here')
         );
-    })
-  );
 
-  it(
-    'should get image information',
-    inject([ImageService, XHRBackend], (service, mockBackend) => {
-      const mockResponse = { data: mockUnfeaturedImageData };
-
-      mockBackend.connections.subscribe(connection => {
-        connection.mockRespond(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify(mockResponse)
-            })
-          )
-        );
-      });
-
-      service
-        .getImageInfo('any', mockUnfeaturedImageData.id)
-        .subscribe(
-          (image: ImageInfo) => expect(image).toEqual(mockUnfeaturedImageData),
-          (err: Error) => fail('should not get here')
-        );
-    })
-  );
-
-  it(
-    'should bubble up errors to caller when getting images from album',
-    inject([ImageService], (service) => {
-      const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(
-        observableThrowError(new Error())
+      const req = httpTestingController.expectOne(
+        `http://localhost/api/?gallery&imageData&imageId=${
+          mockUnfeaturedImageData.id
+        }`
       );
+      expect(req.request.method).toEqual('GET');
+      req.flush(mockResponse);
+    }
+  ));
+
+  it('should bubble up errors to caller when getting images from album', inject(
+    [ImageService],
+    (service: ImageService) => {
+      const expectedAlbumName = 'any';
 
       service
-        .getImagesFromAlbum('any', 1)
+        .getImagesFromAlbum(expectedAlbumName, 1)
         .subscribe(
-          (image: ImageInfo) => fail('Should not get here'),
+          () => fail('Should not get here'),
           (err: Error) => expect(err).toBeTruthy()
         );
-    })
-  );
 
-  it(
-    'should bubble up errors to caller when getting images information',
-    inject([ImageService], (service) => {
-      const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(
-        observableThrowError(new Error())
+      const req = httpTestingController.expectOne(
+        `http://localhost/api/?gallery&images&albumName=${expectedAlbumName}&page=1`
       );
+      req.flush('fake 404', { status: 404, statusText: 'Not Found' });
+    }
+  ));
 
+  it('should bubble up errors to caller when getting an image’s information', inject(
+    [ImageService],
+    (service: ImageService) => {
       service
         .getImageInfo(1)
         .subscribe(
-          (image: ImageInfo) => fail('Should not get here'),
+          () => fail('Should not get here'),
           (err: Error) => expect(err).toBeTruthy()
         );
-    })
-  );
+
+      const req = httpTestingController.expectOne(
+        'http://localhost/api/?gallery&imageData&imageId=1'
+      );
+      req.flush('fake 404', { status: 404, statusText: 'Not Found' });
+    }
+  ));
 });
