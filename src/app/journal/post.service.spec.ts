@@ -1,14 +1,8 @@
-
-import {throwError as observableThrowError,  Observable } from 'rxjs';
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import {
-  HttpModule,
-  Http,
-  Response,
-  ResponseOptions,
-  XHRBackend
-} from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
 
 import { PostData, PostDataWrapper } from './post-data';
 import { PostService } from './post.service';
@@ -30,178 +24,144 @@ const mockSecondPost = {
 };
 
 describe('PostService', () => {
+  let httpTestingController: HttpTestingController;
+  let service: PostService;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
-      providers: [PostService, { provide: XHRBackend, useClass: MockBackend }]
+      imports: [HttpClientTestingModule],
+      providers: [PostService]
     });
+
+    httpTestingController = TestBed.get(HttpTestingController);
+    service = TestBed.get(PostService);
   });
 
-  it(
-    'should get all posts for default page',
-    inject([PostService, XHRBackend], (service, mockBackend) => {
-      const mockResponse = {
-        data: {
-          posts: [mockFirstPost, mockSecondPost],
-          totalPages: 1
-        }
+  afterEach(() => {
+    httpTestingController.verify();
+  });
+
+  it('should get posts for a specified page', (done: DoneFn) => {
+    const expectedPage = 3;
+
+    const mockResponse: PostDataWrapper = {
+      posts: [mockFirstPost, mockSecondPost],
+      totalPages: expectedPage
+    };
+
+    service
+      .getPostsForPage(expectedPage)
+      .subscribe((postData: PostDataWrapper) => {
+        expect(postData.posts.length).toBe(mockResponse.posts.length);
+        done();
+      });
+
+    const req = httpTestingController.expectOne(
+      `http://localhost/api/?posts&page=${expectedPage}`
+    );
+    expect(req.request.method).toEqual('GET');
+    req.flush(mockResponse);
+  });
+
+  it('should get posts for a specified tag',
+    (done: DoneFn) => {
+      const expectedTag = 'myTag';
+
+      const mockResponse: PostDataWrapper = {
+        posts: [mockFirstPost, mockSecondPost],
+        totalPages: 1
       };
 
-      mockBackend.connections.subscribe(connection => {
-        connection.mockRespond(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify(mockResponse)
-            })
-          )
-        );
-      });
-
-      service.getPostsForPage().subscribe((postData: PostDataWrapper) => {
-        expect(postData.posts.length).toBe(mockResponse.data.posts.length);
-        expect(postData.totalPages).toBe(mockResponse.data.totalPages);
-      });
-    })
-  );
-
-  it(
-    'should get posts for a specified page',
-    inject(
-      [PostService, XHRBackend],
-      (service: PostService, mockBackend: MockBackend) => {
-        const expectedPage = 3;
-        let lastConnection: MockConnection;
-
-        const mockResponse = {
-          data: {
-            posts: [mockFirstPost, mockSecondPost],
-            totalPages: expectedPage
-          }
-        };
-        mockBackend.connections.subscribe((connection: MockConnection) => {
-          lastConnection = connection;
-          connection.mockRespond(
-            new Response(
-              new ResponseOptions({
-                body: JSON.stringify(mockResponse)
-              })
-            )
-          );
+      service
+        .getPostsForPage(0, expectedTag)
+        .subscribe((postData: PostDataWrapper) => {
+          expect(postData.posts.length).toBe(mockResponse.posts.length);
+          done();
         });
 
-        service
-          .getPostsForPage(expectedPage)
-          .subscribe((postData: PostDataWrapper) => {
-            expect(postData.posts.length).toBe(mockResponse.data.posts.length);
-            expect(lastConnection.request.url).toBe(
-              `http://localhost/api/?posts&page=${expectedPage}`
-            );
-          });
-      }
-    )
+      const req = httpTestingController.expectOne(
+        `http://localhost/api/?posts&tag=${expectedTag}`
+      );
+      expect(req.request.method).toEqual('GET');
+      req.flush(mockResponse);
+    }
   );
 
-  it(
-    'should get posts for a specified tag',
-    inject(
-      [PostService, XHRBackend],
-      (service: PostService, mockBackend: MockBackend) => {
-        const expectedTag = 'myTag';
-        let lastConnection: MockConnection;
+  it('should get a specific post',
+    (done: DoneFn) => {
+      const id = mockFirstPost.postId;
+      const mockResponse: PostDataWrapper = {
+        posts: [mockFirstPost],
+        totalPages: 1
+      };
 
-        const mockResponse = {
-          data: {
-            posts: [mockFirstPost, mockSecondPost],
-            totalPages: 1
+      service.getPost(id).subscribe((postData: PostData) => {
+        expect(postData).toEqual(mockFirstPost);
+        done();
+      });
+
+      const req = httpTestingController.expectOne(
+        `http://localhost/api/?posts&postId=${id}`
+      );
+      expect(req.request.method).toEqual('GET');
+      req.flush(mockResponse);
+    }
+  );
+
+  it('should handle errors when getting post list',
+    (done: DoneFn) => {
+      const page = 1024;
+
+      service
+        .getPostsForPage(page)
+        .subscribe(
+          () => fail('Should never get here'),
+          (err: Error) => {
+            expect(err).toBeTruthy();
+            done();
           }
-        };
-        mockBackend.connections.subscribe((connection: MockConnection) => {
-          lastConnection = connection;
-          connection.mockRespond(
-            new Response(
-              new ResponseOptions({
-                body: JSON.stringify(mockResponse)
-              })
-            )
-          );
-        });
-
-        service
-          .getPostsForPage(0, expectedTag)
-          .subscribe((postData: PostDataWrapper) => {
-            expect(postData.posts.length).toBe(mockResponse.data.posts.length);
-            expect(lastConnection.request.url).toBe(
-              `http://localhost/api/?posts&tag=${expectedTag}`
-            );
-          });
-      }
-    )
-  );
-
-  it(
-    'should get a specific post',
-    inject([PostService, XHRBackend], (service, mockBackend) => {
-      const mockResponse = { data: [mockFirstPost] };
-
-      mockBackend.connections.subscribe(connection => {
-        connection.mockRespond(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify(mockResponse)
-            })
-          )
         );
-      });
 
-      service.getPost(1).subscribe((postData: PostData) => {
-        expect(postData.postId).toBe(1);
-        expect(postData.title).toBe('first');
-      });
-    })
+      const req = httpTestingController.expectOne(
+        `http://localhost/api/?posts&page=${page}`
+      );
+      req.flush('fake 404', { status: 404, statusText: 'Not Found' });
+    }
   );
 
-  it(
-    'should handle errors when getting post list',
-    inject([PostService], (service: PostService) => {
-      const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(observableThrowError('any error'));
+  it('should handle errors when getting single post information',
+    (done: DoneFn) => {
+      const postId = 1024;
+      service
+        .getPost(postId)
+        .subscribe(
+          () => fail('Should never get here'),
+          (err: Error) => {
+            expect(err).toBeTruthy();
+            done();
+          }
+        );
+
+      const req = httpTestingController.expectOne(
+        `http://localhost/api/?posts&postId=${postId}`
+      );
+      req.flush('fake 404', { status: 404, statusText: 'Not Found' });
+    }
+  );
+
+  it('should handle errors when getting post information for invalid id',
+    (done: DoneFn) => {
+      const postId = -1;
 
       service
-        .getPostsForPage(1)
+        .getPost(postId)
         .subscribe(
-          (response: any) => fail('Should never get here'),
-          (err: Error) => expect(err).toBeTruthy()
+          () => fail('Should never get here'),
+          (err: Error) => {
+            expect(err).toBeTruthy();
+            done();
+          }
         );
-    })
-  );
-
-  it(
-    'should handle errors when getting single post information',
-    inject([PostService], (service: PostService) => {
-      const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(observableThrowError('any error'));
-
-      service
-        .getPost(1)
-        .subscribe(
-          (response: any) => fail('Should never get here'),
-          (err: Error) => expect(err).toBeTruthy()
-        );
-    })
-  );
-
-  it(
-    'should handle errors when getting post information for invalid id',
-    inject([PostService], (service: PostService) => {
-      const http = TestBed.get(Http);
-      spyOn(http, 'get').and.returnValue(observableThrowError('any error'));
-
-      service
-        .getPost(0)
-        .subscribe(
-          (response: any) => fail('Should never get here'),
-          (err: Error) => expect(err.message).toBeTruthy()
-        );
-    })
+    }
   );
 });
