@@ -2,8 +2,8 @@
      [class.has-parallax]="parallaxImage">
   <div class="parallax"
        *ngIf="parallaxImage"
-       jblogParallaxBackground>
-    <img src="{{parallaxImage}}" alt="backdrop"/>
+       jblogParallaxBackground
+       [ngStyle]="getBackgroundImageStyle()">
   </div>
   <div class="container">
     <div class="inner-box">

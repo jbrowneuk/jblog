@@ -9,7 +9,10 @@
   justify-content: center;
   margin-bottom: 40px;
   position: relative;
-  z-index: 0;
+}
+
+.parallax {
+  background: transparent url('/assets/images/backdrop-02.jpg') center center;
 }
 
 .hero-logo {

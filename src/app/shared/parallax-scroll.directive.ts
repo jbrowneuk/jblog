@@ -1,10 +1,10 @@
-import { Directive, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, OnInit, OnDestroy, Input } from '@angular/core';
 
 const cssUnit = 'px';
-const speed = .5;
 
 @Directive({ selector: '[jblogParallaxBackground]' })
 export class ParallaxScrollDirective implements OnInit, OnDestroy {
+  @Input() public speed = .5;
   private parallaxElement: HTMLElement;
   private offset = 0;
 
@@ -22,8 +22,8 @@ export class ParallaxScrollDirective implements OnInit, OnDestroy {
   }
 
   private handleScroll(): void {
-    const scrollPosition = window.scrollY * speed + this.offset;
-    const css = `center calc(50% ${scrollPosition}${cssUnit})`;
+    const scrollPosition = window.scrollY * this.speed + this.offset;
+    const css = `center calc(50% - ${scrollPosition}${cssUnit})`;
     this.parallaxElement.style['backgroundPosition'] = css;
   }
 }

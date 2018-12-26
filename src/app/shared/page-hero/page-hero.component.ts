@@ -15,4 +15,10 @@ export class PageHeroComponent {
   @Input() public subheading: string;
   @Input() public parallaxImage: string;
   @Input() parents: Parent[];
+
+  public getBackgroundImageStyle(): any {
+    return {
+      backgroundImage: `url('${this.parallaxImage}')`
+    };
+  }
 }
