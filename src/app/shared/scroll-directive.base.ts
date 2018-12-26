@@ -1,7 +1,5 @@
-import { AfterViewInit, ElementRef, HostListener, OnDestroy } from '@angular/core';
+import { AfterViewInit, ElementRef, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs';
-
-import { TransitionCompleteService } from './transition-complete.service';
 
 export interface ScrollPosition {
   scrollHeight: number;
@@ -9,11 +7,10 @@ export interface ScrollPosition {
   clientHeight: number;
 }
 
-export abstract class ScrollDirectiveBase implements AfterViewInit, OnDestroy {
+export abstract class ScrollDirectiveBase implements AfterViewInit {
   private lastKnownPosition: ScrollPosition;
   private lastScrollWasDown: boolean;
   private isTicking: boolean;
-  private subscription: Subscription;
 
   /**
    * Gets the vertical distance down the page
@@ -54,8 +51,6 @@ export abstract class ScrollDirectiveBase implements AfterViewInit, OnDestroy {
    * Gets whether the element is within the screen bounds
    */
   protected get isOnScreen(): boolean {
-    const containerHeight = this.relatedElementBounds.height;
-
     const top = this.relatedElementBounds.top;
     const bottom = this.relatedElementBounds.bottom;
     const windowHeight = window.innerHeight;
@@ -70,16 +65,12 @@ export abstract class ScrollDirectiveBase implements AfterViewInit, OnDestroy {
     return window.innerHeight;
   }
 
-  constructor(private element: ElementRef, private transitionCompleteService: TransitionCompleteService) {
+  constructor(private element: ElementRef) {
     this.lastKnownPosition = {
       scrollHeight: 0,
       scrollTop: 0,
       clientHeight: 0
     };
-
-    this.subscription = transitionCompleteService.subscribe((fromState: string, toState: string) => {
-      this.onScroll({ target: document });
-    });
   }
 
   ngAfterViewInit() {
@@ -91,10 +82,6 @@ export abstract class ScrollDirectiveBase implements AfterViewInit, OnDestroy {
       };
       this.handleUpdate();
     }, 100);
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   @HostListener('window:scroll', ['$event'])

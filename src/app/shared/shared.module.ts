@@ -13,7 +13,6 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { StickyElementDirective } from './sticky-element.directive';
 import { ParallaxScrollDirective } from './parallax-scroll.directive';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
-import { OnScreenDirective } from './on-screen.directive';
 import { FeatureToggleService } from './feature-toggle.service';
 
 const CORE_COMPONENTS = [
@@ -23,8 +22,7 @@ const CORE_COMPONENTS = [
   PageHeroComponent,
   StickyElementDirective,
   ParallaxScrollDirective,
-  InfiniteScrollDirective,
-  OnScreenDirective
+  InfiniteScrollDirective
 ];
 
 @NgModule({
