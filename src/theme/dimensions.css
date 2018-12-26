@@ -1,0 +1,28 @@
+:root {
+  --box-shadow-header: 0 2px 10px;
+
+  /* Grid */
+  --grid-columns: 12;
+  --grid-column-width: calc(1% / var(--grid-columns) * 100);
+  --grid-gutter: 20px;
+  --grid-column-actual-width: calc(var(--grid-column-width) - var(--grid-gutter));
+
+  /* Breakpoints */
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 990px;
+  --breakpoint-xl: 1200px;
+
+  /* Containers */
+  --width-container-sm: 540px;
+  --width-container-md: 720px;
+  --width-container-lg: 960px;
+  --width-container-xl: 1140px;
+
+  /* Header */
+  --height-header: 50px;
+  --margin-header: 0 0 20px;
+
+  /* Defaults */
+  --border-radius-default: 4px;
+}
