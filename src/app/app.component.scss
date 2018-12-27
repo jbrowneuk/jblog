@@ -72,11 +72,11 @@ nav#menu {
       background-color: var(--color-navigation-links-hover-background);
       text-shadow: 0 1px 1px var(--color-default-shadow);
     }
-  }
 
-  &.active {
-    background-color: var(--color-navigation-links-active-background);
-    color: var(--color-navigation-links-active-foreground);
+    &.active {
+      background-color: var(--color-navigation-links-active-background);
+      color: var(--color-navigation-links-active-foreground);
+    }
   }
 }
 
