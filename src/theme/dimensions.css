@@ -1,5 +1,6 @@
 :root {
-  --box-shadow-header: 0 2px 10px;
+  /* Defaults */
+  --border-radius-default: 4px;
 
   /* Grid */
   --grid-columns: 12;
@@ -19,10 +20,12 @@
   --width-container-lg: 960px;
   --width-container-xl: 1140px;
 
-  /* Header */
-  --height-header: 50px;
-  --margin-header: 0 0 20px;
+  /* Page header */
+  --height-page-header: 50px;
+  --margin-page-header: 0 0 20px;
+  --box-shadow-page-header: 0 2px 4px;
 
-  /* Defaults */
-  --border-radius-default: 4px;
+  /* Page footer */
+  --margin-page-footer: 20px 0;
+  --padding-page-footer: 16px 0 0;
 }

@@ -1,5 +1,5 @@
 <header id="page-header">
-  <nav class="container">
+  <nav id="menu" class="container">
     <a class="pane left home-link" [routerLink]="['/']">
       <svg class="icon">
         <use xlink:href="#sitesheet-logo" />
@@ -26,12 +26,8 @@
 </main>
 <footer id="page-footer" class="page-footer">
   <div class="container">
-    Powered by <a href="//angular.io">Angular</a>. Emoji provided free by <a href="//emojione.com">Emoji One</a>.
-    Full attribution can be found <a [routerLink]="['licenses']">here</a>.
-  </div>
-  <div class="copyright">
-    <div class="container">
-      &copy;2004&ndash;2018 Jason Browne
-    </div>
+    <div class="text-line top-border">Powered by <a href="//angular.io">Angular</a>. Emoji provided free by <a href="//emojione.com">Emoji One</a>.
+    Full attribution can be found <a [routerLink]="['licenses']">here</a>.</div>
+    <div class="text-line">&copy;2004&ndash;2018 Jason Browne</div>
   </div>
 </footer>
