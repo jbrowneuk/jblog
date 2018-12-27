@@ -27,7 +27,7 @@ body {
 
 ::selection,
 ::-moz-selection {
-  background: #FFF2A8; // TODO
+  background: var(--color-primary-b-04);
 }
 
 /*
