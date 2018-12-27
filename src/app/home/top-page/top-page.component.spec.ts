@@ -1,47 +1,63 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { It, Mock } from 'typemoq';
+import { It, Mock, IMock } from 'typemoq';
 
 import { TitleService } from '../../shared/title.service';
-import { FeatureToggleService } from '../../shared/feature-toggle.service';
 
 import { TopPageComponent } from './top-page.component';
 
-describe('TopPageComponent', () => {
-  const mockTitleService = Mock.ofType<TitleService>();
-  mockTitleService.setup(x => x.setTitle(It.isAnyString()));
-  mockTitleService.setup(x => x.resetTitle());
-
+describe('Top Page', () => {
+  let mockTitleService: IMock<TitleService>;
   let component: TopPageComponent;
   let fixture: ComponentFixture<TopPageComponent>;
-  let compiled: HTMLElement;
-
-  const mockFeatureToggleService = Mock.ofType<FeatureToggleService>();
-  mockFeatureToggleService.setup(m => m.isEnabled(It.isAnyString())).returns(() => false);
 
   beforeEach(async(() => {
+    mockTitleService = Mock.ofType<TitleService>();
+    mockTitleService.setup(x => x.setTitle(It.isAnyString()));
+    mockTitleService.setup(x => x.resetTitle());
+
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [
-        TopPageComponent
-      ],
+      imports: [RouterTestingModule],
+      declarations: [TopPageComponent],
       providers: [
-        { provide: TitleService, useFactory: () => mockTitleService.object },
-        { provide: FeatureToggleService, useFactory: () => mockFeatureToggleService.object }
+        { provide: TitleService, useFactory: () => mockTitleService.object }
       ]
     })
-    .compileComponents();
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(TopPageComponent);
+        component = fixture.componentInstance;
+
+        // Stop interval interfering with tests
+        spyOn(component as any, 'setupSlideInterval');
+
+        fixture.detectChanges();
+      });
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TopPageComponent);
-    component = fixture.componentInstance;
-    compiled = fixture.debugElement.nativeElement;
-    fixture.detectChanges();
+  afterEach(() => fixture.destroy());
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should create and load images', () => {
-    expect(component).toBeTruthy();
+  it('should increment slide on advanceCarousel call', () => {
+    expect(component.slideNumber).toBe(0);
+    component.advanceCarousel();
+    expect(component.slideNumber).toBe(1);
+  });
+
+  it('should wrap to first slide when on last slide on advanceCarousel call', () => {
+    component.slideNumber = component.totalSlides - 1;
+    component.advanceCarousel();
+    expect(component.slideNumber).toBe(0);
+  });
+
+  it('should set slide', () => {
+    const expectedSlide = 2;
+
+    component.setSlide(expectedSlide);
+    expect(component.slideNumber).toBe(expectedSlide);
   });
 });
