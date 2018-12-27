@@ -54,27 +54,27 @@
   background-color: var(--color-primary-a-03);
   transition: background-color 0.2s;
   cursor: pointer;
-}
 
-.indicator:hover {
-  background-color: var(--color-primary-a-04);
-}
+  &:hover {
+    background-color: var(--color-primary-a-04);
+  }
 
-.indicator.active {
-  cursor: default;
-  position: relative;
-  background-color: var(--color-primary-a-03);
-}
+  &.active {
+    cursor: default;
+    position: relative;
+    background-color: var(--color-primary-a-03);
 
-.indicator.active::after {
-  display: block;
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  background-color: var(--color-primary-a-06);
-  animation: indicator-animation 8s linear;
+    &::after {
+      display: block;
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      background-color: var(--color-primary-a-06);
+      animation: indicator-animation 8s linear;
+    }
+  }
 }
 
 @keyframes indicator-animation {
