@@ -2,7 +2,6 @@
  * TODO: extract all dimensions to dimensions file to promote
  * the 8px grid system easily
  */
-
 *,
 *::before,
 *::after {
@@ -28,6 +27,15 @@ body {
 ::selection,
 ::-moz-selection {
   background: var(--color-primary-b-04);
+}
+
+a {
+  color: var(--color-link-foreground);
+
+  &:hover,
+  &:focus {
+    color: var(--color-link-hover-foreground);
+  }
 }
 
 /*

@@ -39,7 +39,11 @@
   --color-default-background: var(--color-neutral-01);
   --color-default-foreground: var(--color-neutral-07);
   --color-default-border: var(--color-neutral-02);
-  --color-default-shadow: rgba(0, 0, 0, 0.1);
+  --color-default-shadow: rgba(0, 0, 0, 0.2);
+
+  /* Links */
+  --color-link-foreground: var(--color-primary-a-07);
+  --color-link-hover-foreground: var(--color-primary-a-05);
 
   /* Containers */
   --color-container-background: #FFFFFF;
