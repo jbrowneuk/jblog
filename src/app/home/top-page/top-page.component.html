@@ -1,58 +1,73 @@
-<div class="hero-slideshow container" [@carouselTransitions]="slideNumber">
-  <div class="slide" *ngIf="slideNumber === 0">
-    <div class="text">
-      <h1>Software</h1>
-      <p>
-        I’m a Front-End software developer currently working on Web apps using
-        Angular, NodeJS, JavaScript and Docker.
-      </p>
-      <p>
-        I also have a very basic User Experience skill set which I am actively
-        building upon.
-      </p>
-      <div class="button-container">
-        <a role="button" class="primary" routerLink="/projects/code">
-          <i class="far fa-code"></i>
-          View the source
-        </a>
+<div class="hero-slideshow" [@carouselTransitions]="slideNumber">
+  <div class="slide full-width" *ngIf="slideNumber === 0">
+    <div class="container">
+      <div class="text">
+        <svg class="signature"><use xlink:href="#sitesheet-signature" /></svg>
+        <div class="tagline">
+          <span>Artworks</span> • <span>Visual Design</span> • <span>Code</span>
+        </div>
       </div>
-    </div>
-    <div class="image">
-      <img src="/assets/images/overview-programming.svg" alt="project image" width="320" />
     </div>
   </div>
   <div class="slide" *ngIf="slideNumber === 1">
-    <div class="text">
-      <h1>Visuals and artworks</h1>
-      <p>
-        I spend a lot of my life being visually creative, and strive to bring
-        those skills into my daily work.
-      </p>
-      <div class="button-container">
-        <a role="button" class="primary" routerLink="/art">
-          <i class="far fa-rocket"></i>
-          View the gallery
-        </a>
-        <a role="button" routerLink="/art/insights">
-          <i class="far fa-binoculars"></i>
-          Behind the scenes
-        </a>
+    <div class="container">
+      <div class="text">
+        <h1>Software</h1>
+        <p>
+          I’m a Front-End software developer currently working on Web apps using
+          Angular, NodeJS, JavaScript and Docker.
+        </p>
+        <p>
+          I also have a very basic User Experience skill set which I am actively
+          building upon.
+        </p>
+        <div class="button-container">
+          <a role="button" class="primary" routerLink="/projects/code">
+            <i class="far fa-code"></i> View the source
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="image">
-      <img src="/assets/images/overview-art.svg" alt="gallery image" width="320" />
+      <div class="image">
+        <img
+          src="/assets/images/overview-programming.svg"
+          alt="project image"
+          width="320"
+        />
+      </div>
     </div>
   </div>
   <div class="slide" *ngIf="slideNumber === 2">
-    <div class="text">text</div>
-    <div class="image">image</div>
+    <div class="container">
+      <div class="text">
+        <h1>Visuals and artworks</h1>
+        <p>
+          I spend a lot of my life being visually creative, and strive to bring
+          those skills into my daily work.
+        </p>
+        <div class="button-container">
+          <a role="button" class="primary" routerLink="/art">
+            <i class="far fa-rocket"></i> View the gallery
+          </a>
+          <a role="button" routerLink="/art/insights">
+            <i class="far fa-binoculars"></i> Behind the scenes
+          </a>
+        </div>
+      </div>
+      <div class="image">
+        <img
+          src="/assets/images/overview-art.svg"
+          alt="gallery image"
+          width="320"
+        />
+      </div>
+    </div>
   </div>
-</div>
-<div class="page-indicators">
-  <div
-    class="indicator"
-    [class.active]="id === slideNumber"
-    *ngFor="let item of [].constructor(totalSlides); let id = index"
-    (click)="setSlide(id)"
-  ></div>
+  <div class="page-indicators">
+    <div
+      class="indicator"
+      [class.active]="id === slideNumber"
+      *ngFor="let item of [].constructor(totalSlides); let id = index"
+      (click)="setSlide(id)"
+    ></div>
+  </div>
 </div>

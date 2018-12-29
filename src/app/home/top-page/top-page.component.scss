@@ -1,11 +1,15 @@
+:host {
+  --indicator-hitbox-height: 32px;
+  --indicator-visual-height: 8px;
+  --indicator-visual-width: 32px;
+  --indicator-horiz-margin: 8px;
+}
+
 .hero-slideshow {
-  border-radius: var(--border-radius-default);
-  background: var(--color-neutral-07) linear-gradient(to bottom, var(--color-neutral-05), var(--color-neutral-07));
-  box-shadow: inset 0 4px 16px var(--color-default-shadow);
-  color: var(--color-neutral-01);
-  position: relative;
   height: 70vh;
   min-height: 400px;
+  padding-bottom: var(--indicator-hitbox-height);
+  position: relative;
 }
 
 .slide {
@@ -14,9 +18,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 48px;
+  background-color: var(--color-primary-a-10);
+  color: var(--color-primary-a-01);
+
+  .container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
 
   .image,
   .text {
@@ -24,15 +33,11 @@
   }
 
   .image {
-    order: 1;
+    text-align: center;
 
     img {
       max-width: 100%;
     }
-  }
-
-  .text {
-    order: 2;
   }
 
   h1 {
@@ -40,38 +45,65 @@
     font-size: 40px;
     margin: 0 0 0.5em 0;
   }
+
+  &.full-width {
+    text-align: center;
+
+    .text {
+      width: 100%;
+    }
+  }
 }
 
 .page-indicators {
-  text-align: center;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .indicator {
-  display: inline-block;
-  margin: 0 4px;
-  width: 32px;
-  height: 4px;
-  background-color: var(--color-primary-a-03);
-  transition: background-color 0.2s;
+  margin: 0 var(--indicator-horiz-margin);
+  width: var(--indicator-visual-width);
+  height: var(--indicator-hitbox-height);
+  position: relative;
+  border-radius: var(--border-radius-default);
   cursor: pointer;
 
-  &:hover {
-    background-color: var(--color-primary-a-04);
+  &::before,
+  &::after {
+    display: block;
+    content: '';
+    height: var(--indicator-visual-height);
+    position: absolute;
+    left: 0;
+    top: calc((var(--indicator-hitbox-height) / 2) - (var(--indicator-visual-height) / 2));
+    border-radius: var(--border-radius-default);
+  }
+
+  &::before {
+    right: 0;
+    background-color: var(--color-primary-a-03);
+    transition: background-color 0.2s;
+  }
+
+  &:hover::before {
+    background-color: var(--color-primary-a-01);
   }
 
   &.active {
     cursor: default;
-    position: relative;
-    background-color: var(--color-primary-a-03);
+
+    &::before {
+      background-color: var(--color-primary-a-05);
+    }
 
     &::after {
-      display: block;
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      background-color: var(--color-primary-a-06);
+      background-color: var(--color-primary-a-01);
       animation: indicator-animation 8s linear;
     }
   }
