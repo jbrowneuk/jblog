@@ -7,9 +7,11 @@ import {
   transition
 } from '@angular/animations';
 
-const optionalAnimation = { optional: true };
 const timing = '200ms ease-out';
 const delay = 100;
+
+const optionalAnimation = { optional: true };
+const delayedOptionalAnimation = { optional: true, delay: delay };
 
 const textTransformIn = 'none';
 const textTransformOut = 'scale(0.8)';
@@ -21,7 +23,10 @@ const enter = query(
   group([
     query(
       '.text',
-      style({ opacity: 0, transform: textTransformOut }),
+      [
+        style({ opacity: 0, transform: textTransformOut }),
+        animate(timing, style({ opacity: 1, transform: textTransformIn }))
+      ],
       optionalAnimation
     ),
     query(
@@ -30,14 +35,9 @@ const enter = query(
       optionalAnimation
     ),
     query(
-      '.text',
-      animate(timing, style({ opacity: 1, transform: textTransformIn })),
-      optionalAnimation
-    ),
-    query(
       '.image',
       animate(timing, style({ opacity: 1, transform: imageTransformIn })),
-      Object.assign({ delay: delay }, optionalAnimation)
+      delayedOptionalAnimation
     )
   ])
 );
@@ -48,14 +48,15 @@ const leave = query(
     query('.text', [
       style({ opacity: 1, transform: textTransformIn }),
       animate(timing, style({ opacity: 0, transform: textTransformOut }))
-    ]),
+    ],
+    optionalAnimation),
     query(
       '.image',
       [
         style({ opacity: 1, transform: imageTransformIn }),
         animate(timing, style({ opacity: 0, transform: imageTransformOut }))
       ],
-      Object.assign({ delay: delay }, optionalAnimation)
+      delayedOptionalAnimation
     )
   ]),
   optionalAnimation
