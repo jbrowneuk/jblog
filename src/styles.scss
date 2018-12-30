@@ -43,6 +43,10 @@ h1 {
   font-size: 40px;
 }
 
+h2 {
+  font-weight: normal;
+}
+
 /*
  * Superglobal classes
  */
@@ -54,6 +58,9 @@ h1 {
   text-align: center;
 }
 
+/*
+ * Container
+ */
 .container {
   width: 100%;
   margin-left: auto;
@@ -88,4 +95,16 @@ h1 {
   .container {
     width: var(--width-container-xl);
   }
+}
+
+/*
+ * Grid
+ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), var(--grid-column-actual-width));
+  grid-gap: var(--grid-gutter);
+  justify-content: center;
+  margin-left: calc(var(--grid-gutter) / -2);
+  margin-right: calc(var(--grid-gutter) / -2);
 }
