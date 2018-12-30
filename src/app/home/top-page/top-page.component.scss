@@ -7,6 +7,9 @@
 
 .hero-slideshow {
   height: 400px;
+  /* stylelint-disable length-zero-no-unit */
+  margin-top: calc(0px - var(--height-margin-page-header));
+  /* stylelint-enable */
   padding-bottom: var(--indicator-hitbox-height);
   position: relative;
 }

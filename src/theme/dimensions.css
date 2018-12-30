@@ -22,7 +22,8 @@
 
   /* Page header */
   --height-page-header: 50px;
-  --margin-page-header: 0 0 20px;
+  --height-margin-page-header: 20px;
+  --margin-page-header: 0 0 var(--height-margin-page-header);
   --box-shadow-page-header: 0 2px 4px;
 
   /* Page footer */
