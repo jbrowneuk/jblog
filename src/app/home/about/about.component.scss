@@ -1,0 +1,15 @@
+.name-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  margin-right: 1em;
+}
+
+.mugshot {
+  margin-left: 1em;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px var(--color-default-shadow);
+}
