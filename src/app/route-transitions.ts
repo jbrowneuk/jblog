@@ -6,10 +6,13 @@ import {
   group,
   animateChild,
   query,
-  transition
+  transition,
+  keyframes
 } from '@angular/animations';
 
 const animationEasing = '200ms ease-out';
+const footerAnimationTiming = 300;
+
 const optionalAnimation: AnimationQueryOptions = { optional: true };
 
 const percentageOut = 10;
@@ -51,11 +54,19 @@ const decreaseSectionId = [
   ])
 ];
 
+const footerQuery = animate(footerAnimationTiming, keyframes([
+  style({ opacity: 1, offset: 0 }),
+  style({ opacity: 0, offset: 0.1 }),
+  style({ opacity: 0, offset: 0.6 }),
+  style({ opacity: 1, offset: 1 })
+]));
+
 export const TRANSITIONS = [
   trigger('routerAnimations', [
     transition(':increment', increaseSectionId),
     transition(':decrement', decreaseSectionId),
     transition('* => licenses', decreaseSectionId),
     transition('licenses => *', increaseSectionId)
-  ])
+  ]),
+  trigger('footerAnimations', [transition('* => *', footerQuery)])
 ];
