@@ -20,6 +20,10 @@
   background: var(--color-primary-a-10) linear-gradient(to bottom, var(--color-primary-a-10), var(--color-primary-a-07));
   color: var(--color-primary-a-01);
 
+  h1 {
+    margin: 0 0 0.5em 0;
+  }
+
   .container {
     display: flex;
     align-items: center;
@@ -40,12 +44,6 @@
       width: auto;
       height: 100%;
     }
-  }
-
-  h1 {
-    font-weight: normal;
-    font-size: 40px;
-    margin: 0 0 0.5em 0;
   }
 
   &.full-width {
