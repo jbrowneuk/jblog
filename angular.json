@@ -25,6 +25,11 @@
               "src/favicon.ico",
               {
                 "glob": "**/*.css",
+                "input": "node_modules/normalize.css/",
+                "output": "assets/thirdparty/normalize/"
+              },
+              {
+                "glob": "**/*.css",
                 "input": "src/theme/colors/",
                 "output": "assets/theme/"
               },
