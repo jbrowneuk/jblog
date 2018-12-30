@@ -14,10 +14,15 @@
     /* stylelint-enable */
     left: 0;
     right: 0;
-    height: 50%;
+    height: calc(50% + var(--height-margin-page-header));
     z-index: -1;
     background: var(--color-primary-a-10) linear-gradient(to bottom, var(--color-primary-a-10), var(--color-primary-a-07));
     pointer-events: none;
+  }
+
+  h1 {
+    margin-bottom: 16px;
+    padding: 0;
   }
 }
 
