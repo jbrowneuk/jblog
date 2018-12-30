@@ -1,8 +1,24 @@
 .name-area {
   margin-bottom: 24px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  position: relative;
+
+  &::before {
+    display: block;
+    content: '';
+    position: absolute;
+    /* stylelint-disable length-zero-no-unit */
+    top: calc(0px - var(--height-margin-page-header));
+    /* stylelint-enable */
+    left: 0;
+    right: 0;
+    height: 50%;
+    z-index: -1;
+    background: var(--color-primary-a-10) linear-gradient(to bottom, var(--color-primary-a-10), var(--color-primary-a-07));
+    pointer-events: none;
+  }
 }
 
 .text {
