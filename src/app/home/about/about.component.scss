@@ -1,4 +1,10 @@
+:host {
+  --avatar-dimension: 200px;
+  --avatar-border-width: 2px;
+}
+
 .name-area {
+  height: calc(var(--avatar-dimension) + 2 * var(--avatar-border-width));
   margin-bottom: 24px;
   display: flex;
   align-items: flex-end;
@@ -14,7 +20,7 @@
     /* stylelint-enable */
     left: 0;
     right: 0;
-    height: calc(50% + var(--height-margin-page-header));
+    height: calc(var(--height-margin-page-header) + var(--avatar-dimension) / 2);
     z-index: -1;
     background: var(--color-primary-a-10) linear-gradient(to bottom, var(--color-primary-a-10), var(--color-primary-a-07));
     pointer-events: none;
@@ -31,11 +37,13 @@
 }
 
 .mugshot {
+  box-sizing: content-box; // Don’t scale the image for the border
+  width: var(--avatar-dimension);
+  height: var(--avatar-dimension);
   margin-left: 1em;
-  padding: 2px;
+  border: var(--avatar-border-width) solid var(--color-container-background);
   border-radius: 50%;
   box-shadow: 0 4px 4px var(--color-default-shadow);
-  background-color: var(--color-container-background);
 }
 
 .content-area {
