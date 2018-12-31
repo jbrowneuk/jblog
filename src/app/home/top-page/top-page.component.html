@@ -54,20 +54,57 @@
         </div>
       </div>
       <div class="image">
-        <img
-          src="/assets/images/top/site-test-bit.png"
-          alt="gallery image"
-          width="320"
-        />
+        <img src="/assets/images/top/site-test-bit.png" alt="gallery image" />
       </div>
     </div>
   </div>
-  <div class="page-indicators">
-    <div
-      class="indicator"
-      [class.active]="id === slideNumber"
-      *ngFor="let item of [].constructor(totalSlides); let id = index"
-      (click)="setSlide(id)"
-    ></div>
+</div>
+<div class="container">
+  <div class="page-indicators grid">
+    <div class="previous">
+      <div class="indicator">
+        <i class="far fa-fw fa-chevron-left"></i>
+      </div>
+    </div>
+    <ng-container
+      *ngTemplateOutlet="
+        indicatorTemplate;
+        context: { id: 0, title: 'About', image: 'about' }
+      "
+    >
+      Jason
+    </ng-container>
+    <ng-container
+      *ngTemplateOutlet="
+        indicatorTemplate;
+        context: { id: 1, title: 'Software', image: 'software' }
+      "
+    >
+      Software
+    </ng-container>
+    <ng-container
+      *ngTemplateOutlet="
+        indicatorTemplate;
+        context: { id: 2, title: 'Artworks', image: 'art' }
+      "
+    >
+      Visual
+    </ng-container>
+    <div class="next">
+      <div class="indicator">
+        <i class="far fa-fw fa-chevron-right"></i>
+      </div>
+    </div>
   </div>
 </div>
+
+<ng-template #indicatorTemplate let-id="id" let-title="title" let-image="image">
+  <div
+    class="indicator item-{{ id }}"
+    [class.active]="slideNumber === id"
+    (click)="setSlide(id)"
+  >
+    <span class="text">{{ title }}</span>
+    <img class="image" src="/assets/images/top/indicator-{{image}}.svg" alt="{{title}}">
+  </div>
+</ng-template>
