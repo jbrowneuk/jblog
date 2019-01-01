@@ -1,6 +1,6 @@
 :host {
   --indicator-main-height: 64px;
-  --indicator-visual-height: 8px;
+  --indicator-visual-height: 4px;
   --slide-background: var(--color-primary-a-10) linear-gradient(to bottom, var(--color-primary-a-10), var(--color-primary-a-07));
 }
 
@@ -96,6 +96,18 @@
   transition: top 0.2s, box-shadow 0.2s;
   cursor: pointer;
 
+  &::before {
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: -10px;
+    top: 0;
+    margin-left: -10px;
+    border: 10px solid transparent;
+    border-top-color: var(--color-default-background);
+  }
+
   &::after {
     display: block;
     content: '';
@@ -108,11 +120,9 @@
     transition: background-color 0.2s, width 0.2s;
   }
 
-  &:hover {
-    &:not(.active) {
-      top: -0.5px;
-      box-shadow: 0 4px 8px var(--color-default-shadow);
-    }
+  &:hover:not(.active) {
+    top: -0.5px;
+    box-shadow: 0 4px 8px var(--color-default-shadow);
 
     &::after {
       background-color: var(--color-primary-a-03);
@@ -120,13 +130,13 @@
   }
 
   &.active {
+    top: -1px;
     cursor: default;
     background: var(--slide-background);
 
-    &::after {
+    &::before {
       animation: indicator-animation 8s linear;
       animation-fill-mode: forwards;
-      background-color: var(--color-primary-a-01);
     }
   }
 
@@ -167,11 +177,19 @@
 }
 
 @keyframes indicator-animation {
-  from {
-    width: 0%;
+  0% {
+    left: -10px;
   }
 
-  to {
-    width: 100%;
+  5% {
+    left: 50%;
+  }
+
+  95% {
+    left: 50%;
+  }
+
+  100% {
+    left: calc(100% + 10px);
   }
 }
