@@ -6,3 +6,7 @@
   width: 300px;
   margin: 8px auto;
 }
+
+.gallery-container jblog-thumbnail {
+  grid-column: span 3;
+}

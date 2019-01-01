@@ -65,4 +65,8 @@
   --color-navigation-links-hover-background: var(--color-neutral-01);
   --color-navigation-links-active-foreground: var(--color-neutral-01);
   --color-navigation-links-active-background: var(--color-neutral-07);
+
+  /* Overlay */
+  --color-overlay-background: hsla(210, 36%, 96%, 0.75);
+  --color-overlay-hover-background: hsla(210, 36%, 96%, 0.9);
 }
