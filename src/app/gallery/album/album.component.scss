@@ -1,0 +1,15 @@
+.gallery-info {
+  .container {
+    display: flex;
+    align-items: center;
+  }
+
+  .spacer {
+    flex-grow: 1;
+  }
+
+  .image-count {
+    margin-right: 8px;
+    color: var(--color-secondary-foreground);
+  }
+}
