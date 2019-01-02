@@ -1,12 +1,19 @@
+:host {
+  --splash-height: 4px;
+  --morebutton-height: 40px;
+}
+
 .grid {
-  grid-auto-rows: 200px;
+  grid-auto-rows: 320px;
 }
 
 .album-card {
-  grid-column: span 6;
-  display: flex;
-  align-items: stretch;
+  grid-column: span 3;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
   overflow: hidden;
   border-radius: var(--border-radius-default);
   background-color: var(--color-container-background);
@@ -18,46 +25,34 @@
     top: -0.5px;
     box-shadow: var(--box-shadow-default-hover) var(--color-default-shadow);
   }
-
-  .preview {
-    height: 100%;
-    width: auto;
-  }
 }
 
-p {
-  margin: 0 0 16px;
+.colour-area {
+  height: var(--splash-height);
+  overflow: hidden;
+  background-color: var(--color-page-flair);
 }
 
-.padded {
+h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  height: calc(100% - var(--morebutton-height) - var(--splash-height));
   padding: 8px 16px;
-  flex-grow: 1;
+  overflow: hidden;
+  color: var(--color-default-foreground);
 }
 
-.text-area {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+.info {
+  color: var(--color-secondary-foreground);
+  margin: 8px 0;
+}
 
-  .title {
-    display: flex;
-    align-items: center;
-
-    h2 {
-      flex-grow: 1;
-      margin: 0;
-      margin-right: 32px;
-      padding: 0;
-    }
-
-    .info {
-      color: var(--color-secondary-foreground);
-    }
-  }
-
-  .more {
-    padding: 8px 16px;
-    text-align: center;
-    background-color: var(--color-default-background);
-  }
+.more {
+  height: var(--morebutton-height);
+  padding: 8px 16px;
+  text-align: center;
+  background-color: var(--color-default-background);
 }

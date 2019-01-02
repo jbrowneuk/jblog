@@ -4,21 +4,19 @@
     <a class="album-card"
          *ngFor="let album of albums"
          [routerLink]="['/art/album', album.name, 'page', 1]">
-      <img src="{{album.iconUrl}}" alt="icon" class="preview">
-      <div class="text-area">
-        <div class="padded">
-          <div class="title">
-            <h2>{{ album.title }}</h2>
-            <div class="info">
-              {{ album.imagesInAlbum }} image{{
-                album.imagesInAlbum === 1 ? '' : 's'
-              }}
-            </div>
-          </div>
-          <p *ngFor="let para of (album.description | lineSplitting)">{{ para }}</p>
-        </div>
-        <div class="more">Explore album</div>
+      <div class="colour-area">
       </div>
+      <div class="content">
+        <h2>{{ album.title }}</h2>
+        <div class="info">
+          <b>{{ album.imagesInAlbum }}</b>
+          image{{
+            album.imagesInAlbum === 1 ? '' : 's'
+          }}
+        </div>
+        <div>{{album.description}}</div>
+      </div>
+      <div class="more">Explore album &raquo;</div>
     </a>
   </div>
 </div>
