@@ -1,9 +1,13 @@
-<div *ngIf="!data">
+<div *ngIf="isLoading" class="text-center">
   <jblog-load-spinner></jblog-load-spinner>
   Loading…
 </div>
 
-<div *ngIf="data">
+<div *ngIf="!isLoading && hasError" class="text-center">
+  <h1>This image does not exist</h1>
+</div>
+
+<div *ngIf="data && !isLoading">
   <div class="presenter" [class.container]="isZoomedOut"
     [class.zoomed-out]="isZoomedOut"
     [class.zoomed-in]="!isZoomedOut">

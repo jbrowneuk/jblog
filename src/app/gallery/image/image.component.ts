@@ -29,7 +29,17 @@ export class ImageComponent implements OnInit {
   /**
    * Controls whether to add the responsive resize class to the image element.
    */
-  public isZoomedOut = true;
+  public isZoomedOut: boolean;
+
+  /**
+   * Control variable set when the data for an image is loading.
+   */
+  public isLoading: boolean;
+
+  /**
+   * Control variable set when the data for an image has failed to load.
+   */
+  public hasError: boolean;
 
   /**
    * Constructor with injected services
@@ -40,7 +50,11 @@ export class ImageComponent implements OnInit {
     private imageService: ImageService,
     private parser: TextParsingService,
     private titleService: TitleService
-  ) { }
+  ) {
+    this.isZoomedOut = true;
+    this.isLoading = false;
+    this.hasError = false;
+  }
 
   /**
    * Called when the component is initialized. Used to get image data from a
@@ -94,10 +108,16 @@ export class ImageComponent implements OnInit {
    */
   private requestImageById(imageId: number): void {
     this.data = null;
+    this.isLoading = true;
+    this.hasError = false;
 
     this.imageService.getImageInfo(imageId).subscribe(
       res => this.handleImageResponse(res),
-      err => console.log('Error: %s', err)
+      err => {
+        this.hasError = true;
+        this.isLoading = false;
+        console.log('Error: %s', err);
+      }
     );
   }
 
@@ -107,6 +127,7 @@ export class ImageComponent implements OnInit {
   private handleImageResponse(response: ImageInfo): void {
     this.data = response;
     this.titleService.setTitle(response.title);
+    this.isLoading = false;
   }
 
 }
