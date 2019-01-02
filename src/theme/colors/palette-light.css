@@ -55,8 +55,7 @@
   --color-page-flair: var(--color-primary-a-09);
 
   /* Selections */
-  --color-selection-background: red;
-  --color-selection-foreground: red;
+  --color-selection-background: var(--color-primary-b-04);
 
   /* Navigation links */
   --color-navigation-links-foreground: var(--color-neutral-07);
