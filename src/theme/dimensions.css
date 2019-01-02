@@ -29,4 +29,8 @@
   /* Page footer */
   --margin-page-footer: 20px 0;
   --padding-page-footer: 16px 0 0;
+
+  /* Loading spinner */
+  --width-spinner-visual: 64px;
+  --width-spinner-icon: 48px;
 }
