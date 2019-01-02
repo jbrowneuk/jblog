@@ -1,22 +1,26 @@
 <div class="container">
   <h1>All albums</h1>
   <div class="grid">
-    <a class="album-card"
-         *ngFor="let album of albums"
-         [routerLink]="['/art/album', album.name, 'page', 1]">
-      <div class="colour-area">
+    <a
+      class="album-card"
+      *ngFor="let album of albums"
+      [routerLink]="['/art/album', album.name, 'page', 1]"
+    >
+      <div class="colour-area"></div>
+      <div class="image-area">
+        <img src="{{ album.iconUrl }}" alt="icon" class="preview" />
       </div>
-      <div class="content">
+      <div
+        class="badge-area"
+        title="{{ album.imagesInAlbum }} image{{
+          album.imagesInAlbum === 1 ? '' : 's'
+        }}"
+      >
+        {{ album.imagesInAlbum }}
+      </div>
+      <div class="text-area">
         <h2>{{ album.title }}</h2>
-        <div class="info">
-          <b>{{ album.imagesInAlbum }}</b>
-          image{{
-            album.imagesInAlbum === 1 ? '' : 's'
-          }}
-        </div>
-        <div>{{album.description}}</div>
       </div>
-      <div class="more">Explore album &raquo;</div>
     </a>
   </div>
 </div>

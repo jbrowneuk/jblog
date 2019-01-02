@@ -1,19 +1,17 @@
 :host {
   --splash-height: 4px;
-  --morebutton-height: 40px;
+  --image-height: 200px;
+  --card-height: calc(var(--splash-height) + var(--image-height));
+  --badge-height: 32px;
 }
 
 .grid {
-  grid-auto-rows: 320px;
+  grid-auto-rows: var(--card-height);
 }
 
 .album-card {
   grid-column: span 3;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: stretch;
   overflow: hidden;
   border-radius: var(--border-radius-default);
   background-color: var(--color-container-background);
@@ -24,6 +22,10 @@
   &:hover {
     top: -0.5px;
     box-shadow: var(--box-shadow-default-hover) var(--color-default-shadow);
+
+    .text-area {
+      background-color: var(--color-overlay-hover-background);
+    }
   }
 }
 
@@ -33,26 +35,44 @@
   background-color: var(--color-page-flair);
 }
 
+.image-area {
+  height: var(--image-height);
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.badge-area {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  height: var(--badge-height);
+  padding: 8px;
+  line-height: 1;
+  border-radius: var(--border-radius-default);
+  background-color: var(--color-page-flair);
+  color: var(--color-primary-a-01);
+}
+
 h2 {
   margin: 0;
   padding: 0;
 }
 
-.content {
-  height: calc(100% - var(--morebutton-height) - var(--splash-height));
+.text-area {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   padding: 8px 16px;
   overflow: hidden;
+  background-color: var(--color-overlay-background);
   color: var(--color-default-foreground);
-}
-
-.info {
-  color: var(--color-secondary-foreground);
-  margin: 8px 0;
-}
-
-.more {
-  height: var(--morebutton-height);
-  padding: 8px 16px;
-  text-align: center;
-  background-color: var(--color-default-background);
+  transition: background-color 0.2s;
 }
