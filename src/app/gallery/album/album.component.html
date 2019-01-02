@@ -31,7 +31,7 @@
 </div>
 
 <div id="thumbnails" *ngIf="data">
-  <div class="align-center">
+  <div class="text-center">
     <jblog-pagination [urlComponents]="['art', 'album', data.name]"
                       [currentPage]="page"
                       [totalPages]="data.totalPages"></jblog-pagination>
@@ -40,7 +40,7 @@
     <jblog-image-container [albumName]="data.name"
                            [page]="page"></jblog-image-container>
   </div>
-  <div class="align-center">
+  <div class="text-center">
     <jblog-pagination [urlComponents]="['art', 'album', data.name]"
                       [currentPage]="page"
                       [totalPages]="data.totalPages"></jblog-pagination>
