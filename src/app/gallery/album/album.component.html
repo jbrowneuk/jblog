@@ -1,8 +1,13 @@
-<div class="container" *ngIf="isLoadingAlbumData">
-  <div class="horizontal-feature align-center">
-    <jblog-load-spinner></jblog-load-spinner>
-    <h2>Hang tight!</h2>
-    <p>Loading album…</p>
+<div class="gallery-info" *ngIf="isLoadingAlbumData">
+  <div class="container">
+    <h1 class="title">Loading…</h1>
+    <div class="spacer"></div>
+    <div class="button-container">
+      <a routerLink="/art/albums" class="primary" id="album-choice">
+        <i class="far fa-fw fa-folder" aria-hidden="true"></i>
+        Pick a different album
+      </a>
+    </div>
   </div>
 </div>
 
