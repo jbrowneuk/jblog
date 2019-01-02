@@ -10,10 +10,10 @@ import { TitleService } from '../../shared/title.service';
  */
 @Component({
   selector: 'jblog-album-list',
-  templateUrl: './album-list.component.html'
+  templateUrl: './album-list.component.html',
+  styleUrls: ['./album-list.component.scss']
 })
 export class AlbumListComponent implements OnInit {
-
   /**
    * The album list
    */
@@ -25,17 +25,15 @@ export class AlbumListComponent implements OnInit {
   constructor(
     private albumService: AlbumService,
     private titleService: TitleService
-  ) { }
+  ) {}
 
   /**
    * On component initialization, load albums
    */
   ngOnInit() {
     this.titleService.setTitle('All albums');
-    this.albumService.getAllAlbumInfo().subscribe(
-      x => this.albums = x,
-      e => console.error('Error: %s', e)
-    );
+    this.albumService
+      .getAllAlbumInfo()
+      .subscribe(x => (this.albums = x), e => console.error('Error: %s', e));
   }
-
 }
