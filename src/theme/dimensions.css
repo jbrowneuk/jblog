@@ -1,6 +1,8 @@
 :root {
   /* Defaults */
   --border-radius-default: 4px;
+  --box-shadow-default: 0 2px 4px;
+  --box-shadow-default-hover: 0 4px 8px;
 
   /* Grid */
   --grid-columns: 12;
