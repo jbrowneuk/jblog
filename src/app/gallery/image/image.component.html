@@ -1,14 +1,13 @@
-<div class="micro-hero">
-</div>
-
-<div class="panel" *ngIf="!data">
+<div *ngIf="!data">
+  <jblog-load-spinner></jblog-load-spinner>
   Loading…
 </div>
+
 <div *ngIf="data">
   <div class="presenter" [class.container]="isZoomedOut"
     [class.zoomed-out]="isZoomedOut"
     [class.zoomed-in]="!isZoomedOut">
-    <div class="picture-area inline-block">
+    <div class="picture-area">
       <div class="featured" *ngIf="data.featured" title="Featured">
         <i class="far fa-fw fa-trophy" aria-hidden="true"></i>
       </div>
@@ -19,7 +18,7 @@
            (click)="toggleZoom($event)">
     </div>
   </div>
-  <div class="controls faux-button-container align-center">
+  <div class="controls button-container text-center">
     <a [routerLink]="['/art/album', getPrimaryAlbum().name]"
        id="parent-folder-link">
       <i class="far fa-fw fa-th-large" aria-hidden="true"></i>
