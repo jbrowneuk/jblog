@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ElementRef, Input, HostBinding } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  HostBinding
+} from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { PostData } from '../post-data';
@@ -11,12 +17,9 @@ import { TextParsingService } from '../../shared/text-parsing.service';
 @Component({
   selector: 'jblog-post',
   templateUrl: './post.component.html',
-  styleUrls: [
-    './post.component.scss'
-  ]
+  styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements AfterViewInit {
-
   /**
    * Sets the post CSS class for styling
    */
@@ -31,7 +34,6 @@ export class PostComponent implements AfterViewInit {
    * Constructor
    */
   constructor(
-    private domSanitizer: DomSanitizer,
     private parser: TextParsingService,
     private element: ElementRef
   ) {}
@@ -41,7 +43,9 @@ export class PostComponent implements AfterViewInit {
       return;
     }
 
-    const contentArea = this.element.nativeElement.querySelector('.content-area');
+    const contentArea = this.element.nativeElement.querySelector(
+      '.content-area'
+    );
     contentArea.innerHTML = this.getParsedContent();
   }
 
@@ -62,7 +66,8 @@ export class PostComponent implements AfterViewInit {
 
     const postDate = new Date(this.data.date * 1000);
     const comparisonDate = new Date();
-    const offsetMsec = comparisonDate.getTime() - 1000 * 60 * 60 * 24 * 365 * years;
+    const offsetMsec =
+      comparisonDate.getTime() - 1000 * 60 * 60 * 24 * 365 * years;
     comparisonDate.setTime(offsetMsec);
     return postDate < comparisonDate;
   }
@@ -75,9 +80,6 @@ export class PostComponent implements AfterViewInit {
       return '';
     }
 
-    const parsed = this.parser.parse(this.data.content);
-    return parsed;
-    // return this.domSanitizer.bypassSecurityTrustHtml(parsed);
+    return this.parser.parse(this.data.content);
   }
-
 }

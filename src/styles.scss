@@ -31,6 +31,7 @@ body {
 
 a {
   color: var(--color-link-foreground);
+  transition: color 0.2s;
 
   &:hover,
   &:focus {
@@ -144,6 +145,17 @@ h2 {
 @keyframes load-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(89deg); }
+}
+
+/* EmojiOne */
+.emojione {
+  height: auto;
+  width: 1.5em;
+  display: inline-block;
+  margin: -0.1em 0 0.1em;
+  padding: 0;
+  line-height: normal;
+  vertical-align: middle;
 }
 
 /*
