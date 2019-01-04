@@ -53,17 +53,15 @@
         </div>
       </div>
       <div class="image">
-        <img src="/assets/images/top/site-test-bit.png" alt="gallery image" />
+        <img src="/assets/images/top/hero-artworks.png" alt="gallery image" />
       </div>
     </div>
   </div>
 </div>
 <div class="container">
   <div class="page-indicators grid">
-    <div class="previous">
-      <div class="indicator">
-        <i class="far fa-fw fa-chevron-left"></i>
-      </div>
+    <div class="previous control-button" (click)="goToPreviousSlide()">
+      <i class="far fa-fw fa-chevron-left"></i>
     </div>
     <ng-container
       *ngTemplateOutlet="
@@ -89,10 +87,8 @@
     >
       Visual
     </ng-container>
-    <div class="next">
-      <div class="indicator">
-        <i class="far fa-fw fa-chevron-right"></i>
-      </div>
+    <div class="next control-button" (click)="goToNextSlide()">
+      <i class="far fa-fw fa-chevron-right"></i>
     </div>
   </div>
 </div>

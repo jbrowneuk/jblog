@@ -42,6 +42,16 @@ export class TopPageComponent implements OnInit, OnDestroy {
     this.slideNumber = (this.slideNumber + 1) % this.totalSlides;
   }
 
+  public goToNextSlide(): void {
+    const slide = (this.slideNumber + 1) % this.totalSlides;
+    this.setSlide(slide);
+  }
+
+  public goToPreviousSlide(): void {
+    const slide = (this.slideNumber > 0 ? this.slideNumber : this.totalSlides) - 1;
+    this.setSlide(slide);
+  }
+
   public setSlide(id: number): void {
     this.clearSlideInterval();
     this.slideNumber = id;

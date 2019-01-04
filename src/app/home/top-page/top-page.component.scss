@@ -150,6 +150,23 @@
   }
 }
 
+.control-button {
+  align-self: center;
+  justify-self: center;
+  padding: 8px;
+  border-radius: var(--border-radius-default);
+  color: var(--color-navigation-links-foreground);
+  background-color: var(--color-navigation-links-background);
+  transition: color 0.2s, background-color 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-navigation-links-hover-foreground);
+    background-color: var(--color-neutral-02);
+    text-shadow: 0 1px 1px var(--color-default-shadow);
+  }
+}
+
 @keyframes indicator-animation {
   0% {
     left: -10px;
