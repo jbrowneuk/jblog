@@ -1,19 +1,30 @@
 article {
   margin-bottom: 56px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  border: 1px solid var(--color-container-border);
+  background-color: var(--color-container-background);
+  border-radius: var(--border-radius-default);
 
   .text-area {
-    grid-column: span 8;
+    grid-column: 2 / span 6;
     align-self: center;
 
-    h2 {
+    h1 {
       margin-top: 0;
+      margin-bottom: 16px;
+      line-height: 1;
     }
   }
 
   .image-area {
-    grid-column: 9 / span 4;
-    text-align: center;
+    grid-column: 8 / span 4;
+    text-align: right;
     align-self: center;
+
+    img {
+      max-width: 100%;
+    }
   }
 
   .info {

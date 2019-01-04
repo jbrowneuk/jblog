@@ -50,6 +50,7 @@
 
   /* Containers */
   --color-container-background: #FFFFFF;
+  --color-container-border: var(--color-neutral-02);
 
   /* Page flair top bar */
   --color-page-flair: var(--color-primary-a-09);

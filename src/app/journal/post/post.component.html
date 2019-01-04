@@ -1,9 +1,9 @@
 <article id="{{ data.postId }}" class="grid" *ngIf="data">
   <header>
     <h1><a [routerLink]="['/journal/post', data.postId]">{{ data.title }}</a></h1>
-    <span class="date">
+    <span class="date" title="{{ data.date * 1000 | date: 'medium' }}">
       <i class="far fa-fw fa-calendar" aria-hidden="true"></i>
-      {{ data.date * 1000 | date: 'medium' }}
+      {{ data.date * 1000 | date: 'mediumDate' }}
     </span>
   </header>
 
