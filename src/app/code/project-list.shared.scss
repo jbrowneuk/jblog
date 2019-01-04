@@ -1,0 +1,27 @@
+article {
+  margin-bottom: 56px;
+
+  .text-area {
+    grid-column: span 8;
+    align-self: center;
+
+    h2 {
+      margin-top: 0;
+    }
+  }
+
+  .image-area {
+    grid-column: 9 / span 4;
+    text-align: center;
+    align-self: center;
+  }
+
+  .info {
+    color: var(--color-secondary-foreground);
+  }
+
+  .rounded {
+    border-radius: var(--border-radius-default);
+    box-shadow: 0 2px 4px var(--color-default-shadow);
+  }
+}
