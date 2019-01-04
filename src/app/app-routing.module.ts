@@ -8,7 +8,7 @@ const appRoutes: Routes = [
   { path: 'journal', loadChildren: 'app/journal/journal.module#JournalModule' },
   { path: 'projects/code', loadChildren: 'app/code/code.module#CodeModule' },
   { path: 'code', redirectTo: 'projects/code' },
-  { path: '**', component: ErrorComponent }
+  { path: '**', component: ErrorComponent, data: { sectionId: 0 } }
 ];
 
 @NgModule({
