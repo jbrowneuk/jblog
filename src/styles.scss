@@ -1,3 +1,5 @@
+@import 'variables';
+
 :root {
   /* Defaults */
   --border-radius-default: 4px;
@@ -11,10 +13,10 @@
   --grid-column-actual-width: calc(var(--grid-column-width) - var(--grid-gutter));
 
   /* Breakpoints */
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 990px;
-  --breakpoint-xl: 1200px;
+  --breakpoint-sm: $breakpoint-sm;
+  --breakpoint-md: $breakpoint-md;
+  --breakpoint-lg: $breakpoint-lg;
+  --breakpoint-xl: $breakpoint-xl;
 
   /* Containers */
   --width-container-sm: 540px;
@@ -205,28 +207,28 @@ h2 {
 }
 
 /* sm */
-@media screen and (min-width: 576px) {
+@media screen and (min-width: $breakpoint-sm) {
   .container {
     width: var(--width-container-sm);
   }
 }
 
 /* md */
-@media screen and (min-width: 768px) {
+@media screen and (min-width: $breakpoint-md) {
   .container {
     width: var(--width-container-md);
   }
 }
 
 /* lg */
-@media screen and (min-width: 990px) {
+@media screen and (min-width: $breakpoint-lg) {
   .container {
     width: var(--width-container-lg);
   }
 }
 
 /* xl */
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: $breakpoint-xl) {
   .container {
     width: var(--width-container-xl);
   }
