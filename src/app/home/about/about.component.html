@@ -35,6 +35,7 @@
         <div class="timespan">2012–2013</div>
       </section>
     </article>
+
     <div class="column">
       <h2>Education</h2>
 
@@ -43,15 +44,126 @@
         <div class="company">Nottingham Trent University.</div>
         <div class="timespan">2009–2012</div>
       </section>
+
+      <h2>Contact</h2>
+      <ul class="contacts-list">
+        <li>
+          <a href="//github.com/jbrowneuk">
+            <i class="fab fa-github circular"></i>
+            <span>github.com/jbrowneuk</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="//twitter.com/jbrowneuk">
+            <i class="fab fa-twitter circular"></i>
+            <span>twitter.com/jbrowneuk</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="//linkedin.com/in/jbrowneuk">
+            <i class="fab fa-linkedin-in circular"></i>
+            <span>linkedin.com/in/jbrowneuk</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="//twitch.tv/jbrowneuk">
+            <i class="fab fa-twitch circular"></i>
+            <span>twitch.tv/jbrowneuk</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="//discord.gg/vH4zaDT">
+            <i class="fab fa-discord circular"></i>
+            <span>discord.gg/vH4zaDT</span>
+          </a>
+        </li>
+      </ul>
     </div>
-    <div class="column"><h2>Skills &amp; Expertise</h2></div>
+
+    <div class="column">
+      <h2>Skills</h2>
+
+      <h3>Code</h3>
+      <section class="experience-charts">
+        <span class="label">Angular 2+</span>
+        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 7 }">
+        </ng-container>
+
+        <span class="label">ReactJS</span>
+        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 5 }">
+        </ng-container>
+
+        <span class="label">HTML</span>
+        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 9 }">
+        </ng-container>
+
+        <span class="label">CSS</span>
+        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 9 }">
+        </ng-container>
+
+        <span class="label">JavaScript</span>
+        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 7 }">
+        </ng-container>
+
+        <span class="label">PHP</span>
+        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 7 }">
+        </ng-container>
+      </section>
+
+      <h3>Vector Graphics</h3>
+      <section class="experience-charts">
+        <span class="label">Inkscape</span>
+        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 9 }">
+        </ng-container>
+
+        <span class="label">Affinity Designer</span>
+        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 7 }">
+        </ng-container>
+      </section>
+
+      <h3>Design</h3>
+      <section class="experience-charts">
+        <span class="label">Sketch</span>
+        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 7 }">
+        </ng-container>
+
+        <span class="label">Figma</span>
+        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 5 }">
+        </ng-container>
+
+        <span class="label">Adobe Xd</span>
+        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 6 }">
+        </ng-container>
+      </section>
+    </div>
   </div>
 </div>
 
-<div class="personal-area container">
+<ng-template #valueBar let-amount="amount">
+  <span class="value amount-{{amount}}">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </span>
+</ng-template>
+
+<article class="personal-area container">
   <div class="grid">
-    <div class="column">
-      <h1>Creative at heart–and <strong>not</strong> afraid to express it</h1>
+    <header>
+        <h1>Creative at heart–and <strong>not</strong> afraid to express it</h1>
+    </header>
+    <div class="content-area">
       <p>
         I’m a front-end developer, working on web and desktop apps in
         post-brexit UK. I specialise in HTML, CSS and JavaScript for the web,
@@ -72,4 +184,4 @@
       </p>
     </div>
   </div>
-</div>
+</article>
