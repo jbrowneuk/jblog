@@ -10,7 +10,6 @@ import { ENV_PROVIDERS } from '../environments/environment';
 
 import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
-import { ProjectsModule } from './projects/projects.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -27,7 +26,6 @@ registerLocaleData(locale);
     HttpClientModule,
     SharedModule.forRoot(),
     HomeModule,
-    ProjectsModule,
     AppRoutingModule
   ],
   providers: [ENV_PROVIDERS, { provide: LOCALE_ID, useValue: 'en-GB' } ],

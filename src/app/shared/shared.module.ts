@@ -8,7 +8,6 @@ import { TransitionCompleteService } from './transition-complete.service';
 
 import { LineSplittingPipe } from './line-splitting.pipe';
 import { LoadSpinnerComponent } from './load-spinner/load-spinner.component';
-import { PageHeroComponent } from './page-hero/page-hero.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { StickyElementDirective } from './sticky-element.directive';
 import { ParallaxScrollDirective } from './parallax-scroll.directive';
@@ -19,7 +18,6 @@ const CORE_COMPONENTS = [
   LineSplittingPipe,
   LoadSpinnerComponent,
   PaginationComponent,
-  PageHeroComponent,
   StickyElementDirective,
   ParallaxScrollDirective,
   InfiniteScrollDirective
