@@ -7,7 +7,8 @@
     </a>
     <div class="pane central">
       <ul class="links">
-        <li><a [routerLink]="['/']"
+        <li><a class="hide-when-small"
+               [routerLink]="['/']"
                routerLinkActive="active"
                [routerLinkActiveOptions]="{exact: true}">portfolio</a></li>
         <li><a [routerLink]="['/about']" routerLinkActive="active">about</a></li>

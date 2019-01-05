@@ -1,3 +1,5 @@
+@import 'variables';
+
 #page-header {
   margin: var(--margin-page-header);
   height: var(--height-page-header);
@@ -91,5 +93,18 @@ nav#menu {
   .top-border {
     border-top: 1px solid var(--color-default-border);
     padding: var(--padding-page-footer);
+  }
+}
+
+@media screen and (max-width: $breakpoint-sm - 1) {
+  .hide-when-small {
+    display: none;
+  }
+}
+
+@media screen and (max-width: $breakpoint-md - 1) {
+  #menu ul.links a {
+    margin: 0;
+    padding: 4px 8px;
   }
 }
