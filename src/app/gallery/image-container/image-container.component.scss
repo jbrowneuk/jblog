@@ -1,12 +1,35 @@
+@import 'variables';
+
+// Constrained by actual PX width of image
+$image-width: 300px;
+
 .loading-area {
   $height: 200px;
 
   height: $height;
   line-height: $height;
-  width: 300px;
+  width: $image-width;
   margin: 8px auto;
 }
 
 .gallery-container jblog-thumbnail {
   grid-column: span 3;
+}
+
+@media screen and (max-width: $image-width) {
+  .gallery-container jblog-thumbnail {
+    grid-column: span 12;
+  }
+}
+
+@media screen and (min-width: $image-width + 1) and (max-width: $breakpoint-md) {
+  .gallery-container jblog-thumbnail {
+    grid-column: span 6;
+  }
+}
+
+@media screen and (min-width: $breakpoint-md + 1) and (max-width: $breakpoint-lg) {
+  .gallery-container jblog-thumbnail {
+    grid-column: span 4;
+  }
 }
