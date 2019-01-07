@@ -1,3 +1,5 @@
+@import 'variables';
+
 .gallery-info {
   .container {
     display: flex;
@@ -11,5 +13,17 @@
   .image-count {
     margin-right: 8px;
     color: var(--color-secondary-foreground);
+  }
+}
+
+@media screen and (max-width: $breakpoint-md) {
+  .gallery-info {
+    .container {
+      flex-direction: column;
+    }
+
+    .image-count {
+      margin: 0 0 8px 0;
+    }
   }
 }
