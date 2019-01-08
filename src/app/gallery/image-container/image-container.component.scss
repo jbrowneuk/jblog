@@ -1,6 +1,6 @@
 @import 'variables';
 
-$image-width: 300px; // Actual width of thumbnails
+$single-column-breakpoint: 450px;
 
 .ghost-thumbnail {
   min-height: 128px;
@@ -47,14 +47,14 @@ $image-width: 300px; // Actual width of thumbnails
   grid-column: span 3;
 }
 
-@media screen and (max-width: $image-width) {
+@media screen and (max-width: $single-column-breakpoint) {
   .gallery-container jblog-thumbnail,
   .loading-area .ghost-thumbnail {
     grid-column: span 12;
   }
 }
 
-@media screen and (min-width: $image-width + 1) and (max-width: $breakpoint-md) {
+@media screen and (min-width: $single-column-breakpoint + 1) and (max-width: $breakpoint-md) {
   .gallery-container jblog-thumbnail,
   .loading-area .ghost-thumbnail {
     grid-column: span 6;
