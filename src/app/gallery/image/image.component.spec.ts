@@ -3,6 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Params, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { It, IMock, Mock, Times } from 'typemoq';
 
@@ -72,6 +73,7 @@ describe('ImageComponent', () => {
     return TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [MockDatePipe, ImageComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: providers
     }).compileComponents();
   }
@@ -91,12 +93,8 @@ describe('ImageComponent', () => {
     }));
 
     it('should create and have zoomed out state', () => {
+      expect(component).toBeTruthy();
       expect(component.isZoomedOut).toBeTruthy();
-
-      // No image data, should show loading text
-      expect(compiled.querySelector('.panel').textContent.trim()).toBe(
-        'Loading…'
-      );
     });
 
     it('should parse description text', async(async () => {
@@ -138,14 +136,15 @@ describe('ImageComponent', () => {
       );
     }));
 
-    it('should display image date (locale dependent)', async(async () => {
+    it('should display image date', async(async () => {
       component.data = MOCK_IMAGEDATA;
       const expectedDate = '' + (MOCK_IMAGEDATA.date * 1000);
 
       fixture.detectChanges();
       await fixture.whenStable();
 
-      expect(compiled.querySelector('.card-info').textContent.trim()).toBe(expectedDate);
+      // Uses the mock date pipe
+      expect(compiled.querySelector('.date').textContent.trim()).toBe(expectedDate);
     }));
 
     it('should display tag list', async(async () => {
