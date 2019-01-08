@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { It, Mock } from 'typemoq';
 
-import { PageHeroComponent } from '../../shared/page-hero/page-hero.component';
 import { TitleService } from '../../shared/title.service';
 
 import { AboutComponent } from './about.component';
@@ -18,11 +18,13 @@ describe('AboutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ PageHeroComponent, AboutComponent ],
-      providers: [{ provide: TitleService, useFactory: () => mockTitleService.object }]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      declarations: [AboutComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      providers: [
+        { provide: TitleService, useFactory: () => mockTitleService.object }
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { It, Mock, Times } from 'typemoq';
 
 import { TitleService } from '../shared/title.service';
-import { PageHeroComponent } from '../shared/page-hero/page-hero.component';
 
 import { ErrorComponent } from './error.component';
 
@@ -20,16 +20,13 @@ describe('ErrorComponent', () => {
     mockTitleService.reset();
 
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [
-        PageHeroComponent,
-        ErrorComponent
-      ],
+      imports: [RouterTestingModule],
+      declarations: [ErrorComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         { provide: TitleService, useFactory: () => mockTitleService.object }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ErrorComponent);
     component = fixture.componentInstance;
@@ -40,8 +37,9 @@ describe('ErrorComponent', () => {
     expect(component).toBeTruthy();
 
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.basic-card > h2').textContent)
-      .toContain('Feeling lost? Don’t worry');
+    expect(compiled.querySelector('.content-area > h1').textContent).toContain(
+      'Feeling lost? Don’t worry'
+    );
   });
 
   it('should reset title', () => {
