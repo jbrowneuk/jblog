@@ -1,8 +1,8 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
-import { async, fakeAsync, tick, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of as observableOf } from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { It, Mock, Times } from 'typemoq';
 
@@ -14,7 +14,6 @@ import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { AlbumService } from '../album.service';
 import { ImageService } from '../image.service';
 import { TitleService } from '../../shared/title.service';
-import { PageHeroComponent } from '../../shared/page-hero/page-hero.component';
 import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.component';
 
 import { MOCK_ALBUMDATA, MOCK_IMAGEDATA } from '../mocks/mock-data';
@@ -35,20 +34,26 @@ describe('AlbumComponent', () => {
     mockTitleService.reset();
 
     mockAlbumService.reset();
-    mockAlbumService.setup(s => s.getAlbumInfo(It.isAnyString()))
+    mockAlbumService
+      .setup(s => s.getAlbumInfo(It.isAnyString()))
       .returns(() => observableOf(MOCK_ALBUMDATA));
 
     mockImageService.reset();
-    mockImageService.setup(s => s.getImageInfo(It.isAnyNumber()))
+    mockImageService
+      .setup(s => s.getImageInfo(It.isAnyNumber()))
       .returns(() => observableOf(MOCK_IMAGEDATA));
-    mockImageService.setup(s => s.getImagesFromAlbum(It.isAnyString(), It.isAnyNumber(), It.isAnyNumber()))
+    mockImageService
+      .setup(s =>
+        s.getImagesFromAlbum(
+          It.isAnyString(),
+          It.isAnyNumber(),
+          It.isAnyNumber()
+        )
+      )
       .returns(() => observableOf([MOCK_IMAGEDATA]));
 
     TestBed.configureTestingModule({
-      imports: [
-        HttpModule,
-        RouterTestingModule
-      ],
+      imports: [HttpModule, RouterTestingModule],
       declarations: [
         LineSplittingPipe,
         GalleryFormatPipe,
@@ -56,16 +61,15 @@ describe('AlbumComponent', () => {
         ImageContainerComponent,
         ThumbnailComponent,
         AlbumComponent,
-        PageHeroComponent,
         LoadSpinnerComponent
       ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         { provide: AlbumService, useFactory: () => mockAlbumService.object },
         { provide: ImageService, useFactory: () => mockImageService.object },
         { provide: TitleService, useFactory: () => mockTitleService.object }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AlbumComponent);
     component = fixture.componentInstance;
@@ -79,16 +83,19 @@ describe('AlbumComponent', () => {
     expect(component.loadingFailed).toBeFalsy();
 
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('#album-description p').textContent)
-      .toContain(MOCK_ALBUMDATA.description);
-    expect(compiled.querySelector('#album-description .card-info').textContent)
-      .toContain('8 images');
-    expect(compiled.querySelector('#album-choice').textContent)
-      .toContain('Pick a different album');
+    expect(
+      compiled.querySelector('.gallery-info .image-count').textContent
+    ).toContain('8 images');
+    expect(compiled.querySelector('#album-choice').textContent).toContain(
+      'Pick a different album'
+    );
   });
 
   it('should set title', () => {
-    mockTitleService.verify(x => x.setTitle(It.isValue(MOCK_ALBUMDATA.title)), Times.once());
+    mockTitleService.verify(
+      x => x.setTitle(It.isValue(MOCK_ALBUMDATA.title)),
+      Times.once()
+    );
     expect().nothing();
   });
 });

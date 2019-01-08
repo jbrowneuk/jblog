@@ -49,16 +49,16 @@ describe('ProjectsContainerComponent', () => {
   });
 
   it('should display project title', () => {
-    expect(compiled.querySelector('h2').textContent).toContain('A test project');
+    expect(compiled.querySelector('h1').textContent).toContain('A test project');
   });
 
   it('should display project information', () => {
-    expect(compiled.querySelector('.card-info').textContent)
+    expect(compiled.querySelector('.info').textContent)
       .toContain('JSON data');
   });
 
   it('should display project information', () => {
-    expect(compiled.querySelector('.post p').textContent)
+    expect(compiled.querySelector('.text-area p').textContent)
       .toContain('Description of the test project');
   });
 

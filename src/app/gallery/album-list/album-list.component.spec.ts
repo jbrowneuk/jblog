@@ -1,14 +1,13 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { It, Mock, Times } from 'typemoq';
 
 import { LineSplittingPipe } from '../../shared/line-splitting.pipe';
 import { AlbumService } from '../album.service';
 import { TitleService } from '../../shared/title.service';
-import { PageHeroComponent } from '../../shared/page-hero/page-hero.component';
 import { MOCK_ALBUMDATA } from '../mocks/mock-data';
 
 import { AlbumListComponent } from './album-list.component';
@@ -17,7 +16,8 @@ const ALBUM_LIST = [MOCK_ALBUMDATA];
 
 describe('AlbumListComponent', () => {
   const mockAlbumService = Mock.ofType<AlbumService>();
-  mockAlbumService.setup(s => s.getAllAlbumInfo())
+  mockAlbumService
+    .setup(s => s.getAllAlbumInfo())
     .returns(() => observableOf(ALBUM_LIST));
 
   const mockTitleService = Mock.ofType<TitleService>();
@@ -30,14 +30,14 @@ describe('AlbumListComponent', () => {
     mockTitleService.reset();
 
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ LineSplittingPipe, PageHeroComponent, AlbumListComponent ],
+      imports: [RouterTestingModule],
+      declarations: [LineSplittingPipe, AlbumListComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         { provide: AlbumService, useFactory: () => mockAlbumService.object },
         { provide: TitleService, useFactory: () => mockTitleService.object }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AlbumListComponent);
     component = fixture.componentInstance;
@@ -49,7 +49,10 @@ describe('AlbumListComponent', () => {
   });
 
   it('should set title', () => {
-    mockTitleService.verify(x => x.setTitle(It.isValue('All albums')), Times.once());
+    mockTitleService.verify(
+      x => x.setTitle(It.isValue('All albums')),
+      Times.once()
+    );
     expect().nothing();
   });
 });

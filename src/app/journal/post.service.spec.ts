@@ -63,105 +63,89 @@ describe('PostService', () => {
     req.flush(mockResponse);
   });
 
-  it('should get posts for a specified tag',
-    (done: DoneFn) => {
-      const expectedTag = 'myTag';
+  it('should get posts for a specified tag', (done: DoneFn) => {
+    const expectedTag = 'myTag';
 
-      const mockResponse: PostDataWrapper = {
-        posts: [mockFirstPost, mockSecondPost],
-        totalPages: 1
-      };
+    const mockResponse: PostDataWrapper = {
+      posts: [mockFirstPost, mockSecondPost],
+      totalPages: 1
+    };
 
-      service
-        .getPostsForPage(0, expectedTag)
-        .subscribe((postData: PostDataWrapper) => {
-          expect(postData.posts.length).toBe(mockResponse.posts.length);
-          done();
-        });
-
-      const req = httpTestingController.expectOne(
-        `http://localhost/api/?posts&tag=${expectedTag}`
-      );
-      expect(req.request.method).toEqual('GET');
-      req.flush(mockResponse);
-    }
-  );
-
-  it('should get a specific post',
-    (done: DoneFn) => {
-      const id = mockFirstPost.postId;
-      const mockResponse: PostDataWrapper = {
-        posts: [mockFirstPost],
-        totalPages: 1
-      };
-
-      service.getPost(id).subscribe((postData: PostData) => {
-        expect(postData).toEqual(mockFirstPost);
+    service
+      .getPostsForPage(0, expectedTag)
+      .subscribe((postData: PostDataWrapper) => {
+        expect(postData.posts.length).toBe(mockResponse.posts.length);
         done();
       });
 
-      const req = httpTestingController.expectOne(
-        `http://localhost/api/?posts&postId=${id}`
-      );
-      expect(req.request.method).toEqual('GET');
-      req.flush(mockResponse);
-    }
-  );
+    const req = httpTestingController.expectOne(
+      `http://localhost/api/?posts&tag=${expectedTag}`
+    );
+    expect(req.request.method).toEqual('GET');
+    req.flush(mockResponse);
+  });
 
-  it('should handle errors when getting post list',
-    (done: DoneFn) => {
-      const page = 1024;
+  it('should get a specific post', (done: DoneFn) => {
+    const id = mockFirstPost.postId;
+    const mockResponse: PostData[] = [mockFirstPost];
 
-      service
-        .getPostsForPage(page)
-        .subscribe(
-          () => fail('Should never get here'),
-          (err: Error) => {
-            expect(err).toBeTruthy();
-            done();
-          }
-        );
+    service.getPost(id).subscribe(
+      (postData: PostData) => {
+        expect(postData).toEqual(mockFirstPost);
+        done();
+      },
+      (err: any) => fail(err)
+    );
 
-      const req = httpTestingController.expectOne(
-        `http://localhost/api/?posts&page=${page}`
-      );
-      req.flush('fake 404', { status: 404, statusText: 'Not Found' });
-    }
-  );
+    const req = httpTestingController.expectOne(
+      `http://localhost/api/?posts&postId=${id}`
+    );
+    expect(req.request.method).toEqual('GET');
+    req.flush(mockResponse);
+  });
 
-  it('should handle errors when getting single post information',
-    (done: DoneFn) => {
-      const postId = 1024;
-      service
-        .getPost(postId)
-        .subscribe(
-          () => fail('Should never get here'),
-          (err: Error) => {
-            expect(err).toBeTruthy();
-            done();
-          }
-        );
+  it('should handle errors when getting post list', (done: DoneFn) => {
+    const page = 1024;
 
-      const req = httpTestingController.expectOne(
-        `http://localhost/api/?posts&postId=${postId}`
-      );
-      req.flush('fake 404', { status: 404, statusText: 'Not Found' });
-    }
-  );
+    service.getPostsForPage(page).subscribe(
+      () => fail('Should never get here'),
+      (err: Error) => {
+        expect(err).toBeTruthy();
+        done();
+      }
+    );
 
-  it('should handle errors when getting post information for invalid id',
-    (done: DoneFn) => {
-      const postId = -1;
+    const req = httpTestingController.expectOne(
+      `http://localhost/api/?posts&page=${page}`
+    );
+    req.flush('fake 404', { status: 404, statusText: 'Not Found' });
+  });
 
-      service
-        .getPost(postId)
-        .subscribe(
-          () => fail('Should never get here'),
-          (err: Error) => {
-            expect(err).toBeTruthy();
-            done();
-          }
-        );
-    }
-  );
+  it('should handle errors when getting single post information', (done: DoneFn) => {
+    const postId = 1024;
+    service.getPost(postId).subscribe(
+      () => fail('Should never get here'),
+      (err: Error) => {
+        expect(err).toBeTruthy();
+        done();
+      }
+    );
+
+    const req = httpTestingController.expectOne(
+      `http://localhost/api/?posts&postId=${postId}`
+    );
+    req.flush('fake 404', { status: 404, statusText: 'Not Found' });
+  });
+
+  it('should handle errors when getting post information for invalid id', (done: DoneFn) => {
+    const postId = -1;
+
+    service.getPost(postId).subscribe(
+      () => fail('Should never get here'),
+      (err: Error) => {
+        expect(err).toBeTruthy();
+        done();
+      }
+    );
+  });
 });
