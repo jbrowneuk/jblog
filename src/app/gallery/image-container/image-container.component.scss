@@ -1,35 +1,69 @@
 @import 'variables';
 
-// Constrained by actual PX width of image
-$image-width: 300px;
+$image-width: 300px; // Actual width of thumbnails
 
-.loading-area {
-  $height: 200px;
+.ghost-thumbnail {
+  min-height: 128px;
+  position: relative;
+  background-color: var(--color-container-background);
+  border-radius: var(--border-radius-default);
+  box-shadow: 0 2px 4px var(--color-default-shadow);
 
-  height: $height;
-  line-height: $height;
-  width: $image-width;
-  margin: 8px auto;
+  .overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    line-height: 1.5;
+    padding: 8px;
+    background-color: var(--color-overlay-background);
+  }
+
+  .title,
+  .subtitle {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: loading-bar-pulse;
+    animation-timing-function: ease-in-out;
+    background: linear-gradient(to right, var(--color-neutral-02) 10%, var(--color-neutral-01) 20%, var(--color-neutral-02) 30%);
+    background-size: 200% 16px;
+  }
+
+  .title {
+    width: 50%;
+    height: 16px;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    width: 75%;
+    height: 12px;
+  }
 }
 
-.gallery-container jblog-thumbnail {
+.gallery-container jblog-thumbnail,
+.loading-area .ghost-thumbnail {
   grid-column: span 3;
 }
 
 @media screen and (max-width: $image-width) {
-  .gallery-container jblog-thumbnail {
+  .gallery-container jblog-thumbnail,
+  .loading-area .ghost-thumbnail {
     grid-column: span 12;
   }
 }
 
 @media screen and (min-width: $image-width + 1) and (max-width: $breakpoint-md) {
-  .gallery-container jblog-thumbnail {
+  .gallery-container jblog-thumbnail,
+  .loading-area .ghost-thumbnail {
     grid-column: span 6;
   }
 }
 
 @media screen and (min-width: $breakpoint-md + 1) and (max-width: $breakpoint-lg) {
-  .gallery-container jblog-thumbnail {
+  .gallery-container jblog-thumbnail,
+  .loading-area .ghost-thumbnail {
     grid-column: span 4;
   }
 }
