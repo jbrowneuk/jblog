@@ -74,7 +74,7 @@ export class PostService {
 
     const apiRequestUrl = `${this.basePath}${API_URL}&postId=${postId}`;
     return this.http
-      .get<PostDataWrapper>(apiRequestUrl)
-      .pipe(map((response: PostDataWrapper) => response.posts[0]));
+      .get<PostData[]>(apiRequestUrl)
+      .pipe(map((response: PostData[]) => response[0]));
   }
 }

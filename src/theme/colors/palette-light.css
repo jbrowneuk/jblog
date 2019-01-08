@@ -1,0 +1,72 @@
+:root {
+  /* Primary A */
+  --color-primary-a-10: hsl(205, 100%, 21%);
+  --color-primary-a-09: hsl(205, 87%, 29%);
+  --color-primary-a-08: hsl(205, 82%, 33%);
+  --color-primary-a-07: hsl(205, 76%, 39%);
+  --color-primary-a-06: hsl(205, 67%, 45%);
+  --color-primary-a-05: hsl(205, 65%, 55%);
+  --color-primary-a-04: hsl(205, 74%, 65%);
+  --color-primary-a-03: hsl(205, 84%, 74%);
+  --color-primary-a-02: hsl(205, 97%, 85%);
+  --color-primary-a-01: hsl(205, 79%, 92%);
+
+  /* Primary B */
+  --color-primary-b-10: hsl(15, 86%, 30%);
+  --color-primary-b-09: hsl(22, 82%, 39%);
+  --color-primary-b-08: hsl(29, 80%, 44%);
+  --color-primary-b-07: hsl(36, 77%, 49%);
+  --color-primary-b-06: hsl(42, 87%, 55%);
+  --color-primary-b-05: hsl(44, 92%, 63%);
+  --color-primary-b-04: hsl(48, 94%, 68%);
+  --color-primary-b-03: hsl(48, 95%, 76%);
+  --color-primary-b-02: hsl(48, 100%, 88%);
+  --color-primary-b-01: hsl(49, 100%, 96%);
+
+  /* Neutral */
+  --color-neutral-10: hsl(209, 61%, 16%);
+  --color-neutral-09: hsl(211, 39%, 23%);
+  --color-neutral-08: hsl(209, 34%, 30%);
+  --color-neutral-07: hsl(209, 28%, 39%);
+  --color-neutral-06: hsl(210, 22%, 49%);
+  --color-neutral-05: hsl(209, 23%, 60%);
+  --color-neutral-04: hsl(211, 27%, 70%);
+  --color-neutral-03: hsl(210, 31%, 80%);
+  --color-neutral-02: hsl(212, 33%, 89%);
+  --color-neutral-01: hsl(210, 36%, 96%);
+
+  /* Defaults */
+  --color-default-background: var(--color-neutral-01);
+  --color-default-foreground: var(--color-neutral-07);
+  --color-default-border: var(--color-neutral-02);
+  --color-default-shadow: rgba(0, 0, 0, 0.2);
+
+  /* Secondary text */
+  --color-secondary-foreground: var(--color-neutral-05);
+
+  /* Links */
+  --color-link-foreground: var(--color-primary-a-07);
+  --color-link-hover-foreground: var(--color-primary-a-05);
+
+  /* Containers */
+  --color-container-background: #FFFFFF;
+  --color-container-border: var(--color-neutral-02);
+
+  /* Page flair top bar */
+  --color-page-flair: var(--color-primary-a-09);
+
+  /* Selections */
+  --color-selection-background: var(--color-primary-b-04);
+
+  /* Navigation links */
+  --color-navigation-links-foreground: var(--color-neutral-07);
+  --color-navigation-links-background: transparent;
+  --color-navigation-links-hover-foreground: var(--color-neutral-10);
+  --color-navigation-links-hover-background: var(--color-neutral-01);
+  --color-navigation-links-active-foreground: var(--color-neutral-01);
+  --color-navigation-links-active-background: var(--color-neutral-07);
+
+  /* Overlay */
+  --color-overlay-background: hsla(210, 36%, 96%, 0.75);
+  --color-overlay-hover-background: hsla(210, 36%, 96%, 0.9);
+}

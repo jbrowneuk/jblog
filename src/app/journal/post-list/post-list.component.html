@@ -1,8 +1,3 @@
-<jblog-page-hero heading="Journal"
-                 subheading="Thoughts, ramblings, musings."
-                 parallaxImage="/assets/images/mug-01.jpg">
-</jblog-page-hero>
-
 <div class="container">
   <div class="post"
        *ngIf="(!posts || posts.length === 0) && !isLoading">
@@ -17,14 +12,14 @@
                 *ngFor="let post of posts"></jblog-post>
   </div>
 
-  <div class="post align-center"
+  <div class="post text-center"
        *ngIf="isLoading">
     <jblog-load-spinner></jblog-load-spinner>
     <h2>Hang tight!</h2>
     <p>Loading posts…</p>
   </div>
 
-  <div class="align-center end-notification"
+  <div class="text-center end-notification"
        *ngIf="reachedEnd">
     <span *ngIf="currentTag; else reachedBottom">That’s all the posts tagged “{{currentTag}}”</span>
   </div>
@@ -33,7 +28,7 @@
     <span>Congratulations; You’ve read all the posts in the journal</span>
   </ng-template>
 
-  <div class="align-center faux-button-container" id="post-limit-button-area">
+  <div class="text-center button-container" id="post-limit-button-area">
     <a *ngIf="initialPage > 1"
        routerLink="/journal/page/1">Latest posts</a>
     <a *ngIf="showNavigation"

@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 
 import { TitleService } from '../../shared/title.service';
-import { FeatureToggleService } from '../../shared/feature-toggle.service';
-import { FEATURE_TOGGLES } from '../../shared/feature-toggles';
+import { TopPageTransitions } from './top-page.animations';
+
+const intervalMsec = 8000;
+const maxSlides = 3;
 
 /**
  * The component that renders the top (home) page.
@@ -12,15 +15,57 @@ import { FEATURE_TOGGLES } from '../../shared/feature-toggles';
   templateUrl: './top-page.component.html',
   styleUrls: [
     './top-page.component.scss'
-  ]
+  ],
+  animations: TopPageTransitions
 })
-export class TopPageComponent implements OnInit {
-  public hasDetailedProjects: boolean;
+export class TopPageComponent implements OnInit, OnDestroy {
+  private carouselInterval: Subscription;
 
-  constructor(private titleService: TitleService, private featureToggles: FeatureToggleService) {}
+  public slideNumber: number;
+  public totalSlides: number;
 
-  ngOnInit() {
+  constructor(private titleService: TitleService) {
+    this.slideNumber = 0;
+    this.totalSlides = maxSlides;
+  }
+
+  public ngOnInit() {
     this.titleService.resetTitle();
-    this.hasDetailedProjects = this.featureToggles.isEnabled(FEATURE_TOGGLES.improvedProjectOutline);
+    this.setupSlideInterval();
+  }
+
+  public ngOnDestroy() {
+    this.clearSlideInterval();
+  }
+
+  public advanceCarousel(): void {
+    this.slideNumber = (this.slideNumber + 1) % this.totalSlides;
+  }
+
+  public goToNextSlide(): void {
+    const slide = (this.slideNumber + 1) % this.totalSlides;
+    this.setSlide(slide);
+  }
+
+  public goToPreviousSlide(): void {
+    const slide = (this.slideNumber > 0 ? this.slideNumber : this.totalSlides) - 1;
+    this.setSlide(slide);
+  }
+
+  public setSlide(id: number): void {
+    this.clearSlideInterval();
+    this.slideNumber = id;
+    this.setupSlideInterval();
+  }
+
+  private setupSlideInterval(): void {
+    this.carouselInterval = interval(intervalMsec).subscribe(() => this.advanceCarousel());
+  }
+
+  private clearSlideInterval(): void {
+    if (this.carouselInterval) {
+      this.carouselInterval.unsubscribe();
+      this.carouselInterval = null;
+    }
   }
 }

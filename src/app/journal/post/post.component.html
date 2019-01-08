@@ -1,22 +1,27 @@
-<article id="{{data.postId}}" *ngIf="data">
+<article id="{{ data.postId }}" class="grid" *ngIf="data">
+  <header>
+    <h1><a [routerLink]="['/journal/post', data.postId]">{{ data.title }}</a></h1>
+    <span class="date" title="{{ data.date * 1000 | date: 'medium' }}">
+      <i class="far fa-fw fa-calendar" aria-hidden="true"></i>
+      {{ data.date * 1000 | date: 'mediumDate' }}
+    </span>
+  </header>
 
-  <h2>{{data.title}}</h2>
-  <div class="card-info ">
-    <i class="far fa-fw fa-calendar" aria-hidden="true"></i>
-    {{data.date * 1000 | date:'medium'}}
+  <div class="outdated-content" *ngIf="ageInYearsGreaterThan(2)">
+    <i class="far fa-fw fa-exclamation-triangle"></i>
+    This post is over two years old. The content here might not be relevant any
+    more.
   </div>
-  <div class="outdated-content rounded"
-        *ngIf="ageInYearsGreaterThan(2)">
-    This post is over two years old. The content here might not be relevant any more.
-  </div>
+
   <div class="content-area"></div>
 
-  <ul class="tags">
-    <li><i class="far fa-tags" aria-hidden="true"></i></li>
-    <li class="tag" *ngFor="let tag of data.tags">
-      <a class="rounded" [routerLink]="['/journal/tag', tag]">{{tag}}</a>
-    </li>
-    <li class="tagless"
-          *ngIf="!hasTags()">Not tagged</li>
-  </ul>
+  <footer>
+    <ul class="tags-area">
+      <li><i class="far fa-tags" aria-hidden="true"></i></li>
+      <li class="tag" *ngFor="let tag of data.tags">
+        <a class="rounded" [routerLink]="['/journal/tag', tag]">{{ tag }}</a>
+      </li>
+      <li class="tagless" *ngIf="!hasTags()">Not tagged</li>
+    </ul>
+  </footer>
 </article>

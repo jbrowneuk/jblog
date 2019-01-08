@@ -1,29 +1,26 @@
-<jblog-page-hero heading="All albums"
-                 subheading="Groups of related images."
-                 parallaxImage="/assets/images/gallery-01.jpg">
-</jblog-page-hero>
-
 <div class="container">
-  <article class="post"
-           *ngFor="let album of albums; let i = index">
-    <div class="row">
-      <div class="col-md-8">
-        <h2>{{album.title}}</h2>
-        <div class="card-info">
-          <i class="far fa-fw fa-info-circle" aria-hidden="true"></i>
-          {{album.imagesInAlbum}} image{{album.imagesInAlbum === 1 ? '' : 's'}}
-        </div>
-        <p *ngFor='let para of album.description | lineSplitting'>{{para}}</p>
-        <div class="faux-button-container">
-          <a [routerLink]="['/art/album', album.name]">
-            <i class="far fa-fw fa-th-large" aria-hidden="true"></i>
-            Explore album
-          </a>
-        </div>
+  <h1>All albums</h1>
+  <div class="grid">
+    <a
+      class="album-card"
+      *ngFor="let album of albums"
+      [routerLink]="['/art/album', album.name, 'page', 1]"
+    >
+      <div class="colour-area"></div>
+      <div class="image-area">
+        <img src="{{ album.iconUrl }}" alt="icon" class="preview" />
       </div>
-      <div class="col-md-4 align-center hidden-sm hidden-xs">
-        <img src="{{album.iconUrl}}" alt="icon" class="card">
+      <div
+        class="badge-area"
+        title="{{ album.imagesInAlbum }} image{{
+          album.imagesInAlbum === 1 ? '' : 's'
+        }}"
+      >
+        {{ album.imagesInAlbum }}
       </div>
-    </div>
-  </article>
+      <div class="text-area">
+        <h2>{{ album.title }}</h2>
+      </div>
+    </a>
+  </div>
 </div>

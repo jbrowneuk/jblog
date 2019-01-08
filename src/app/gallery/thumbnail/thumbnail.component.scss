@@ -1,8 +1,59 @@
-@import 'palette';
-@import 'variables';
+@import 'mixins';
 
-.galleries {
-  color: $color-palette3;
+:host,
+.gallery-card {
   display: block;
-  font-size: 12px;
+  position: relative;
+  line-height: 1;
+}
+
+.image-area,
+.text-area,
+img {
+  display: block;
+}
+
+img {
+  max-width: 100%;
+}
+
+.text-area {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  line-height: 1.5;
+  padding: 8px;
+  background-color: var(--color-overlay-background);
+  color: var(--color-default-foreground);
+  transition: background-color 0.2s;
+
+  .title,
+  .galleries {
+    @include truncate-text();
+
+    display: block;
+  }
+
+  .galleries {
+    font-size: 12px;
+    color: var(--color-secondary-foreground);
+  }
+}
+
+.gallery-card {
+  overflow: hidden;
+  background-color: var(--color-container-background);
+  border-radius: var(--border-radius-default);
+  box-shadow: 0 2px 4px var(--color-default-shadow);
+  transition: top 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    top: -0.5px;
+    box-shadow: 0 4px 8px var(--color-default-shadow);
+
+    .text-area {
+      background-color: var(--color-overlay-hover-background);
+    }
+  }
 }

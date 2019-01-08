@@ -6,7 +6,9 @@ import { ErrorComponent } from './error/error.component';
 const appRoutes: Routes = [
   { path: 'art', loadChildren: 'app/gallery/gallery.module#GalleryModule' },
   { path: 'journal', loadChildren: 'app/journal/journal.module#JournalModule' },
-  { path: '**', component: ErrorComponent }
+  { path: 'projects/code', loadChildren: 'app/code/code.module#CodeModule' },
+  { path: 'code', redirectTo: 'projects/code' },
+  { path: '**', component: ErrorComponent, data: { sectionId: 0 } }
 ];
 
 @NgModule({

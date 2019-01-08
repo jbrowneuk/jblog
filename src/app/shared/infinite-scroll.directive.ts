@@ -1,7 +1,5 @@
 import { Directive, ElementRef, Input } from '@angular/core';
-import { ScrollDirectiveBase, ScrollPosition } from './scroll-directive.base';
-
-import { TransitionCompleteService } from './transition-complete.service';
+import { ScrollDirectiveBase } from './scroll-directive.base';
 
 @Directive({ selector: '[jblogInfiniteScroll]' })
 export class InfiniteScrollDirective extends ScrollDirectiveBase {
@@ -10,8 +8,8 @@ export class InfiniteScrollDirective extends ScrollDirectiveBase {
   @Input() shouldBlockAfterCallback = true;
   private lastCallbackPosition: number;
 
-  constructor(relatedElement: ElementRef, transitionService: TransitionCompleteService) {
-    super(relatedElement, transitionService);
+  constructor(relatedElement: ElementRef) {
+    super(relatedElement);
     this.lastCallbackPosition = 0;
   }
 

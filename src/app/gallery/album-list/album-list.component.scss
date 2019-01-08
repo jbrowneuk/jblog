@@ -1,0 +1,78 @@
+:host {
+  --splash-height: 4px;
+  --image-height: 200px;
+  --card-height: calc(var(--splash-height) + var(--image-height));
+  --badge-height: 32px;
+}
+
+.grid {
+  grid-auto-rows: var(--card-height);
+}
+
+.album-card {
+  grid-column: span 3;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius-default);
+  background-color: var(--color-container-background);
+  box-shadow: var(--box-shadow-default) var(--color-default-shadow);
+  text-decoration: none;
+  transition: box-shadow 0.2s, top 0.2s;
+
+  &:hover {
+    top: -0.5px;
+    box-shadow: var(--box-shadow-default-hover) var(--color-default-shadow);
+
+    .text-area {
+      background-color: var(--color-overlay-hover-background);
+    }
+  }
+}
+
+.colour-area {
+  height: var(--splash-height);
+  overflow: hidden;
+  background-color: var(--color-page-flair);
+}
+
+.image-area {
+  height: var(--image-height);
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.badge-area {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  height: var(--badge-height);
+  padding: 8px;
+  line-height: 1;
+  border-radius: var(--border-radius-default);
+  background-color: var(--color-page-flair);
+  color: var(--color-primary-a-01);
+}
+
+h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.text-area {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 8px 16px;
+  overflow: hidden;
+  background-color: var(--color-overlay-background);
+  color: var(--color-default-foreground);
+  transition: background-color 0.2s;
+}

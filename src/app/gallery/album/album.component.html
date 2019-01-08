@@ -1,55 +1,37 @@
-<jblog-page-hero heading="Gallery"
-                 subheading="Artworks I have drawn, painted or created some way or another."
-                 parallaxImage="/assets/images/gallery-01.jpg">
-</jblog-page-hero>
-
-<div class="container" *ngIf="isLoadingAlbumData">
-  <div class="horizontal-feature align-center">
-    <jblog-load-spinner></jblog-load-spinner>
-    <h2>Hang tight!</h2>
-    <p>Loading album…</p>
-  </div>
-</div>
-
-<div class="container" *ngIf="loadingFailed">
-  <div class="post">
-    <div class="basic-card rounded light-shadow">
-      <h2>There was a problem</h2>
-      <p>Please <a href=".">refresh the page</a> or try again later.</p>
-    </div>
-  </div>
-</div>
-
-<div class="container" *ngIf="data">
-  <article class="post"
-           id="album-description">
-    <div class="row">
-      <div class="col-md-8">
-        <h2>{{data.title}}</h2>
-        <div class="card-info">
-          {{data.imagesInAlbum}} image{{data.imagesInAlbum === 1 ? '' : 's'}}
-        </div>
-        <p *ngFor='let para of data.description | lineSplitting'>{{para}}</p>
-      </div>
-      <div class="col-md-4 align-center hidden-sm hidden-xs">
-        <img src="{{data.iconUrl}}" alt="album preview image" class="light-shadow" />
-      </div>
-    </div>
-    <div class="faux-button-container">
+<div class="gallery-info" *ngIf="isLoadingAlbumData">
+  <div class="container">
+    <h1 class="title">Loading…</h1>
+    <div class="spacer"></div>
+    <div class="button-container">
       <a routerLink="/art/albums" class="primary" id="album-choice">
         <i class="far fa-fw fa-folder" aria-hidden="true"></i>
         Pick a different album
       </a>
-      <a routerLink="/art/insights">
-        <i class="far fa-binoculars"></i>
-        Behind the scenes
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="loadingFailed">
+  <h2>There was a problem</h2>
+  <p>Please <a href=".">refresh the page</a> or try again later.</p>
+</div>
+
+<div class="gallery-info" *ngIf="data">
+  <div class="container">
+    <h1 class="title">{{data.title}}</h1>
+    <div class="spacer"></div>
+    <div class="image-count">{{data.imagesInAlbum}} image{{data.imagesInAlbum === 1 ? '' : 's'}}</div>
+    <div class="button-container">
+      <a routerLink="/art/albums" class="primary" id="album-choice">
+        <i class="far fa-fw fa-folder" aria-hidden="true"></i>
+        Pick a different album
       </a>
     </div>
-  </article>
+  </div>
 </div>
 
 <div id="thumbnails" *ngIf="data">
-  <div class="align-center">
+  <div class="text-center">
     <jblog-pagination [urlComponents]="['art', 'album', data.name]"
                       [currentPage]="page"
                       [totalPages]="data.totalPages"></jblog-pagination>
@@ -58,7 +40,7 @@
     <jblog-image-container [albumName]="data.name"
                            [page]="page"></jblog-image-container>
   </div>
-  <div class="align-center">
+  <div class="text-center">
     <jblog-pagination [urlComponents]="['art', 'album', data.name]"
                       [currentPage]="page"
                       [totalPages]="data.totalPages"></jblog-pagination>

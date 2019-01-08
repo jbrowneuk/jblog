@@ -24,9 +24,14 @@
               "src/assets",
               "src/favicon.ico",
               {
-                "glob": "**/*.min.css",
-                "input": "./node_modules/bootstrap/dist/css/",
-                "output": "./assets/thirdparty/bootstrap/"
+                "glob": "**/*.css",
+                "input": "node_modules/normalize.css/",
+                "output": "assets/thirdparty/normalize/"
+              },
+              {
+                "glob": "**/*.css",
+                "input": "src/theme/colors/",
+                "output": "theme/"
               }
             ],
             "styles": ["src/styles.scss"],

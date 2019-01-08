@@ -32,20 +32,13 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it('should render title in the correct tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.home-link span').textContent).toContain('Jason Browne');
-  }));
-
   // Check menu availability
   it('should render menu in the correct tag', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
 
-    const menu = compiled.querySelectorAll('#menu > li > a');
+    const menu = compiled.querySelectorAll('.links > li > a');
     expect(menu[0].textContent).toContain('portfolio');
     expect(menu[1].textContent).toContain('about');
     expect(menu[2].textContent).toContain('art');

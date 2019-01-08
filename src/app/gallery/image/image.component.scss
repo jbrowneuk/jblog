@@ -1,9 +1,10 @@
-@import 'palette';
-@import 'variables';
-
 .controls {
   font-size: 14px;
   margin-bottom: 20px;
+}
+
+img.responsive {
+  max-width: 100%;
 }
 
 .presenter {
@@ -28,17 +29,22 @@
   }
 }
 
-.picture-area {
+.image-area {
   position: relative;
+  display: inline-block;
+
+  img {
+    border-radius: var(--border-radius-default);
+    box-shadow: var(--box-shadow-default) var(--color-default-shadow);
+  }
 
   .featured {
     $badge-width: 48px;
-    $featured-background: #BB0000;
 
-    background-color: $featured-background;
-    color: $featured-background;
+    background-color: var(--color-primary-a-08);
+    color: var(--color-primary-a-08);
     font-size: 32px;
-    text-shadow: 0 -1px darken($featured-background, 30%), 0 1px lighten($featured-background, 30%);
+    text-shadow: 0 -1px var(--color-primary-a-10), 0 1px var(--color-primary-a-06);
     text-align: center;
     width: $badge-width;
     position: absolute;
@@ -51,8 +57,8 @@
       border-color: transparent;
       border-style: solid;
       border-width: 5px 2px;
-      border-right-color: darken($featured-background, 30%);
-      border-bottom-color: darken($featured-background, 30%);
+      border-right-color: var(--color-primary-a-10);
+      border-bottom-color: var(--color-primary-a-10);
       position: absolute;
       left: -4px;
       top: 0;
@@ -64,11 +70,87 @@
       display: block;
       content: '';
       border: $frill-size solid transparent;
-      border-left-color: $featured-background;
-      border-right-color: $featured-background;
+      border-left-color: var(--color-primary-a-08);
+      border-right-color: var(--color-primary-a-08);
       position: absolute;
       left: 0;
       bottom: -$frill-size;
     }
+  }
+}
+
+/* TODO: refactor this to a post component */
+.content-area,
+.tags-area {
+  grid-column: 2 / span 10;
+}
+
+.date,
+.tags-area {
+  color: var(--color-secondary-foreground);
+}
+
+article {
+  margin-bottom: 56px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  border: 1px solid var(--color-container-border);
+  background-color: var(--color-container-background);
+  border-radius: var(--border-radius-default);
+}
+
+header,
+footer {
+  grid-column: 1 / span 12;
+  text-align: center;
+}
+
+header {
+  line-height: 1;
+
+  h1 {
+    margin-bottom: 16px;
+  }
+}
+
+.tags-area {
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    margin-right: 0.25em;
+  }
+
+  .tag a {
+    display: block;
+    min-width: 24px;
+    padding: 0 16px;
+    border-radius: var(--border-radius-default);
+    text-decoration: none;
+    color: var(--color-secondary-foreground);
+    border: 1px solid var(--color-secondary-foreground);
+    background-color: transparent;
+    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+
+    &:hover {
+      color: var(--color-primary-a-01);
+      background-color: var(--color-primary-a-05);
+      border-color: var(--color-primary-a-05);
+    }
+  }
+}
+
+.content-area ::ng-deep {
+  p {
+    margin: 0 0 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  img.posted {
+    max-width: 100%;
   }
 }

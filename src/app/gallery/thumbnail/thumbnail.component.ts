@@ -9,8 +9,7 @@ import { ImageInfo } from '../image-info';
   selector: 'jblog-thumbnail',
   templateUrl: './thumbnail.component.html',
   styleUrls: [
-    './thumbnail.component.scss',
-    '../../../theme/gallery-card.scss'
+    './thumbnail.component.scss'
   ]
 })
 export class ThumbnailComponent {

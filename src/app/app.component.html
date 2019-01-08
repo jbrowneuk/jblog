@@ -1,41 +1,34 @@
-<header id="page-header" jblogStickyElement>
-  <div class="container">
-    <nav class="page-top-navigation">
-      <ul class="nav-links">
-        <li>
-          <a class="home-link"
-            [routerLink]="['/']">
-            <img class="icon" src="assets/images/logo.svg">
-            <span class="hidden-xs">Jason Browne</span>
-          </a>
-        </li>
+<header id="page-header">
+  <nav id="menu" class="container">
+    <a class="pane left home-link" [routerLink]="['/']">
+      <svg class="icon">
+        <use xlink:href="#sitesheet-logo" />
+      </svg>
+    </a>
+    <div class="pane central">
+      <ul class="links">
+        <li><a class="hide-when-small"
+               [routerLink]="['/']"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: true}">portfolio</a></li>
+        <li><a [routerLink]="['/about']" routerLinkActive="active">about</a></li>
+        <li><a [routerLink]="['/art']" routerLinkActive="active">art</a></li>
+        <li><a [routerLink]="['/projects/code']" routerLinkActive="active">projects</a></li>
+        <li><a [routerLink]="['/journal']" routerLinkActive="active">posts</a></li>
       </ul>
-      <ul class="nav-links map-area" id="menu">
-        <li><a [routerLink]="['/']"
-               routerLinkActive="selected"
-               [routerLinkActiveOptions]="{exact: true}"
-               class="hidden-xs"><i class="fa fa-fw fa-home collapse-only"></i>portfolio</a></li>
-        <li><a [routerLink]="['/about']" routerLinkActive="selected">about</a></li>
-        <li><a [routerLink]="['/art']" routerLinkActive="selected">art</a></li>
-        <li><a [routerLink]="['/projects/code']" routerLinkActive="selected">projects</a></li>
-        <li><a [routerLink]="['/journal']" routerLinkActive="selected">posts</a></li>
-      </ul>
-    </nav>
-  </div>
+    </div>
+    <div class="pane right"></div>
+  </nav>
 </header>
 <main id="page-content"
       [@routerAnimations]="prepareRouteTransition(outlet)"
       (@routerAnimations.done)="onPageTransitionComplete($event)">
   <router-outlet #outlet="outlet"></router-outlet>
 </main>
-<footer id="page-footer" class="page-footer">
+<footer id="page-footer" class="page-footer" [@footerAnimations]="prepareRouteTransition(outlet)">
   <div class="container">
-    Powered by <a href="//angular.io">Angular</a>. Emoji provided free by <a href="//emojione.com">Emoji One</a>.
-    Full attribution can be found <a [routerLink]="['licenses']">here</a>.
-  </div>
-  <div class="copyright">
-    <div class="container">
-      &copy;2004&ndash;2018 Jason Browne
-    </div>
+    <div class="text-line top-border">Powered by <a href="//angular.io">Angular</a>. Emoji provided free by <a href="//emojione.com">Emoji One</a>.
+    Full attribution can be found <a [routerLink]="['licenses']">here</a>.</div>
+    <div class="text-line">&copy;2004&ndash;2018 Jason Browne</div>
   </div>
 </footer>

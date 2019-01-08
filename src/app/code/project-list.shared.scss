@@ -1,0 +1,38 @@
+article {
+  margin-bottom: 56px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  border: 1px solid var(--color-container-border);
+  background-color: var(--color-container-background);
+  border-radius: var(--border-radius-default);
+
+  .text-area {
+    grid-column: 2 / span 6;
+    align-self: center;
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+  }
+
+  .image-area {
+    grid-column: 8 / span 4;
+    text-align: right;
+    align-self: center;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .info {
+    color: var(--color-secondary-foreground);
+  }
+
+  .rounded {
+    border-radius: var(--border-radius-default);
+    box-shadow: 0 2px 4px var(--color-default-shadow);
+  }
+}
