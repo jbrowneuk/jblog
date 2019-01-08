@@ -246,3 +246,16 @@ h2 {
   margin-left: calc(var(--grid-gutter) / -2);
   margin-right: calc(var(--grid-gutter) / -2);
 }
+
+/*
+ * Animations
+ */
+@keyframes loading-bar-pulse {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}
