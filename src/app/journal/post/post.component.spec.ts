@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Pipe, PipeTransform } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { TextParsingService } from '../../shared/text-parsing.service';
@@ -14,6 +15,16 @@ const mockPostData = {
   tags: ['one', 'two']
 };
 
+@Pipe({
+  name: 'date',
+  pure: false
+})
+class MockDatePipe implements PipeTransform {
+  transform(value: any): string {
+    return `${value}`;
+  }
+}
+
 describe('PostComponent', () => {
   const mockTextParsingService = new MockTextParsingService();
 
@@ -23,13 +34,12 @@ describe('PostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ PostComponent ],
+      imports: [RouterTestingModule],
+      declarations: [MockDatePipe, PostComponent],
       providers: [
         { provide: TextParsingService, useValue: mockTextParsingService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -41,10 +51,24 @@ describe('PostComponent', () => {
   });
 
   it('should render content correctly', () => {
-    expect(compiled.querySelector('article h2').textContent.trim()).toBe('post title');
+    expect(compiled.querySelector('article h1').textContent.trim()).toBe(
+      'post title'
+    );
     expect(component.hasTags()).toBeTruthy();
 
     const output = compiled.querySelector('.content-area').textContent.trim();
-    expect(output).toContain('Example post content with an emoji :smile: . Yay! was parsed');
+    expect(output).toContain(
+      'Example post content with an emoji :smile: . Yay! was parsed'
+    );
   });
+
+  it('should display image date', async(async () => {
+    const expectedDate = '' + (mockPostData.date * 1000);
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    // Uses the mock date pipe
+    expect(compiled.querySelector('.date').textContent.trim()).toBe(expectedDate);
+  }));
 });

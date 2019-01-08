@@ -1,7 +1,8 @@
-import {of as observableOf, BehaviorSubject } from 'rxjs';
+import { of as observableOf, BehaviorSubject } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Params, ActivatedRoute } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { IMock, It, Mock, Times } from 'typemoq';
 
@@ -9,7 +10,6 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
 import { PostComponent } from '../post/post.component';
 import { PostService } from '../post.service';
 import { TextParsingService } from '../../shared/text-parsing.service';
-import { PageHeroComponent } from '../../shared/page-hero/page-hero.component';
 import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.component';
 import { InfiniteScrollDirective } from '../../shared/infinite-scroll.directive';
 import { TitleService } from '../../shared/title.service';
@@ -71,10 +71,10 @@ describe('PostListComponent', () => {
         PaginationComponent,
         PostComponent,
         PostListComponent,
-        PageHeroComponent,
         LoadSpinnerComponent,
         InfiniteScrollDirective
       ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         { provide: PostService, useFactory: () => mockPostService.object },
         {
@@ -94,19 +94,14 @@ describe('PostListComponent', () => {
     compiled = fixture.debugElement.nativeElement;
   });
 
-  it('should fetch posts for default page and tag on initialization', async(() => {
+  it('should fetch posts for default page and tag on initialization', async(async() => {
     fixture.detectChanges(); // Implicitly calls ngOnInit
 
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
 
-      expect(
-        compiled.querySelector('jblog-post article h2').textContent.trim()
-      ).toBe(mockPostData.title);
-      expect(
-        compiled.querySelector('jblog-post .content-area').textContent.trim()
-      ).toBe(mockPostData.content);
-    });
+    expect(component.posts.length).toBe(mockPostDataWrapper.posts.length);
+    expect(component.posts[0]).toEqual(mockPostData);
   }));
 
   it('should fetch posts for specified page', () => {
