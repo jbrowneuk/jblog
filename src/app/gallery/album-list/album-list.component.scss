@@ -1,3 +1,7 @@
+@import 'variables';
+
+$single-column-breakpoint: 450px;
+
 :host {
   --splash-height: 4px;
   --image-height: 200px;
@@ -7,6 +11,18 @@
 
 .grid {
   grid-auto-rows: var(--card-height);
+}
+
+.text-area {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 8px 16px;
+  overflow: hidden;
+  background-color: var(--color-overlay-background);
+  color: var(--color-default-foreground);
+  transition: background-color 0.2s;
 }
 
 .album-card {
@@ -26,6 +42,24 @@
     .text-area {
       background-color: var(--color-overlay-hover-background);
     }
+  }
+}
+
+@media screen and (max-width: $single-column-breakpoint) {
+  .album-card {
+    grid-column: span 12;
+  }
+}
+
+@media screen and (min-width: $single-column-breakpoint + 1) and (max-width: $breakpoint-md) {
+  .album-card {
+    grid-column: span 6;
+  }
+}
+
+@media screen and (min-width: $breakpoint-md + 1) and (max-width: $breakpoint-lg) {
+  .album-card {
+    grid-column: span 4;
   }
 }
 
@@ -63,16 +97,4 @@
 h2 {
   margin: 0;
   padding: 0;
-}
-
-.text-area {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 8px 16px;
-  overflow: hidden;
-  background-color: var(--color-overlay-background);
-  color: var(--color-default-foreground);
-  transition: background-color 0.2s;
 }
