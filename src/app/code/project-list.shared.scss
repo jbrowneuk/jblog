@@ -1,3 +1,5 @@
+@import 'variables';
+
 article {
   margin-bottom: 56px;
   padding-top: 48px;
@@ -34,5 +36,17 @@ article {
   .rounded {
     border-radius: var(--border-radius-default);
     box-shadow: 0 2px 4px var(--color-default-shadow);
+  }
+}
+
+@media screen and (max-width: $breakpoint-sm) {
+  article {
+    .text-area {
+      grid-column: 2 / span 10;
+    }
+
+    .image-area {
+      display: none;
+    }
   }
 }

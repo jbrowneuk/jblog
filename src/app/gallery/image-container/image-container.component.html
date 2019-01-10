@@ -1,18 +1,30 @@
 <div class="container">
-  <div class="horizontal-feature align-center"
-       *ngIf="isLoadingImages && (!images || images.length == 0)">
-    <jblog-load-spinner></jblog-load-spinner>
-    <h1>Hang tight!</h1>
-    <p>Loading…</p>
-  </div>
-
-  <div class="post loading-area"
-       *ngIf="!isLoadingImages && loadingFailed">
+  <div class="empty-area" *ngIf="!isLoadingImages && loadingFailed">
     <i class="fa fa-frown-o fa-fw" aria-hidden="true"></i> Nothing found
   </div>
 
-  <div class="gallery-container grid">
-    <jblog-thumbnail *ngFor="let image of images"
-                     [data]="image"></jblog-thumbnail>
+  <div
+    class="loading-area grid"
+    *ngIf="isLoadingImages && (!images || images.length == 0)"
+  >
+    <ng-container *ngFor="let loader of [].constructor(16)">
+      <ng-container *ngTemplateOutlet="ghostThumbnail"></ng-container>
+    </ng-container>
+  </div>
+
+  <div class="gallery-container grid" [@galleryCardTransitions]="images ? 1 : 0">
+    <jblog-thumbnail
+      *ngFor="let image of images"
+      [data]="image"
+    ></jblog-thumbnail>
   </div>
 </div>
+
+<ng-template #ghostThumbnail>
+  <div class="ghost-thumbnail">
+    <div class="overlay">
+      <div class="title"></div>
+      <div class="subtitle"></div>
+    </div>
+  </div>
+</ng-template>

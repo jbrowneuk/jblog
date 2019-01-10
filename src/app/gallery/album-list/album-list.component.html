@@ -10,16 +10,16 @@
       <div class="image-area">
         <img src="{{ album.iconUrl }}" alt="icon" class="preview" />
       </div>
-      <div
-        class="badge-area"
-        title="{{ album.imagesInAlbum }} image{{
-          album.imagesInAlbum === 1 ? '' : 's'
-        }}"
-      >
-        {{ album.imagesInAlbum }}
-      </div>
       <div class="text-area">
         <h2>{{ album.title }}</h2>
+        <div
+          class="badge-area"
+          title="{{ album.imagesInAlbum }} image{{
+            album.imagesInAlbum === 1 ? '' : 's'
+          }}"
+        >
+          {{ album.imagesInAlbum }}
+        </div>
       </div>
     </a>
   </div>
