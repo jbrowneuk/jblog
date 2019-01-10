@@ -260,6 +260,19 @@ class Database implements IDatabase
     return $this->errorMessages;
   }
 
+  protected function getTablePrefix() {
+    return $this->tablePrefix;
+  }
+
+  /**
+   * Returns the underlying PDO instance.
+   *
+   * Use with care in subclasses if required.
+   */
+  protected function getEngineInstance() {
+    return $this->db;
+  }
+
   private function generateTableName()
   {
     return $this->tablePrefix . $this->tableScope;
