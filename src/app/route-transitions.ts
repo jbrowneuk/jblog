@@ -15,7 +15,7 @@ const footerAnimationTiming = 300;
 
 const optionalAnimation: AnimationQueryOptions = { optional: true };
 
-const percentageOut = 10;
+const percentageOut = 1;
 const pageOutLeft = `translateX(-${percentageOut}%)`;
 const pageOutRight = `translateX(${percentageOut}%)`;
 
