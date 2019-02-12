@@ -1,6 +1,8 @@
 <article id="{{ data.postId }}" class="grid" *ngIf="data">
   <header>
-    <h1><a [routerLink]="['/journal/post', data.postId]">{{ data.title }}</a></h1>
+    <h1>
+      <a [routerLink]="['/journal/post', data.postId]">{{ data.title }}</a>
+    </h1>
     <span class="date" title="{{ data.date * 1000 | date: 'medium' }}">
       <i class="far fa-fw fa-calendar" aria-hidden="true"></i>
       {{ data.date * 1000 | date: 'mediumDate' }}
@@ -8,9 +10,8 @@
   </header>
 
   <div class="outdated-content" *ngIf="ageInYearsGreaterThan(2)">
-    <i class="far fa-fw fa-exclamation-triangle"></i>
-    This post is over two years old. The content here might not be relevant any
-    more.
+    <i class="far fa-fw fa-exclamation-triangle"></i> This post is over two
+    years old. The content here might not be relevant any more.
   </div>
 
   <div class="content-area"></div>

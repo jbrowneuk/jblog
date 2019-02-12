@@ -4,8 +4,8 @@
     <div class="spacer"></div>
     <div class="button-container">
       <a routerLink="/art/albums" class="primary" id="album-choice">
-        <i class="far fa-fw fa-folder" aria-hidden="true"></i>
-        Pick a different album
+        <i class="far fa-fw fa-folder" aria-hidden="true"></i> Pick a different
+        album
       </a>
     </div>
   </div>
@@ -18,13 +18,15 @@
 
 <div class="gallery-info" *ngIf="data">
   <div class="container">
-    <h1 class="title">{{data.title}}</h1>
+    <h1 class="title">{{ data.title }}</h1>
     <div class="spacer"></div>
-    <div class="image-count">{{data.imagesInAlbum}} image{{data.imagesInAlbum === 1 ? '' : 's'}}</div>
+    <div class="image-count">
+      {{ data.imagesInAlbum }} image{{ data.imagesInAlbum === 1 ? '' : 's' }}
+    </div>
     <div class="button-container">
       <a routerLink="/art/albums" class="primary" id="album-choice">
-        <i class="far fa-fw fa-folder" aria-hidden="true"></i>
-        Pick a different album
+        <i class="far fa-fw fa-folder" aria-hidden="true"></i> Pick a different
+        album
       </a>
     </div>
   </div>
@@ -32,17 +34,23 @@
 
 <div id="thumbnails" *ngIf="data">
   <div class="text-center">
-    <jblog-pagination [urlComponents]="['art', 'album', data.name]"
-                      [currentPage]="page"
-                      [totalPages]="data.totalPages"></jblog-pagination>
+    <jblog-pagination
+      [urlComponents]="['art', 'album', data.name]"
+      [currentPage]="page"
+      [totalPages]="data.totalPages"
+    ></jblog-pagination>
   </div>
   <div class="container">
-    <jblog-image-container [albumName]="data.name"
-                           [page]="page"></jblog-image-container>
+    <jblog-image-container
+      [albumName]="data.name"
+      [page]="page"
+    ></jblog-image-container>
   </div>
   <div class="text-center">
-    <jblog-pagination [urlComponents]="['art', 'album', data.name]"
-                      [currentPage]="page"
-                      [totalPages]="data.totalPages"></jblog-pagination>
+    <jblog-pagination
+      [urlComponents]="['art', 'album', data.name]"
+      [currentPage]="page"
+      [totalPages]="data.totalPages"
+    ></jblog-pagination>
   </div>
 </div>

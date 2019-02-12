@@ -1,27 +1,27 @@
 <div class="container">
-  <div class="post"
-       *ngIf="(!posts || posts.length === 0) && !isLoading">
+  <div class="post" *ngIf="(!posts || posts.length === 0) && !isLoading">
     <h2>No posts</h2>
   </div>
 
-  <div *ngIf="(posts && posts.length > 0)"
-       jblogInfiniteScroll
-       [callback]="scrollCallback"
-       callbackPercentage="90">
-    <jblog-post [data]="post"
-                *ngFor="let post of posts"></jblog-post>
+  <div
+    *ngIf="posts && posts.length > 0"
+    jblogInfiniteScroll
+    [callback]="scrollCallback"
+    callbackPercentage="90"
+  >
+    <jblog-post [data]="post" *ngFor="let post of posts"></jblog-post>
   </div>
 
-  <div class="post text-center"
-       *ngIf="isLoading">
+  <div class="post text-center" *ngIf="isLoading">
     <jblog-load-spinner></jblog-load-spinner>
     <h2>Hang tight!</h2>
     <p>Loading posts…</p>
   </div>
 
-  <div class="text-center end-notification"
-       *ngIf="reachedEnd">
-    <span *ngIf="currentTag; else reachedBottom">That’s all the posts tagged “{{currentTag}}”</span>
+  <div class="text-center end-notification" *ngIf="reachedEnd">
+    <span *ngIf="currentTag; else reachedBottom"
+      >That’s all the posts tagged “{{ currentTag }}”</span
+    >
   </div>
 
   <ng-template #reachedBottom>
@@ -29,9 +29,9 @@
   </ng-template>
 
   <div class="text-center button-container" id="post-limit-button-area">
-    <a *ngIf="initialPage > 1"
-       routerLink="/journal/page/1">Latest posts</a>
-    <a *ngIf="showNavigation"
-       [routerLink]="['/journal/page', (page + 1)]">Older posts</a>
+    <a *ngIf="initialPage > 1" routerLink="/journal/page/1">Latest posts</a>
+    <a *ngIf="showNavigation" [routerLink]="['/journal/page', page + 1]"
+      >Older posts</a
+    >
   </div>
 </div>
