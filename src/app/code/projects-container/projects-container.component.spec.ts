@@ -1,5 +1,4 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -10,14 +9,16 @@ import { ProjectService } from '../project.service';
 
 import { ProjectsContainerComponent } from './projects-container.component';
 
-const mockProjects = [{
-  'name': 'test',
-  'title': 'A test project',
-  'summary': 'Description of the test project',
-  'info': 'JSON data',
-  'link': 'https://www.google.com/',
-  'resourcesUrl': 'http://localhost:4200/assets/images/'
-}];
+const mockProjects = [
+  {
+    name: 'test',
+    title: 'A test project',
+    summary: 'Description of the test project',
+    info: 'JSON data',
+    link: 'https://www.google.com/',
+    resourcesUrl: 'http://localhost:4200/assets/images/'
+  }
+];
 
 describe('ProjectsContainerComponent', () => {
   let component: ProjectsContainerComponent;
@@ -25,13 +26,14 @@ describe('ProjectsContainerComponent', () => {
   let compiled: HTMLElement;
 
   const mockProjectService = Mock.ofType<ProjectService>();
-  mockProjectService.setup(x => x.getProjects(It.isAnyNumber(), It.isAnyNumber()))
+  mockProjectService
+    .setup(x => x.getProjects(It.isAnyNumber(), It.isAnyNumber()))
     .returns(() => observableOf(mockProjects));
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ LineSplittingPipe, ProjectsContainerComponent ],
+      imports: [RouterTestingModule],
+      declarations: [LineSplittingPipe, ProjectsContainerComponent],
       providers: [
         { provide: ProjectService, useFactory: () => mockProjectService.object }
       ]
@@ -49,21 +51,24 @@ describe('ProjectsContainerComponent', () => {
   });
 
   it('should display project title', () => {
-    expect(compiled.querySelector('h1').textContent).toContain('A test project');
+    expect(compiled.querySelector('h1').textContent).toContain(
+      'A test project'
+    );
   });
 
   it('should display project information', () => {
-    expect(compiled.querySelector('.info').textContent)
-      .toContain('JSON data');
+    expect(compiled.querySelector('.info').textContent).toContain('JSON data');
   });
 
   it('should display project information', () => {
-    expect(compiled.querySelector('.text-area p').textContent)
-      .toContain('Description of the test project');
+    expect(compiled.querySelector('.text-area p').textContent).toContain(
+      'Description of the test project'
+    );
   });
 
   it('should display project link', () => {
-    expect(compiled.querySelector('#project-link').textContent)
-      .toContain('Go to project page');
+    expect(compiled.querySelector('#project-link').textContent).toContain(
+      'Go to project page'
+    );
   });
 });

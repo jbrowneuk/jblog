@@ -23,7 +23,10 @@ export class AlbumService {
   /**
    * Injecting constructor.
    */
-  constructor(private http: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string) {
+  constructor(
+    private http: HttpClient,
+    @Optional() @Inject(BASE_PATH) basePath: string
+  ) {
     if (basePath) {
       this.basePath = basePath;
     }
@@ -54,7 +57,9 @@ export class AlbumService {
       albumName = DEFAULT_ALBUM_NAME;
     }
 
-    const endpoint = `${this.basePath}${API_URL}&albumData&albumName=${albumName}`;
+    const endpoint = `${
+      this.basePath
+    }${API_URL}&albumData&albumName=${albumName}`;
     return this.http.get<AlbumInfo>(endpoint);
   }
 }

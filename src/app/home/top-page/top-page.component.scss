@@ -3,7 +3,12 @@
 :host {
   --indicator-main-height: 64px;
   --indicator-visual-height: 4px;
-  --slide-background: var(--color-primary-a-10) linear-gradient(to bottom, var(--color-primary-a-10), var(--color-primary-a-07));
+  --slide-background: var(--color-primary-a-10)
+    linear-gradient(
+      to bottom,
+      var(--color-primary-a-10),
+      var(--color-primary-a-07)
+    );
 }
 
 .hero-slideshow {

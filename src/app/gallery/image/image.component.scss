@@ -44,7 +44,8 @@ img.responsive {
     background-color: var(--color-primary-a-08);
     color: var(--color-primary-a-08);
     font-size: 32px;
-    text-shadow: 0 -1px var(--color-primary-a-10), 0 1px var(--color-primary-a-06);
+    text-shadow: 0 -1px var(--color-primary-a-10),
+      0 1px var(--color-primary-a-06);
     text-align: center;
     width: $badge-width;
     position: absolute;

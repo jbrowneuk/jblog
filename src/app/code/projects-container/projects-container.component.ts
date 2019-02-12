@@ -16,7 +16,6 @@ import { ProjectService } from '../project.service';
   styleUrls: ['../project-list.shared.scss']
 })
 export class ProjectsContainerComponent implements OnInit {
-
   /**
    * The current page to display.
    */
@@ -37,16 +36,15 @@ export class ProjectsContainerComponent implements OnInit {
    * Constructor that takes an injectable {@link ProjectService} that the
    * component uses during its lifetime.
    */
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService) {}
 
   /**
    * When initialized, use the {@link ProjectService} to get a page of projects.
    */
   ngOnInit() {
-    this.projectService.getProjects(this.page, this.projectCount).subscribe(
-      x => this.handleProjectListResponse(x),
-      e => console.error(e)
-    );
+    this.projectService
+      .getProjects(this.page, this.projectCount)
+      .subscribe(x => this.handleProjectListResponse(x), e => console.error(e));
   }
 
   /**
@@ -55,5 +53,4 @@ export class ProjectsContainerComponent implements OnInit {
   private handleProjectListResponse(response: Project[]): void {
     this.projects = response;
   }
-
 }

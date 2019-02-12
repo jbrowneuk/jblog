@@ -63,12 +63,14 @@ describe('PostComponent', () => {
   });
 
   it('should display image date', async(async () => {
-    const expectedDate = '' + (mockPostData.date * 1000);
+    const expectedDate = '' + mockPostData.date * 1000;
 
     fixture.detectChanges();
     await fixture.whenStable();
 
     // Uses the mock date pipe
-    expect(compiled.querySelector('.date').textContent.trim()).toBe(expectedDate);
+    expect(compiled.querySelector('.date').textContent.trim()).toBe(
+      expectedDate
+    );
   }));
 });

@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './licenses.component.html',
   styleUrls: ['./licenses.component.scss']
 })
-export class LicensesComponent {
-}
+export class LicensesComponent {}

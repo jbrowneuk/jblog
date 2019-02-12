@@ -24,9 +24,12 @@ export class AppComponent {
   }
 
   public prepareRouteTransition(outlet): string {
-    const doesNotHaveIdentifier = typeof outlet.activatedRouteData['sectionId'] === 'undefined';
+    const doesNotHaveIdentifier =
+      typeof outlet.activatedRouteData['sectionId'] === 'undefined';
 
-    const sectionId = doesNotHaveIdentifier ? invalidIdentifier : outlet.activatedRouteData['sectionId'];
+    const sectionId = doesNotHaveIdentifier
+      ? invalidIdentifier
+      : outlet.activatedRouteData['sectionId'];
     if (!doesNotHaveIdentifier) {
       this.currentSectionId = sectionId;
     }
@@ -39,6 +42,9 @@ export class AppComponent {
   }
 
   public onPageTransitionComplete(event: AnimationEvent): void {
-    this.transitionCompleteService.completedTransition(event.fromState, event.toState);
+    this.transitionCompleteService.completedTransition(
+      event.fromState,
+      event.toState
+    );
   }
 }

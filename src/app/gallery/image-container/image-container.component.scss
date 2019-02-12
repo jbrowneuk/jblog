@@ -26,7 +26,12 @@ $single-column-breakpoint: 450px;
     animation-iteration-count: infinite;
     animation-name: loading-bar-pulse;
     animation-timing-function: ease-in-out;
-    background: linear-gradient(to right, var(--color-neutral-02) 10%, var(--color-neutral-01) 20%, var(--color-neutral-02) 30%);
+    background: linear-gradient(
+      to right,
+      var(--color-neutral-02) 10%,
+      var(--color-neutral-01) 20%,
+      var(--color-neutral-02) 30%
+    );
     background-size: 200% 16px;
   }
 

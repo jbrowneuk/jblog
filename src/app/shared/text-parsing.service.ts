@@ -8,7 +8,6 @@ import * as emojione from 'emojione';
  */
 @Injectable()
 export class TextParsingService {
-
   /**
    * The emoji parsing engine, powered by emojiOne
    */
@@ -31,5 +30,4 @@ export class TextParsingService {
 
     return this.emojiParser.toImage(input);
   }
-
 }

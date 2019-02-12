@@ -19,8 +19,8 @@ export const MOCK_IMAGEDATA = {
   thumbnail: 'http://localhost/thumb.jpg',
   src: 'http://localhost/img.jpg',
   containingAlbums: [
-    {name: 'name', title: 'album name'},
-    {name: 'name2', title: 'album name 2'}
+    { name: 'name', title: 'album name' },
+    { name: 'name2', title: 'album name 2' }
   ],
   featured: false
 };

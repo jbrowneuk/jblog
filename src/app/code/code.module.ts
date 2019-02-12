@@ -12,18 +12,27 @@ import { ProjectsContainerComponent } from './projects-container/projects-contai
 
 const sectionId = 3.1;
 const codeRoutes: Routes = [
-  { path: '', component: ProjectListComponent, pathMatch: 'full', data: { sectionId: sectionId } },
-  { path: 'project/:name', component: ProjectDetailComponent, data: { sectionId: sectionId } }
+  {
+    path: '',
+    component: ProjectListComponent,
+    pathMatch: 'full',
+    data: { sectionId: sectionId }
+  },
+  {
+    path: 'project/:name',
+    component: ProjectDetailComponent,
+    data: { sectionId: sectionId }
+  }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(codeRoutes),
-    SharedModule
+  imports: [CommonModule, RouterModule.forChild(codeRoutes), SharedModule],
+  declarations: [
+    ProjectListComponent,
+    ProjectDetailComponent,
+    ProjectsContainerComponent
   ],
-  declarations: [ProjectListComponent, ProjectDetailComponent, ProjectsContainerComponent],
   exports: [ProjectsContainerComponent],
   providers: [ProjectService]
 })
-export class CodeModule { }
+export class CodeModule {}

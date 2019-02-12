@@ -28,7 +28,7 @@ registerLocaleData(locale);
     HomeModule,
     AppRoutingModule
   ],
-  providers: [ENV_PROVIDERS, { provide: LOCALE_ID, useValue: 'en-GB' } ],
+  providers: [ENV_PROVIDERS, { provide: LOCALE_ID, useValue: 'en-GB' }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

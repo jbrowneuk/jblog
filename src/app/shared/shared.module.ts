@@ -12,7 +12,6 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { StickyElementDirective } from './sticky-element.directive';
 import { ParallaxScrollDirective } from './parallax-scroll.directive';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
-import { FeatureToggleService } from './feature-toggle.service';
 
 const CORE_COMPONENTS = [
   LineSplittingPipe,
@@ -24,10 +23,7 @@ const CORE_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild([])
-  ],
+  imports: [CommonModule, RouterModule.forChild([])],
   declarations: CORE_COMPONENTS,
   exports: CORE_COMPONENTS
 })
@@ -35,7 +31,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [FeatureToggleService, TextParsingService, TitleService, TransitionCompleteService]
+      providers: [TextParsingService, TitleService, TransitionCompleteService]
     };
   }
 }

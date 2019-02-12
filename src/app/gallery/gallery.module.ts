@@ -22,20 +22,36 @@ const mainSection = sectionId + 0.1;
 const detailSection = sectionId + 0.2;
 
 const galleryRoutes: Routes = [
-  {path: '', redirectTo: 'album/_default/page/1', pathMatch: 'full' },
-  {path: 'albums', component: AlbumListComponent, data: { sectionId: leftSection } },
-  {path: 'album/:name/page/:page', component: AlbumComponent, data: { sectionId: mainSection } },
-  {path: 'album/:name', component: AlbumComponent, data: { sectionId: mainSection } },
-  {path: 'view/:id', component: ImageComponent, data: { sectionId: detailSection } },
-  {path: 'insights', component: InsightsComponent, data: { sectionId: sectionId + 0.5 } }
+  { path: '', redirectTo: 'album/_default/page/1', pathMatch: 'full' },
+  {
+    path: 'albums',
+    component: AlbumListComponent,
+    data: { sectionId: leftSection }
+  },
+  {
+    path: 'album/:name/page/:page',
+    component: AlbumComponent,
+    data: { sectionId: mainSection }
+  },
+  {
+    path: 'album/:name',
+    component: AlbumComponent,
+    data: { sectionId: mainSection }
+  },
+  {
+    path: 'view/:id',
+    component: ImageComponent,
+    data: { sectionId: detailSection }
+  },
+  {
+    path: 'insights',
+    component: InsightsComponent,
+    data: { sectionId: sectionId + 0.5 }
+  }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(galleryRoutes),
-    SharedModule
-  ],
+  imports: [CommonModule, RouterModule.forChild(galleryRoutes), SharedModule],
   declarations: [
     AlbumComponent,
     AlbumListComponent,
@@ -48,4 +64,4 @@ const galleryRoutes: Routes = [
   exports: [ImageContainerComponent],
   providers: [ImageService, AlbumService]
 })
-export class GalleryModule { }
+export class GalleryModule {}

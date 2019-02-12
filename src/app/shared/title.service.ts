@@ -11,8 +11,8 @@ export class TitleService {
     this.setTitle('');
   }
 
-  public setTitle(title) {
-    let formattedTitle;
+  public setTitle(title: string) {
+    let formattedTitle: string;
     if (title) {
       formattedTitle = `: ${title}`;
     } else {

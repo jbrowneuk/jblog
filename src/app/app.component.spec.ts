@@ -13,15 +13,13 @@ describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        BrowserAnimationsModule,
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
+      imports: [BrowserAnimationsModule, RouterTestingModule],
+      declarations: [AppComponent],
       providers: [
-        { provide: TransitionCompleteService, useValue: mockTransitionCompleteService }
+        {
+          provide: TransitionCompleteService,
+          useValue: mockTransitionCompleteService
+        }
       ]
     }).compileComponents();
   }));
@@ -56,6 +54,8 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('.page-footer')).toBeTruthy();
 
     // Check the EmojiOne linkback exists (required for free usage)
-    expect(compiled.querySelector('.page-footer > .container').textContent).toContain('Emoji provided free by Emoji One');
+    expect(
+      compiled.querySelector('.page-footer > .container').textContent
+    ).toContain('Emoji provided free by Emoji One');
   }));
 });

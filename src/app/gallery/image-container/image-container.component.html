@@ -12,7 +12,10 @@
     </ng-container>
   </div>
 
-  <div class="gallery-container grid" [@galleryCardTransitions]="images ? 1 : 0">
+  <div
+    class="gallery-container grid"
+    [@galleryCardTransitions]="images ? 1 : 0"
+  >
     <jblog-thumbnail
       *ngFor="let image of images"
       [data]="image"

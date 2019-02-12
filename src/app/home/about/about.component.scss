@@ -23,9 +23,16 @@
     /* stylelint-enable */
     left: 0;
     right: 0;
-    height: calc(var(--height-margin-page-header) + var(--avatar-dimension) / 2);
+    height: calc(
+      var(--height-margin-page-header) + var(--avatar-dimension) / 2
+    );
     z-index: -1;
-    background: var(--color-primary-a-10) linear-gradient(to bottom, var(--color-primary-a-10), var(--color-primary-a-07));
+    background: var(--color-primary-a-10)
+      linear-gradient(
+        to bottom,
+        var(--color-primary-a-10),
+        var(--color-primary-a-07)
+      );
     pointer-events: none;
   }
 
@@ -119,11 +126,15 @@
   .amount-#{$count} {
     @for $dot from 1 through 10 {
       @if $dot <= $count {
-        .dot:nth-child(#{$dot}) { background-color: var(--color-primary-a-10); }
+        .dot:nth-child(#{$dot}) {
+          background-color: var(--color-primary-a-10);
+        }
       }
 
       @if $dot > $count {
-        .dot:nth-child(#{$dot}) { background-color: var(--color-neutral-03); }
+        .dot:nth-child(#{$dot}) {
+          background-color: var(--color-neutral-03);
+        }
       }
     }
   }

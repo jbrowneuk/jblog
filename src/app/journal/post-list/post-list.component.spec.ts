@@ -94,7 +94,7 @@ describe('PostListComponent', () => {
     compiled = fixture.debugElement.nativeElement;
   });
 
-  it('should fetch posts for default page and tag on initialization', async(async() => {
+  it('should fetch posts for default page and tag on initialization', async(async () => {
     fixture.detectChanges(); // Implicitly calls ngOnInit
 
     await fixture.whenStable();

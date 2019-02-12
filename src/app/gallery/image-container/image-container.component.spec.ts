@@ -1,7 +1,6 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
-import { SimpleChange, SimpleChanges } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of as observableOf } from 'rxjs';
+import { SimpleChange } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -23,7 +22,14 @@ describe('ImageContainerComponent', () => {
   let fixture: ComponentFixture<ImageContainerComponent>;
 
   const setupImagesFromAlbumCall = () => {
-    mockImageService.setup(s => s.getImagesFromAlbum(It.isAnyString(), It.isAnyNumber(), It.isAnyNumber()))
+    mockImageService
+      .setup(s =>
+        s.getImagesFromAlbum(
+          It.isAnyString(),
+          It.isAnyNumber(),
+          It.isAnyNumber()
+        )
+      )
       .returns(() => observableOf([MOCK_IMAGEDATA]));
   };
 
@@ -32,10 +38,7 @@ describe('ImageContainerComponent', () => {
     setupImagesFromAlbumCall();
 
     TestBed.configureTestingModule({
-      imports: [
-        HttpModule,
-        RouterTestingModule
-      ],
+      imports: [HttpModule, RouterTestingModule],
       declarations: [
         ImageContainerComponent,
         GalleryFormatPipe,
@@ -45,8 +48,7 @@ describe('ImageContainerComponent', () => {
         { provide: ImageService, useFactory: () => mockImageService.object }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ImageContainerComponent);
     component = fixture.componentInstance;
@@ -60,9 +62,17 @@ describe('ImageContainerComponent', () => {
     const newPage = 2;
 
     component.page = newPage;
-    component.ngOnChanges({page: new SimpleChange(1, newPage, true)});
+    component.ngOnChanges({ page: new SimpleChange(1, newPage, true) });
 
-    mockImageService.verify(x => x.getImagesFromAlbum(It.isAnyString(), It.isValue(newPage), It.isAnyNumber()), Times.once());
+    mockImageService.verify(
+      x =>
+        x.getImagesFromAlbum(
+          It.isAnyString(),
+          It.isValue(newPage),
+          It.isAnyNumber()
+        ),
+      Times.once()
+    );
     expect().nothing();
   });
 
@@ -70,10 +80,19 @@ describe('ImageContainerComponent', () => {
     const newAlbumName = 'anotherOneHere';
 
     component.albumName = newAlbumName;
-    component.ngOnChanges({albumName: new SimpleChange('_default', newAlbumName, true)});
+    component.ngOnChanges({
+      albumName: new SimpleChange('_default', newAlbumName, true)
+    });
 
-    mockImageService.verify(x => x.getImagesFromAlbum(It.isValue(newAlbumName), It.isAnyNumber(), It.isAnyNumber()), Times.once());
+    mockImageService.verify(
+      x =>
+        x.getImagesFromAlbum(
+          It.isValue(newAlbumName),
+          It.isAnyNumber(),
+          It.isAnyNumber()
+        ),
+      Times.once()
+    );
     expect().nothing();
   });
-
 });

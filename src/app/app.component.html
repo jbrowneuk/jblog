@@ -1,34 +1,54 @@
 <header id="page-header">
   <nav id="menu" class="container">
     <a class="pane left home-link" [routerLink]="['/']">
-      <svg class="icon">
-        <use xlink:href="#sitesheet-logo" />
-      </svg>
+      <svg class="icon"><use xlink:href="#sitesheet-logo" /></svg>
     </a>
     <div class="pane central">
       <ul class="links">
-        <li><a class="hide-when-small"
-               [routerLink]="['/']"
-               routerLinkActive="active"
-               [routerLinkActiveOptions]="{exact: true}">portfolio</a></li>
-        <li><a [routerLink]="['/about']" routerLinkActive="active">about</a></li>
+        <li>
+          <a
+            class="hide-when-small"
+            [routerLink]="['/']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >portfolio</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="['/about']" routerLinkActive="active">about</a>
+        </li>
         <li><a [routerLink]="['/art']" routerLinkActive="active">art</a></li>
-        <li><a [routerLink]="['/projects/code']" routerLinkActive="active">projects</a></li>
-        <li><a [routerLink]="['/journal']" routerLinkActive="active">posts</a></li>
+        <li>
+          <a [routerLink]="['/projects/code']" routerLinkActive="active"
+            >projects</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="['/journal']" routerLinkActive="active">posts</a>
+        </li>
       </ul>
     </div>
     <div class="pane right"></div>
   </nav>
 </header>
-<main id="page-content"
-      [@routerAnimations]="prepareRouteTransition(outlet)"
-      (@routerAnimations.done)="onPageTransitionComplete($event)">
+<main
+  id="page-content"
+  [@routerAnimations]="prepareRouteTransition(outlet)"
+  (@routerAnimations.done)="onPageTransitionComplete($event)"
+>
   <router-outlet #outlet="outlet"></router-outlet>
 </main>
-<footer id="page-footer" class="page-footer" [@footerAnimations]="prepareRouteTransition(outlet)">
+<footer
+  id="page-footer"
+  class="page-footer"
+  [@footerAnimations]="prepareRouteTransition(outlet)"
+>
   <div class="container">
-    <div class="text-line top-border">Powered by <a href="//angular.io">Angular</a>. Emoji provided free by <a href="//emojione.com">Emoji One</a>.
-    Full attribution can be found <a [routerLink]="['licenses']">here</a>.</div>
+    <div class="text-line top-border">
+      Powered by <a href="//angular.io">Angular</a>. Emoji provided free by
+      <a href="//emojione.com">Emoji One</a>. Full attribution can be found
+      <a [routerLink]="['licenses']">here</a>.
+    </div>
     <div class="text-line">&copy;2004&ndash;2018 Jason Browne</div>
   </div>
 </footer>

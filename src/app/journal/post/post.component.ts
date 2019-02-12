@@ -5,7 +5,6 @@ import {
   Input,
   HostBinding
 } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { PostData } from '../post-data';
 

@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges
+} from '@angular/core';
 
 /**
  * An interface which can be used by a class to encapsulate a pagination segment.
@@ -24,7 +30,6 @@ interface PaginationSegment {
   styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent implements OnInit, OnChanges {
-
   /**
    * The current page in the view.
    */
@@ -87,18 +92,18 @@ export class PaginationComponent implements OnInit, OnChanges {
    * Gets whether there is a next page.
    */
   public hasNextPage(): boolean {
-    return !this.isLoading &&
-           this.currentPage < this.totalPages &&
-           this.totalPages > 1;
+    return (
+      !this.isLoading &&
+      this.currentPage < this.totalPages &&
+      this.totalPages > 1
+    );
   }
 
   /**
    * Gets whether there is a previous page.
    */
   public hasPreviousPage(): boolean {
-    return !this.isLoading &&
-           this.currentPage > 1 &&
-           this.totalPages > 1;
+    return !this.isLoading && this.currentPage > 1 && this.totalPages > 1;
   }
 
   /**
@@ -140,10 +145,11 @@ export class PaginationComponent implements OnInit, OnChanges {
     }
 
     // Adds the central block of segments
-    for (let counter = (this.currentPage - segmentPaddedBy);
-         counter <= (this.currentPage + segmentPaddedBy);
-         counter++) {
-
+    for (
+      let counter = this.currentPage - segmentPaddedBy;
+      counter <= this.currentPage + segmentPaddedBy;
+      counter++
+    ) {
       if (counter < segmentPaddedBy || counter > topEnd - segmentPaddedBy) {
         continue;
       }
@@ -152,7 +158,7 @@ export class PaginationComponent implements OnInit, OnChanges {
     }
 
     // Adds an ellipsis if far enough from RHS
-    if (this.currentPage < topEnd - (segmentPaddedBy * 2)) {
+    if (this.currentPage < topEnd - segmentPaddedBy * 2) {
       this.segments.push(this.generateSpacerSegment());
     }
 
@@ -175,5 +181,4 @@ export class PaginationComponent implements OnInit, OnChanges {
   private generateSpacerSegment(): PaginationSegment {
     return { isLink: false, pageNumber: 0 };
   }
-
 }

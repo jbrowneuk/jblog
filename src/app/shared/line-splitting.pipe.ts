@@ -8,7 +8,6 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'lineSplitting'
 })
 export class LineSplittingPipe implements PipeTransform {
-
   /**
    * Transform a string with new line characters into an array of strings
    * split by line
@@ -16,5 +15,4 @@ export class LineSplittingPipe implements PipeTransform {
   transform(value: string, args?: any): any {
     return value.split('\n').filter(String);
   }
-
 }

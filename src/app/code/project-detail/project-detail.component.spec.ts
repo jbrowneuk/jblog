@@ -6,18 +6,15 @@ describe('ProjectDetailComponent', () => {
   let component: ProjectDetailComponent;
   let fixture: ComponentFixture<ProjectDetailComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ProjectDetailComponent ]
-    })
-    .compileComponents();
-  }));
+  beforeEach(async(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ProjectDetailComponent]
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ProjectDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

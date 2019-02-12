@@ -4,7 +4,7 @@ const cssUnit = 'px';
 
 @Directive({ selector: '[jblogParallaxBackground]' })
 export class ParallaxScrollDirective implements OnInit, OnDestroy {
-  @Input() public speed = .5;
+  @Input() public speed = 0.5;
   private parallaxElement: HTMLElement;
   private offset = 0;
 

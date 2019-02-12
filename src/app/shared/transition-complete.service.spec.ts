@@ -9,23 +9,26 @@ describe('TransitionCompleteService', () => {
     });
   });
 
-  it('should notify subscriptions on change of state', inject([TransitionCompleteService], (service: TransitionCompleteService) => {
-    const expectedFromState = 'from-this';
-    const expectedToState = 'to-this';
+  it('should notify subscriptions on change of state', inject(
+    [TransitionCompleteService],
+    (service: TransitionCompleteService) => {
+      const expectedFromState = 'from-this';
+      const expectedToState = 'to-this';
 
-    let actualFromState = null;
-    let actualToState = null;
+      let actualFromState = null;
+      let actualToState = null;
 
-    const subscription = service.subscribe((fromState, toState) => {
-      actualFromState = fromState;
-      actualToState = toState;
-    });
+      const subscription = service.subscribe((fromState, toState) => {
+        actualFromState = fromState;
+        actualToState = toState;
+      });
 
-    service.completedTransition(expectedFromState, expectedToState);
+      service.completedTransition(expectedFromState, expectedToState);
 
-    subscription.unsubscribe();
+      subscription.unsubscribe();
 
-    expect(actualFromState).toEqual(expectedFromState);
-    expect(actualToState).toEqual(expectedToState);
-  }));
+      expect(actualFromState).toEqual(expectedFromState);
+      expect(actualToState).toEqual(expectedToState);
+    }
+  ));
 });

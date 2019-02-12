@@ -44,7 +44,8 @@ export class InfiniteScrollDirective extends ScrollDirectiveBase {
       return false;
     }
 
-    const scrollPercentage = (position.scrollTop + position.clientHeight) / position.scrollHeight;
+    const scrollPercentage =
+      (position.scrollTop + position.clientHeight) / position.scrollHeight;
     const triggerPosition = this.callbackPercentage / 100;
 
     return scrollPercentage > triggerPosition;

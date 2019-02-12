@@ -16,7 +16,6 @@ import { TitleService } from '../../shared/title.service';
   styleUrls: ['./album.component.scss']
 })
 export class AlbumComponent implements OnInit {
-
   /**
    * The album data which describes the current view.
    */
@@ -51,7 +50,7 @@ export class AlbumComponent implements OnInit {
     private route: ActivatedRoute,
     private albumService: AlbumService,
     private titleService: TitleService
-  ) { }
+  ) {}
 
   /**
    * Called on component initialization. Used to load album data.
@@ -76,10 +75,12 @@ export class AlbumComponent implements OnInit {
 
     this.loadingFailed = false;
     this.isLoadingAlbumData = true;
-    this.albumService.getAlbumInfo(albumName).subscribe(
-      x => this.handleAlbumResponse(x),
-      e => this.handleImageLoadFailure(e)
-    );
+    this.albumService
+      .getAlbumInfo(albumName)
+      .subscribe(
+        x => this.handleAlbumResponse(x),
+        e => this.handleImageLoadFailure(e)
+      );
   }
 
   /**
@@ -100,5 +101,4 @@ export class AlbumComponent implements OnInit {
     this.loadingFailed = true;
     console.log('Error: %s', error);
   }
-
 }
