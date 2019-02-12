@@ -8,5 +8,10 @@
   "codemetrics.basics.ComplexityLevelLowDescription": "(Low)",
 
   "prettier.singleQuote": true,
-  "editor.formatOnSave": false
+  "editor.formatOnSave": true,
+  "typescript.format.enable": false,
+  "json.format.enable": false,
+  "javascript.format.enable": false,
+  "html.format.enable": false,
+  "tslint.ignoreDefinitionFiles": false
 }
