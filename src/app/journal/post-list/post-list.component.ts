@@ -17,7 +17,6 @@ const maximumPostsOnScroll = 16;
   styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
-
   /**
    * The post list
    */
@@ -95,18 +94,22 @@ export class PostListComponent implements OnInit {
         this.initialPage = +params['page'] || 1;
         this.currentTag = params['tag'] || null;
         this.page = this.initialPage;
-        this.postsService.getPostsForPage(this.page, this.currentTag).subscribe(
-          x => this.handlePostListResponse(x),
-          e => this.handlePostErrorResponse(e),
-          () => this.onEndLoading()
-        );
+        this.postsService
+          .getPostsForPage(this.page, this.currentTag)
+          .subscribe(
+            x => this.handlePostListResponse(x),
+            e => this.handlePostErrorResponse(e),
+            () => this.onEndLoading()
+          );
       } else {
         const id = +idParam;
-        this.postsService.getPost(id).subscribe(
-          x => this.handlePostResponse(x),
-          e => this.handlePostErrorResponse(e),
-          () => this.onEndLoading()
-        );
+        this.postsService
+          .getPost(id)
+          .subscribe(
+            x => this.handlePostResponse(x),
+            e => this.handlePostErrorResponse(e),
+            () => this.onEndLoading()
+          );
       }
     });
   }
@@ -117,7 +120,7 @@ export class PostListComponent implements OnInit {
     }
 
     // Sanity check
-    if (typeof(this.totalPages) === 'undefined') {
+    if (typeof this.totalPages === 'undefined') {
       return;
     }
 
@@ -131,11 +134,13 @@ export class PostListComponent implements OnInit {
 
     // Load the next set of posts
     this.onStartLoading();
-    this.postsService.getPostsForPage(this.page, this.currentTag).subscribe(
-      x => this.handlePostListResponse(x),
-      e => this.handlePostErrorResponse(e),
-      () => this.onEndLoading()
-    );
+    this.postsService
+      .getPostsForPage(this.page, this.currentTag)
+      .subscribe(
+        x => this.handlePostListResponse(x),
+        e => this.handlePostErrorResponse(e),
+        () => this.onEndLoading()
+      );
   }
 
   /**
@@ -182,5 +187,4 @@ export class PostListComponent implements OnInit {
   private onEndLoading(): void {
     this.isLoading = false;
   }
-
 }

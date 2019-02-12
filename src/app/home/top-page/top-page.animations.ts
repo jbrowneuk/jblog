@@ -45,11 +45,14 @@ const enter = query(
 const leave = query(
   ':leave',
   group([
-    query('.text', [
-      style({ opacity: 1, transform: textTransformIn }),
-      animate(timing, style({ opacity: 0, transform: textTransformOut }))
-    ],
-    optionalAnimation),
+    query(
+      '.text',
+      [
+        style({ opacity: 1, transform: textTransformIn }),
+        animate(timing, style({ opacity: 0, transform: textTransformOut }))
+      ],
+      optionalAnimation
+    ),
     query(
       '.image',
       [

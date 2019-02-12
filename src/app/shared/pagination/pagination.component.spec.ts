@@ -11,10 +11,9 @@ describe('PaginationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ PaginationComponent ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      declarations: [PaginationComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -27,7 +26,7 @@ describe('PaginationComponent', () => {
   it('should paginate without spacing for less than 4 pages', async(() => {
     component.currentPage = 1;
     component.totalPages = 4;
-    component.ngOnChanges({currentPage: new SimpleChange(0, 6, true)});
+    component.ngOnChanges({ currentPage: new SimpleChange(0, 6, true) });
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
@@ -46,7 +45,7 @@ describe('PaginationComponent', () => {
   it('should paginate with spacing for greater than 4 pages', async(() => {
     component.currentPage = 1;
     component.totalPages = 5;
-    component.ngOnChanges({currentPage: new SimpleChange(0, 6, true)});
+    component.ngOnChanges({ currentPage: new SimpleChange(0, 6, true) });
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
@@ -66,7 +65,7 @@ describe('PaginationComponent', () => {
   it('should paginate with spacing if required', async(() => {
     component.currentPage = 10;
     component.totalPages = 20;
-    component.ngOnChanges({currentPage: new SimpleChange(0, 6, true)});
+    component.ngOnChanges({ currentPage: new SimpleChange(0, 6, true) });
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
@@ -89,11 +88,10 @@ describe('PaginationComponent', () => {
 
   const updatePageNumberAndGetBits = (num: number): NodeListOf<Element> => {
     component.currentPage = num;
-    component.ngOnChanges({currentPage: new SimpleChange(0, num, true)});
+    component.ngOnChanges({ currentPage: new SimpleChange(0, num, true) });
     fixture.detectChanges();
     return compiled.querySelectorAll('ul li');
   };
-
 
   it('should add left spacing if required', () => {
     component.totalPages = 20;

@@ -56,7 +56,9 @@ export class ImageService {
       pageId = 1;
     }
 
-    let endpoint = `${this.basePath}${API_URL}&images&albumName=${albumName}&page=${pageId}`;
+    let endpoint = `${
+      this.basePath
+    }${API_URL}&images&albumName=${albumName}&page=${pageId}`;
 
     if (count && count > 0) {
       endpoint += `&count=${count}`;

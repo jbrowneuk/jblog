@@ -72,10 +72,12 @@ export class ImageContainerComponent implements OnChanges {
   private getAlbumImageData(): void {
     this.isLoadingImages = true;
     this.loadingFailed = false;
-    this.imageService.getImagesFromAlbum(this.albumName, this.page, this.imageCount).subscribe(
-      x => this.handleImageResponse(x),
-      e => this.handleImageLoadFailure(e)
-    );
+    this.imageService
+      .getImagesFromAlbum(this.albumName, this.page, this.imageCount)
+      .subscribe(
+        x => this.handleImageResponse(x),
+        e => this.handleImageLoadFailure(e)
+      );
   }
 
   /**

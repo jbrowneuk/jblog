@@ -13,9 +13,7 @@ const maxSlides = 3;
 @Component({
   selector: 'jblog-top-page',
   templateUrl: './top-page.component.html',
-  styleUrls: [
-    './top-page.component.scss'
-  ],
+  styleUrls: ['./top-page.component.scss'],
   animations: TopPageTransitions
 })
 export class TopPageComponent implements OnInit, OnDestroy {
@@ -48,7 +46,8 @@ export class TopPageComponent implements OnInit, OnDestroy {
   }
 
   public goToPreviousSlide(): void {
-    const slide = (this.slideNumber > 0 ? this.slideNumber : this.totalSlides) - 1;
+    const slide =
+      (this.slideNumber > 0 ? this.slideNumber : this.totalSlides) - 1;
     this.setSlide(slide);
   }
 
@@ -59,7 +58,9 @@ export class TopPageComponent implements OnInit, OnDestroy {
   }
 
   private setupSlideInterval(): void {
-    this.carouselInterval = interval(intervalMsec).subscribe(() => this.advanceCarousel());
+    this.carouselInterval = interval(intervalMsec).subscribe(() =>
+      this.advanceCarousel()
+    );
   }
 
   private clearSlideInterval(): void {

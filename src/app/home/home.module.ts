@@ -9,17 +9,22 @@ import { AboutComponent } from './about/about.component';
 import { LicensesComponent } from './licenses/licenses.component';
 
 const homeRoutes: Routes = [
-  {path: 'about', component: AboutComponent, data: { sectionId: 1 } },
-  {path: 'licenses', component: LicensesComponent, data: { sectionId: 'licenses' } },
-  {path: '', component: TopPageComponent, data: { sectionId: 0 }, pathMatch: 'full' }
+  { path: 'about', component: AboutComponent, data: { sectionId: 1 } },
+  {
+    path: 'licenses',
+    component: LicensesComponent,
+    data: { sectionId: 'licenses' }
+  },
+  {
+    path: '',
+    component: TopPageComponent,
+    data: { sectionId: 0 },
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(homeRoutes),
-    SharedModule
-  ],
+  imports: [CommonModule, RouterModule.forChild(homeRoutes), SharedModule],
   declarations: [TopPageComponent, AboutComponent, LicensesComponent]
 })
-export class HomeModule { }
+export class HomeModule {}

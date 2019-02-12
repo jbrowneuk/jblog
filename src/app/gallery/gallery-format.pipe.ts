@@ -10,7 +10,6 @@ import { AlbumNameTitlePair } from './image-info';
   name: 'galleryFormat'
 })
 export class GalleryFormatPipe implements PipeTransform {
-
   /**
    * Transform a colection of {@link AlbumNameTitlePair} into a comma separated
    * string of album titles
@@ -26,5 +25,4 @@ export class GalleryFormatPipe implements PipeTransform {
 
     return galleryTitles.join(', ');
   }
-
 }

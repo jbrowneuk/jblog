@@ -15,12 +15,9 @@ import { TitleService } from '../../shared/title.service';
 @Component({
   selector: 'jblog-image',
   templateUrl: './image.component.html',
-  styleUrls: [
-    './image.component.scss'
-  ]
+  styleUrls: ['./image.component.scss']
 })
 export class ImageComponent implements OnInit {
-
   /**
    * The image data that describes the view.
    */
@@ -97,7 +94,7 @@ export class ImageComponent implements OnInit {
    */
   public getPrimaryAlbum(): AlbumNameTitlePair {
     if (!this.data || this.data.containingAlbums.length === 0) {
-      return {name: 'latest', title: 'album'};
+      return { name: 'latest', title: 'album' };
     }
 
     return this.data.containingAlbums[0];
@@ -129,5 +126,4 @@ export class ImageComponent implements OnInit {
     this.titleService.setTitle(response.title);
     this.isLoading = false;
   }
-
 }

@@ -138,13 +138,15 @@ describe('ImageComponent', () => {
 
     it('should display image date', async(async () => {
       component.data = MOCK_IMAGEDATA;
-      const expectedDate = '' + (MOCK_IMAGEDATA.date * 1000);
+      const expectedDate = '' + MOCK_IMAGEDATA.date * 1000;
 
       fixture.detectChanges();
       await fixture.whenStable();
 
       // Uses the mock date pipe
-      expect(compiled.querySelector('.date').textContent.trim()).toBe(expectedDate);
+      expect(compiled.querySelector('.date').textContent.trim()).toBe(
+        expectedDate
+      );
     }));
 
     it('should display tag list', async(async () => {

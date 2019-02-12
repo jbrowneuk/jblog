@@ -92,15 +92,13 @@ describe('ProjectService', () => {
     (service: ProjectService) => {
       const emsg = 'deliberate 404 error';
 
-      service
-        .getProjects(0)
-        .subscribe(
-          () => fail('should not get here'),
-          (error: HttpErrorResponse) => {
-            expect(error.status).toEqual(404, 'status');
-            expect(error.error).toEqual(emsg, 'message');
-          }
-        );
+      service.getProjects(0).subscribe(
+        () => fail('should not get here'),
+        (error: HttpErrorResponse) => {
+          expect(error.status).toEqual(404, 'status');
+          expect(error.error).toEqual(emsg, 'message');
+        }
+      );
 
       const req = httpTestingController.expectOne(
         '/assets/mock-data/projects.json'

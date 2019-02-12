@@ -87,7 +87,8 @@ export abstract class ScrollDirectiveBase implements AfterViewInit {
   @HostListener('window:scroll', ['$event'])
   public onScroll(evt: any) {
     const scrollingElement = evt.target.scrollingElement;
-    this.lastScrollWasDown = this.lastKnownPosition.scrollTop < scrollingElement.scrollTop;
+    this.lastScrollWasDown =
+      this.lastKnownPosition.scrollTop < scrollingElement.scrollTop;
 
     this.lastKnownPosition = {
       scrollHeight: scrollingElement.scrollHeight,

@@ -12,7 +12,7 @@ const mockImageInfo = {
   description: 'description',
   thumbnail: './thumb.jpg',
   src: './src.jpg',
-  containingAlbums: [{name: 'album', title: 'Album'}],
+  containingAlbums: [{ name: 'album', title: 'Album' }],
   featured: false
 };
 
@@ -23,13 +23,9 @@ describe('ThumbnailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [
-        GalleryFormatPipe,
-        ThumbnailComponent
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      declarations: [GalleryFormatPipe, ThumbnailComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -42,9 +38,15 @@ describe('ThumbnailComponent', () => {
 
   it('should render elements correctly', () => {
     expect(component).toBeTruthy();
-    const imageElement = <HTMLImageElement>compiled.querySelector('.image-area img');
+    const imageElement = <HTMLImageElement>(
+      compiled.querySelector('.image-area img')
+    );
     expect(imageElement.src.endsWith('/thumb.jpg')).toBe(true);
-    expect(compiled.querySelector('.text-area .title').textContent.trim()).toBe('title');
-    expect(compiled.querySelector('.text-area .galleries').textContent.trim()).toBe('Album');
+    expect(compiled.querySelector('.text-area .title').textContent.trim()).toBe(
+      'title'
+    );
+    expect(
+      compiled.querySelector('.text-area .galleries').textContent.trim()
+    ).toBe('Album');
   });
 });
