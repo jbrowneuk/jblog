@@ -16,8 +16,9 @@ const footerAnimationTiming = 300;
 const optionalAnimation: AnimationQueryOptions = { optional: true };
 
 const percentageOut = 1;
-const pageOutLeft = `translateX(-${percentageOut}%)`;
-const pageOutRight = `translateX(${percentageOut}%)`;
+const scaleOut = 0.99;
+const pageOutLeft = `translateX(-${percentageOut}%) scale(${scaleOut})`;
+const pageOutRight = `translateX(${percentageOut}%) scale(${scaleOut})`;
 
 const enterLeaveQuery = query(
   ':enter, :leave',
