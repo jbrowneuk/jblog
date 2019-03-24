@@ -120,7 +120,10 @@ export class PostListComponent implements OnInit {
     }
 
     // Sanity check
-    if (typeof this.totalPages === 'undefined') {
+    if (
+      typeof this.page === 'undefined' ||
+      typeof this.totalPages === 'undefined'
+    ) {
       return;
     }
 
