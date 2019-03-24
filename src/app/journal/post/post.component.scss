@@ -78,7 +78,9 @@ header {
 }
 
 .content-area ::ng-deep {
-  p {
+  p,
+  blockquote,
+  hr {
     margin: 0 0 16px;
 
     &:last-child {
@@ -88,5 +90,17 @@ header {
 
   img.posted {
     max-width: 100%;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background-color: var(--color-default-border);
+  }
+
+  blockquote {
+    padding: 0 0 0 16px;
+    border-left: 4px solid var(--color-default-border);
+    color: var(--color-secondary-foreground);
   }
 }
