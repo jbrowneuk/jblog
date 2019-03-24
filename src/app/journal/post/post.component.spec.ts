@@ -12,7 +12,8 @@ const mockPostData = {
   date: Date.now(),
   title: 'post title',
   content: '<p>Example post content with an emoji :smile: . Yay!</p>',
-  tags: ['one', 'two']
+  tags: ['one', 'two'],
+  slug: 'mock'
 };
 
 @Pipe({

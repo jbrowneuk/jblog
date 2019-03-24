@@ -12,7 +12,8 @@ const mockFirstPost = {
   date: Date.now(),
   title: 'first',
   content: 'first post!',
-  tags: ['first', 'post']
+  tags: ['first', 'post'],
+  slug: 'first-post'
 };
 
 const mockSecondPost = {
@@ -20,7 +21,8 @@ const mockSecondPost = {
   date: Date.now(),
   title: '2nd',
   content: 'second post!',
-  tags: ['second', 'post']
+  tags: ['second', 'post'],
+  slug: 'second post'
 };
 
 describe('PostService', () => {
@@ -86,10 +88,10 @@ describe('PostService', () => {
   });
 
   it('should get a specific post', (done: DoneFn) => {
-    const id = mockFirstPost.postId;
+    const slug = mockFirstPost.slug;
     const mockResponse: PostData[] = [mockFirstPost];
 
-    service.getPost(id).subscribe(
+    service.getPost(slug).subscribe(
       (postData: PostData) => {
         expect(postData).toEqual(mockFirstPost);
         done();
@@ -98,7 +100,7 @@ describe('PostService', () => {
     );
 
     const req = httpTestingController.expectOne(
-      `http://localhost/api/?posts&postId=${id}`
+      `http://localhost/api/?posts&slug=${slug}`
     );
     expect(req.request.method).toEqual('GET');
     req.flush(mockResponse);
@@ -122,7 +124,7 @@ describe('PostService', () => {
   });
 
   it('should handle errors when getting single post information', (done: DoneFn) => {
-    const postId = 1024;
+    const postId = '1024';
     service.getPost(postId).subscribe(
       () => fail('Should never get here'),
       (err: Error) => {
@@ -132,13 +134,13 @@ describe('PostService', () => {
     );
 
     const req = httpTestingController.expectOne(
-      `http://localhost/api/?posts&postId=${postId}`
+      `http://localhost/api/?posts&slug=${postId}`
     );
     req.flush('fake 404', { status: 404, statusText: 'Not Found' });
   });
 
   it('should handle errors when getting post information for invalid id', (done: DoneFn) => {
-    const postId = -1;
+    const postId = '';
 
     service.getPost(postId).subscribe(
       () => fail('Should never get here'),
