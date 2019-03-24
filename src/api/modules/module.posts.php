@@ -2,7 +2,7 @@
 
 require "lib/framework.posts.php";
 
-const POST_ID_QUERY = "postId";
+const POST_SLUG_QUERY = "slug";
 
 class ApiModule {
 
@@ -21,7 +21,7 @@ class ApiModule {
   // Main entry point.
   //============================================================================
   public function handleResponse() {
-    if (isset($_GET[POST_ID_QUERY])) {
+    if (isset($_GET[POST_SLUG_QUERY])) {
       $this->getSinglePost();
       return;
     }
@@ -33,8 +33,15 @@ class ApiModule {
   // Generates the data containing information about a single post.
   //============================================================================
   private function getSinglePost() {
-    $postId = RequestHelpers::getNumericValue(POST_ID_QUERY, -1);
-    if ($postId <= 0) {
+    $postSlug = RequestHelpers::getRawValue(POST_SLUG_QUERY, "");
+    if ($postSlug == "") {
+      ResponseHelpers::respondNotFound();
+      return;
+    }
+
+    $postId = PostList::getPostIdForSlug($this->db, $postSlug);
+    if ($postId < 1)
+    {
       ResponseHelpers::respondNotFound();
       return;
     }
@@ -62,7 +69,8 @@ class ApiModule {
         "date"    => $post->getDate(),
         "title"   => $post->getTitle(),
         "content" => $post->getContent(),
-        "tags"    => $post->getTags()
+        "tags"    => $post->getTags(),
+        "slug"    => $post->getSlug()
       );
     }
 
