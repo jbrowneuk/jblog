@@ -1,4 +1,9 @@
 <div class="container">
+  <div *ngIf="singlePostMode" class="all-post-header">
+    You’re viewing a single post.
+    <a routerLink="/journal/page/1">Return to all posts</a>?
+  </div>
+
   <div class="post" *ngIf="(!posts || posts.length === 0) && !isLoading">
     <h2>No posts</h2>
   </div>

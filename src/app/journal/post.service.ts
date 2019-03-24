@@ -62,17 +62,17 @@ export class PostService {
   /**
    * Gets a specific post based upon post id.
    *
-   * @param {number} postId - the image identifier.
+   * @param {string} postId - the post slug identifier.
    * @return {Observable<PostData>} - an Observable that returns a
    *                                  PostData-implementing object that maps
    *                                  to a single post.
    */
-  public getPost(postId: number): Observable<PostData> {
-    if (postId <= 0) {
+  public getPost(postId: string): Observable<PostData> {
+    if (!postId) {
       return observableThrowError(new Error('Post does not exist'));
     }
 
-    const apiRequestUrl = `${this.basePath}${API_URL}&postId=${postId}`;
+    const apiRequestUrl = `${this.basePath}${API_URL}&slug=${postId}`;
     return this.http
       .get<PostData[]>(apiRequestUrl)
       .pipe(map((response: PostData[]) => response[0]));

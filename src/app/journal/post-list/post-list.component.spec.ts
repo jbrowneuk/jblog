@@ -22,7 +22,8 @@ const mockPostData = {
   date: 1024,
   title: 'post title',
   content: 'long content here',
-  tags: ['one', 'two']
+  tags: ['one', 'two'],
+  slug: 'mock-data'
 };
 const mockPostDataWrapper = {
   posts: [mockPostData],
@@ -56,7 +57,7 @@ describe('PostListComponent', () => {
       .setup(mps => mps.getPostsForPage(It.isAnyNumber(), It.isAny()))
       .returns(() => observableOf(mockPostDataWrapper));
     mockPostService
-      .setup(mps => mps.getPost(It.isAnyNumber()))
+      .setup(mps => mps.getPost(It.isAnyString()))
       .returns(() => observableOf(mockPostData));
 
     mockTransitionCompleteService = Mock.ofType<TransitionCompleteService>();
@@ -122,9 +123,9 @@ describe('PostListComponent', () => {
   });
 
   it('should fetch a specific post if the ID route is hit', () => {
-    const specifiedPost = 3;
+    const specifiedPost = mockPostData.slug;
 
-    const mockParam: Params = { id: `${specifiedPost}` };
+    const mockParam: Params = { id: specifiedPost };
     const route = TestBed.get(ActivatedRoute) as ActivatedRoute;
     const params = route.params as BehaviorSubject<Params>;
     params.next(mockParam);

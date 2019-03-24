@@ -69,6 +69,11 @@ export class PostListComponent implements OnInit {
   public initialPage: number;
 
   /**
+   * Set to true when a single post is requested by slug from the API.
+   */
+  public singlePostMode: boolean;
+
+  /**
    * Constructor
    */
   constructor(
@@ -79,6 +84,7 @@ export class PostListComponent implements OnInit {
     this.scrollCallback = this.onScrollReached.bind(this);
     this.showNavigation = false;
     this.reachedEnd = false;
+    this.singlePostMode = false;
   }
 
   /**
@@ -91,6 +97,7 @@ export class PostListComponent implements OnInit {
       const idParam = params['id'];
 
       if (!idParam || idParam.length === 0) {
+        this.singlePostMode = false;
         this.initialPage = +params['page'] || 1;
         this.currentTag = params['tag'] || null;
         this.page = this.initialPage;
@@ -102,7 +109,8 @@ export class PostListComponent implements OnInit {
             () => this.onEndLoading()
           );
       } else {
-        const id = +idParam;
+        this.singlePostMode = true;
+        const id = idParam;
         this.postsService
           .getPost(id)
           .subscribe(

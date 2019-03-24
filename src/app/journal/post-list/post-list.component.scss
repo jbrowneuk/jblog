@@ -2,3 +2,12 @@
   font-weight: bold;
   margin: 20px auto;
 }
+
+.all-post-header {
+  margin-bottom: 16px;
+  margin-left: calc(var(--grid-gutter) / -2);
+  margin-right: calc(var(--grid-gutter) / -2);
+  padding: 8px 16px;
+  background-color: var(--color-primary-a-01);
+  border-radius: var(--border-radius-default);
+}

@@ -1,8 +1,25 @@
 <?php
 
+const TABLE_SCOPE = "posts";
+
+// Array indexes
+const POST_ID_INDEX = "post_id";
+const POST_TITLE_INDEX = "title";
+const POST_CONTENT_INDEX = "content";
+const POST_DATE_INDEX = "post_date";
+const POST_STATUS_INDEX = "status";
+const POST_SLUG_INDEX = "slug";
+const POST_TAG_INDEX = "tag";
+const POST_MODIFICATIONDATE_INDEX = "modification_date";
+const POST_COMMENT_STATUS_INDEX = "comment_status";
+const POST_COMMENT_COUNT_INDEX = "comment_count";
+
+const POST_COUNT_INDEX = "pcount";
+
 class Post
 {
   private $id = -1;
+  private $slug = '';
   private $title = '';
   private $content = '';
   private $date = 0;
@@ -24,17 +41,18 @@ class Post
       return;
     }
 
-    $this->id =       $this->valueForKeyOrDefault($values, "post_id");
-    $this->title =    $this->valueForKeyOrDefault($values, "title");
-    $this->content =  $this->valueForKeyOrDefault($values, "content");
-    $this->date =     $this->valueForKeyOrDefault($values, "post_date");
-    $this->status =   $this->valueForKeyOrDefault($values, "status");
+    $this->id =       $this->valueForKeyOrDefault($values, POST_ID_INDEX);
+    $this->title =    $this->valueForKeyOrDefault($values, POST_TITLE_INDEX);
+    $this->content =  $this->valueForKeyOrDefault($values, POST_CONTENT_INDEX);
+    $this->date =     $this->valueForKeyOrDefault($values, POST_DATE_INDEX);
+    $this->status =   $this->valueForKeyOrDefault($values, POST_STATUS_INDEX);
+    $this->slug =     $this->valueForKeyOrDefault($values, POST_SLUG_INDEX, $this->id);
 
-    $this->modifedDate =    $this->valueForKeyOrDefault($values, "modification_date");
-    $this->commentStatus =  $this->valueForKeyOrDefault($values, "comment_status");
-    $this->commentCount =   $this->valueForKeyOrDefault($values, "comment_count");
+    $this->modifedDate =    $this->valueForKeyOrDefault($values, POST_MODIFICATIONDATE_INDEX);
+    $this->commentStatus =  $this->valueForKeyOrDefault($values, POST_COMMENT_STATUS_INDEX);
+    $this->commentCount =   $this->valueForKeyOrDefault($values, POST_COMMENT_COUNT_INDEX);
 
-    $tags = $this->valueForKeyOrDefault($values, "tag");
+    $tags = $this->valueForKeyOrDefault($values, POST_TAG_INDEX);
     if (StringExtensions::isEmpty($tags))
     {
       $this->tags = array();
@@ -48,6 +66,11 @@ class Post
   public function getId()
   {
     return $this->id;
+  }
+
+  public function getSlug()
+  {
+    return $this->slug;
   }
 
   public function getTitle()
@@ -120,24 +143,24 @@ class PostList extends ArrayObject
       throw new Exception("Invalid values passed to static function.");
     }
 
-    $database->setTableScope('posts');
+    $database->setTableScope(TABLE_SCOPE);
     $where = array();
     if (!StringExtensions::isEmpty($tag))
     {
-      $where['tag'] = "%$tag%";
+      $where[POST_TAG_INDEX] = "%$tag%";
     }
 
     if (is_array($searchTerms))
     {
       $separator = "%";
-      $where['content'] = $separator . implode($separator, $searchTerms) . $separator;
+      $where[POST_CONTENT_INDEX] = $separator . implode($separator, $searchTerms) . $separator;
     }
 
-    $field = "COUNT(*) AS post_count";
+    $field = "COUNT(*) AS " . POST_COUNT_INDEX;
     $results = $database->getWhere($field, $where);
     if (count($results) > 0)
     {
-      return $results[0]['post_count'];
+      return $results[0][POST_COUNT_INDEX];
     }
 
     return 0;
@@ -150,21 +173,40 @@ class PostList extends ArrayObject
       throw new Exception("Invalid values passed to static function.");
     }
 
-    $database->setTableScope('posts');
-    $where = array('post_id' => "< $id");
+    $database->setTableScope(TABLE_SCOPE);
+    $where = array(POST_ID_INDEX => "< $id");
     if (!StringExtensions::isEmpty($tag))
     {
-      $where['tag'] = "%$tag%";
+      $where[POST_TAG_INDEX] = "%$tag%";
     }
 
-    $field = "COUNT(*) AS post_count";
+    $field = "COUNT(*) AS " . POST_COUNT_INDEX;
     $results = $database->getWhere($field, $where);
     if (count($results) > 0)
     {
-      return $results[0]['post_count'];
+      return $results[0][POST_COUNT_INDEX];
     }
 
     return 0;
+  }
+
+  public static function getPostIdForSlug($database, $slug)
+  {
+    if ($database == null)
+    {
+      throw new Exception("Invalid values passed to static function.");
+    }
+
+    $database->setTableScope(TABLE_SCOPE);
+    $where = array(POST_SLUG_INDEX => $slug);
+    $field = POST_ID_INDEX;
+    $results = $database->getWhere($field, $where);
+    if (count($results) > 0)
+    {
+      return $results[0][POST_ID_INDEX];
+    }
+
+    return -1;
   }
 
   public function __construct($database = null, $amount = 0, $pageOffset = 0, $tag = "", $searchTerms = null)
@@ -175,33 +217,33 @@ class PostList extends ArrayObject
     }
 
     $this->database = $database;
-    $this->database->setTableScope('posts');
+    $this->database->setTableScope(TABLE_SCOPE);
 
     $where = array();
     $options = array();
 
     if (!StringExtensions::isEmpty($tag))
     {
-      $where['tag'] = "%$tag%";
+      $where[POST_TAG_INDEX] = "%$tag%";
     }
 
     if (is_array($searchTerms))
     {
       $separator = "%";
-      $where['content'] = $separator . implode($separator, $searchTerms) . $separator;
+      $where[POST_CONTENT_INDEX] = $separator . implode($separator, $searchTerms) . $separator;
     }
 
     if ($amount > 1)
     {
       $offset = $pageOffset * $amount;
       $options = array(
-        'ORDER BY' => '`post_date` DESC',
+        'ORDER BY' => '`' . POST_DATE_INDEX . '` DESC',
         'LIMIT' => "$offset, $amount"
       );
     }
     else
     {
-      $where['post_id'] = $pageOffset;
+      $where[POST_ID_INDEX] = $pageOffset;
     }
 
     $resultSet = $this->database->getWhere("ALL", $where, $options);

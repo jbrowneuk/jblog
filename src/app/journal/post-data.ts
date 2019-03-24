@@ -26,6 +26,11 @@ export interface PostData {
    * Tags associated with the post
    */
   tags: string[];
+
+  /**
+   * Post slug
+   */
+  slug: string;
 }
 
 /**
