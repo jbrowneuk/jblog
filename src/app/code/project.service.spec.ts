@@ -26,6 +26,8 @@ const mockSecondProject: Project = {
   resourcesUrl: 'http://some.location/2'
 };
 
+const baseUrl = 'http://localhost/api';
+
 describe('ProjectService', () => {
   let httpTestingController: HttpTestingController;
 
@@ -53,9 +55,7 @@ describe('ProjectService', () => {
         expect(projects[1]).toEqual(mockSecondProject);
       });
 
-      const req = httpTestingController.expectOne(
-        '/assets/mock-data/projects.json'
-      );
+      const req = httpTestingController.expectOne(`${baseUrl}/?projects`);
       expect(req.request.method).toEqual('GET');
       req.flush(mockResponse);
     }
@@ -79,9 +79,7 @@ describe('ProjectService', () => {
         expect(projects[1]).toEqual(mockSecondProject);
       });
 
-      const req = httpTestingController.expectOne(
-        '/assets/mock-data/projects.json'
-      );
+      const req = httpTestingController.expectOne(`${baseUrl}/?projects`);
       expect(req.request.method).toEqual('GET');
       req.flush(mockResponse);
     }
@@ -100,9 +98,7 @@ describe('ProjectService', () => {
         }
       );
 
-      const req = httpTestingController.expectOne(
-        '/assets/mock-data/projects.json'
-      );
+      const req = httpTestingController.expectOne(`${baseUrl}/?projects`);
       expect(req.request.method).toEqual('GET');
       req.flush(emsg, { status: 404, statusText: 'Not Found' });
     }
