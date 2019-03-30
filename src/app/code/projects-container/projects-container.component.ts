@@ -43,7 +43,7 @@ export class ProjectsContainerComponent implements OnInit {
    */
   ngOnInit() {
     this.projectService
-      .getProjects(this.page, this.projectCount)
+      .getProjects()
       .subscribe(x => this.handleProjectListResponse(x), e => console.error(e));
   }
 

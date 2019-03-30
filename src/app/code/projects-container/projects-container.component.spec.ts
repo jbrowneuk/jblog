@@ -9,16 +9,19 @@ import { ProjectService } from '../project.service';
 
 import { ProjectsContainerComponent } from './projects-container.component';
 
-const mockProjects = [
-  {
-    name: 'test',
-    title: 'A test project',
-    summary: 'Description of the test project',
-    info: 'JSON data',
-    link: 'https://www.google.com/',
-    resourcesUrl: 'http://localhost:4200/assets/images/'
-  }
-];
+const mockProject = {
+  name: 'test',
+  description: 'Description of the test project',
+  language: 'JSON data',
+  license: 'no license',
+  link: 'https://www.google.com/',
+  archived: false,
+  stars: 2,
+  watchers: 1,
+  forks: 0
+};
+
+const mockProjects = [mockProject];
 
 describe('ProjectsContainerComponent', () => {
   let component: ProjectsContainerComponent;
@@ -27,7 +30,7 @@ describe('ProjectsContainerComponent', () => {
 
   const mockProjectService = Mock.ofType<ProjectService>();
   mockProjectService
-    .setup(x => x.getProjects(It.isAnyNumber(), It.isAnyNumber()))
+    .setup(x => x.getProjects())
     .returns(() => observableOf(mockProjects));
 
   beforeEach(() => {
@@ -50,24 +53,25 @@ describe('ProjectsContainerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display project title', () => {
-    expect(compiled.querySelector('h1').textContent).toContain(
-      'A test project'
-    );
+  function checkEquality(property: string): void {
+    const element = compiled.querySelector(`[data-test=${property}]`);
+    expect(element.textContent).toContain(mockProject[property]);
+  }
+
+  it('should display project name', () => {
+    checkEquality('name');
   });
 
   it('should display project information', () => {
-    expect(compiled.querySelector('.info').textContent).toContain('JSON data');
+    checkEquality('language');
   });
 
   it('should display project information', () => {
-    expect(compiled.querySelector('.text-area p').textContent).toContain(
-      'Description of the test project'
-    );
+    checkEquality('description');
   });
 
   it('should display project link', () => {
-    expect(compiled.querySelector('#project-link').textContent).toContain(
+    expect(compiled.querySelector('[data-test=link]').textContent).toContain(
       'Go to project page'
     );
   });

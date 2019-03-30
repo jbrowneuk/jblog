@@ -1,31 +1,45 @@
 <article *ngFor="let project of projects">
   <div class="grid">
     <div class="text-area">
-      <h1>{{ project.title }}</h1>
-      <div class="info">
-        <i class="far fa-code" aria-hidden="true"></i> {{ project.info }}
-      </div>
-      <p *ngFor="let para of (project.summary | lineSplitting)">{{ para }}</p>
+      <h1>
+        <a href="{{ project.link }}" data-test="name">{{ project.name }}</a>
+
+        <span *ngIf="project.archived" class="archived">
+          <i class="far fa-box-alt" aria-hidden="true"></i> Archived
+        </span>
+      </h1>
+      <ul class="info">
+        <li data-test="language">
+          <i class="far fa-fw fa-code" aria-hidden="true"></i>
+          {{ project.language }}
+        </li>
+        <li data-test="license">
+          <i class="far fa-fw fa-balance-scale" aria-hidden="true"></i>
+          {{ project.license }}
+        </li>
+        <li data-test="watchers">
+          <i class="far fa-fw fa-eye" aria-hidden="true"></i>
+          {{ project.watchers }}
+        </li>
+        <li data-test="stars">
+          <i class="far fa-fw fa-star" aria-hidden="true"></i>
+          {{ project.stars }}
+        </li>
+        <li data-test="forks">
+          <i class="far fa-fw fa-code-branch" aria-hidden="true"></i>
+          {{ project.forks }}
+        </li>
+      </ul>
+      <p data-test="description">{{ project.description }}</p>
       <div class="button-container">
-        <a
-          *ngIf="project.link.length > 0"
-          href="{{ project.link }}"
-          id="project-link"
-        >
-          <i class="far fa-rocket"></i> Go to project page
-        </a>
-        <a
-          *ngIf="project.link.length === 0"
-          [routerLink]="['/code/project', project.name]"
-          id="project-link"
-        >
+        <a href="{{ project.link }}" data-test="link">
           <i class="far fa-rocket"></i> Go to project page
         </a>
       </div>
     </div>
     <div class="image-area">
       <img
-        src="{{ project.resourcesUrl }}folder.jpg"
+        src="/public/images/code/{{ name }}.jpg"
         alt="project image"
         class="rounded"
       />

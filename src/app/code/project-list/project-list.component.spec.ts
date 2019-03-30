@@ -18,11 +18,14 @@ import { ProjectListComponent } from './project-list.component';
 const mockProjects = [
   {
     name: 'test',
-    title: 'A test project',
-    summary: 'Description of the test project',
-    info: 'JSON data',
+    description: 'Description of the test project',
+    language: 'JSON data',
+    license: 'no license',
     link: 'https://www.google.com/',
-    resourcesUrl: 'http://localhost:4200/assets/images/'
+    archived: false,
+    stars: 2,
+    watchers: 1,
+    forks: 0
   }
 ];
 
@@ -32,7 +35,7 @@ describe('ProjectListComponent', () => {
 
   const mockProjectService = Mock.ofType<ProjectService>();
   mockProjectService
-    .setup(x => x.getProjects(It.isAnyNumber(), It.isAnyNumber()))
+    .setup(x => x.getProjects())
     .returns(() => observableOf(mockProjects));
 
   let component: ProjectListComponent;
