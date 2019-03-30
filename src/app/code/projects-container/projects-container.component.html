@@ -1,4 +1,4 @@
-<article *ngFor="let project of projects">
+<article *ngFor="let project of (projects | archivedProjects: showArchived)">
   <div class="grid">
     <div class="text-area">
       <h1>
@@ -39,10 +39,16 @@
     </div>
     <div class="image-area">
       <img
-        src="/public/images/code/{{ name }}.jpg"
+        *ngIf="!project.archived"
+        src="/public/images/code/{{ project.name }}.jpg"
         alt="project image"
         class="rounded"
       />
+      <i
+        *ngIf="project.archived"
+        class="far fa-fw fa-box-alt fa-10x"
+        aria-hidden="true"
+      ></i>
     </div>
   </div>
 </article>

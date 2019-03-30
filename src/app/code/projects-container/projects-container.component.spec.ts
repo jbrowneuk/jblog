@@ -1,8 +1,9 @@
-import { of as observableOf, Observable } from 'rxjs';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of as observableOf } from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PipeTransform, Pipe } from '@angular/core';
 
-import { It, Mock } from 'typemoq';
+import { Mock } from 'typemoq';
 
 import { LineSplittingPipe } from '../../shared/line-splitting.pipe';
 import { ProjectService } from '../project.service';
@@ -23,6 +24,15 @@ const mockProject = {
 
 const mockProjects = [mockProject];
 
+@Pipe({
+  name: 'archivedProjects'
+})
+class MockFilterPipe implements PipeTransform {
+  transform(val: any) {
+    return val;
+  }
+}
+
 describe('ProjectsContainerComponent', () => {
   let component: ProjectsContainerComponent;
   let fixture: ComponentFixture<ProjectsContainerComponent>;
@@ -36,7 +46,11 @@ describe('ProjectsContainerComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [LineSplittingPipe, ProjectsContainerComponent],
+      declarations: [
+        LineSplittingPipe,
+        ProjectsContainerComponent,
+        MockFilterPipe
+      ],
       providers: [
         { provide: ProjectService, useFactory: () => mockProjectService.object }
       ]

@@ -57,5 +57,15 @@
     </div>
   </article>
 
-  <jblog-projects-container></jblog-projects-container>
+  <jblog-projects-container
+    [showArchived]="archiveFilter.checked"
+  ></jblog-projects-container>
+
+  <div class="filter-bar" (click)="archiveFilter.click()">
+    <div><i class="far fa-filter" aria-hidden="true"></i></div>
+    <label>
+      <input type="checkbox" #archiveFilter (change)="(1)" /> Include archived
+      projects
+    </label>
+  </div>
 </div>

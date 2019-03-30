@@ -9,6 +9,7 @@ import { ProjectService } from './project.service';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { ProjectsContainerComponent } from './projects-container/projects-container.component';
+import { ArchivedProjectFilterPipe } from './projects-container/archive.pipe';
 
 const sectionId = 3.1;
 const codeRoutes: Routes = [
@@ -30,7 +31,8 @@ const codeRoutes: Routes = [
   declarations: [
     ProjectListComponent,
     ProjectDetailComponent,
-    ProjectsContainerComponent
+    ProjectsContainerComponent,
+    ArchivedProjectFilterPipe
   ],
   exports: [ProjectsContainerComponent],
   providers: [ProjectService]
