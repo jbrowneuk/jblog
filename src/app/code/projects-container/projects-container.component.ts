@@ -17,15 +17,9 @@ import { ProjectService } from '../project.service';
 })
 export class ProjectsContainerComponent implements OnInit {
   /**
-   * The current page to display.
+   * Whether to show archived projects in the rendered HTML.
    */
-  @Input() public page = 1;
-
-  /**
-   * A customisable number of projects to load. If zero or negative, uses the
-   * default value provided by the service.
-   */
-  @Input() public projectCount = -1;
+  @Input() public showArchived = false;
 
   /**
    * List of projects to display.
@@ -43,7 +37,7 @@ export class ProjectsContainerComponent implements OnInit {
    */
   ngOnInit() {
     this.projectService
-      .getProjects(this.page, this.projectCount)
+      .getProjects()
       .subscribe(x => this.handleProjectListResponse(x), e => console.error(e));
   }
 

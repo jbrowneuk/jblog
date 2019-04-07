@@ -1,12 +1,16 @@
 @import 'variables';
 
-article {
+article,
+.filter-bar {
   margin-bottom: 56px;
-  padding-top: 48px;
-  padding-bottom: 48px;
   border: 1px solid var(--color-container-border);
   background-color: var(--color-container-background);
   border-radius: var(--border-radius-default);
+}
+
+article {
+  padding-top: 48px;
+  padding-bottom: 48px;
 
   .text-area {
     grid-column: 2 / span 6;
@@ -16,6 +20,16 @@ article {
       margin-top: 0;
       margin-bottom: 16px;
       line-height: 1;
+    }
+
+    .archived {
+      display: inline-block;
+      margin-left: 0.5em;
+      padding: 4px 8px;
+      font-size: 16px;
+      border: 1px solid var(--color-secondary-foreground);
+      color: var(--color-secondary-foreground);
+      border-radius: var(--border-radius-default);
     }
   }
 
@@ -31,6 +45,14 @@ article {
 
   .info {
     color: var(--color-secondary-foreground);
+    margin: 0;
+    padding: 0;
+    list-style: none inside;
+
+    li {
+      display: inline-block;
+      margin-right: 24px;
+    }
   }
 
   .rounded {
@@ -48,5 +70,17 @@ article {
     .image-area {
       display: none;
     }
+  }
+}
+
+.filter-bar {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-secondary-foreground);
+
+  label {
+    margin-left: 16px;
   }
 }

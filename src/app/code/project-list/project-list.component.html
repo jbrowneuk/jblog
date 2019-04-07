@@ -41,9 +41,8 @@
       <div class="text-area">
         <h1>GitHub</h1>
         <p>
-          While I don’t use it as often as I’d like to, some of the code
-          projects that you can find on this page can also be found on my GitHub
-          page.
+          The code projects that you can find on this page are all hosted on my
+          GitHub profile page.
         </p>
         <div class="button-container">
           <a href="//github.com/jbrowneuk" class="button primary">
@@ -58,5 +57,15 @@
     </div>
   </article>
 
-  <jblog-projects-container></jblog-projects-container>
+  <jblog-projects-container
+    [showArchived]="archiveFilter.checked"
+  ></jblog-projects-container>
+
+  <div class="filter-bar" (click)="archiveFilter.click()">
+    <div><i class="far fa-filter" aria-hidden="true"></i></div>
+    <label>
+      <input type="checkbox" #archiveFilter (change)="(1)" /> Include archived
+      projects
+    </label>
+  </div>
 </div>
