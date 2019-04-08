@@ -1,6 +1,7 @@
 # compiled output
 /dist
 /tmp
+/storybook-static
 
 # dependencies
 /node_modules
@@ -20,6 +21,7 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+!.vscode/*.code-snippets
 
 # misc
 /.sass-cache
