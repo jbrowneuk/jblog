@@ -27,7 +27,7 @@ const moduleMetadata: NgModule = {
 storiesOf('Thumbnail', module)
   .addDecorator(withKnobs)
   .add('Default', () => ({
-    template: `<div style="margin:8px auto;padding: 16px;overflow: hidden;">
+    template: `<div style="margin:0;padding:10px;">
   <div class="grid">
     <jblog-thumbnail [data]="data" style="grid-column: span 3"></jblog-thumbnail>
     <jblog-thumbnail [data]="data" style="grid-column: span 3"></jblog-thumbnail>
