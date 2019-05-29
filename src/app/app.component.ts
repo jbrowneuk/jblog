@@ -17,7 +17,7 @@ const invalidIdentifier = -1;
 export class AppComponent {
   private currentSectionId: number;
 
-  @ViewChild('outlet') outlet: RouterOutlet;
+  @ViewChild('outlet', { static: true }) outlet: RouterOutlet;
 
   constructor(private transitionCompleteService: TransitionCompleteService) {
     this.currentSectionId = invalidIdentifier;
