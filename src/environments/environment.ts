@@ -10,6 +10,4 @@ export const environment = {
   featureToggles: []
 };
 
-export const ENV_PROVIDERS = [
-  { provide: BASE_PATH, useValue: 'http://localhost:8080/api' }
-];
+export const ENV_PROVIDERS = [{ provide: BASE_PATH, useValue: '/api' }];
