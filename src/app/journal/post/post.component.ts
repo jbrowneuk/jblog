@@ -1,14 +1,6 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  HostBinding
-} from '@angular/core';
+import { Component, Input, HostBinding } from '@angular/core';
 
 import { PostData } from '../post-data';
-
-import { TextParsingService } from '../../shared/text-parsing.service';
 
 /**
  * The individual post component that is used to render post data
@@ -18,7 +10,7 @@ import { TextParsingService } from '../../shared/text-parsing.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements AfterViewInit {
+export class PostComponent {
   /**
    * Sets the post CSS class for styling
    */
@@ -28,25 +20,6 @@ export class PostComponent implements AfterViewInit {
    * The post data to render
    */
   @Input() public data: PostData;
-
-  /**
-   * Constructor
-   */
-  constructor(
-    private parser: TextParsingService,
-    private element: ElementRef
-  ) {}
-
-  ngAfterViewInit() {
-    if (!this.data) {
-      return;
-    }
-
-    const contentArea = this.element.nativeElement.querySelector(
-      '.content-area'
-    );
-    contentArea.innerHTML = this.getParsedContent();
-  }
 
   /**
    * Returns whether a post has tags
@@ -69,16 +42,5 @@ export class PostComponent implements AfterViewInit {
       comparisonDate.getTime() - 1000 * 60 * 60 * 24 * 365 * years;
     comparisonDate.setTime(offsetMsec);
     return postDate < comparisonDate;
-  }
-
-  /**
-   * Returns the parsed post content
-   */
-  public getParsedContent() {
-    if (!this.data) {
-      return '';
-    }
-
-    return this.parser.parse(this.data.content);
   }
 }
