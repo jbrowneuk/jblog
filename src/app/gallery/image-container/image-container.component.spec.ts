@@ -1,7 +1,7 @@
 import { of as observableOf } from 'rxjs';
 import { SimpleChange } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpModule } from '@angular/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
@@ -38,7 +38,7 @@ describe('ImageContainerComponent', () => {
     setupImagesFromAlbumCall();
 
     TestBed.configureTestingModule({
-      imports: [HttpModule, RouterTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule],
       declarations: [
         ImageContainerComponent,
         GalleryFormatPipe,
