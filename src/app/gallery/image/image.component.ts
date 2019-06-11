@@ -5,7 +5,6 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AlbumNameTitlePair, ImageInfo } from '../image-info';
 
 import { ImageService } from '../image.service';
-import { TextParsingService } from '../../shared/text-parsing.service';
 import { TitleService } from '../../shared/title.service';
 
 /**
@@ -45,7 +44,6 @@ export class ImageComponent implements OnInit {
     private route: ActivatedRoute,
     private domSanitizer: DomSanitizer,
     private imageService: ImageService,
-    private parser: TextParsingService,
     private titleService: TitleService
   ) {
     this.isZoomedOut = true;
@@ -75,18 +73,6 @@ export class ImageComponent implements OnInit {
   public toggleZoom(event: Event): void {
     event.preventDefault();
     this.isZoomedOut = !this.isZoomedOut;
-  }
-
-  /**
-   * Parses the description text with the {@link TextParsingService}.
-   */
-  public getParsedContent(): SafeHtml {
-    if (!this.data) {
-      return '';
-    }
-
-    const parsed = this.parser.parse(this.data.description);
-    return this.domSanitizer.bypassSecurityTrustHtml(parsed);
   }
 
   /**
