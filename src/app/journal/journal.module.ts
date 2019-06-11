@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { NgxMdModule } from 'ngx-md';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -37,12 +36,7 @@ const journalRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(journalRoutes),
-    NgxMdModule.forRoot(),
-    SharedModule
-  ],
+  imports: [CommonModule, RouterModule.forChild(journalRoutes), SharedModule],
   declarations: [PostComponent, PostListComponent],
   providers: [PostService]
 })

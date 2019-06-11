@@ -1,9 +1,13 @@
 <article id="{{ data.postId }}" class="grid" *ngIf="data">
   <header>
-    <h1>
+    <h1 data-test="post-title">
       <a [routerLink]="['/journal/post', data.slug]">{{ data.title }}</a>
     </h1>
-    <span class="date" title="{{ data.date * 1000 | date: 'medium' }}">
+    <span
+      class="date"
+      title="{{ data.date * 1000 | date: 'medium' }}"
+      data-test="post-date"
+    >
       <i class="far fa-fw fa-calendar" aria-hidden="true"></i>
       {{ data.date * 1000 | date: 'mediumDate' }}
     </span>
@@ -14,8 +18,8 @@
     years old. The content here might not be relevant any more.
   </div>
 
-  <div class="content-area">
-    <ngx-md>{{data.content}}</ngx-md>
+  <div class="content-area" data-test="post-content">
+    <jblog-text>{{ data.content }}</jblog-text>
   </div>
 
   <footer>
