@@ -51,6 +51,7 @@
     "karma-coverage-istanbul-reporter": "^2.0.4",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "ngx-md": "~8.0.0",
     "normalize.css": "8.0.1",
     "prettier": "1.15.3",
     "protractor": "~5.4.1",
@@ -61,7 +62,7 @@
     "tslint": "~5.11.0",
     "tslint-config-prettier": "1.15.0",
     "typemoq": "^2.1.0",
-    "typescript": "^3.4.5",
+    "typescript": "~3.4.5",
     "web-animations-js": "github:angular/web-animations-js#release_pr208",
     "zone.js": "~0.9.1"
   }

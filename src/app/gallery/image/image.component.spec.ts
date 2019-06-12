@@ -8,7 +8,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { It, IMock, Mock, Times } from 'typemoq';
 
 import { ImageService } from '../image.service';
-import { TextParsingService } from '../../shared/text-parsing.service';
 import { TitleService } from '../../shared/title.service';
 
 import { MOCK_IMAGEDATA } from '../mocks/mock-data';
@@ -29,7 +28,6 @@ class MockDatePipe implements PipeTransform {
 
 describe('ImageComponent', () => {
   let mockImageService: IMock<ImageService>;
-  let mockTextParsingService: IMock<TextParsingService>;
   let mockTitleService: IMock<TitleService>;
 
   let component: ImageComponent;
@@ -53,20 +51,11 @@ describe('ImageComponent', () => {
         )
       )
       .returns(() => observableOf([MOCK_IMAGEDATA]));
-
-    mockTextParsingService = Mock.ofType<TextParsingService>();
-    mockTextParsingService
-      .setup(s => s.parse(It.isAnyString()))
-      .returns((s: string) => `${s}${PARSED_SUFFIX}`);
   }
 
   function moduleSetup(): Promise<any> {
     const providers: any[] = [
       { provide: ImageService, useFactory: () => mockImageService.object },
-      {
-        provide: TextParsingService,
-        useFactory: () => mockTextParsingService.object
-      },
       { provide: TitleService, useFactory: () => mockTitleService.object }
     ];
 
@@ -98,22 +87,14 @@ describe('ImageComponent', () => {
     });
 
     it('should parse description text', async(async () => {
-      const expectedParsedOutput = `${
-        MOCK_IMAGEDATA.description
-      }${PARSED_SUFFIX}`;
-
       component.data = MOCK_IMAGEDATA;
 
       fixture.detectChanges();
       await fixture.whenStable();
 
-      mockTextParsingService.verify(
-        x => x.parse(It.isValue(MOCK_IMAGEDATA.description)),
-        Times.atLeastOnce()
-      );
-      expect(compiled.querySelector('.content-area').textContent).toBe(
-        expectedParsedOutput
-      );
+      expect(
+        compiled.querySelector('[data-test=description-text]').textContent
+      ).toBe(MOCK_IMAGEDATA.description);
     }));
 
     it('should display parent folder name', async(async () => {

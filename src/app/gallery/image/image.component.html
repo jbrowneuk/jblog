@@ -57,7 +57,9 @@
         </div>
       </header>
 
-      <div class="content-area" [innerHTML]="getParsedContent()"></div>
+      <div class="content-area" data-test="description-text">
+        <jblog-text>{{ data.description }}</jblog-text>
+      </div>
 
       <footer>
         <ul class="tags-area" id="gallery-area">
