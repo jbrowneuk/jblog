@@ -30,7 +30,9 @@ export class ProjectsContainerComponent implements OnInit {
    * Constructor that takes an injectable {@link ProjectService} that the
    * component uses during its lifetime.
    */
-  constructor(private projectService: ProjectService) {}
+  constructor(private projectService: ProjectService) {
+    this.projects = [];
+  }
 
   /**
    * When initialized, use the {@link ProjectService} to get a page of projects.
