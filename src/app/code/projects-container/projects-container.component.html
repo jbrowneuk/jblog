@@ -52,3 +52,9 @@
     </div>
   </div>
 </article>
+
+<div class="project-loader text-center" *ngIf="projects.length === 0">
+  <jblog-load-spinner></jblog-load-spinner>
+  <h2>Hang tight!</h2>
+  <p>Loading projects…</p>
+</div>
