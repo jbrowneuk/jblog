@@ -1,5 +1,10 @@
 @import 'variables';
 
+::selection,
+::-moz-selection {
+  background: var(--color-selection-background);
+}
+
 :root {
   /* Defaults */
   --border-radius-default: 4px;
@@ -10,7 +15,9 @@
   --grid-columns: 12;
   --grid-column-width: calc(1% / var(--grid-columns) * 100);
   --grid-gutter: 20px;
-  --grid-column-actual-width: calc(var(--grid-column-width) - var(--grid-gutter));
+  --grid-column-actual-width: calc(
+    var(--grid-column-width) - var(--grid-gutter)
+  );
 
   /* Breakpoints */
   --breakpoint-sm: $breakpoint-sm;
@@ -45,6 +52,16 @@
   box-sizing: inherit;
 }
 
+html {
+  font-family: 'Inter', sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: 'Inter var', sans-serif;
+  }
+}
+
 html,
 body {
   margin: 0;
@@ -56,14 +73,8 @@ body {
 body {
   background: var(--color-default-background);
   color: var(--color-default-foreground);
-  font-family: Geomanist, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-}
-
-::selection,
-::-moz-selection {
-  background: var(--color-selection-background);
 }
 
 a {
@@ -109,7 +120,12 @@ h2 {
     border-radius: var(--border-radius-default);
     box-shadow: var(--box-shadow-default) var(--color-default-shadow);
     text-decoration: none;
-    background: var(--color-neutral-03) linear-gradient(to bottom, var(--color-neutral-02), var(--color-neutral-04));
+    background: var(--color-neutral-03)
+      linear-gradient(
+        to bottom,
+        var(--color-neutral-02),
+        var(--color-neutral-04)
+      );
     color: var(--color-default-foreground);
 
     &:hover {
@@ -124,7 +140,12 @@ h2 {
   }
 
   .primary {
-    background: var(--color-primary-b-05) linear-gradient(to bottom, var(--color-primary-b-04), var(--color-primary-b-06));
+    background: var(--color-primary-b-05)
+      linear-gradient(
+        to bottom,
+        var(--color-primary-b-04),
+        var(--color-primary-b-06)
+      );
     color: var(--color-primary-b-10);
   }
 }
@@ -181,8 +202,13 @@ h2 {
 }
 
 @keyframes load-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(89deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(89deg);
+  }
 }
 
 /* EmojiOne */
@@ -240,7 +266,10 @@ h2 {
  */
 .grid {
   display: grid;
-  grid-template-columns: repeat(var(--grid-columns), var(--grid-column-actual-width));
+  grid-template-columns: repeat(
+    var(--grid-columns),
+    var(--grid-column-actual-width)
+  );
   grid-gap: var(--grid-gutter);
   justify-content: center;
   margin-left: calc(var(--grid-gutter) / -2);

@@ -78,17 +78,9 @@ header {
 }
 
 .content-area ::ng-deep {
-  p,
-  blockquote,
-  hr {
-    margin: 0 0 16px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
   img.posted {
+    display: block;
+    margin: 0 auto;
     max-width: 100%;
   }
 
@@ -102,5 +94,15 @@ header {
     padding: 0 0 0 16px;
     border-left: 4px solid var(--color-default-border);
     color: var(--color-secondary-foreground);
+  }
+
+  p,
+  blockquote,
+  hr {
+    margin: 0 0 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
