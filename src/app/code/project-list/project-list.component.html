@@ -57,12 +57,34 @@
     </div>
   </article>
 
+  <label for="archive-filter-toggle" class="filter-bar">
+    <i
+      class="far fa-2x"
+      [class.fa-toggle-on]="archiveFilter.checked"
+      [class.fa-toggle-off]="!archiveFilter.checked"
+      aria-hidden="true"
+    ></i>
+    Archived projects
+  </label>
+
+  <input
+    type="checkbox"
+    id="archive-filter-toggle"
+    #archiveFilter
+    (change)="(1)"
+  />
+
   <jblog-projects-container
     [showArchived]="archiveFilter.checked"
   ></jblog-projects-container>
 
-  <label class="filter-bar">
-    <input type="checkbox" #archiveFilter (change)="(1)" />
-    <i class="far fa-filter" aria-hidden="true"></i> Include archived projects
+  <label for="archive-filter-toggle" class="filter-bar">
+    <i
+      class="far fa-2x"
+      [class.fa-toggle-on]="archiveFilter.checked"
+      [class.fa-toggle-off]="!archiveFilter.checked"
+      aria-hidden="true"
+    ></i>
+    Archived projects
   </label>
 </div>
