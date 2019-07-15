@@ -7,28 +7,6 @@ img.responsive {
   max-width: 100%;
 }
 
-.presenter {
-  margin-top: 10px;
-  padding: 10px;
-  text-align: center;
-
-  &.zoomed-in {
-    overflow: auto;
-    padding-left: 0;
-    padding-right: 0;
-
-    img {
-      cursor: zoom-out;
-    }
-  }
-
-  &.zoomed-out {
-    img {
-      cursor: zoom-in;
-    }
-  }
-}
-
 .image-area {
   position: relative;
   display: inline-block;
@@ -77,6 +55,26 @@ img.responsive {
       left: 0;
       bottom: -$frill-size;
     }
+  }
+}
+
+.presenter {
+  margin-top: 10px;
+  padding: 10px;
+  text-align: center;
+
+  &.zoomed-in {
+    overflow: auto;
+    padding-left: 0;
+    padding-right: 0;
+
+    img {
+      cursor: zoom-out;
+    }
+  }
+
+  &.zoomed-out img {
+    cursor: zoom-in;
   }
 }
 
