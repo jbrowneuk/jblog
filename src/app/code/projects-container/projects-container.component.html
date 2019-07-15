@@ -1,4 +1,7 @@
-<article *ngFor="let project of (projects | archivedProjects: showArchived)">
+<article
+  *ngFor="let project of (projects | archivedProjects: showArchived)"
+  [@visibilityFade]
+>
   <div class="grid">
     <div class="text-area">
       <h1>
