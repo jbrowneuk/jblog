@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgxMdModule } from 'ngx-md';
 
-import { TextParsingService } from './text-parsing.service';
 import { TitleService } from './title.service';
 import { TransitionCompleteService } from './transition-complete.service';
 
@@ -34,7 +33,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [TextParsingService, TitleService, TransitionCompleteService]
+      providers: [TitleService, TransitionCompleteService]
     };
   }
 }

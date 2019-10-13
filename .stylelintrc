@@ -1,5 +1,5 @@
 {
-  "extends": "stylelint-config-standard",
+  "extends": "stylelint-config-prettier",
   "rules": {
     "no-missing-end-of-source-newline": null,
     "max-empty-lines": 1,
