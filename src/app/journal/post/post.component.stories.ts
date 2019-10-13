@@ -1,16 +1,11 @@
 import { storiesOf } from '@storybook/angular';
 import { withKnobs, object } from '@storybook/addon-knobs';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { PostData } from '../post-data';
-import { TextParsingService } from '../../shared/text-parsing.service';
 
 import { PostComponent } from './post.component';
-
-const mockTextParser = {
-  parse: (value: any) => value
-};
 
 const postData: PostData = {
   postId: 1,
@@ -21,10 +16,15 @@ const postData: PostData = {
   slug: 'slug'
 };
 
+@Component({
+  selector: 'jblog-text',
+  template: '<ng-content></ng-content>'
+})
+class MockTextFormatterComponent {}
+
 const moduleMetadata: NgModule = {
-  declarations: [PostComponent],
-  imports: [RouterTestingModule],
-  providers: [{ provide: TextParsingService, useValue: mockTextParser }]
+  declarations: [MockTextFormatterComponent, PostComponent],
+  imports: [RouterTestingModule]
 };
 
 storiesOf('Post', module)
