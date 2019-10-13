@@ -9,7 +9,6 @@ import { IMock, It, Mock, Times } from 'typemoq';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PostComponent } from '../post/post.component';
 import { PostService } from '../post.service';
-import { TextParsingService } from '../../shared/text-parsing.service';
 import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.component';
 import { InfiniteScrollDirective } from '../../shared/infinite-scroll.directive';
 import { TitleService } from '../../shared/title.service';
@@ -32,7 +31,6 @@ const mockPostDataWrapper = {
 
 describe('PostListComponent', () => {
   let mockPostService: IMock<PostService>;
-  let mockTextParsingService: IMock<TextParsingService>;
   let mockTitleService: IMock<TitleService>;
 
   // Needed for the scroll directive
@@ -46,11 +44,6 @@ describe('PostListComponent', () => {
     mockTitleService = Mock.ofType<TitleService>();
     mockTitleService.setup(x => x.setTitle(It.isAnyString()));
     mockTitleService.setup(x => x.resetTitle());
-
-    mockTextParsingService = Mock.ofType<TextParsingService>();
-    mockTextParsingService
-      .setup(tps => tps.parse(It.isAnyString()))
-      .returns(s => s);
 
     mockPostService = Mock.ofType<PostService>();
     mockPostService
@@ -78,10 +71,6 @@ describe('PostListComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
         { provide: PostService, useFactory: () => mockPostService.object },
-        {
-          provide: TextParsingService,
-          useFactory: () => mockTextParsingService.object
-        },
         { provide: TitleService, useFactory: () => mockTitleService.object },
         {
           provide: TransitionCompleteService,
