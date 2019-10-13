@@ -79,8 +79,17 @@ article {
   align-items: center;
   justify-content: center;
   color: var(--color-secondary-foreground);
+  cursor: pointer;
 
-  label {
-    margin-left: 16px;
+  &:hover {
+    color: var(--color-link-foreground);
   }
+
+  .far {
+    margin-right: 0.25em;
+  }
+}
+
+#archive-filter-toggle {
+  display: none;
 }

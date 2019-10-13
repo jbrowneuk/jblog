@@ -1,7 +1,12 @@
 import { of as observableOf } from 'rxjs';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PipeTransform, Pipe } from '@angular/core';
+import {
+  PipeTransform,
+  Pipe,
+  CUSTOM_ELEMENTS_SCHEMA,
+  NO_ERRORS_SCHEMA
+} from '@angular/core';
 
 import { Mock } from 'typemoq';
 
@@ -53,7 +58,8 @@ describe('ProjectsContainerComponent', () => {
       ],
       providers: [
         { provide: ProjectService, useFactory: () => mockProjectService.object }
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectsContainerComponent);

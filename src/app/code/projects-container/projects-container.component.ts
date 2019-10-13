@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { Project } from '../project';
 import { ProjectService } from '../project.service';
+import { Transitions } from '../../shared/transitions';
 
 /**
  * This component is used to show a summary list of code projects. When a
@@ -13,7 +14,8 @@ import { ProjectService } from '../project.service';
 @Component({
   selector: 'jblog-projects-container',
   templateUrl: './projects-container.component.html',
-  styleUrls: ['../project-list.shared.scss']
+  styleUrls: ['../project-list.shared.scss'],
+  animations: [Transitions.visibilityFade]
 })
 export class ProjectsContainerComponent implements OnInit {
   /**
@@ -30,7 +32,9 @@ export class ProjectsContainerComponent implements OnInit {
    * Constructor that takes an injectable {@link ProjectService} that the
    * component uses during its lifetime.
    */
-  constructor(private projectService: ProjectService) {}
+  constructor(private projectService: ProjectService) {
+    this.projects = [];
+  }
 
   /**
    * When initialized, use the {@link ProjectService} to get a page of projects.
