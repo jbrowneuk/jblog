@@ -54,6 +54,10 @@ img,
   bottom: var(--thumbnail-image-padding);
 }
 
+.load-area svg {
+  fill: var(--color-default-background);
+}
+
 .gallery-card {
   overflow: hidden;
   padding: var(--thumbnail-image-padding);
