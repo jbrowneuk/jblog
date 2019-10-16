@@ -12,10 +12,7 @@
     </ng-container>
   </div>
 
-  <div
-    class="gallery-container grid"
-    [@galleryCardTransitions]="images ? 1 : 0"
-  >
+  <div class="gallery-container grid">
     <jblog-thumbnail
       *ngFor="let image of images"
       [data]="image"
@@ -25,9 +22,11 @@
 
 <ng-template #ghostThumbnail>
   <div class="ghost-thumbnail">
-    <div class="overlay">
-      <div class="title"></div>
-      <div class="subtitle"></div>
+    <div class="load-area">
+      <svg viewbox="0 0 300 200">
+        <rect x="0" y="0" width="300" height="200" />
+      </svg>
     </div>
+    <div class="load-effect"></div>
   </div>
 </ng-template>

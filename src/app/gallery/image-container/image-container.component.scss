@@ -3,47 +3,25 @@
 $single-column-breakpoint: 450px;
 
 .ghost-thumbnail {
-  min-height: 128px;
   position: relative;
+  padding: 4px;
   background-color: var(--color-container-background);
   border-radius: var(--border-radius-default);
   box-shadow: 0 2px 4px var(--color-default-shadow);
 
-  .overlay {
+  .load-effect {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    line-height: 1.5;
-    padding: 8px;
-    background-color: var(--color-overlay-background);
+    top: var(--thumbnail-image-padding);
+    right: var(--thumbnail-image-padding);
+    bottom: var(--thumbnail-image-padding);
+    left: var(--thumbnail-image-padding);
+    border-radius: calc(var(--border-radius-default) / 2);
   }
 
-  .title,
-  .subtitle {
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
-    animation-name: loading-bar-pulse;
-    animation-timing-function: ease-in-out;
-    background: linear-gradient(
-      to right,
-      var(--color-neutral-02) 10%,
-      var(--color-neutral-01) 20%,
-      var(--color-neutral-02) 30%
-    );
-    background-size: 200% 16px;
-  }
-
-  .title {
-    width: 50%;
-    height: 16px;
-    margin-bottom: 8px;
-  }
-
-  .subtitle {
-    width: 75%;
-    height: 12px;
+  svg {
+    display: block;
+    width: 100%;
+    fill: transparent;
   }
 }
 
