@@ -49,7 +49,7 @@
   --color-link-hover-foreground: var(--color-primary-a-05);
 
   /* Containers */
-  --color-container-background: #FFFFFF;
+  --color-container-background: #ffffff;
   --color-container-border: var(--color-neutral-02);
 
   /* Page flair top bar */
@@ -61,10 +61,13 @@
   /* Navigation links */
   --color-navigation-links-foreground: var(--color-neutral-07);
   --color-navigation-links-background: transparent;
+  --color-navigation-links-border: transparent;
   --color-navigation-links-hover-foreground: var(--color-neutral-10);
   --color-navigation-links-hover-background: var(--color-neutral-01);
+  --color-navigation-links-hover-border: var(--color-neutral-04);
   --color-navigation-links-active-foreground: var(--color-neutral-01);
   --color-navigation-links-active-background: var(--color-neutral-07);
+  --color-navigation-links-active-border: var(--color-neutral-07);
 
   /* Overlay */
   --color-overlay-background: hsla(210, 36%, 96%, 0.75);

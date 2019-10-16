@@ -5,7 +5,7 @@
     "max-empty-lines": 1,
     "string-quotes": "single",
     "color-hex-length": "long",
-    "color-hex-case": "upper",
+    "color-hex-case": "lower",
     "declaration-colon-newline-after": null,
     "font-family-name-quotes": null,
     "number-leading-zero": "always",
