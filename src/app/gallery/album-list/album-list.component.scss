@@ -36,10 +36,9 @@ $single-column-breakpoint: 450px;
   background-color: var(--color-container-background);
   box-shadow: var(--box-shadow-default) var(--color-default-shadow);
   text-decoration: none;
-  transition: box-shadow 0.2s, top 0.2s;
+  transition: box-shadow 0.2s;
 
   &:hover {
-    top: -0.5px;
     box-shadow: var(--box-shadow-default-hover) var(--color-default-shadow);
 
     .text-area {
@@ -92,6 +91,22 @@ $single-column-breakpoint: 450px;
   border-radius: var(--border-radius-default);
   background-color: var(--color-page-flair);
   color: var(--color-primary-a-01);
+}
+
+.ghost-thumbnail {
+  svg {
+    margin: 0 auto;
+    fill: none;
+  }
+
+  .title-text {
+    height: 24px;
+    width: 50%;
+  }
+
+  .badge-area {
+    width: 2em;
+  }
 }
 
 h2 {

@@ -1,6 +1,15 @@
 <div class="container">
   <h1>All albums</h1>
-  <div class="grid">
+  <div
+    *ngIf="isLoadingAlbums && (!albums || albums.length === 0)"
+    class="loading-area grid"
+  >
+    <ng-container *ngFor="let loader of [].constructor(5)">
+      <ng-container *ngTemplateOutlet="ghostThumbnail"></ng-container>
+    </ng-container>
+  </div>
+
+  <div class="albums-container grid">
     <a
       class="album-card"
       *ngFor="let album of albums"
@@ -24,3 +33,18 @@
     </a>
   </div>
 </div>
+
+<ng-template #ghostThumbnail>
+  <div class="album-card ghost-thumbnail">
+    <div class="colour-area"></div>
+    <div class="image-area load-effect">
+      <svg viewbox="0 0 200 200">
+        <rect x="0" y="0" width="200" height="200" />
+      </svg>
+    </div>
+    <div class="text-area">
+      <div class="title-text load-effect"></div>
+      <div class="badge-area load-effect"></div>
+    </div>
+  </div>
+</ng-template>
