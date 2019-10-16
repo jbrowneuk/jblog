@@ -7,27 +7,34 @@
   line-height: 1;
 }
 
+.load-area,
 .image-area,
 .text-area,
 img {
   display: block;
 }
 
-img {
+img,
+.load-area svg {
   width: 100%;
-  min-height: 64px;
+  height: auto;
+  border-radius: calc(var(--border-radius-default) / 2);
+}
+
+.overlay {
+  position: absolute;
+  left: var(--thumbnail-image-padding);
+  right: var(--thumbnail-image-padding);
 }
 
 .text-area {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  bottom: -100%;
   line-height: 1.5;
   padding: 8px;
   background-color: var(--color-overlay-background);
   color: var(--color-default-foreground);
-  transition: background-color 0.2s;
+  transition: bottom 0.2s;
+  backdrop-filter: blur(2px);
 
   .title,
   .galleries {
@@ -42,19 +49,24 @@ img {
   }
 }
 
+.image-area {
+  top: var(--thumbnail-image-padding);
+  bottom: var(--thumbnail-image-padding);
+}
+
 .gallery-card {
   overflow: hidden;
+  padding: var(--thumbnail-image-padding);
   background-color: var(--color-container-background);
   border-radius: var(--border-radius-default);
-  box-shadow: 0 2px 4px var(--color-default-shadow);
-  transition: top 0.2s, box-shadow 0.2s;
+  box-shadow: var(--box-shadow-default) var(--color-default-shadow);
+  transition: box-shadow 0.2s;
 
   &:hover {
-    top: -0.5px;
-    box-shadow: 0 4px 8px var(--color-default-shadow);
+    box-shadow: var(--box-shadow-default-hover) var(--color-default-shadow);
 
     .text-area {
-      background-color: var(--color-overlay-hover-background);
+      bottom: var(--thumbnail-image-padding);
     }
   }
 }

@@ -44,6 +44,9 @@
   /* Loading spinner */
   --width-spinner-visual: 64px;
   --width-spinner-icon: 48px;
+
+  /* Gallery dimensions */
+  --thumbnail-image-padding: 4px;
 }
 
 *,
@@ -209,17 +212,6 @@ h2 {
   to {
     transform: rotate(89deg);
   }
-}
-
-/* EmojiOne */
-.emojione {
-  height: auto;
-  width: 1.5em;
-  display: inline-block;
-  margin: -0.1em 0 0.1em;
-  padding: 0;
-  line-height: normal;
-  vertical-align: middle;
 }
 
 /*
