@@ -2,7 +2,6 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { ImageInfo } from '../image-info';
 import { ImageService } from '../image.service';
-import { GalleryCardTransitions } from './image-container.animations';
 
 /**
  * The component that is used to load image data and display a thumbnail grid of
@@ -11,8 +10,7 @@ import { GalleryCardTransitions } from './image-container.animations';
 @Component({
   selector: 'jblog-image-container',
   templateUrl: './image-container.component.html',
-  styleUrls: ['./image-container.component.scss'],
-  animations: [GalleryCardTransitions]
+  styleUrls: ['./image-container.component.scss']
 })
 export class ImageContainerComponent implements OnChanges {
   /**
