@@ -20,6 +20,12 @@ export class AlbumListComponent implements OnInit {
   public albums: AlbumInfo[];
 
   /**
+   * A boolean used to signify whether the image data is loading. Used to show
+   * loading feedback to the user.
+   */
+  public isLoadingAlbums = false;
+
+  /**
    * Constructor
    */
   constructor(
@@ -32,8 +38,23 @@ export class AlbumListComponent implements OnInit {
    */
   ngOnInit() {
     this.titleService.setTitle('All albums');
-    this.albumService
-      .getAllAlbumInfo()
-      .subscribe(x => (this.albums = x), e => console.error('Error: %s', e));
+    this.isLoadingAlbums = true;
+    this.albumService.getAllAlbumInfo().subscribe({
+      next: this.handleAlbumsResponse.bind(this),
+      error: this.handleAlbumsFailure.bind(this),
+      complete: this.onLoadingComplete.bind(this)
+    });
+  }
+
+  private handleAlbumsResponse(albumData: AlbumInfo[]): void {
+    this.albums = albumData;
+  }
+
+  private handleAlbumsFailure(error: Error): void {
+    console.error(error.message);
+  }
+
+  private onLoadingComplete(): void {
+    this.isLoadingAlbums = false;
   }
 }

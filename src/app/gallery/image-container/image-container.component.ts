@@ -2,7 +2,6 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { ImageInfo } from '../image-info';
 import { ImageService } from '../image.service';
-import { GalleryCardTransitions } from './image-container.animations';
 
 /**
  * The component that is used to load image data and display a thumbnail grid of
@@ -11,8 +10,7 @@ import { GalleryCardTransitions } from './image-container.animations';
 @Component({
   selector: 'jblog-image-container',
   templateUrl: './image-container.component.html',
-  styleUrls: ['./image-container.component.scss'],
-  animations: [GalleryCardTransitions]
+  styleUrls: ['./image-container.component.scss']
 })
 export class ImageContainerComponent implements OnChanges {
   /**
@@ -74,17 +72,17 @@ export class ImageContainerComponent implements OnChanges {
     this.loadingFailed = false;
     this.imageService
       .getImagesFromAlbum(this.albumName, this.page, this.imageCount)
-      .subscribe(
-        x => this.handleImageResponse(x),
-        e => this.handleImageLoadFailure(e)
-      );
+      .subscribe({
+        next: this.handleImageResponse.bind(this),
+        error: this.handleImageLoadFailure.bind(this),
+        complete: this.handleImageRequestComplete.bind(this)
+      });
   }
 
   /**
    * Convenience method to handle the response from the image service.
    */
   private handleImageResponse(response: ImageInfo[]): void {
-    this.isLoadingImages = false;
     this.images = response;
   }
 
@@ -92,8 +90,14 @@ export class ImageContainerComponent implements OnChanges {
    * Convenience method to handle a failure response from the image service.
    */
   private handleImageLoadFailure(error: Error): void {
-    this.isLoadingImages = false;
     this.loadingFailed = true;
     console.log('Error: %s', error);
+  }
+
+  /**
+   * Convenience method  to handle actions on success or failure of the image request.
+   */
+  private handleImageRequestComplete(): void {
+    this.isLoadingImages = false;
   }
 }

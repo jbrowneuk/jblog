@@ -44,6 +44,9 @@
   /* Loading spinner */
   --width-spinner-visual: 64px;
   --width-spinner-icon: 48px;
+
+  /* Gallery dimensions */
+  --thumbnail-image-padding: 4px;
 }
 
 *,
@@ -201,25 +204,19 @@ h2 {
   }
 }
 
-@keyframes load-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(89deg);
-  }
-}
-
-/* EmojiOne */
-.emojione {
-  height: auto;
-  width: 1.5em;
-  display: inline-block;
-  margin: -0.1em 0 0.1em;
-  padding: 0;
-  line-height: normal;
-  vertical-align: middle;
+.load-effect {
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading-bar-pulse;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate;
+  background: linear-gradient(
+    to right,
+    var(--color-neutral-01) 50%,
+    var(--color-neutral-02) 50%
+  );
+  background-size: 200% 16px;
 }
 
 /*
@@ -279,6 +276,16 @@ h2 {
 /*
  * Animations
  */
+@keyframes load-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(89deg);
+  }
+}
+
 @keyframes loading-bar-pulse {
   0% {
     background-position: 100% 0;

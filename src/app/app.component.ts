@@ -23,6 +23,10 @@ export class AppComponent {
     this.currentSectionId = invalidIdentifier;
   }
 
+  public get currentYear(): number {
+    return new Date().getFullYear();
+  }
+
   public prepareRouteTransition(outlet): string {
     const doesNotHaveIdentifier =
       typeof outlet.activatedRouteData['sectionId'] === 'undefined';
