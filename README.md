@@ -20,11 +20,12 @@ to switch provider.
 
 ## Super quick start
 
-1. Install node and npm (or yarn)
-2. Pull down the code (git clone ...)
-3. Install JavaScript packages (dependencies) using npm (or yarn): `npm install`
-4. Run a development server using `ng serve`
-5. Have a PHP server serve the backend (`/src/api`) at localhost:8080/api
+1. Install node and npm (or yarn) and composer
+1. Pull down the code (git clone ...)
+1. Install JavaScript packages (dependencies) using npm (or yarn): `npm install`
+1. Install PHP packages: `php ./composer.phar install`
+1. Run a development server using `ng serve`
+1. Have a PHP server serve the backend (`/src/api`) at localhost:8080/api
 
 ## Setting up the development environment
 
@@ -82,6 +83,20 @@ Anything else falls back to debug unless specified in `/.angular-cli.json`.
 
 To get the back-end to work, the configuration file and SQLite databases need to
 be generated.
+
+#### Enabling administration panel
+
+The authentication stuff is powered by Firebase-JWT. Install using composer.
+
+Generate a private and public key pair for JWT signing by running the following:
+
+```sh
+ssh-keygen -t rsa -b 4096 -m PEM -f jwtRS256.key
+# Don't add passphrase
+openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
+```
+
+Move the `jwtRS256.key` and `jwtRS256.key.pub` to a secure location on the server and update the paths in the settings file.
 
 #### Configuration file
 
