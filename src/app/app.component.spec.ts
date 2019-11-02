@@ -52,10 +52,5 @@ describe('AppComponent', () => {
 
     // Check the footer exists
     expect(compiled.querySelector('.page-footer')).toBeTruthy();
-
-    // Check the EmojiOne linkback exists (required for free usage)
-    expect(
-      compiled.querySelector('.page-footer > .container').textContent
-    ).toContain('Emoji provided free by Emoji One');
   }));
 });
