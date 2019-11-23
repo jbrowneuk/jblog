@@ -113,13 +113,13 @@ h2 {
 }
 
 .button-container {
-  a {
+  a,
+  button {
     display: inline-block;
     padding: 4px 16px;
     margin-right: 0.5em;
     margin-bottom: 8px;
-    position: relative;
-    transition: top 0.2s, box-shadow 0.2s;
+    transition: box-shadow 0.2s;
     border-radius: var(--border-radius-default);
     box-shadow: var(--box-shadow-default) var(--color-default-shadow);
     text-decoration: none;
@@ -130,9 +130,9 @@ h2 {
         var(--color-neutral-04)
       );
     color: var(--color-default-foreground);
+    cursor: pointer;
 
     &:hover {
-      top: -0.5px;
       box-shadow: var(--box-shadow-default-hover) var(--color-default-shadow);
       text-shadow: 0 1px 1px var(--color-default-shadow);
     }

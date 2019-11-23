@@ -72,4 +72,8 @@
   /* Overlay */
   --color-overlay-background: hsla(210, 36%, 96%, 0.75);
   --color-overlay-hover-background: hsla(210, 36%, 96%, 0.9);
+
+  /* Inputs */
+  --color-input-border: var(--color-container-border);
+  --color-input-border-focus: var(--color-primary-a-07);
 }
