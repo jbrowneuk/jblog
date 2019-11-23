@@ -65,10 +65,7 @@ describe('UserMenuComponent', () => {
     );
     logoutButton.nativeElement.click();
 
-    mockUserService.verify(
-      s => s.initialiseSession(It.isValue(''), It.isValue('')),
-      Times.once()
-    );
+    mockUserService.verify(s => s.endSession(), Times.once());
     mockUserService.verify(s => s.fetchUser(), Times.atLeastOnce());
 
     expect().nothing();

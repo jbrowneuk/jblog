@@ -22,7 +22,7 @@ export class UserMenuComponent implements OnInit {
   }
 
   public logOut(): void {
-    this.userService.initialiseSession('', '');
+    this.userService.endSession();
     this.fetchUser();
   }
 

@@ -106,4 +106,25 @@ describe('UserService', () => {
       });
     });
   });
+
+  describe('end session', () => {
+    // Cannot mock out localStorage reliably; this cannot currently be tested
+    it('should end the session when called', done => {
+      let logoutSent = false;
+
+      service.authenticatedUser$.subscribe({
+        next: user => {
+          if (!logoutSent) {
+            return;
+          }
+
+          expect(user).toBeNull();
+          done();
+        }
+      });
+
+      logoutSent = true;
+      service.endSession();
+    });
+  });
 });

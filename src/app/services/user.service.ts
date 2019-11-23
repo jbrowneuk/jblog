@@ -51,7 +51,7 @@ export class UserService {
       this.restService.get<User>(url, headers).subscribe({
         next: user => this.userSubject.next(user),
         error: () => {
-          this.setSession(null);
+          this.endSession();
           this.userSubject.next(null);
         }
       });
@@ -76,6 +76,14 @@ export class UserService {
       catchError(() => of(null)),
       tap(this.setSession)
     );
+  }
+
+  /**
+   * Ends a user session
+   */
+  public endSession(): void {
+    localStorage.removeItem(TOKEN_IDENTIFIER);
+    this.userSubject.next(null);
   }
 
   private setSession(token: string): void {
