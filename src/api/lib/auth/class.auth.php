@@ -9,10 +9,11 @@ class JwtAuthentication
   private $publicKey;
   private $privateKey;
 
-  public function loadKeys()
+  public function loadKeys($settings)
   {
-    $this->privateKey = file_get_contents('../../keys/jwtRS256.key');
-    $this->publicKey = file_get_contents('../../keys/jwtRS256.key.pub');
+    $directory = $settings['Paths']['KeyRoot'];
+    $this->privateKey = file_get_contents($directory . 'private.key');
+    $this->publicKey = file_get_contents($directory . 'public.key');
   }
 
   public function getAuthInfo($input)

@@ -49,6 +49,10 @@ Thumbs.db
 /src/api/conf/settings.php
 /public/theme
 
+# Potential secrets
+*.key
+*.key.pub
+
 # Third-party assets
 /public/thirdparty
 /src/assets/thirdparty

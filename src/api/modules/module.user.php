@@ -16,7 +16,7 @@ class ApiModule {
     $this->settings = $settings;
 
     $this->auth = new JwtAuthentication();
-    $this->auth->loadKeys();
+    $this->auth->loadKeys($settings);
   }
 
   //============================================================================
