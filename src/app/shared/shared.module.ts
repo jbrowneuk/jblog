@@ -11,6 +11,7 @@ import { LineSplittingPipe } from './line-splitting.pipe';
 import { LoadSpinnerComponent } from './load-spinner/load-spinner.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { FormattedTextComponent } from './formatted-text/formatted-text.component';
+import { UserMenuComponent } from './user-menu/user-menu.component';
 import { LoginComponent } from './login/login.component';
 import { StickyElementDirective } from './sticky-element.directive';
 import { ParallaxScrollDirective } from './parallax-scroll.directive';
@@ -21,6 +22,7 @@ const CORE_COMPONENTS = [
   LoadSpinnerComponent,
   PaginationComponent,
   FormattedTextComponent,
+  UserMenuComponent,
   LoginComponent,
   StickyElementDirective,
   ParallaxScrollDirective,
