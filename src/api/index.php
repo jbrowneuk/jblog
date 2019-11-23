@@ -1,5 +1,7 @@
 <?php
 
+require 'vendor/autoload.php';
+
 require "./lib/api/class.request-helpers.php";
 require "./lib/api/class.response-helpers.php";
 

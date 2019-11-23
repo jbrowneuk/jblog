@@ -5,6 +5,10 @@
 
 # dependencies
 /node_modules
+/src/api/vendor
+
+# PHP Composer
+composer.phar
 
 # IDEs and editors
 /.idea

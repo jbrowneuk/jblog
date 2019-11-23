@@ -2,15 +2,24 @@
 
 class ResponseHelpers {
   public static function respondNotFound() {
-    @header("HTTP/1.0 404 Not Found");
+    @header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
+  }
+
+  public static function respondUnauthorized() {
+    @header($_SERVER["SERVER_PROTOCOL"] . " 401 Unauthorized");
   }
 
   public static function respondServerError() {
-    @header("HTTP/1.1 500 Internal Server Error");
+    @header($_SERVER["SERVER_PROTOCOL"] . " 500 Internal Server Error");
   }
 
   public static function outputWithJsonHeader($obj) {
     @header("Content-Type:application/json; charset=utf-8");
     print json_encode($obj);
+  }
+
+  public static function outputWithPlainTextHeader($string) {
+    @header("Content-Type:text/plain; charset=utf-8");
+    print $string;
   }
 }
