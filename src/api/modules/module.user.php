@@ -27,7 +27,7 @@ class ApiModule {
       return $this->handlePost();
     }
 
-    $httpAuthHeader = $_SERVER["HTTP_AUTHORIZATION"];
+    $httpAuthHeader = $this->getAuth();
     if (!$httpAuthHeader) {
       return ResponseHelpers::respondUnauthorized();
     }
@@ -78,6 +78,13 @@ class ApiModule {
     }
 
     return $results[0][$field];
+  }
+
+  private function getAuth() {
+    // Some servers provide REDIRECT_AUTH instead of HTTP_AUTH
+    $redirectAuth = $_SERVER["REDIRECT_HTTP_AUTHORIZATION"];
+    $httpAuth = $_SERVER["HTTP_AUTHORIZATION"];
+    return isset($redirectAuth) ? $redirectAuth : $httpAuth;
   }
 
 }
