@@ -71,7 +71,6 @@ class Database implements IDatabase
     $statement = $this->db->prepare($sql);
     if ($statement === FALSE)
     {
-      print "<p>Statement failure: $sql</p>";
       return false;
     }
 
@@ -137,7 +136,6 @@ class Database implements IDatabase
     $statement = $this->db->prepare($sql);
     if ($statement === FALSE)
     {
-      print "<p>Statement failure: $sql</p>";
       return false;
     }
 
@@ -227,7 +225,6 @@ class Database implements IDatabase
     $statement = $this->db->prepare($sql);
     if ($statement === FALSE)
     {
-      print "<p>Statement failure: $sql</p>";
       return array();
     }
 
@@ -239,7 +236,7 @@ class Database implements IDatabase
         {
           $value = trim(substr($value, 1));
         }
-        
+
         $statement->bindValue(":where$key", $value);
       }
     }
