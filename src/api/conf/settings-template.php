@@ -19,5 +19,6 @@ $settings = array(
   'Formats' => array('ShortDateTime' => 'd M Y, H:i', 'LongDateTime' => 'l, jS F Y, H:i T'),
   'Defaults' => array('PostsVisible' => $postsVisibleOnPage),
   'Environment' => array('Production' => $isProduction),
-  'URLs' => array('GalleryRoot' => 'http://my.site/gallery/')
+  'URLs' => array('GalleryRoot' => 'http://my.site/gallery/'),
+  'Paths' => array('KeyRoot' => '../../private-location/')
 );
