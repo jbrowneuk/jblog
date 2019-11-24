@@ -17,6 +17,7 @@
 <div *ngIf="menuShown" id="user-menu" [@UserMenuAnimation]>
   <div class="inner-container">
     <ng-container *ngIf="user$ | async as user; else loginForm">
+      Hi {{ user.uid }}!
       <div class="button-container">
         <button (click)="logOut()" data-logout-button>Log out</button>
       </div>
