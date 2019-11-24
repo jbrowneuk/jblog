@@ -123,12 +123,7 @@ h2 {
     border-radius: var(--border-radius-default);
     box-shadow: var(--box-shadow-default) var(--color-default-shadow);
     text-decoration: none;
-    background: var(--color-neutral-03)
-      linear-gradient(
-        to bottom,
-        var(--color-neutral-02),
-        var(--color-neutral-04)
-      );
+    background: var(--color-button-secondary-background);
     color: var(--color-default-foreground);
     cursor: pointer;
 
@@ -143,13 +138,36 @@ h2 {
   }
 
   .primary {
-    background: var(--color-primary-b-05)
-      linear-gradient(
-        to bottom,
-        var(--color-primary-b-04),
-        var(--color-primary-b-06)
-      );
-    color: var(--color-primary-b-10);
+    background: var(--color-button-primary-background);
+    color: var(--color-button-primary-foreground);
+  }
+}
+
+.tags-area {
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    margin-right: 0.25em;
+  }
+
+  .tag a {
+    display: block;
+    min-width: 24px;
+    padding: 0 16px;
+    border-radius: var(--border-radius-default);
+    text-decoration: none;
+    color: var(--color-tag-foreground);
+    border: 1px solid var(--color-tag-border);
+    background: var(--color-tag-background);
+    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+
+    &:hover {
+      color: var(--color-tag-hover-foreground);
+      background: var(--color-tag-hover-background);
+      border-color: var(--color-tag-hover-border);
+    }
   }
 }
 
@@ -159,7 +177,7 @@ h2 {
   height: var(--width-spinner-visual);
   margin: 16px auto;
   position: relative;
-  color: var(--color-primary-a-01);
+  color: var(--color-loading-spinner-primary);
 
   &::before,
   & > div {
@@ -176,7 +194,7 @@ h2 {
   /* Background block */
   &::before {
     content: '';
-    background-color: var(--color-primary-a-08);
+    background-color: var(--color-loading-spinner-secondary);
     border-radius: var(--border-radius-default);
     animation-duration: $speed;
     animation-name: load-spin;
@@ -184,7 +202,7 @@ h2 {
   }
 
   .border {
-    border: 2px solid var(--color-primary-a-08);
+    border: 2px solid var(--color-loading-spinner-secondary);
     border-radius: var(--border-radius-default);
     animation-delay: 80ms;
     animation-duration: $speed;
@@ -213,8 +231,8 @@ h2 {
   animation-direction: alternate;
   background: linear-gradient(
     to right,
-    var(--color-neutral-01) 50%,
-    var(--color-neutral-02) 50%
+    var(--color-loader-skeleton-primary) 50%,
+    var(--color-loader-skeleton-secondary) 50%
   );
   background-size: 200% 16px;
 }

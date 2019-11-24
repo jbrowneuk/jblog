@@ -19,38 +19,40 @@ img.responsive {
   .featured {
     $badge-width: 48px;
 
-    background-color: var(--color-primary-a-08);
-    color: var(--color-primary-a-08);
+    background-color: var(--color-banner-background);
+    color: var(--color-banner-background);
     font-size: 32px;
-    text-shadow: 0 -1px var(--color-primary-a-10),
-      0 1px var(--color-primary-a-06);
+    text-shadow: 0 -1px var(--color-banner-shadow),
+      0 1px var(--color-banner-highlight);
     text-align: center;
     width: $badge-width;
     position: absolute;
     right: 32px;
     top: -10px;
 
+    /* Flap bit */
     &::before {
       display: block;
       content: '';
       border-color: transparent;
       border-style: solid;
       border-width: 5px 2px;
-      border-right-color: var(--color-primary-a-10);
-      border-bottom-color: var(--color-primary-a-10);
+      border-right-color: var(--color-banner-shadow);
+      border-bottom-color: var(--color-banner-shadow);
       position: absolute;
       left: -4px;
       top: 0;
     }
 
+    /* Lower frills bit */
     &::after {
       $frill-size: $badge-width / 2;
 
       display: block;
       content: '';
       border: $frill-size solid transparent;
-      border-left-color: var(--color-primary-a-08);
-      border-right-color: var(--color-primary-a-08);
+      border-left-color: var(--color-banner-background);
+      border-right-color: var(--color-banner-background);
       position: absolute;
       left: 0;
       bottom: -$frill-size;
@@ -109,34 +111,6 @@ header {
 
   h1 {
     margin-bottom: 16px;
-  }
-}
-
-.tags-area {
-  margin: 0;
-  padding: 0;
-
-  li {
-    display: inline-block;
-    margin-right: 0.25em;
-  }
-
-  .tag a {
-    display: block;
-    min-width: 24px;
-    padding: 0 16px;
-    border-radius: var(--border-radius-default);
-    text-decoration: none;
-    color: var(--color-secondary-foreground);
-    border: 1px solid var(--color-secondary-foreground);
-    background-color: transparent;
-    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
-
-    &:hover {
-      color: var(--color-primary-a-01);
-      background-color: var(--color-primary-a-05);
-      border-color: var(--color-primary-a-05);
-    }
   }
 }
 
