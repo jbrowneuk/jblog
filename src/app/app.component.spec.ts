@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TransitionCompleteService } from './shared/transition-complete.service';
 
 import { AppComponent } from './app.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AppComponent', () => {
   const mockTransitionCompleteService = {
@@ -20,7 +21,8 @@ describe('AppComponent', () => {
           provide: TransitionCompleteService,
           useValue: mockTransitionCompleteService
         }
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 

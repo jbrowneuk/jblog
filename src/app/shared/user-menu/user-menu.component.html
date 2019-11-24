@@ -1,0 +1,29 @@
+<button
+  id="menu-toggle"
+  (click)="menuShown = !menuShown"
+  [class.down]="menuShown"
+  data-menu-button
+>
+  <i class="far fa-user-circle"></i>
+</button>
+
+<div
+  *ngIf="menuShown"
+  id="modal"
+  (click)="menuShown = false"
+  [@visibilityFade]
+></div>
+
+<div *ngIf="menuShown" id="user-menu" [@UserMenuAnimation]>
+  <div class="inner-container">
+    <ng-container *ngIf="user$ | async as user; else loginForm">
+      <div class="button-container">
+        <button (click)="logOut()" data-logout-button>Log out</button>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #loginForm>
+  <jblog-login></jblog-login>
+</ng-template>
