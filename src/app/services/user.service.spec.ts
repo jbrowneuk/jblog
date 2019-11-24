@@ -87,7 +87,7 @@ describe('UserService', () => {
       });
     });
 
-    it('should set session to null if credentials passed and endpoint returns error', done => {
+    it('should unset session if credentials passed and endpoint returns error', done => {
       const invalidName = 'asdfasdfasd';
       const invalidPass = 'asdfasdfdas';
 
@@ -95,12 +95,15 @@ describe('UserService', () => {
         .setup(s => s.post(It.isAnyString(), It.isAny()))
         .returns(() => throwError('fail'));
 
-      const setSpy = spyOn(service as any, 'setSession');
+      const setSpy = spyOn(service as any, 'endSession');
 
       service.initialiseSession(invalidName, invalidPass).subscribe({
         next: token => {
-          expect(token).toBe(null);
-          expect(setSpy).toHaveBeenCalledWith(null);
+          fail('Should not get here');
+        },
+        error: (error: Error) => {
+          expect(error).not.toBeNull();
+          expect(setSpy).toHaveBeenCalled();
           done();
         }
       });

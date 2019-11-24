@@ -9,15 +9,20 @@ import { UserService } from '../../services/user.service';
 export class LoginComponent {
   public username: string;
   public password: string;
+  public loginError: boolean;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+    this.loginError = false;
+  }
 
   public submitForm(evt: Event): void {
     evt.preventDefault();
     evt.stopPropagation();
 
+    this.loginError = false;
+
     this.userService.initialiseSession(this.username, this.password).subscribe({
-      error: err => console.error(err),
+      error: () => (this.loginError = true),
       complete: this.fetchUserInfo.bind(this)
     });
   }

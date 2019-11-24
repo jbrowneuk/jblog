@@ -6,12 +6,13 @@ import { UserService } from '../../services/user.service';
 import { IMock, Mock, It, Times } from 'typemoq';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 const Selectors = {
   InputUsername: '[data-username]',
   InputPassword: '[data-password]',
-  ButtonSubmit: '[data-submit]'
+  ButtonSubmit: '[data-submit]',
+  LoginError: '[data-error-message]'
 };
 
 function sendInput(inputElement: DebugElement, value: string): void {
@@ -97,6 +98,27 @@ describe('LoginComponent', () => {
 
       // Verified using typemoq above
       expect().nothing();
+      done();
+    });
+  });
+
+  it('should show login error if login unsuccessful', done => {
+    mockUserService
+      .setup(s => s.initialiseSession(It.isAnyString(), It.isAnyString()))
+      .returns(() => throwError('faketoken'));
+
+    component.username = 'dawn';
+    component.password = 'hikari';
+    component.submitForm(new MouseEvent('click'));
+
+    fixture.detectChanges();
+
+    setTimeout(() => {
+      const loginError = fixture.debugElement.query(
+        By.css(Selectors.LoginError)
+      );
+
+      expect(loginError).toBeTruthy();
       done();
     });
   });

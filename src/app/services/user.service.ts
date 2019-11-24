@@ -1,6 +1,6 @@
 import { Injectable, Optional, Inject } from '@angular/core';
 import { RestService } from './rest.service';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject, throwError } from 'rxjs';
 import { BASE_PATH } from '../variables';
 import { tap, catchError } from 'rxjs/operators';
 
@@ -73,7 +73,7 @@ export class UserService {
 
     const url = `${this.basePath}${API_URL}`;
     return this.restService.post(url, body).pipe(
-      catchError(() => of(null)),
+      catchError(this.handleSessionError.bind(this)),
       tap(this.setSession)
     );
   }
@@ -84,6 +84,11 @@ export class UserService {
   public endSession(): void {
     localStorage.removeItem(TOKEN_IDENTIFIER);
     this.userSubject.next(null);
+  }
+
+  private handleSessionError(): Observable<void> {
+    this.endSession();
+    return throwError(new Error('invalid login'));
   }
 
   private setSession(token: string): void {

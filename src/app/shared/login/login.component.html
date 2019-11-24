@@ -20,6 +20,13 @@
     />
     <i class="accessory far fa-fingerprint" aria-hidden="true"></i>
   </div>
+  <div *ngIf="loginError" class="error-row" data-error-message>
+    <i class="accessory far fa-question-circle" aria-hidden="true"></i>
+    <span class="error-text">
+      Sorry, your login details seem to be incorrect. Please check them and try
+      again.
+    </span>
+  </div>
   <div class="button-container">
     <button type="submit" data-submit>Log in</button>
   </div>
