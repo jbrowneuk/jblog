@@ -27,12 +27,7 @@
       var(--height-margin-page-header) + var(--avatar-dimension) / 2
     );
     z-index: -1;
-    background: var(--color-primary-a-10)
-      linear-gradient(
-        to bottom,
-        var(--color-primary-a-10),
-        var(--color-primary-a-07)
-      );
+    background: var(--color-default-gradient);
     pointer-events: none;
   }
 
@@ -127,13 +122,13 @@
     @for $dot from 1 through 10 {
       @if $dot <= $count {
         .dot:nth-child(#{$dot}) {
-          background-color: var(--color-primary-a-10);
+          background-color: var(--color-progressbar-active);
         }
       }
 
       @if $dot > $count {
         .dot:nth-child(#{$dot}) {
-          background-color: var(--color-neutral-03);
+          background-color: var(--color-progressbar-track);
         }
       }
     }

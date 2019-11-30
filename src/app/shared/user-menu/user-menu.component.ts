@@ -11,6 +11,8 @@ import { UserMenuAnimation } from './user-menu.component.animations';
   animations: [Transitions.visibilityFade, UserMenuAnimation]
 })
 export class UserMenuComponent implements OnInit {
+  public menuShown: boolean;
+
   constructor(private userService: UserService) {}
 
   public get user$(): Observable<any> {

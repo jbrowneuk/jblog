@@ -38,8 +38,7 @@
   position: absolute;
   right: 0;
   top: 25px;
-  width: 256px;
-  overflow: hidden;
+  width: 320px;
   background: var(--color-container-background);
   box-shadow: var(--box-shadow-default-hover) var(--color-default-shadow);
   border-radius: var(--border-radius-default);
@@ -67,5 +66,15 @@
   .inner-container {
     border-top: 4px solid var(--color-page-flair);
     padding: 5px;
+    border-radius: var(--border-radius-default);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #user-menu {
+    position: fixed;
+    top: var(--height-page-header);
+    left: 0;
+    width: auto;
   }
 }
