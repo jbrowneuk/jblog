@@ -93,6 +93,8 @@
   /* Inputs */
   --color-input-border: var(--color-container-border);
   --color-input-border-focus: var(--_color-primary-a-07);
+  --color-input-background: var(--color-default-background);
+  --color-input-background-focus: var(--color-container-background);
 
   /* Errors and warnings */
   --color-error: var(--_color-primary-b-10);
