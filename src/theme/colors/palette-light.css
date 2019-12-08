@@ -141,6 +141,11 @@
   /* Notifications */
   --color-notification-background: var(--_color-primary-a-01);
 
+  /* Blockquotes */
+  --color-blockquote-border: var(--_color-neutral-03);
+  --color-blockquote-icon: var(--_color-neutral-06);
+  --color-blockquote-text: var(--_color-primary-a-07);
+
   /* Site-specific - todo: refactor */
   --color-slide-indicator: transparent;
   --color-slide-indicator-hover: var(--_color-primary-a-03);
