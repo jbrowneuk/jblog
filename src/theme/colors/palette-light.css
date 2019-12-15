@@ -93,6 +93,8 @@
   /* Inputs */
   --color-input-border: var(--color-container-border);
   --color-input-border-focus: var(--_color-primary-a-07);
+  --color-input-background: var(--color-default-background);
+  --color-input-background-focus: var(--color-container-background);
 
   /* Errors and warnings */
   --color-error: var(--_color-primary-b-10);
@@ -138,6 +140,11 @@
 
   /* Notifications */
   --color-notification-background: var(--_color-primary-a-01);
+
+  /* Blockquotes */
+  --color-blockquote-border: var(--_color-neutral-03);
+  --color-blockquote-icon: var(--_color-neutral-06);
+  --color-blockquote-text: var(--_color-primary-a-07);
 
   /* Site-specific - todo: refactor */
   --color-slide-indicator: transparent;

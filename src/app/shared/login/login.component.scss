@@ -28,8 +28,10 @@ input {
 input {
   border: 1px solid var(--color-input-border);
   border-radius: var(--border-radius-default);
+  background-color: var(--color-input-background);
 
   &:focus {
     border-color: var(--color-input-border-focus);
+    background-color: var(--color-input-background-focus);
   }
 }

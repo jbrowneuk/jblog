@@ -1,3 +1,15 @@
+.text-area {
+  --color-background: var(
+    --color-post-background,
+    var(--color-container-background)
+  );
+  --spacing-paragraph: 1em;
+
+  // Flex to prevent margin collapse
+  display: flex;
+  flex-direction: column;
+}
+
 .text-area ::ng-deep {
   hr {
     border: none;
@@ -6,15 +18,44 @@
   }
 
   blockquote {
-    padding: 0 0 0 16px;
-    border-left: 4px solid var(--color-default-border);
-    color: var(--color-secondary-foreground);
+    position: relative;
+    margin: 6px 2% var(--spacing-paragraph);
+    padding: 16px;
+    border: 2px solid var(--color-blockquote-border);
+    border-left: none;
+    border-right: none;
+    border-radius: var(--border-radius-default);
+    color: var(--color-blockquote-text);
+
+    &::before,
+    &::after {
+      position: absolute;
+      display: block;
+      transform: translate(-50%, 0);
+      font-size: 20px;
+      line-height: normal;
+      padding: 0 8px;
+      background: var(--color-background);
+      color: var(--color-blockquote-icon);
+      font-family: 'Font Awesome 5 Pro';
+    }
+
+    &::before {
+      top: -10px;
+      left: 30px;
+      content: '\f10d';
+    }
+
+    &::after {
+      bottom: -10px;
+      right: -10px;
+      content: '\f10e';
+    }
   }
 
   p,
-  blockquote,
   hr {
-    margin: 0 0 16px;
+    margin: 0 0 var(--spacing-paragraph);
 
     &:last-child {
       margin-bottom: 0;
