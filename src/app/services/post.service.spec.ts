@@ -1,8 +1,11 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { of, throwError } from 'rxjs';
+import { IMock, It, Mock } from 'typemoq';
+
 import { TestBed } from '@angular/core/testing';
 
 import { PostData, PostDataWrapper } from '../model/post-data';
 import { PostService } from './post.service';
+import { RestService } from './rest.service';
 
 const mockFirstPost = {
   postId: 1,
@@ -23,30 +26,38 @@ const mockSecondPost = {
 };
 
 describe('PostService', () => {
-  let httpTestingController: HttpTestingController;
+  let mockRestService: IMock<RestService>;
   let service: PostService;
 
   beforeEach(() => {
+    mockRestService = Mock.ofType<RestService>();
+
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [PostService]
+      providers: [
+        { provide: RestService, useFactory: () => mockRestService.object },
+        PostService
+      ]
     });
 
-    httpTestingController = TestBed.get(HttpTestingController);
     service = TestBed.get(PostService);
   });
 
   afterEach(() => {
-    httpTestingController.verify();
+    mockRestService.verifyAll();
   });
 
   it('should get posts for a specified page', (done: DoneFn) => {
     const expectedPage = 3;
+    const expectedUrl = `http://localhost/api/?posts&page=${expectedPage}`;
 
     const mockResponse: PostDataWrapper = {
       posts: [mockFirstPost, mockSecondPost],
       totalPages: expectedPage
     };
+
+    mockRestService
+      .setup(s => s.get(It.isValue(expectedUrl)))
+      .returns(() => of(mockResponse));
 
     service
       .getPostsForPage(expectedPage)
@@ -54,21 +65,20 @@ describe('PostService', () => {
         expect(postData.posts.length).toBe(mockResponse.posts.length);
         done();
       });
-
-    const req = httpTestingController.expectOne(
-      `http://localhost/api/?posts&page=${expectedPage}`
-    );
-    expect(req.request.method).toEqual('GET');
-    req.flush(mockResponse);
   });
 
   it('should get posts for a specified tag', (done: DoneFn) => {
     const expectedTag = 'myTag';
+    const expectedUrl = `http://localhost/api/?posts&tag=${expectedTag}`;
 
     const mockResponse: PostDataWrapper = {
       posts: [mockFirstPost, mockSecondPost],
       totalPages: 1
     };
+
+    mockRestService
+      .setup(s => s.get(It.isValue(expectedUrl)))
+      .returns(() => of(mockResponse));
 
     service
       .getPostsForPage(0, expectedTag)
@@ -76,17 +86,16 @@ describe('PostService', () => {
         expect(postData.posts.length).toBe(mockResponse.posts.length);
         done();
       });
-
-    const req = httpTestingController.expectOne(
-      `http://localhost/api/?posts&tag=${expectedTag}`
-    );
-    expect(req.request.method).toEqual('GET');
-    req.flush(mockResponse);
   });
 
   it('should get a specific post', (done: DoneFn) => {
     const slug = mockFirstPost.slug;
+    const expectedUrl = `http://localhost/api/?posts&slug=${slug}`;
     const mockResponse: PostData[] = [mockFirstPost];
+
+    mockRestService
+      .setup(s => s.get(It.isValue(expectedUrl)))
+      .returns(() => of(mockResponse));
 
     service.getPost(slug).subscribe(
       (postData: PostData) => {
@@ -95,16 +104,15 @@ describe('PostService', () => {
       },
       (err: any) => fail(err)
     );
-
-    const req = httpTestingController.expectOne(
-      `http://localhost/api/?posts&slug=${slug}`
-    );
-    expect(req.request.method).toEqual('GET');
-    req.flush(mockResponse);
   });
 
   it('should handle errors when getting post list', (done: DoneFn) => {
     const page = 1024;
+    const expectedUrl = `http://localhost/api/?posts&page=${page}`;
+
+    mockRestService
+      .setup(s => s.get(It.isValue(expectedUrl)))
+      .returns(() => throwError(new Error('mock failure')));
 
     service.getPostsForPage(page).subscribe(
       () => fail('Should never get here'),
@@ -113,15 +121,16 @@ describe('PostService', () => {
         done();
       }
     );
-
-    const req = httpTestingController.expectOne(
-      `http://localhost/api/?posts&page=${page}`
-    );
-    req.flush('fake 404', { status: 404, statusText: 'Not Found' });
   });
 
   it('should handle errors when getting single post information', (done: DoneFn) => {
     const postId = '1024';
+    const expectedUrl = `http://localhost/api/?posts&slug=${postId}`;
+
+    mockRestService
+      .setup(s => s.get(It.isValue(expectedUrl)))
+      .returns(() => throwError(new Error('mock failure')));
+
     service.getPost(postId).subscribe(
       () => fail('Should never get here'),
       (err: Error) => {
@@ -129,11 +138,6 @@ describe('PostService', () => {
         done();
       }
     );
-
-    const req = httpTestingController.expectOne(
-      `http://localhost/api/?posts&slug=${postId}`
-    );
-    req.flush('fake 404', { status: 404, statusText: 'Not Found' });
   });
 
   it('should handle errors when getting post information for invalid id', (done: DoneFn) => {

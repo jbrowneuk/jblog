@@ -1,11 +1,11 @@
 import { Observable, throwError as observableThrowError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, Optional } from '@angular/core';
 
 import { PostData, PostDataWrapper } from '../model/post-data';
 import { BASE_PATH } from '../variables';
+import { RestService } from './rest.service';
 
 const API_URL = '/?posts';
 
@@ -26,7 +26,7 @@ export class PostService {
    * Injecting constructor.
    */
   constructor(
-    private http: HttpClient,
+    private rest: RestService,
     @Optional()
     @Inject(BASE_PATH)
     basePath: string
@@ -58,7 +58,7 @@ export class PostService {
       apiRequestUrl += `&tag=${tag}`;
     }
 
-    return this.http.get<PostDataWrapper>(apiRequestUrl);
+    return this.rest.get<PostDataWrapper>(apiRequestUrl);
   }
 
   /**
@@ -75,7 +75,7 @@ export class PostService {
     }
 
     const apiRequestUrl = `${this.basePath}${API_URL}&slug=${postId}`;
-    return this.http
+    return this.rest
       .get<PostData[]>(apiRequestUrl)
       .pipe(map((response: PostData[]) => response[0]));
   }
