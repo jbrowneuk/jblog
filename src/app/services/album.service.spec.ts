@@ -58,12 +58,14 @@ describe('AlbumService', () => {
       .setup(s => s.get(It.isValue(expectedUrl)))
       .returns(() => of(mockResponse));
 
-    service.getAllAlbumInfo().subscribe((albums: AlbumInfo[]) => {
-      expect(albums.length).toBe(2);
-      expect(albums[0]).toEqual(firstAlbum);
-      expect(albums[1]).toEqual(secondAlbum);
+    service.getAllAlbumInfo().subscribe({
+      next: (albums: AlbumInfo[]) => {
+        expect(albums.length).toBe(2);
+        expect(albums[0]).toEqual(firstAlbum);
+        expect(albums[1]).toEqual(secondAlbum);
 
-      done();
+        done();
+      }
     });
   });
 
@@ -76,10 +78,12 @@ describe('AlbumService', () => {
       .setup(s => s.get(It.isValue(expectedUrl)))
       .returns(() => of(mockResponse));
 
-    service.getAlbumInfo(albumName).subscribe((album: AlbumInfo) => {
-      expect(album).toEqual(firstAlbum);
+    service.getAlbumInfo(albumName).subscribe({
+      next: (album: AlbumInfo) => {
+        expect(album).toEqual(firstAlbum);
 
-      done();
+        done();
+      }
     });
   });
 
@@ -91,10 +95,12 @@ describe('AlbumService', () => {
       .setup(s => s.get(It.isValue(expectedUrl)))
       .returns(() => of(firstAlbum));
 
-    service.getAlbumInfo('').subscribe((data: AlbumInfo) => {
-      expect(data).toEqual(firstAlbum);
+    service.getAlbumInfo('').subscribe({
+      next: (data: AlbumInfo) => {
+        expect(data).toEqual(firstAlbum);
 
-      done();
+        done();
+      }
     });
   });
 
@@ -105,14 +111,14 @@ describe('AlbumService', () => {
       .setup(s => s.get(It.isValue(expectedUrl)))
       .returns(() => throwError(new Error('mock failure')));
 
-    service.getAllAlbumInfo().subscribe(
-      () => fail('should not get here'),
-      (err: Error) => {
+    service.getAllAlbumInfo().subscribe({
+      next: () => fail('should not get here'),
+      error: (err: Error) => {
         expect(err).toBeTruthy();
 
         done();
       }
-    );
+    });
   });
 
   it('Should handle errors when getting single album info', done => {
@@ -123,13 +129,13 @@ describe('AlbumService', () => {
       .setup(s => s.get(It.isValue(expectedUrl)))
       .returns(() => throwError(new Error('mock failure')));
 
-    service.getAlbumInfo(name).subscribe(
-      () => fail('should not get here'),
-      (err: Error) => {
+    service.getAlbumInfo(name).subscribe({
+      next: () => fail('should not get here'),
+      error: (err: Error) => {
         expect(err).toBeTruthy();
 
         done();
       }
-    );
+    });
   });
 });

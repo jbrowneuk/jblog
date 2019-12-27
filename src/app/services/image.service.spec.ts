@@ -60,16 +60,16 @@ describe('ImageService', () => {
       .setup(s => s.get(It.isValue(expectedUrl)))
       .returns(() => of(mockResponse));
 
-    service
-      .getImagesFromAlbum(albumName, expectedPage)
-      .subscribe((images: ImageInfo[]) => {
+    service.getImagesFromAlbum(albumName, expectedPage).subscribe({
+      next: (images: ImageInfo[]) => {
         expect(images.length).toBe(2);
 
         expect(images[0]).toEqual(mockFeaturedImageData);
         expect(images[1]).toEqual(mockUnfeaturedImageData);
 
         done();
-      });
+      }
+    });
   });
 
   it('should get images from default album if album is blank', done => {
@@ -82,13 +82,13 @@ describe('ImageService', () => {
       .setup(s => s.get(It.isValue(expectedUrl)))
       .returns(() => of(mockResponse));
 
-    service
-      .getImagesFromAlbum('', expectedPage)
-      .subscribe((data: ImageInfo[]) => {
+    service.getImagesFromAlbum('', expectedPage).subscribe({
+      next: (data: ImageInfo[]) => {
         expect(data).toEqual(mockResponse);
 
         done();
-      });
+      }
+    });
   });
 
   it('should get images from first page if page is less than zero', done => {
@@ -101,13 +101,13 @@ describe('ImageService', () => {
       .setup(s => s.get(It.isValue(expectedUrl)))
       .returns(() => of(mockResponse));
 
-    service
-      .getImagesFromAlbum(expectedAlbumName, -2)
-      .subscribe((data: ImageInfo[]) => {
+    service.getImagesFromAlbum(expectedAlbumName, -2).subscribe({
+      next: (data: ImageInfo[]) => {
         expect(data).toEqual(mockResponse);
 
         done();
-      });
+      }
+    });
   });
 
   it('should get a specified number of images if count is set', done => {
@@ -123,9 +123,11 @@ describe('ImageService', () => {
 
     service
       .getImagesFromAlbum(expectedAlbumName, expectedPage, expectedCount)
-      .subscribe(() => {
-        expect().nothing();
-        done();
+      .subscribe({
+        next: () => {
+          expect().nothing();
+          done();
+        }
       });
   });
 
@@ -137,14 +139,13 @@ describe('ImageService', () => {
       .setup(s => s.get(It.isValue(expectedUrl)))
       .returns(() => of(mockResponse));
 
-    service.getImageInfo(mockUnfeaturedImageData.id).subscribe(
-      (image: ImageInfo) => {
+    service.getImageInfo(mockUnfeaturedImageData.id).subscribe({
+      next: (image: ImageInfo) => {
         expect(image).toEqual(mockUnfeaturedImageData);
 
         done();
-      },
-      () => fail('should not get here')
-    );
+      }
+    });
   });
 
   it('should bubble up errors to caller when getting images from album', done => {
@@ -155,14 +156,14 @@ describe('ImageService', () => {
       .setup(s => s.get(It.isValue(expectedUrl)))
       .returns(() => throwError(new Error('mock failure')));
 
-    service.getImagesFromAlbum(expectedAlbumName, 1).subscribe(
-      () => fail('Should not get here'),
-      (err: Error) => {
+    service.getImagesFromAlbum(expectedAlbumName, 1).subscribe({
+      next: () => fail('Should not get here'),
+      error: (err: Error) => {
         expect(err).toBeTruthy();
 
         done();
       }
-    );
+    });
   });
 
   it('should bubble up errors to caller when getting an image’s information', done => {
@@ -172,13 +173,13 @@ describe('ImageService', () => {
       .setup(s => s.get(It.isValue(expectedUrl)))
       .returns(() => throwError(new Error('mock failure')));
 
-    service.getImageInfo(1).subscribe(
-      () => fail('Should not get here'),
-      (err: Error) => {
+    service.getImageInfo(1).subscribe({
+      next: () => fail('Should not get here'),
+      error: (err: Error) => {
         expect(err).toBeTruthy();
 
         done();
       }
-    );
+    });
   });
 });
