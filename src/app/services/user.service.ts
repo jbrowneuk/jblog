@@ -1,8 +1,10 @@
-import { Injectable, Optional, Inject } from '@angular/core';
-import { RestService } from './rest.service';
-import { Observable, of, BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+
+import { Inject, Injectable, Optional } from '@angular/core';
+
 import { BASE_PATH } from '../variables';
-import { tap, catchError } from 'rxjs/operators';
+import { RestService } from './rest.service';
 
 const API_URL = '/?user';
 const TOKEN_IDENTIFIER = 'token';
@@ -36,8 +38,18 @@ export class UserService {
     this.userSubject = new BehaviorSubject<User>(null);
   }
 
+  /**
+   * An observable that updates with the current user
+   */
   public get authenticatedUser$(): Observable<User> {
     return this.userSubject.asObservable();
+  }
+
+  /**
+   * A value that signifies whether a user is logged in or not
+   */
+  public get isLoggedIn(): boolean {
+    return this.userSubject.value !== null;
   }
 
   /**

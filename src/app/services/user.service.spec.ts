@@ -1,9 +1,10 @@
-import { TestBed } from '@angular/core/testing';
-import { IMock, Mock, It } from 'typemoq';
-
-import { UserService } from './user.service';
-import { RestService } from './rest.service';
 import { of, throwError } from 'rxjs';
+import { IMock, It, Mock } from 'typemoq';
+
+import { TestBed } from '@angular/core/testing';
+
+import { RestService } from './rest.service';
+import { UserService } from './user.service';
 
 describe('UserService', () => {
   let mockRestService: IMock<RestService>;
@@ -128,6 +129,32 @@ describe('UserService', () => {
 
       logoutSent = true;
       service.endSession();
+    });
+  });
+
+  describe('User properties', () => {
+    it('should return whether user is logged in', done => {
+      // Mock out session storage
+      spyOn(service as any, 'setSession');
+      spyOn(service as any, 'getSession').and.returnValue('anything');
+
+      const mockUser = { uid: 'a' };
+
+      // No user fetch request
+      expect(service.isLoggedIn).toBeFalsy();
+
+      // Mocked login
+      mockRestService
+        .setup(s => s.get(It.isAny(), It.isAny()))
+        .returns(() => of(mockUser));
+
+      service.fetchUser().subscribe({
+        next: () => {
+          expect(service.isLoggedIn).toBeTruthy();
+
+          done();
+        }
+      });
     });
   });
 });
