@@ -1,8 +1,11 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { inject, TestBed } from '@angular/core/testing';
+import { of, throwError } from 'rxjs';
+import { IMock, It, Mock } from 'typemoq';
+
+import { TestBed } from '@angular/core/testing';
 
 import { AlbumInfo } from '../model/album-info';
 import { AlbumService } from './album.service';
+import { RestService } from './rest.service';
 
 const firstAlbum = {
   albumId: 1,
@@ -16,124 +19,117 @@ const firstAlbum = {
 };
 
 describe('AlbumService', () => {
-  let httpTestingController: HttpTestingController;
+  let mockRestService: IMock<RestService>;
+  let service: AlbumService;
 
   beforeEach(() => {
+    mockRestService = Mock.ofType<RestService>();
+
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [AlbumService]
+      providers: [
+        { provide: RestService, useFactory: () => mockRestService.object },
+        AlbumService
+      ]
     });
 
-    httpTestingController = TestBed.get(HttpTestingController);
+    service = TestBed.get(AlbumService);
   });
 
   afterEach(() => {
-    httpTestingController.verify();
+    mockRestService.verifyAll();
   });
 
-  it('should get all albums from backend', inject(
-    [AlbumService],
-    (service: AlbumService) => {
-      const secondAlbum = {
-        albumId: 2,
-        title: 'second album',
-        name: 'second',
-        description: 'second longer description',
-        imagesInAlbum: 8,
-        imagesPerPage: 4,
-        totalPages: 2,
-        iconUrl: 'http://localhost:9876/img.png'
-      };
+  it('should get all albums from backend', done => {
+    const secondAlbum = {
+      albumId: 2,
+      title: 'second album',
+      name: 'second',
+      description: 'second longer description',
+      imagesInAlbum: 8,
+      imagesPerPage: 4,
+      totalPages: 2,
+      iconUrl: 'http://localhost:9876/img.png'
+    };
 
-      const mockResponse = [firstAlbum, secondAlbum];
+    const mockResponse = [firstAlbum, secondAlbum];
+    const expectedUrl = 'http://localhost/api/?gallery&albumData&all';
 
-      service.getAllAlbumInfo().subscribe((albums: AlbumInfo[]) => {
-        expect(albums.length).toBe(2);
-        expect(albums[0]).toEqual(firstAlbum);
-        expect(albums[1]).toEqual(secondAlbum);
-      });
+    mockRestService
+      .setup(s => s.get(It.isValue(expectedUrl)))
+      .returns(() => of(mockResponse));
 
-      const req = httpTestingController.expectOne(
-        'http://localhost/api/?gallery&albumData&all'
-      );
-      expect(req.request.method).toEqual('GET');
-      req.flush(mockResponse);
-    }
-  ));
+    service.getAllAlbumInfo().subscribe((albums: AlbumInfo[]) => {
+      expect(albums.length).toBe(2);
+      expect(albums[0]).toEqual(firstAlbum);
+      expect(albums[1]).toEqual(secondAlbum);
 
-  it('should get a single album from backend', inject(
-    [AlbumService],
-    (service: AlbumService) => {
-      const albumName = firstAlbum.name;
-      const mockResponse = firstAlbum;
+      done();
+    });
+  });
 
-      service.getAlbumInfo(albumName).subscribe((album: AlbumInfo) => {
-        expect(album).toEqual(firstAlbum);
-      });
+  it('should get a single album from backend', done => {
+    const albumName = firstAlbum.name;
+    const mockResponse = firstAlbum;
+    const expectedUrl = `http://localhost/api/?gallery&albumData&albumName=${albumName}`;
 
-      const req = httpTestingController.expectOne(
-        `http://localhost/api/?gallery&albumData&albumName=${albumName}`
-      );
-      expect(req.request.method).toEqual('GET');
-      req.flush(mockResponse);
-    }
-  ));
+    mockRestService
+      .setup(s => s.get(It.isValue(expectedUrl)))
+      .returns(() => of(mockResponse));
 
-  it('Should get default album info if name is blank', inject(
-    [AlbumService],
-    (service: AlbumService) => {
-      const expectedAlbumName = '_default';
+    service.getAlbumInfo(albumName).subscribe((album: AlbumInfo) => {
+      expect(album).toEqual(firstAlbum);
 
-      service
-        .getAlbumInfo('')
-        .subscribe((data: AlbumInfo) => expect(data).toEqual(firstAlbum));
+      done();
+    });
+  });
 
-      const req = httpTestingController.expectOne(
-        `http://localhost/api/?gallery&albumData&albumName=${expectedAlbumName}`
-      );
-      expect(req.request.method).toEqual('GET');
-      req.flush(firstAlbum);
-    }
-  ));
+  it('Should get default album info if name is blank', done => {
+    const expectedAlbumName = '_default';
+    const expectedUrl = `http://localhost/api/?gallery&albumData&albumName=${expectedAlbumName}`;
 
-  it('Should handle errors when getting all album info', inject(
-    [AlbumService],
-    (service: AlbumService) => {
-      const emsg = 'deliberate 404 error';
+    mockRestService
+      .setup(s => s.get(It.isValue(expectedUrl)))
+      .returns(() => of(firstAlbum));
 
-      service
-        .getAllAlbumInfo()
-        .subscribe(
-          () => fail('should not get here'),
-          (err: Error) => expect(err).toBeTruthy()
-        );
+    service.getAlbumInfo('').subscribe((data: AlbumInfo) => {
+      expect(data).toEqual(firstAlbum);
 
-      const req = httpTestingController.expectOne(
-        `http://localhost/api/?gallery&albumData&all`
-      );
-      expect(req.request.method).toEqual('GET');
-      req.flush(emsg, { status: 404, statusText: 'Not Found' });
-    }
-  ));
+      done();
+    });
+  });
 
-  it('Should handle errors when getting single album info', inject(
-    [AlbumService],
-    (service: AlbumService) => {
-      const emsg = 'deliberate 404 error';
-      const name = 'fake';
+  it('Should handle errors when getting all album info', done => {
+    const expectedUrl = `http://localhost/api/?gallery&albumData&all`;
 
-      service
-        .getAlbumInfo(name)
-        .subscribe(
-          () => fail('should not get here'),
-          (err: Error) => expect(err).toBeTruthy()
-        );
+    mockRestService
+      .setup(s => s.get(It.isValue(expectedUrl)))
+      .returns(() => throwError(new Error('mock failure')));
 
-      const req = httpTestingController.expectOne(
-        `http://localhost/api/?gallery&albumData&albumName=${name}`
-      );
-      expect(req.request.method).toEqual('GET');
-      req.flush(emsg, { status: 404, statusText: 'Not Found' });
-    }
-  ));
+    service.getAllAlbumInfo().subscribe(
+      () => fail('should not get here'),
+      (err: Error) => {
+        expect(err).toBeTruthy();
+
+        done();
+      }
+    );
+  });
+
+  it('Should handle errors when getting single album info', done => {
+    const name = 'fake';
+    const expectedUrl = `http://localhost/api/?gallery&albumData&albumName=${name}`;
+
+    mockRestService
+      .setup(s => s.get(It.isValue(expectedUrl)))
+      .returns(() => throwError(new Error('mock failure')));
+
+    service.getAlbumInfo(name).subscribe(
+      () => fail('should not get here'),
+      (err: Error) => {
+        expect(err).toBeTruthy();
+
+        done();
+      }
+    );
+  });
 });

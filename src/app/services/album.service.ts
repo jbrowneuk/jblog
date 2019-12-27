@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
 
-import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, Optional } from '@angular/core';
 
 import { AlbumInfo } from '../model/album-info';
 import { BASE_PATH } from '../variables';
+import { RestService } from './rest.service';
 
 const API_URL = '/?gallery';
 const DEFAULT_ALBUM_NAME = '_default';
@@ -26,7 +26,7 @@ export class AlbumService {
    * Injecting constructor.
    */
   constructor(
-    private http: HttpClient,
+    private rest: RestService,
     @Optional() @Inject(BASE_PATH) basePath: string
   ) {
     if (basePath) {
@@ -43,7 +43,7 @@ export class AlbumService {
    */
   public getAllAlbumInfo(): Observable<AlbumInfo[]> {
     const requestUrl = `${this.basePath}${API_URL}&albumData&all`;
-    return this.http.get<AlbumInfo[]>(requestUrl);
+    return this.rest.get<AlbumInfo[]>(requestUrl);
   }
 
   /**
@@ -60,6 +60,6 @@ export class AlbumService {
     }
 
     const endpoint = `${this.basePath}${API_URL}&albumData&albumName=${albumName}`;
-    return this.http.get<AlbumInfo>(endpoint);
+    return this.rest.get<AlbumInfo>(endpoint);
   }
 }
