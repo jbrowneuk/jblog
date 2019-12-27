@@ -18,6 +18,9 @@
   <div class="inner-container">
     <ng-container *ngIf="user$ | async as user; else loginForm">
       Hi {{ user.uid }}!
+      <ul id="user-links">
+        <li><a routerLink="/admin">Admin panel</a></li>
+      </ul>
       <div class="button-container">
         <button (click)="logOut()" data-logout-button>Log out</button>
       </div>

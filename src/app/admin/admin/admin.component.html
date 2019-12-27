@@ -1,1 +1,26 @@
-<p>admin works!</p>
+<div class="container">
+  <div id="dashboard">
+    <nav id="side">
+      <ul>
+        <li class="top-area">
+          <svg class="site-icon"><use xlink:href="#sitesheet-logo" /></svg>
+        </li>
+        <li>
+          <a routerLink="/admin/posts" routerLinkActive="active">
+            <i class="icon far fa-book" aria-hidden="true"></i>
+            <span class="text">Posts</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/gallery" routerLinkActive="active">
+            <i class="icon far fa-images" aria-hidden="true"></i>
+            <span class="text">Gallery</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div id="main">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

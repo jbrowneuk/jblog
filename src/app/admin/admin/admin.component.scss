@@ -1,0 +1,75 @@
+:host ::ng-deep .top-area {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--color-container-border);
+}
+
+#dashboard {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  border-radius: var(--border-radius-default);
+  background-color: var(--color-container-background);
+  border: 1px solid var(--color-container-border);
+
+  #side {
+    grid-column: 1;
+  }
+
+  #main {
+    grid-column: 2;
+  }
+}
+
+#side {
+  background-color: var(--color-dashboard-side-background);
+  border-radius: var(--border-radius-default) 0 0 var(--border-radius-default);
+  color: var(--color-dashboard-side-foreground);
+
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none inside;
+  }
+
+  a {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      background-color: var(--color-dashboard-side-hover-background);
+      color: var(--color-dashboard-side-hover-foreground);
+    }
+
+    &.active {
+      background-color: var(--color-dashboard-side-selected-background);
+      color: var(--color-dashboard-side-selected-foreground);
+    }
+  }
+
+  .icon {
+    font-size: 24px;
+  }
+
+  .site-icon {
+    width: 24px;
+  }
+
+  .top-area {
+    justify-content: center;
+    border-bottom-color: transparent;
+  }
+}
