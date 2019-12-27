@@ -1,10 +1,7 @@
-import { TestBed, inject } from '@angular/core/testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
-import { ImageInfo } from './image-info';
+import { ImageInfo } from '../model/image-info';
 import { ImageService } from './image.service';
 
 const mockFeaturedImageData = {
@@ -140,9 +137,7 @@ describe('ImageService', () => {
         );
 
       const req = httpTestingController.expectOne(
-        `http://localhost/api/?gallery&imageData&imageId=${
-          mockUnfeaturedImageData.id
-        }`
+        `http://localhost/api/?gallery&imageData&imageId=${mockUnfeaturedImageData.id}`
       );
       expect(req.request.method).toEqual('GET');
       req.flush(mockResponse);

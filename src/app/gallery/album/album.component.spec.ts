@@ -1,23 +1,21 @@
 import { of as observableOf } from 'rxjs';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-
 import { It, Mock, Times } from 'typemoq';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { AlbumService } from '../../services/album.service';
+import { ImageService } from '../../services/image.service';
 import { LineSplittingPipe } from '../../shared/line-splitting.pipe';
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { ImageContainerComponent } from '../image-container/image-container.component';
-import { GalleryFormatPipe } from '../gallery-format.pipe';
-import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
-import { AlbumService } from '../album.service';
-import { ImageService } from '../image.service';
-import { TitleService } from '../../shared/title.service';
 import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.component';
-
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { TitleService } from '../../shared/title.service';
+import { GalleryFormatPipe } from '../gallery-format.pipe';
+import { ImageContainerComponent } from '../image-container/image-container.component';
 import { MOCK_ALBUMDATA, MOCK_IMAGEDATA } from '../mocks/mock-data';
-
+import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { AlbumComponent } from './album.component';
 
 describe('AlbumComponent', () => {

@@ -1,11 +1,10 @@
-import { storiesOf } from '@storybook/angular';
-import { withKnobs, object } from '@storybook/addon-knobs';
 import { NgModule } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { object, withKnobs } from '@storybook/addon-knobs';
+import { storiesOf } from '@storybook/angular';
 
-import { ImageInfo } from '../image-info';
+import { ImageInfo } from '../../model/image-info';
 import { GalleryFormatPipe } from '../gallery-format.pipe';
-
 import { ThumbnailComponent } from './thumbnail.component';
 
 const imageData: ImageInfo = {

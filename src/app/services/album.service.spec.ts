@@ -1,10 +1,7 @@
-import { TestBed, inject } from '@angular/core/testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
-import { AlbumInfo } from './album-info';
+import { AlbumInfo } from '../model/album-info';
 import { AlbumService } from './album.service';
 
 const firstAlbum = {

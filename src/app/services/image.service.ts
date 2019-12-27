@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs';
-import { Inject, Injectable, Optional } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+
+import { ImageInfo } from '../model/image-info';
 import { BASE_PATH } from '../variables';
-import { ImageInfo } from './image-info';
 
 const API_URL = '/?gallery';
 const DEFAULT_ALBUM_NAME = '_default';
@@ -12,7 +13,9 @@ const DEFAULT_ALBUM_NAME = '_default';
  * A service which handles requesting images and their details from an API
  * backend.
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ImageService {
   /**
    * The fallback base URL to use if one is not provided by the environment.
@@ -56,9 +59,7 @@ export class ImageService {
       pageId = 1;
     }
 
-    let endpoint = `${
-      this.basePath
-    }${API_URL}&images&albumName=${albumName}&page=${pageId}`;
+    let endpoint = `${this.basePath}${API_URL}&images&albumName=${albumName}&page=${pageId}`;
 
     if (count && count > 0) {
       endpoint += `&count=${count}`;

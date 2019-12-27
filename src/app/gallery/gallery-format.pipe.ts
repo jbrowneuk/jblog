@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { AlbumNameTitlePair } from './image-info';
+import { AlbumNameTitlePair } from '../model/image-info';
 
 /**
  * A pipe used to format the album data attached to an image into a presentable

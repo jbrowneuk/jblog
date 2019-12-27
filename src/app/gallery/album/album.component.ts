@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { AlbumInfo } from '../album-info';
-
-import { AlbumService } from '../album.service';
+import { AlbumInfo } from '../../model/album-info';
+import { AlbumService } from '../../services/album.service';
 import { TitleService } from '../../shared/title.service';
 
 /**

@@ -1,18 +1,15 @@
 import { of as observableOf } from 'rxjs';
-import { SimpleChange } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
 import { It, Mock, Times } from 'typemoq';
 
-import { GalleryFormatPipe } from '../gallery-format.pipe';
-import { ImageService } from '../image.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { ImageService } from '../../services/image.service';
 import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.component';
-
+import { GalleryFormatPipe } from '../gallery-format.pipe';
 import { MOCK_IMAGEDATA } from '../mocks/mock-data';
-
 import { ImageContainerComponent } from './image-container.component';
 
 describe('ImageContainerComponent', () => {

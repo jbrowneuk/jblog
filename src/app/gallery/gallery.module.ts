@@ -1,20 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
-
-import { AlbumComponent } from './album/album.component';
 import { AlbumListComponent } from './album-list/album-list.component';
-import { InsightsComponent } from './insights/insights.component';
-import { ImageComponent } from './image/image.component';
-import { ImageContainerComponent } from './image-container/image-container.component';
-import { ThumbnailComponent } from './thumbnail/thumbnail.component';
-
-import { ImageService } from './image.service';
-import { AlbumService } from './album.service';
-
+import { AlbumComponent } from './album/album.component';
 import { GalleryFormatPipe } from './gallery-format.pipe';
+import { ImageContainerComponent } from './image-container/image-container.component';
+import { ImageComponent } from './image/image.component';
+import { InsightsComponent } from './insights/insights.component';
+import { ThumbnailComponent } from './thumbnail/thumbnail.component';
 
 const sectionId = 2;
 const leftSection = sectionId;
@@ -61,7 +56,6 @@ const galleryRoutes: Routes = [
     ThumbnailComponent,
     InsightsComponent
   ],
-  exports: [ImageContainerComponent],
-  providers: [ImageService, AlbumService]
+  exports: [ImageContainerComponent]
 })
 export class GalleryModule {}
