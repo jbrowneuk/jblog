@@ -1,6 +1,6 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 
-import { PostData } from '../post-data';
+import { PostData } from '../../model/post-data';
 
 /**
  * The individual post component that is used to render post data

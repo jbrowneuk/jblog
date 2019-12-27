@@ -1,11 +1,11 @@
-import { throwError as observableThrowError, Observable } from 'rxjs';
-
+import { Observable, throwError as observableThrowError } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Inject, Injectable, Optional } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+
+import { PostData, PostDataWrapper } from '../model/post-data';
 import { BASE_PATH } from '../variables';
-import { PostData, PostDataWrapper } from './post-data';
 
 const API_URL = '/?posts';
 
@@ -13,7 +13,9 @@ const API_URL = '/?posts';
  * A service which handles requesting posts and their details from an API
  * backend.
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PostService {
   /**
    * The fallback base URL to use if one is not provided by the environment.

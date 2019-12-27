@@ -1,13 +1,15 @@
-import { storiesOf } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
-import { NgModule, Component, Input } from '@angular/core';
+import { of } from 'rxjs';
+
+import { Component, Input, NgModule } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { PostListComponent } from './post-list.component';
+import { action } from '@storybook/addon-actions';
+import { storiesOf } from '@storybook/angular';
+
+import { PostService } from '../../services/post.service';
 import { InfiniteScrollDirective } from '../../shared/infinite-scroll.directive';
 import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.component';
-import { PostService } from '../post.service';
 import { TitleService } from '../../shared/title.service';
-import { of } from 'rxjs';
+import { PostListComponent } from './post-list.component';
 
 @Component({
   selector: 'jblog-post',

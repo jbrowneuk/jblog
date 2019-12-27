@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { PostData, PostDataWrapper } from '../post-data';
-
-import { PostService } from '../post.service';
+import { PostData, PostDataWrapper } from '../../model/post-data';
+import { PostService } from '../../services/post.service';
 import { TitleService } from '../../shared/title.service';
 
 const maximumPostsOnScroll = 16;

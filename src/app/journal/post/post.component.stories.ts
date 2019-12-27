@@ -1,10 +1,9 @@
-import { storiesOf } from '@storybook/angular';
-import { withKnobs, object } from '@storybook/addon-knobs';
-import { NgModule, Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { object, withKnobs } from '@storybook/addon-knobs';
+import { storiesOf } from '@storybook/angular';
 
-import { PostData } from '../post-data';
-
+import { PostData } from '../../model/post-data';
 import { PostComponent } from './post.component';
 
 const postData: PostData = {

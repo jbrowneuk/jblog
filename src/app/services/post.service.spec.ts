@@ -1,10 +1,7 @@
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing';
 
-import { PostData, PostDataWrapper } from './post-data';
+import { PostData, PostDataWrapper } from '../model/post-data';
 import { PostService } from './post.service';
 
 const mockFirstPost = {
