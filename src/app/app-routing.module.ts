@@ -18,6 +18,10 @@ const appRoutes: Routes = [
     path: 'projects/code',
     loadChildren: () => import('./code/code.module').then(m => m.CodeModule)
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
   { path: 'code', redirectTo: 'projects/code' },
   { path: '**', component: ErrorComponent, data: { sectionId: 0 } }
 ];
