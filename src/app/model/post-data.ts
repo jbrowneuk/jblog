@@ -44,6 +44,11 @@ export interface PostDataWrapper {
   posts: PostData[];
 
   /**
+   * The currently displayed page for the settings defined in the API request
+   */
+  page: number;
+
+  /**
    * The total number of pages with the settings defined in the API request
    */
   totalPages: number;

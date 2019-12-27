@@ -52,6 +52,7 @@ describe('PostService', () => {
 
     const mockResponse: PostDataWrapper = {
       posts: [mockFirstPost, mockSecondPost],
+      page: 1,
       totalPages: expectedPage
     };
 
@@ -73,6 +74,7 @@ describe('PostService', () => {
 
     const mockResponse: PostDataWrapper = {
       posts: [mockFirstPost, mockSecondPost],
+      page: 1,
       totalPages: 1
     };
 

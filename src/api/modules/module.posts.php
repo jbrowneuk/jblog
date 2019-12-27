@@ -96,6 +96,7 @@ class ApiModule {
 
     $output = array(
       "posts" => $this->generatePostsOutput($posts),
+      "page" => $page,
       "totalPages" => $totalPages
     );
     ResponseHelpers::outputWithJsonHeader($output);
