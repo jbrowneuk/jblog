@@ -1,13 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
-
-import { PostComponent } from './post/post.component';
 import { PostListComponent } from './post-list/post-list.component';
-
-import { PostService } from './post.service';
+import { PostComponent } from './post/post.component';
 
 const sectionId = 4;
 const journalRoutes: Routes = [
@@ -37,7 +34,6 @@ const journalRoutes: Routes = [
 
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(journalRoutes), SharedModule],
-  declarations: [PostComponent, PostListComponent],
-  providers: [PostService]
+  declarations: [PostComponent, PostListComponent]
 })
 export class JournalModule {}

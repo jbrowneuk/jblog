@@ -1,19 +1,18 @@
-import { of as observableOf, BehaviorSubject } from 'rxjs';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Params, ActivatedRoute } from '@angular/router';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-
+import { BehaviorSubject, of as observableOf } from 'rxjs';
 import { IMock, It, Mock, Times } from 'typemoq';
 
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { PostComponent } from '../post/post.component';
-import { PostService } from '../post.service';
-import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.component';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Params } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { PostService } from '../../services/post.service';
 import { InfiniteScrollDirective } from '../../shared/infinite-scroll.directive';
+import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.component';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { TitleService } from '../../shared/title.service';
 import { TransitionCompleteService } from '../../shared/transition-complete.service';
-
+import { PostComponent } from '../post/post.component';
 import { PostListComponent } from './post-list.component';
 
 const mockPostData = {

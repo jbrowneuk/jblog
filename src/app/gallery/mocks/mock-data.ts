@@ -1,4 +1,4 @@
-import { AlbumInfo } from '../album-info';
+import { AlbumInfo } from '../../model/album-info';
 
 export const MOCK_ALBUMDATA: AlbumInfo = {
   albumId: 1,

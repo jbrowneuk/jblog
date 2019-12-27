@@ -1,20 +1,15 @@
-import { of as observableOf, BehaviorSubject } from 'rxjs';
-import { Pipe, PipeTransform } from '@angular/core';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { IMock, It, Mock } from 'typemoq';
+
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Params, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { It, IMock, Mock, Times } from 'typemoq';
-
-import { ImageService } from '../image.service';
+import { ImageService } from '../../services/image.service';
 import { TitleService } from '../../shared/title.service';
-
 import { MOCK_IMAGEDATA } from '../mocks/mock-data';
-
 import { ImageComponent } from './image.component';
-
-const PARSED_SUFFIX = ' was parsed';
 
 @Pipe({
   name: 'date',

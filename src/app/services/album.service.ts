@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
 
 import { Inject, Injectable, Optional } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
+import { AlbumInfo } from '../model/album-info';
 import { BASE_PATH } from '../variables';
-import { AlbumInfo } from './album-info';
+import { RestService } from './rest.service';
 
 const API_URL = '/?gallery';
 const DEFAULT_ALBUM_NAME = '_default';
@@ -13,7 +13,9 @@ const DEFAULT_ALBUM_NAME = '_default';
  * A service which handles requesting albums and their details from an API
  * backend.
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AlbumService {
   /**
    * The fallback base URL to use if one is not provided by the environment.
@@ -24,7 +26,7 @@ export class AlbumService {
    * Injecting constructor.
    */
   constructor(
-    private http: HttpClient,
+    private rest: RestService,
     @Optional() @Inject(BASE_PATH) basePath: string
   ) {
     if (basePath) {
@@ -41,7 +43,7 @@ export class AlbumService {
    */
   public getAllAlbumInfo(): Observable<AlbumInfo[]> {
     const requestUrl = `${this.basePath}${API_URL}&albumData&all`;
-    return this.http.get<AlbumInfo[]>(requestUrl);
+    return this.rest.get<AlbumInfo[]>(requestUrl);
   }
 
   /**
@@ -57,9 +59,7 @@ export class AlbumService {
       albumName = DEFAULT_ALBUM_NAME;
     }
 
-    const endpoint = `${
-      this.basePath
-    }${API_URL}&albumData&albumName=${albumName}`;
-    return this.http.get<AlbumInfo>(endpoint);
+    const endpoint = `${this.basePath}${API_URL}&albumData&albumName=${albumName}`;
+    return this.rest.get<AlbumInfo>(endpoint);
   }
 }

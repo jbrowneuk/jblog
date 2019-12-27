@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { ImageInfo } from '../image-info';
-import { ImageService } from '../image.service';
+import { ImageInfo } from '../../model/image-info';
+import { ImageService } from '../../services/image.service';
 
 /**
  * The component that is used to load image data and display a thumbnail grid of

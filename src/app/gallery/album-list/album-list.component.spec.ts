@@ -1,15 +1,14 @@
 import { of as observableOf } from 'rxjs';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-
 import { It, Mock, Times } from 'typemoq';
 
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { AlbumService } from '../../services/album.service';
 import { LineSplittingPipe } from '../../shared/line-splitting.pipe';
-import { AlbumService } from '../album.service';
 import { TitleService } from '../../shared/title.service';
 import { MOCK_ALBUMDATA } from '../mocks/mock-data';
-
 import { AlbumListComponent } from './album-list.component';
 
 const ALBUM_LIST = [MOCK_ALBUMDATA];

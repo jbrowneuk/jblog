@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ActivatedRoute, Params } from '@angular/router';
 
-import { AlbumNameTitlePair, ImageInfo } from '../image-info';
-
-import { ImageService } from '../image.service';
+import { AlbumNameTitlePair, ImageInfo } from '../../model/image-info';
+import { ImageService } from '../../services/image.service';
 import { TitleService } from '../../shared/title.service';
 
 /**
