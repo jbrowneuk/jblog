@@ -26,18 +26,8 @@ export class LoginComponent implements OnInit {
   }
 
   public ngOnInit() {
-    // Route to given URL if provided
-    combineLatest([
-      this.userService.authenticatedUser$,
-      this.route.queryParams
-    ]).subscribe({
-      next: ([user, params]) => {
-        this.returnTo = params.returnTo;
-
-        if (user && this.returnTo) {
-          this.router.navigate(['/', this.returnTo]);
-        }
-      }
+    this.route.queryParams.subscribe({
+      next: params => (this.returnTo = params.returnTo)
     });
   }
 
@@ -54,7 +44,6 @@ export class LoginComponent implements OnInit {
   }
 
   private fetchUserInfo(): void {
-    // Initial subscribed value is previous; skip
     this.userService.fetchUser().subscribe({
       next: this.onLoginComplete.bind(this),
       error: () => (this.loginError = true)

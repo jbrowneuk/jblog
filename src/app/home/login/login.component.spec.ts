@@ -194,25 +194,28 @@ describe('LoginComponent — login redirects', () => {
     });
   });
 
-  it('should redirect on init if user logged in and returnTo param set', done => {
-    const mockUser = { uid: 'mock' };
+  it('should redirect to admin panel on login if returnTo param not set', done => {
+    // Set up user service in ‘no user’ state
+    // This ensures the redirect in ngOnInit is not fired
     mockUserService
       .setup(s => s.initialiseSession(It.isAnyString(), It.isAnyString()))
       .returns(() => of('faketoken'));
-    mockUserService.setup(s => s.fetchUser()).returns(() => of(mockUser));
     mockUserService
-      .setup(s => s.authenticatedUser$)
-      .returns(() => of(mockUser));
+      .setup(s => s.fetchUser())
+      .returns(() => of({ uid: 'mock' }));
+    mockUserService.setup(s => s.authenticatedUser$).returns(() => of(null));
 
-    const expectedUrl = 'any-page-here';
-    mockActivatedRoute.setQueryParams({ returnTo: expectedUrl });
+    component.username = 'valid';
+    component.password = 'valid';
 
     // Initialise component here
     fixture.detectChanges();
 
+    component.submitForm(new Event('mock'));
+
     setTimeout(() => {
       mockRouter.verify(
-        r => r.navigate(It.isValue(['/', expectedUrl])),
+        r => r.navigate(It.isValue(['/', 'admin'])),
         Times.once()
       );
 
