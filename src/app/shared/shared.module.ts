@@ -1,21 +1,19 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { NgxMdModule } from 'ngx-md';
 
-import { TitleService } from './title.service';
-import { TransitionCompleteService } from './transition-complete.service';
+import { CommonModule } from '@angular/common';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
+import { FormattedTextComponent } from './formatted-text/formatted-text.component';
+import { InfiniteScrollDirective } from './infinite-scroll.directive';
 import { LineSplittingPipe } from './line-splitting.pipe';
 import { LoadSpinnerComponent } from './load-spinner/load-spinner.component';
 import { PaginationComponent } from './pagination/pagination.component';
-import { FormattedTextComponent } from './formatted-text/formatted-text.component';
-import { UserMenuComponent } from './user-menu/user-menu.component';
-import { LoginComponent } from './login/login.component';
-import { StickyElementDirective } from './sticky-element.directive';
 import { ParallaxScrollDirective } from './parallax-scroll.directive';
-import { InfiniteScrollDirective } from './infinite-scroll.directive';
+import { StickyElementDirective } from './sticky-element.directive';
+import { TitleService } from './title.service';
+import { TransitionCompleteService } from './transition-complete.service';
+import { UserMenuComponent } from './user-menu/user-menu.component';
 
 const CORE_COMPONENTS = [
   LineSplittingPipe,
@@ -23,19 +21,13 @@ const CORE_COMPONENTS = [
   PaginationComponent,
   FormattedTextComponent,
   UserMenuComponent,
-  LoginComponent,
   StickyElementDirective,
   ParallaxScrollDirective,
   InfiniteScrollDirective
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule.forChild([]),
-    NgxMdModule.forRoot()
-  ],
+  imports: [CommonModule, RouterModule.forChild([]), NgxMdModule.forRoot()],
   declarations: CORE_COMPONENTS,
   exports: CORE_COMPONENTS
 })

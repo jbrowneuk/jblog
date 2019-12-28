@@ -175,6 +175,12 @@ h2 {
   }
 }
 
+.base-card {
+  border-radius: var(--border-radius-default);
+  background-color: var(--color-container-background);
+  border: 1px solid var(--color-container-border);
+}
+
 /* Shared loading spinner style */
 .load-spinner {
   width: var(--width-spinner-visual);
