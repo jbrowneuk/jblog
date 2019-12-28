@@ -25,7 +25,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.800.0",
+    "@angular-devkit/build-angular": "^0.803.21",
     "@angular-devkit/core": "~8.0.0",
     "@angular/animations": "~8.2.10",
     "@angular/cli": "^8.0.0",
@@ -63,7 +63,7 @@
     "karma-coverage-istanbul-reporter": "^2.0.4",
     "karma-jasmine": "^2.0.0",
     "karma-jasmine-html-reporter": "^1.4.0",
-    "ngx-md": "~8.0.0",
+    "ngx-md": "^8.1.6",
     "normalize.css": "^8.0.1",
     "prettier": "^1.18.2",
     "protractor": "~5.4.1",
