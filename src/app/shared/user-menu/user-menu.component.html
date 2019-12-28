@@ -1,33 +1,14 @@
-<button
-  id="menu-toggle"
-  (click)="menuShown = !menuShown"
-  [class.down]="menuShown"
-  data-menu-button
->
-  <i class="far fa-user-circle"></i>
-</button>
+<ng-container *ngIf="user$ | async as user; else loggedOut">
+  <a routerLink="/admin" data-control-panel>
+    <i class="far fa-fw fa-user-circle"></i> {{ user.uid }}
+  </a>
+  <a (click)="logout($event)" data-logout-button>
+    <i class="far fa-fw fa-sign-out"></i>
+  </a>
+</ng-container>
 
-<div
-  *ngIf="menuShown"
-  id="modal"
-  (click)="menuShown = false"
-  [@visibilityFade]
-></div>
-
-<div *ngIf="menuShown" id="user-menu" [@UserMenuAnimation]>
-  <div class="inner-container">
-    <ng-container *ngIf="user$ | async as user; else loginForm">
-      Hi {{ user.uid }}!
-      <ul id="user-links">
-        <li><a routerLink="/admin">Admin panel</a></li>
-      </ul>
-      <div class="button-container">
-        <button (click)="logOut()" data-logout-button>Log out</button>
-      </div>
-    </ng-container>
-  </div>
-</div>
-
-<ng-template #loginForm>
-  <jblog-login></jblog-login>
+<ng-template #loggedOut>
+  <a routerLink="/login" data-login-button>
+    <i class="far fa-fw fa-sign-in"></i>
+  </a>
 </ng-template>
