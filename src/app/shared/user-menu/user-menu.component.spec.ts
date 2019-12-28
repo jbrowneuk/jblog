@@ -1,14 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { UserMenuComponent } from './user-menu.component';
-import { UserService } from '../../services/user.service';
-import { IMock, Mock, Times, It } from 'typemoq';
 import { of } from 'rxjs';
+import { IMock, It, Mock, Times } from 'typemoq';
+
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+
+import { UserService } from '../../services/user.service';
+import { UserMenuComponent } from './user-menu.component';
 
 const Selectors = {
-  buttonMenu: '[data-menu-button]',
   buttonLogout: '[data-logout-button]'
 };
 
@@ -16,6 +17,7 @@ describe('UserMenuComponent', () => {
   const mockUser = { uid: 'dawn' };
 
   let mockUserService: IMock<UserService>;
+  let mockRouter: IMock<Router>;
   let component: UserMenuComponent;
   let fixture: ComponentFixture<UserMenuComponent>;
 
@@ -25,10 +27,13 @@ describe('UserMenuComponent', () => {
       .setup(s => s.authenticatedUser$)
       .returns(() => of(mockUser));
 
+    mockRouter = Mock.ofType<Router>();
+
     await TestBed.configureTestingModule({
       declarations: [UserMenuComponent],
       providers: [
-        { provide: UserService, useFactory: () => mockUserService.object }
+        { provide: UserService, useFactory: () => mockUserService.object },
+        { provide: Router, useFactory: () => mockRouter.object }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -52,14 +57,7 @@ describe('UserMenuComponent', () => {
     expect().nothing();
   });
 
-  it('should log out when button clicked', async(async () => {
-    // Open menu first so the logout button is shown!
-    const menuButton = fixture.debugElement.query(By.css(Selectors.buttonMenu));
-    menuButton.nativeElement.click();
-
-    fixture.detectChanges();
-    await fixture.whenStable();
-
+  it('should log out when button clicked', async(() => {
     const logoutButton = fixture.debugElement.query(
       By.css(Selectors.buttonLogout)
     );
@@ -67,6 +65,17 @@ describe('UserMenuComponent', () => {
 
     mockUserService.verify(s => s.endSession(), Times.once());
     mockUserService.verify(s => s.fetchUser(), Times.atLeastOnce());
+
+    expect().nothing();
+  }));
+
+  it('should redirect to login page on log out', async(() => {
+    const logoutButton = fixture.debugElement.query(
+      By.css(Selectors.buttonLogout)
+    );
+    logoutButton.nativeElement.click();
+
+    mockRouter.verify(r => r.navigate(It.isValue(['/login'])), Times.once());
 
     expect().nothing();
   }));

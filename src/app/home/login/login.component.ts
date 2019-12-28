@@ -1,4 +1,8 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { skip } from 'rxjs/operators';
+
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -11,7 +15,7 @@ export class LoginComponent {
   public password: string;
   public loginError: boolean;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     this.loginError = false;
   }
 
@@ -23,14 +27,23 @@ export class LoginComponent {
 
     this.userService.initialiseSession(this.username, this.password).subscribe({
       error: () => (this.loginError = true),
-      complete: this.fetchUserInfo.bind(this)
+      next: this.fetchUserInfo.bind(this)
     });
   }
 
-  // should probably be elsewhere
   private fetchUserInfo(): void {
-    this.userService.fetchUser().subscribe({
-      error: err => console.error(err)
-    });
+    // Initial subscribed value is previous; skip
+    this.userService
+      .fetchUser()
+      .pipe(skip(1))
+      .subscribe({
+        next: this.onLoginComplete.bind(this),
+        error: err => console.error(err)
+      });
+  }
+
+  private onLoginComplete(user: any): void {
+    const route = user ? '/admin' : '/';
+    this.router.navigate([route]);
   }
 }

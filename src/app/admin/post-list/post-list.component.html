@@ -1,0 +1,55 @@
+<div class="top-area">
+  <h2>Posts</h2>
+  <div class="button-container">
+    <button routerLink="../create" class="primary">
+      <i class="far fa-plus" aria-hidden="true"></i>
+      New post
+    </button>
+  </div>
+</div>
+
+<ng-container *ngIf="postData$ | async as postData">
+  <table id="posts">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Date</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let post of postData.posts"
+        data-post-row
+        [attr.data-post-id]="post.slug"
+      >
+        <td>
+          <a routerLink="../edit/{{ post.slug }}" data-title>
+            {{ post.title }}
+          </a>
+        </td>
+        <td data-date>{{ post.date * 1000 | date: 'mediumDate' }}</td>
+        <td>
+          <a routerLink="../edit/{{ post.slug }}" title="Edit post">
+            <i class="far fa-fw fa-edit" aria-hidden="true"></i>
+          </a>
+
+          <a routerLink="/journal/post/{{ post.slug }}" title="View post">
+            <i class="far fa-fw fa-external-link" aria-hidden="true"></i>
+          </a>
+
+          <a
+            routerLink="../delete/{{ post.slug }}"
+            title="Delete post"
+            class="delete"
+          >
+            <i class="far fa-fw fa-trash" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div id="pagination">
+    Page {{ postData.page }} of {{ postData.totalPages }}
+  </div>
+</ng-container>

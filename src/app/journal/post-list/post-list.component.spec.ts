@@ -23,8 +23,10 @@ const mockPostData = {
   tags: ['one', 'two'],
   slug: 'mock-data'
 };
+
 const mockPostDataWrapper = {
   posts: [mockPostData],
+  page: 1,
   totalPages: 4
 };
 

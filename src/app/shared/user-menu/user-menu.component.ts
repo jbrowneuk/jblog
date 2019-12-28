@@ -1,34 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
 import { Observable } from 'rxjs';
-import { Transitions } from '../transitions';
-import { UserMenuAnimation } from './user-menu.component.animations';
+
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'jblog-user-menu',
   templateUrl: './user-menu.component.html',
-  styleUrls: ['./user-menu.component.scss'],
-  animations: [Transitions.visibilityFade, UserMenuAnimation]
+  styleUrls: ['./user-menu.component.scss']
 })
 export class UserMenuComponent implements OnInit {
-  public menuShown: boolean;
-
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   public get user$(): Observable<any> {
     return this.userService.authenticatedUser$;
   }
 
   ngOnInit() {
-    this.fetchUser();
-  }
-
-  public logOut(): void {
-    this.userService.endSession();
-    this.fetchUser();
-  }
-
-  private fetchUser(): void {
     this.userService.fetchUser();
+  }
+
+  public logout(evt: Event): void {
+    if (evt) {
+      evt.stopPropagation();
+      evt.preventDefault();
+    }
+
+    this.userService.endSession();
+    this.userService.fetchUser();
+
+    this.router.navigate(['/login']);
   }
 }

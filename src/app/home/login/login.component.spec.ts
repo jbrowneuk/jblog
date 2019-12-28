@@ -1,12 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { LoginComponent } from './login.component';
-import { FormsModule } from '@angular/forms';
-import { UserService } from '../../services/user.service';
-import { IMock, Mock, It, Times } from 'typemoq';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 import { of, throwError } from 'rxjs';
+import { IMock, It, Mock, Times } from 'typemoq';
+
+import { DebugElement } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+
+import { UserService } from '../../services/user.service';
+import { LoginComponent } from './login.component';
 
 const Selectors = {
   InputUsername: '[data-username]',
@@ -23,17 +25,21 @@ function sendInput(inputElement: DebugElement, value: string): void {
 
 describe('LoginComponent', () => {
   let mockUserService: IMock<UserService>;
+  let mockRouter: IMock<Router>;
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async(async () => {
     mockUserService = Mock.ofType<UserService>();
 
+    mockRouter = Mock.ofType<Router>();
+
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
       imports: [FormsModule],
       providers: [
-        { provide: UserService, useFactory: () => mockUserService.object }
+        { provide: UserService, useFactory: () => mockUserService.object },
+        { provide: Router, useFactory: () => mockRouter.object }
       ]
     }).compileComponents();
 

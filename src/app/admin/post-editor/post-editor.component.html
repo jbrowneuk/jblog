@@ -1,0 +1,88 @@
+<div id="tab-bar" class="top-area">
+  <button class="tab" [class.selected]="isEditing" (click)="isEditing = true">
+    <i class="far fa-pencil" aria-hidden="true"></i>
+    Edit
+  </button>
+  <button class="tab" [class.selected]="!isEditing" (click)="isEditing = false">
+    <i class="far fa-eye" aria-hidden="true"></i>
+    Preview
+  </button>
+</div>
+
+<div id="tab-container" *ngIf="postData$ | async as postData">
+  <form class="tab" #postForm="ngForm" id="post-form">
+    <fieldset id="post-content">
+      <!-- https://github.com/w3c/csswg-drafts/issues/321 -->
+      <div id="grid-container">
+        <input
+          [(ngModel)]="postData.title"
+          type="text"
+          name="post-title"
+          class="title-input"
+          placeholder="Post title"
+          [disabled]="!isEditing"
+          data-post-title
+          required
+        />
+
+        <!-- Content text editor -->
+        <ng-container *ngIf="isEditing">
+          <textarea
+            [(ngModel)]="postData.content"
+            name="post-content"
+            class="content-input"
+            placeholder="Post content"
+            rows="10"
+            cols="40"
+            data-post-content
+            required
+          ></textarea>
+          <div class="hint-text character-count" data-post-character-count>
+            {{ postData.content?.length }} characters
+          </div>
+        </ng-container>
+
+        <!-- Content text preview -->
+        <div *ngIf="!isEditing" class="scroll-pane">
+          <jblog-text data-post-content-preview>{{
+            postData.content || '*No content*'
+          }}</jblog-text>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset id="post-options">
+      <legend>Publishing options</legend>
+
+      <div class="options-row">
+        <label class="emulated-checkbox">
+          <input type="checkbox" name="post-draft" data-post-draft />
+          <i class="far fa-check-circle visual checked" aria-hidden="true"></i>
+          <i class="far fa-circle visual unchecked" aria-hidden="true"></i>
+          Save as draft
+        </label>
+      </div>
+
+      <div class="options-row">
+        <label for="post-slug">
+          Post identifier
+        </label>
+        <input
+          [(ngModel)]="postData.slug"
+          type="text"
+          id="post-slug"
+          name="post-slug"
+          placeholder="post-identifier"
+          data-post-identifier
+          pattern="[-a-z0-9]*"
+          title="Alphanumeric and dashes only"
+          #identifier="ngModel"
+          required
+        />
+        <div class="hint-text" [class.error]="identifier.errors">
+          Alphanumeric and dashes only
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
