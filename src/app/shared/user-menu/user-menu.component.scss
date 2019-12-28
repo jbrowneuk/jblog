@@ -1,0 +1,21 @@
+.control {
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-navigation-links-border);
+  border-radius: var(--border-radius-default);
+  background-color: var(--color-navigation-links-background);
+  color: var(--color-navigation-links-foreground);
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+
+  &:hover {
+    background-color: var(--color-navigation-links-hover-background);
+    color: var(--color-navigation-links-hover-foreground);
+    border-color: var(--color-navigation-links-hover-border);
+    text-shadow: 0 1px 1px var(--color-default-shadow);
+  }
+}
+
+.user {
+  padding: 5px;
+}

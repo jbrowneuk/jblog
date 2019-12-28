@@ -9,11 +9,13 @@ import { AdminComponent } from './admin/admin.component';
 import { PostEditorComponent } from './post-editor/post-editor.component';
 import { PostListComponent } from './post-list/post-list.component';
 
+const sectionId = 5;
 const adminRoutes: Routes = [
   {
     path: '',
     component: AdminComponent,
     canActivate: [AuthenticationGuard],
+    data: { sectionId: sectionId },
     children: [
       {
         path: 'posts',

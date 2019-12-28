@@ -57,19 +57,19 @@ export class UserService {
    */
   public fetchUser(): Observable<User> {
     const token = this.getSession();
-    if (token) {
-      const url = `${this.basePath}${API_URL}`;
-      const headers = { Authorization: token };
-      this.restService.get<User>(url, headers).subscribe({
-        next: user => this.userSubject.next(user),
-        error: () => {
-          this.endSession();
-          this.userSubject.next(null);
-        }
-      });
+    if (!token) {
+      return of(null);
     }
 
-    return this.userSubject.asObservable();
+    const url = `${this.basePath}${API_URL}`;
+    const headers = { Authorization: token };
+    return this.restService.get<User>(url, headers).pipe(
+      tap(user => this.userSubject.next(user)),
+      catchError(err => {
+        this.endSession();
+        return throwError(err);
+      })
+    );
   }
 
   /**

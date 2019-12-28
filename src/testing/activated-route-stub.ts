@@ -7,21 +7,30 @@ import { convertToParamMap, ParamMap, Params } from '@angular/router';
  * Use the `setParamMap()` method to add the next `paramMap` value.
  */
 export class ActivatedRouteStub {
-  // Use a ReplaySubject to share previous values with subscribers
-  // and pump new values into the `paramMap` observable
-  private subject: ReplaySubject<ParamMap>;
+  private paramMapSubject: ReplaySubject<ParamMap>;
+  private queryParamSubject: ReplaySubject<Params>;
 
   constructor(initialParams?: Params) {
-    this.subject = new ReplaySubject<ParamMap>();
+    this.paramMapSubject = new ReplaySubject<ParamMap>();
+    this.queryParamSubject = new ReplaySubject<Params>(null);
     this.setParamMap(initialParams);
   }
 
   public get paramMap(): Observable<ParamMap> {
-    return this.subject.asObservable();
+    return this.paramMapSubject.asObservable();
   }
 
-  /** Set the paramMap observables's next value */
-  setParamMap(params?: Params) {
-    this.subject.next(convertToParamMap(params));
+  public get queryParams(): Observable<Params> {
+    return this.queryParamSubject.asObservable();
+  }
+
+  /** Set the paramMap observables’s next value */
+  setParamMap(params?: Params): void {
+    this.paramMapSubject.next(convertToParamMap(params));
+  }
+
+  /** Set the queryParam observable’s next value */
+  setQueryParams(params: Params): void {
+    this.queryParamSubject.next(params);
   }
 }

@@ -1,3 +1,6 @@
+import { Observable, of } from 'rxjs';
+import { map, skip, switchMap, take } from 'rxjs/operators';
+
 import { Injectable } from '@angular/core';
 import {
     ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, NavigationExtras, Route, Router,
@@ -16,29 +19,36 @@ export class AuthenticationGuard
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
+  ): Observable<boolean> {
     return this.checkLogin(state.url);
   }
 
   canActivateChild(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
+  ): Observable<boolean> {
     return this.checkLogin(state.url);
   }
 
-  canLoad(route: Route, segments: UrlSegment[]): boolean {
+  canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
     return this.checkLogin(route.path);
   }
 
-  private checkLogin(url?: string): boolean {
-    if (this.userService.isLoggedIn) {
-      return true;
-    }
+  private checkLogin(url?: string): Observable<boolean> {
+    return this.userService.fetchUser().pipe(
+      take(1),
+      map(user => {
+        if (user) {
+          return true;
+        }
 
-    const navigationOpts = url ? { queryParams: { returnTo: url } } : undefined;
+        const navigationOpts = url
+          ? { queryParams: { returnTo: url } }
+          : undefined;
 
-    this.router.navigate(['/login'], navigationOpts);
-    return false;
+        this.router.navigate(['/login'], navigationOpts);
+        return false;
+      })
+    );
   }
 }

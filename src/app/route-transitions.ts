@@ -1,13 +1,6 @@
 import {
-  trigger,
-  animate,
-  AnimationQueryOptions,
-  style,
-  group,
-  animateChild,
-  query,
-  transition,
-  keyframes
+    animate, animateChild, AnimationQueryOptions, group, keyframes, query, style, transition,
+    trigger
 } from '@angular/animations';
 
 const animationEasing = '200ms ease-out';
@@ -89,8 +82,8 @@ export const TRANSITIONS = [
   trigger('routerAnimations', [
     transition(':increment', increaseSectionId),
     transition(':decrement', decreaseSectionId),
-    transition('* => licenses', decreaseSectionId),
-    transition('licenses => *', increaseSectionId)
+    transition('* => licenses, * => login', decreaseSectionId),
+    transition('licenses => *, login => *', increaseSectionId)
   ]),
   trigger('footerAnimations', [transition('* => *', footerQuery)])
 ];

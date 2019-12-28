@@ -1,3 +1,4 @@
+import { of, throwError } from 'rxjs';
 import { IMock, It, Mock, Times } from 'typemoq';
 
 import { TestBed } from '@angular/core/testing';
@@ -36,33 +37,44 @@ describe('AuthenticationGuard', () => {
     describe(method, () => {
       const mockState = { url: 'mock-url' };
 
-      it('should return true if user is logged in', () => {
-        mockUserService.setup(s => s.isLoggedIn).returns(() => true);
+      it('should return true if user is logged in', done => {
+        mockUserService
+          .setup(s => s.fetchUser())
+          .returns(() => of({ uid: 'mock' }));
 
-        const actual = (guard[method] as Function).call(guard, null, mockState);
-
-        expect(actual).toBeTruthy();
+        (guard[method] as Function).call(guard, null, mockState).subscribe({
+          next: actual => {
+            expect(actual).toBeTruthy();
+            done();
+          }
+        });
       });
 
-      it('should return false if user is not logged in', () => {
-        mockUserService.setup(s => s.isLoggedIn).returns(() => false);
+      it('should return false if user is not logged in', done => {
+        mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
 
-        const actual = (guard[method] as Function).call(guard, null, mockState);
-
-        expect(actual).toBeFalsy();
+        (guard[method] as Function).call(guard, null, mockState).subscribe({
+          next: actual => {
+            expect(actual).toBeFalsy();
+            done();
+          }
+        });
       });
 
-      it('should redirect if user is not logged in', () => {
-        mockUserService.setup(s => s.isLoggedIn).returns(() => false);
+      it('should redirect if user is not logged in', done => {
+        mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
 
-        (guard[method] as Function).call(guard, null, mockState);
+        (guard[method] as Function).call(guard, null, mockState).subscribe({
+          next: () => {
+            mockRouter.verify(
+              r => r.navigate(It.isValue(['/login']), It.isAny()),
+              Times.once()
+            );
 
-        mockRouter.verify(
-          r => r.navigate(It.isValue(['/login']), It.isAny()),
-          Times.once()
-        );
-
-        expect().nothing();
+            expect().nothing();
+            done();
+          }
+        });
       });
     });
   });
@@ -70,33 +82,44 @@ describe('AuthenticationGuard', () => {
   describe('canLoad', () => {
     const mockRoute = { path: 'mock-url' };
 
-    it('should return true if user is logged in', () => {
-      mockUserService.setup(s => s.isLoggedIn).returns(() => true);
+    it('should return true if user is logged in', done => {
+      mockUserService
+        .setup(s => s.fetchUser())
+        .returns(() => of({ uid: 'mock' }));
 
-      const actual = guard.canLoad(mockRoute, null);
-
-      expect(actual).toBeTruthy();
+      guard.canLoad(mockRoute, null).subscribe({
+        next: actual => {
+          expect(actual).toBeTruthy();
+          done();
+        }
+      });
     });
 
-    it('should return false if user is not logged in', () => {
-      mockUserService.setup(s => s.isLoggedIn).returns(() => false);
+    it('should return false if user is not logged in', done => {
+      mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
 
-      const actual = guard.canLoad(mockRoute, null);
-
-      expect(actual).toBeFalsy();
+      guard.canLoad(mockRoute, null).subscribe({
+        next: actual => {
+          expect(actual).toBeFalsy();
+          done();
+        }
+      });
     });
 
-    it('should redirect if user is not logged in', () => {
-      mockUserService.setup(s => s.isLoggedIn).returns(() => false);
+    it('should redirect if user is not logged in', done => {
+      mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
 
-      guard.canLoad(mockRoute, null);
+      guard.canLoad(mockRoute, null).subscribe({
+        next: () => {
+          mockRouter.verify(
+            r => r.navigate(It.isValue(['/login']), It.isAny()),
+            Times.once()
+          );
 
-      mockRouter.verify(
-        r => r.navigate(It.isValue(['/login']), It.isAny()),
-        Times.once()
-      );
-
-      expect().nothing();
+          expect().nothing();
+          done();
+        }
+      });
     });
   });
 });
