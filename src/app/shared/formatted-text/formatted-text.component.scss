@@ -37,19 +37,20 @@
       padding: 0 8px;
       background: var(--color-background);
       color: var(--color-blockquote-icon);
-      font-family: 'Font Awesome 5 Pro';
+      font-family: Geogia, serif;
+      font-weight: 700;
     }
 
     &::before {
       top: -10px;
       left: 30px;
-      content: '\f10d';
+      content: '“';
     }
 
     &::after {
-      bottom: -10px;
-      right: -10px;
-      content: '\f10e';
+      bottom: -15px;
+      right: 0px;
+      content: '”';
     }
   }
 
