@@ -1,10 +1,5 @@
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  Pipe,
-  PipeTransform,
-  CUSTOM_ELEMENTS_SCHEMA,
-  NO_ERRORS_SCHEMA
-} from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { PostComponent } from './post.component';
@@ -12,6 +7,7 @@ import { PostComponent } from './post.component';
 const mockPostData = {
   postId: 1,
   date: Date.now(),
+  modified: null,
   title: 'post title',
   content: 'Example post content with an emoji :smile: . Yay!',
   tags: ['one', 'two'],
@@ -69,5 +65,22 @@ describe('PostComponent', () => {
     expect(
       compiled.querySelector('[data-test=post-date]').textContent.trim()
     ).toBe(expectedDate);
+  }));
+
+  it('should display modified information if set', async(() => {
+    const modified = 1234567;
+
+    // Copy mockPostData so the value doesn't linger after the test
+    component.data = Object.assign({}, mockPostData);
+    component.data.modified = modified;
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      const modifiedElement = compiled.querySelector(
+        '[data-modified]'
+      ) as HTMLElement;
+      expect(modifiedElement).toBeTruthy();
+      expect(modifiedElement.title).toContain(`${modified}`);
+    });
   }));
 });

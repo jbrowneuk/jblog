@@ -9,6 +9,7 @@ import { PostComponent } from './post.component';
 const postData: PostData = {
   postId: 1,
   date: 1553462026,
+  modified: null,
   title: 'Post title',
   content: 'Post content goes here',
   tags: [],

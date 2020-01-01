@@ -65,12 +65,13 @@ class ApiModule {
     $output = array();
     foreach ($posts as $post) {
       $output[] = array(
-        "postId"  => $post->getId(),
-        "date"    => $post->getDate(),
-        "title"   => $post->getTitle(),
-        "content" => $post->getContent(),
-        "tags"    => $post->getTags(),
-        "slug"    => $post->getSlug()
+        "postId"   => $post->getId(),
+        "date"     => $post->getDate(),
+        "modified" => $post->getModifiedDate(),
+        "title"    => $post->getTitle(),
+        "content"  => $post->getContent(),
+        "tags"     => $post->getTags(),
+        "slug"     => $post->getSlug()
       );
     }
 

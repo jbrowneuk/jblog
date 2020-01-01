@@ -5,11 +5,20 @@
     </h1>
     <span
       class="date"
-      title="{{ data.date * 1000 | date: 'medium' }}"
+      title="Written {{ data.date * 1000 | date: 'medium' }}"
       data-test="post-date"
     >
       <i class="fad fa-fw fa-calendar" aria-hidden="true"></i>
       {{ data.date * 1000 | date: 'mediumDate' }}
+    </span>
+    <span
+      *ngIf="data.modified"
+      class="date modified"
+      aria-hidden="true"
+      title="Edited {{ data.modified * 1000 | date: 'medium' }}"
+      data-modified
+    >
+      (edited)
     </span>
   </header>
 

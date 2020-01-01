@@ -41,6 +41,7 @@ export class PostEditorComponent implements OnInit {
     return {
       postId: 0,
       date: Date.now(),
+      modified: null,
       title: '',
       content: '',
       tags: [],

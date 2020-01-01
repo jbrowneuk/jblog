@@ -13,6 +13,12 @@ export interface PostData {
   date: number;
 
   /**
+   * The post's modification date, represented as a timestamp.
+   * Null if not modified.
+   */
+  modified: number;
+
+  /**
    * The post title
    */
   title: string;
