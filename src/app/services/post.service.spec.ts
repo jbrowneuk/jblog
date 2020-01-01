@@ -10,6 +10,7 @@ import { RestService } from './rest.service';
 const mockFirstPost = {
   postId: 1,
   date: Date.now(),
+  modified: null,
   title: 'first',
   content: 'first post!',
   tags: ['first', 'post'],
@@ -19,6 +20,7 @@ const mockFirstPost = {
 const mockSecondPost = {
   postId: 2,
   date: Date.now(),
+  modified: null,
   title: '2nd',
   content: 'second post!',
   tags: ['second', 'post'],

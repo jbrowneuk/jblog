@@ -11,6 +11,7 @@ import { PostListComponent } from './post-list.component';
 const mockPostData: PostData = {
   postId: 1,
   date: 1577487979,
+  modified: null,
   title: 'post title',
   content: 'content',
   tags: [],

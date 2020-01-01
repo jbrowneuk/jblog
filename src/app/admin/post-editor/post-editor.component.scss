@@ -153,6 +153,6 @@ textarea,
 
   input[type='checkbox']:checked ~ .checked,
   input[type='checkbox']:not(:checked) ~ .unchecked {
-    display: inline;
+    display: inline-block;
   }
 }

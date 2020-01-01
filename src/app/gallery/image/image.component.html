@@ -16,7 +16,7 @@
   >
     <div class="image-area">
       <div class="featured" *ngIf="data.featured" title="Featured">
-        <i class="far fa-fw fa-trophy" aria-hidden="true"></i>
+        <i class="fad fa-fw fa-trophy" aria-hidden="true"></i>
       </div>
       <img
         src="{{ data.src }}"
@@ -32,12 +32,12 @@
       [routerLink]="['/art/album', getPrimaryAlbum().name]"
       id="parent-folder-link"
     >
-      <i class="far fa-fw fa-th-large" aria-hidden="true"></i> Back to
+      <i class="fad fa-fw fa-th-large" aria-hidden="true"></i> Back to
       <em>{{ getPrimaryAlbum().title }}</em>
     </a>
     <a href="#" (click)="toggleZoom($event)">
       <i
-        class="far fa-fw"
+        class="fad fa-fw"
         aria-hidden="true"
         [class.fa-search-plus]="isZoomedOut"
         [class.fa-search-minus]="!isZoomedOut"
@@ -52,7 +52,7 @@
       <header>
         <h1 id="image-title">{{ data.title }}</h1>
         <div class="date" title="{{ data.date * 1000 | date: 'medium' }}">
-          <i class="far fa-fw fa-calendar" aria-hidden="true"></i>
+          <i class="fad fa-fw fa-calendar" aria-hidden="true"></i>
           {{ data.date * 1000 | date: 'mediumDate' }}
         </div>
       </header>
@@ -63,7 +63,7 @@
 
       <footer>
         <ul class="tags-area" id="gallery-area">
-          <li><i class="far fa-tags" aria-hidden="true"></i></li>
+          <li><i class="fad fa-tags" aria-hidden="true"></i></li>
           <li class="tag" *ngFor="let gallery of data.containingAlbums">
             <a class="rounded" [routerLink]="['/art/album', gallery.name]">{{
               gallery.title

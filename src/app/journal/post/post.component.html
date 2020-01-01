@@ -5,16 +5,25 @@
     </h1>
     <span
       class="date"
-      title="{{ data.date * 1000 | date: 'medium' }}"
+      title="Written {{ data.date * 1000 | date: 'medium' }}"
       data-test="post-date"
     >
-      <i class="far fa-fw fa-calendar" aria-hidden="true"></i>
+      <i class="fad fa-fw fa-calendar" aria-hidden="true"></i>
       {{ data.date * 1000 | date: 'mediumDate' }}
+    </span>
+    <span
+      *ngIf="data.modified"
+      class="date modified"
+      aria-hidden="true"
+      title="Edited {{ data.modified * 1000 | date: 'medium' }}"
+      data-modified
+    >
+      (edited)
     </span>
   </header>
 
   <div class="outdated-content" *ngIf="ageInYearsGreaterThan(2)">
-    <i class="far fa-fw fa-exclamation-triangle"></i> This post is over two
+    <i class="fad fa-fw fa-exclamation-triangle"></i> This post is over two
     years old. The content here might not be relevant any more.
   </div>
 
@@ -24,7 +33,7 @@
 
   <footer>
     <ul class="tags-area">
-      <li><i class="far fa-tags" aria-hidden="true"></i></li>
+      <li><i class="fad fa-tags" aria-hidden="true"></i></li>
       <li class="tag" *ngFor="let tag of data.tags">
         <a class="rounded" [routerLink]="['/journal/tag', tag]">{{ tag }}</a>
       </li>

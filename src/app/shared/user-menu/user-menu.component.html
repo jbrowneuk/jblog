@@ -1,14 +1,14 @@
 <ng-container *ngIf="user$ | async as user; else loggedOut">
   <button class="control user" routerLink="/admin" data-control-panel>
-    <i class="far fa-fw fa-user-circle"></i> {{ user.uid }}
+    <i class="fad fa-fw fa-user-circle"></i> {{ user.uid }}
   </button>
   <button class="control" (click)="logout($event)" data-logout-button>
-    <i class="far fa-fw fa-sign-out"></i>
+    <i class="fad fa-fw fa-sign-out"></i>
   </button>
 </ng-container>
 
 <ng-template #loggedOut>
   <button class="control" routerLink="/login" data-login-button>
-    <i class="far fa-fw fa-sign-in"></i>
+    <i class="fad fa-fw fa-sign-in"></i>
   </button>
 </ng-template>

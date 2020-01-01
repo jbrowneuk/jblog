@@ -2,7 +2,7 @@
   <h2>Posts</h2>
   <div class="button-container">
     <button routerLink="../create" class="primary">
-      <i class="far fa-plus" aria-hidden="true"></i>
+      <i class="fad fa-plus" aria-hidden="true"></i>
       New post
     </button>
   </div>
@@ -31,11 +31,11 @@
         <td data-date>{{ post.date * 1000 | date: 'mediumDate' }}</td>
         <td>
           <a routerLink="../edit/{{ post.slug }}" title="Edit post">
-            <i class="far fa-fw fa-edit" aria-hidden="true"></i>
+            <i class="fad fa-fw fa-edit" aria-hidden="true"></i>
           </a>
 
           <a routerLink="/journal/post/{{ post.slug }}" title="View post">
-            <i class="far fa-fw fa-external-link" aria-hidden="true"></i>
+            <i class="fad fa-fw fa-external-link" aria-hidden="true"></i>
           </a>
 
           <a
@@ -43,7 +43,7 @@
             title="Delete post"
             class="delete"
           >
-            <i class="far fa-fw fa-trash" aria-hidden="true"></i>
+            <i class="fad fa-fw fa-trash" aria-hidden="true"></i>
           </a>
         </td>
       </tr>

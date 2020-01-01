@@ -1,8 +1,8 @@
 <div class="container">
-  <article class="post">
-    <h2>The unique selling point</h2>
-    <div class="row">
-      <div class="col-md-8">
+  <article class="base-card">
+    <div class="grid">
+      <header><h1>The unique selling point</h1></header>
+      <div class="content-area">
         <p>
           Visual art is core to who I am, and you’ll almost always find a me
           accompanied by a sketchpad of sorts which I’ll use to scribble on
@@ -15,28 +15,30 @@
           as opposed to anything professional, however at work I am tasked with
           bringing the best of these talents and skills into my day-to-day job.
         </p>
-        <div class="faux-button-container">
-          <a class="primary" routerLink="/art">
-            <i aria-hidden="true" class="far fa-fw fa-angle-left"></i> Back to
-            gallery
+        <div class="button-container">
+          <a class="primary" routerLink="/art/album/featured/page/1">
+            <i aria-hidden="true" class="fad fa-fw fa-award"></i> Featured works
+          </a>
+          <a class="secondary" routerLink="/art/album/latest/page/1">
+            <i aria-hidden="true" class="fad fa-fw fa-folders"></i> Latest works
           </a>
         </div>
       </div>
-      <div class="col-md-4 align-center hidden-sm hidden-xs">
-        <img
-          src="/assets/images/overview-art.svg"
-          alt="pencils"
-          class="responsive"
-          width="320"
-        />
+      <div class="image-area">
+        <img src="/assets/images/signature.svg" alt="pencils" width="320" />
       </div>
     </div>
   </article>
 
-  <article class="post">
-    <h2>Manifesto</h2>
-    <div class="row">
-      <div class="col-md-8">
+  <jblog-image-container
+    albumName="traditional"
+    imageCount="4"
+  ></jblog-image-container>
+
+  <article class="base-card">
+    <div class="grid">
+      <header><h1>Manifesto</h1></header>
+      <div class="content-area">
         <p>
           There are four main goals I try to adhere to when I have my artist’s
           hat on:
@@ -60,20 +62,25 @@
           </li>
         </ul>
       </div>
-      <div class="col-md-4 align-center hidden-sm hidden-xs">
+      <div class="image-area">
         <img
-          src="/assets/images/art.jpg"
+          src="/assets/images/insights/brushes.svg"
           alt="pencils"
-          class="responsive light-shadow"
+          width="320"
         />
       </div>
     </div>
   </article>
 
-  <article class="post">
-    <h2>On vector graphics</h2>
-    <div class="row">
-      <div class="col-md-8">
+  <jblog-image-container
+    albumName="vector"
+    imageCount="4"
+  ></jblog-image-container>
+
+  <article class="base-card">
+    <div class="grid">
+      <header><h1>On vector graphics</h1></header>
+      <div class="content-area">
         <p>
           I create the bulk of my vector graphics using Inkscape. While I’ve
           used other vector editors in the past, I find myself returning to
@@ -93,22 +100,33 @@
           always make an effort to inject a bit of my personality into
           everything I create.
         </p>
+
+        <div class="button-container">
+          <a class="primary" routerLink="/art/album/vector/page/1">
+            <i aria-hidden="true" class="fad fa-fw fa-bezier-curve"></i> Vector
+            graphics
+          </a>
+        </div>
       </div>
-      <div class="col-md-4 align-center hidden-sm hidden-xs">
+      <div class="image-area">
         <img
-          src="/assets/images/art.svg"
+          src="/assets/images/insights/editor.svg"
           alt="digital art application"
-          class="responsive"
           width="320"
         />
       </div>
     </div>
   </article>
 
-  <article class="post">
-    <h2>On photography</h2>
-    <div class="row">
-      <div class="col-md-8">
+  <jblog-image-container
+    albumName="photography"
+    imageCount="4"
+  ></jblog-image-container>
+
+  <article class="base-card">
+    <div class="grid">
+      <header><h1>On photography</h1></header>
+      <div class="content-area">
         <p>
           A lot of my photography is the correct mix of luck, lighting and
           determination. While I have a decent camera with a pretty bulky set of
@@ -121,12 +139,18 @@
           to pay for a new reel of film, but this has served as a great lesson
           on being efficient with photos I take.
         </p>
+
+        <div class="button-container">
+          <a class="primary" routerLink="/art/album/photography/page/1">
+            <i aria-hidden="true" class="fad fa-fw fa-camera-retro"></i>
+            Photography
+          </a>
+        </div>
       </div>
-      <div class="col-md-4 align-center hidden-sm hidden-xs">
+      <div class="image-area">
         <img
-          src="/assets/images/camera.svg"
+          src="/assets/images/insights/camera.svg"
           alt="camera"
-          class="responsive"
           width="320"
         />
       </div>
