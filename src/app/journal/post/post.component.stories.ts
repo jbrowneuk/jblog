@@ -27,9 +27,9 @@ const moduleMetadata: NgModule = {
   imports: [RouterTestingModule]
 };
 
-storiesOf('Post', module)
+storiesOf('Journal', module)
   .addDecorator(withKnobs)
-  .add('Default', () => ({
+  .add('Post', () => ({
     template: `<div class="container">
     <jblog-post [data]="data"></jblog-post>
   </div>`,

@@ -1,5 +1,6 @@
-import { storiesOf } from '@storybook/angular';
 import { NgModule } from '@angular/core';
+import { storiesOf } from '@storybook/angular';
+
 import { TitleService } from '../../shared/title.service';
 import { AboutComponent } from './about.component';
 
@@ -12,7 +13,7 @@ const moduleMetadata: NgModule = {
   providers: [{ provide: TitleService, useValue: mockTitleService }]
 };
 
-storiesOf('About Page', module).add('Default', () => ({
+storiesOf('Home', module).add('About', () => ({
   component: AboutComponent,
   moduleMetadata
 }));

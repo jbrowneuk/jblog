@@ -1,6 +1,7 @@
-import { storiesOf } from '@storybook/angular';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { storiesOf } from '@storybook/angular';
+
 import { TitleService } from '../../shared/title.service';
 import { TopPageComponent } from './top-page.component';
 
@@ -14,7 +15,7 @@ const moduleMetadata: NgModule = {
   providers: [{ provide: TitleService, useValue: mockTitleService }]
 };
 
-storiesOf('Top Page', module).add('Default', () => ({
+storiesOf('Home', module).add('Top page', () => ({
   component: TopPageComponent,
   moduleMetadata
 }));

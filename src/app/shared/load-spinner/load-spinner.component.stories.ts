@@ -1,5 +1,5 @@
-import { storiesOf } from '@storybook/angular';
 import { NgModule } from '@angular/core';
+import { storiesOf } from '@storybook/angular';
 
 import { LoadSpinnerComponent } from './load-spinner.component';
 
@@ -7,7 +7,7 @@ const moduleMetadata: NgModule = {
   declarations: [LoadSpinnerComponent]
 };
 
-storiesOf('Loading Spinner', module).add('Default', () => ({
+storiesOf('Shared', module).add('Loading Spinner', () => ({
   template: `
   <!-- Copied directly from index.html and wrapped -->
   <svg xmlns="http://www.w3.org/2000/svg" class="spritesheet">

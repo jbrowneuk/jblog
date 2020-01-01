@@ -45,7 +45,7 @@ const moduleMetadata: NgModule = {
   ]
 };
 
-storiesOf('Post List', module).add('Default', () => ({
+storiesOf('Journal', module).add('Post List', () => ({
   component: PostListComponent,
   moduleMetadata,
   props: {
