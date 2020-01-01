@@ -1,17 +1,58 @@
-:host ::ng-deep .top-area {
-  height: 48px;
-  display: flex;
-  align-items: center;
-  padding: 0 8px;
-  border-bottom: 1px solid var(--color-container-border);
+:host ::ng-deep {
+  .top-area {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    border-bottom: 1px solid var(--color-container-border);
+
+    .button-container {
+      justify-content: flex-end;
+    }
+  }
+
+  .admin-table {
+    border-spacing: 0;
+    width: 100%;
+    margin-bottom: 5px;
+
+    td,
+    th {
+      padding: 4px 16px;
+    }
+
+    thead {
+      text-align: left;
+
+      tr th {
+        font-weight: normal;
+        border-bottom: 1px solid var(--color-container-border);
+      }
+    }
+
+    tbody {
+      background-color: var(--color-table-row-background);
+
+      tr:nth-child(even) {
+        background-color: var(--color-table-row-background-alt);
+      }
+    }
+  }
+
+  .delete {
+    color: var(--color-destructive-action);
+
+    &:hover {
+      color: var(--color-destructive-action-hover);
+    }
+  }
 }
 
 #dashboard {
   display: grid;
   grid-template-columns: max-content 1fr;
-  border-radius: var(--border-radius-default);
-  background-color: var(--color-container-background);
-  border: 1px solid var(--color-container-border);
+  min-height: 60vh;
 
   #side {
     grid-column: 1;
