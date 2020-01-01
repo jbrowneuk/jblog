@@ -1,18 +1,19 @@
-import { storiesOf } from '@storybook/angular';
-import { withKnobs, number, array } from '@storybook/addon-knobs';
-import { NgModule } from '@angular/core';
-import { PaginationComponent } from './pagination.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { array, number, withKnobs } from '@storybook/addon-knobs';
+import { storiesOf } from '@storybook/angular';
+
+import { PaginationComponent } from './pagination.component';
 
 const moduleMetadata: NgModule = {
   declarations: [PaginationComponent],
   imports: [HttpClientModule, RouterTestingModule]
 };
 
-storiesOf('Pagination', module)
+storiesOf('Shared', module)
   .addDecorator(withKnobs)
-  .add('Default', () => ({
+  .add('Pagination', () => ({
     template: `<jblog-pagination
     [urlComponents]="urlComponents"
     [currentPage]="currentPage"

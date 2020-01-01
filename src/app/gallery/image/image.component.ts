@@ -41,7 +41,6 @@ export class ImageComponent implements OnInit {
    */
   constructor(
     private route: ActivatedRoute,
-    private domSanitizer: DomSanitizer,
     private imageService: ImageService,
     private titleService: TitleService
   ) {

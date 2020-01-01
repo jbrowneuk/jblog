@@ -23,9 +23,9 @@ const moduleMetadata: NgModule = {
   imports: [RouterTestingModule]
 };
 
-storiesOf('Thumbnail', module)
+storiesOf('Gallery', module)
   .addDecorator(withKnobs)
-  .add('Default', () => ({
+  .add('Thumbnail', () => ({
     template: `<div style="margin:0;padding:10px;">
   <div class="grid">
     <jblog-thumbnail [data]="data" style="grid-column: span 3"></jblog-thumbnail>
