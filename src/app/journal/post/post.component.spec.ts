@@ -15,10 +15,18 @@ const mockPostData = {
 };
 
 @Pipe({
-  name: 'date',
-  pure: false
+  name: 'date'
 })
 class MockDatePipe implements PipeTransform {
+  transform(value: any): string {
+    return `${value}`;
+  }
+}
+
+@Pipe({
+  name: 'relativeDate'
+})
+class MockRelativeDatePipe implements PipeTransform {
   transform(value: any): string {
     return `${value}`;
   }
@@ -32,7 +40,7 @@ describe('PostComponent', () => {
   beforeEach(async(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [MockDatePipe, PostComponent],
+      declarations: [MockDatePipe, MockRelativeDatePipe, PostComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
 
@@ -62,9 +70,9 @@ describe('PostComponent', () => {
     await fixture.whenStable();
 
     // Uses the mock date pipe
-    expect(
-      compiled.querySelector('[data-test=post-date]').textContent.trim()
-    ).toBe(expectedDate);
+    expect(compiled.querySelector('[data-post-date]').textContent.trim()).toBe(
+      expectedDate
+    );
   }));
 
   it('should display modified information if set', async(() => {
@@ -77,10 +85,30 @@ describe('PostComponent', () => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       const modifiedElement = compiled.querySelector(
-        '[data-modified]'
+        '[data-post-date]'
       ) as HTMLElement;
       expect(modifiedElement).toBeTruthy();
       expect(modifiedElement.title).toContain(`${modified}`);
+    });
+  }));
+
+  it('should display outdated content warning when post is older than 2 years', async(() => {
+    const numberYears = 2;
+    // Convert Date.now to unix timestamp, subtract 1 second then subtract n years
+    const secondsInYear = 31557600;
+    const date =
+      Math.floor(Date.now() / 1000) - 1 - secondsInYear * numberYears;
+
+    // Copy mockPostData so the value doesn't linger after the test
+    component.data = Object.assign({}, mockPostData);
+    component.data.date = date;
+
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      const modifiedElement = compiled.querySelector(
+        '[data-outdated-content]'
+      ) as HTMLElement;
+      expect(modifiedElement).toBeTruthy();
     });
   }));
 });
