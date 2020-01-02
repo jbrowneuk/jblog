@@ -1,6 +1,7 @@
 import { formatDistanceToNow } from 'date-fns';
 
-import { Inject, Pipe, PipeTransform } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { Inject, LOCALE_ID, Optional, Pipe, PipeTransform } from '@angular/core';
 
 import { DATE_FNS_CONFIG } from '../variables';
 
@@ -8,13 +9,21 @@ import { DATE_FNS_CONFIG } from '../variables';
   name: 'relativeDate'
 })
 export class RelativeDatePipe implements PipeTransform {
-  protected formattingOptions: any;
+  private formattingOptions: any;
+
+  protected localeId: string;
 
   constructor(@Inject(DATE_FNS_CONFIG) localeData: any) {
     this.formattingOptions = { locale: localeData.locale, addSuffix: true };
+    this.localeId = localeData.locale.code;
   }
 
-  transform(value: Date): string {
+  transform(value: Date, params?: any): string {
+    if (params && params.precise) {
+      const format = params.dateFormat || 'mediumDate';
+      return formatDate(value, format, this.localeId || 'en-GB');
+    }
+
     return formatDistanceToNow(value, this.formattingOptions);
   }
 }

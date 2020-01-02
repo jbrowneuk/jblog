@@ -5,14 +5,10 @@
     </h1>
   </header>
 
-  <div
-    class="outdated-content"
-    *ngIf="ageInYearsGreaterThan(2)"
-    data-outdated-content
-  >
+  <div class="outdated-content" *ngIf="isStalePost()" data-outdated-content>
     <i class="fad fa-fw fa-exclamation-triangle"></i>
-    This post was posted {{ data.date * 1000 | date }} and is most likely no
-    longer relevant.
+    This post was posted {{ data.date * 1000 | relativeDate }} and is most
+    likely no longer relevant.
   </div>
 
   <div class="content-area" data-test="post-content">
@@ -43,6 +39,6 @@
 <ng-template #dateTemplate let-date="date" let-icon="icon">
   <span class="date" title="{{ date * 1000 | date: 'medium' }}" data-post-date>
     <i class="fad fa-fw {{ icon }}" aria-hidden="true"></i>
-    {{ date * 1000 | relativeDate }}
+    {{ date * 1000 | relativeDate: { precise: isStalePost() } }}
   </span>
 </ng-template>
