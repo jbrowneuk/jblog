@@ -6,16 +6,14 @@ import { InsightsComponent } from './insights.component';
 @Component({
   selector: 'jblog-image-container',
   template: `
-    <div class="mock-images">
+    <div class="mock-images emulated-ng-content">
       <strong>{{ imageCount }}</strong>
       images from the album
       <strong>{{ albumName }}</strong>
     </div>
   `,
   styles: [
-    '.mock-images{text-align:center;color:var(--color-secondary-foreground);}',
-    '.mock-images::before{content:"("}',
-    '.mock-images::after{content:")"}'
+    '.mock-images{text-align:center;color:var(--color-secondary-foreground);}'
   ]
 })
 class MockImageContainerComponent {
