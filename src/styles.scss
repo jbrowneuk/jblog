@@ -50,6 +50,12 @@
 
   /* Gallery dimensions */
   --thumbnail-image-padding: 4px;
+
+  /* Posts */
+  --size-post-header-spacing: 30px;
+  --size-post-content-spacing: 20px;
+  --size-post-margin: 40px;
+  --size-post-padding: 40px 10%;
 }
 
 *,
@@ -181,11 +187,9 @@ h2 {
 }
 
 .post {
-  --size-internal-padding: 20px;
-
   article {
-    margin-bottom: 56px;
-    padding: 40px 10%;
+    margin-bottom: var(--size-post-margin);
+    padding: var(--size-post-padding);
   }
 
   .date,
@@ -195,7 +199,7 @@ h2 {
 
   header {
     line-height: 1;
-    margin-bottom: var(--size-internal-padding);
+    margin-bottom: var(--size-post-header-spacing);
 
     h1 {
       margin: 0;
@@ -212,8 +216,8 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: var(--size-internal-padding);
-    padding-top: var(--size-internal-padding);
+    margin-top: var(--size-post-content-spacing);
+    padding-top: var(--size-post-content-spacing);
     border-top: 1px solid var(--color-default-border);
   }
 }
