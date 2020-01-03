@@ -31,11 +31,12 @@ export class PostComponent {
   /**
    * Returns whether a post is older than a certain number of years
    */
-  public ageInYearsGreaterThan(years: number): boolean {
-    if (!this.data || years <= 0) {
+  public isStalePost(): boolean {
+    if (!this.data) {
       return false;
     }
 
+    const years = 2;
     const postDate = new Date(this.data.date * 1000);
     const comparisonDate = new Date();
     const offsetMsec =

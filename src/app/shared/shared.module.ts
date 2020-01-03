@@ -10,6 +10,7 @@ import { LineSplittingPipe } from './line-splitting.pipe';
 import { LoadSpinnerComponent } from './load-spinner/load-spinner.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ParallaxScrollDirective } from './parallax-scroll.directive';
+import { RelativeDatePipe } from './relative-date.pipe';
 import { StickyElementDirective } from './sticky-element.directive';
 import { TitleService } from './title.service';
 import { TransitionCompleteService } from './transition-complete.service';
@@ -17,6 +18,7 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
 
 const CORE_COMPONENTS = [
   LineSplittingPipe,
+  RelativeDatePipe,
   LoadSpinnerComponent,
   PaginationComponent,
   FormattedTextComponent,

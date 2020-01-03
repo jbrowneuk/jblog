@@ -1,6 +1,7 @@
 import { of } from 'rxjs';
 
 import { Component, Input, NgModule } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/angular';
@@ -16,7 +17,7 @@ import { PostListComponent } from './post-list.component';
   template: `
     <div class="post emulated-ng-content">Post data</div>
   `,
-  styles: ['.post{margin-bottom:40px}']
+  styles: ['.post{height:320px;margin-bottom:40px}']
 })
 class MockPostComponent {
   @Input() data: any;
@@ -24,7 +25,9 @@ class MockPostComponent {
 
 const mockPostService = {
   // post data is mocked out by the mock post component and thus can be anything
-  getPostsForPage: () => of({ posts: [1, 2, 3, 4], totalPages: 1 })
+  getPostsForPage: (pageNum: number) =>
+    of({ posts: [1, 2, 3, 4], page: pageNum, totalPages: 2 }),
+  getPost: () => of(1)
 };
 
 const mockTitleService = {
@@ -32,23 +35,37 @@ const mockTitleService = {
   setTitle: () => {}
 };
 
-const moduleMetadata: NgModule = {
-  declarations: [
-    MockPostComponent,
-    LoadSpinnerComponent,
-    InfiniteScrollDirective
-  ],
-  imports: [RouterTestingModule],
-  providers: [
-    { provide: PostService, useValue: mockPostService },
-    { provide: TitleService, useValue: mockTitleService }
-  ]
+function moduleMetadata(): NgModule {
+  return {
+    declarations: [
+      MockPostComponent,
+      LoadSpinnerComponent,
+      InfiniteScrollDirective
+    ],
+    imports: [RouterTestingModule],
+    providers: [
+      { provide: PostService, useValue: mockPostService },
+      { provide: TitleService, useValue: mockTitleService }
+    ]
+  };
+}
+
+const mockRoute = {
+  params: [{ id: 1 }]
 };
 
-storiesOf('Journal', module).add('Post List', () => ({
-  component: PostListComponent,
-  moduleMetadata,
-  props: {
-    scrollCallback: action('Scroll limit reached')
-  }
-}));
+const singlePostModule = moduleMetadata();
+singlePostModule.providers.push({
+  provide: ActivatedRoute,
+  useValue: mockRoute
+});
+
+storiesOf('Journal/Post List', module)
+  .add('Full view', () => ({
+    component: PostListComponent,
+    moduleMetadata: moduleMetadata()
+  }))
+  .add('Single view', () => ({
+    component: PostListComponent,
+    moduleMetadata: singlePostModule
+  }));

@@ -1,30 +1,14 @@
-<article id="{{ data.postId }}" class="grid" *ngIf="data">
+<article *ngIf="data" id="{{ data.postId }}" class="base-card">
   <header>
     <h1 data-test="post-title">
       <a [routerLink]="['/journal/post', data.slug]">{{ data.title }}</a>
     </h1>
-    <span
-      class="date"
-      title="Written {{ data.date * 1000 | date: 'medium' }}"
-      data-test="post-date"
-    >
-      <i class="fad fa-fw fa-calendar" aria-hidden="true"></i>
-      {{ data.date * 1000 | date: 'mediumDate' }}
-    </span>
-    <span
-      *ngIf="data.modified"
-      class="date modified"
-      aria-hidden="true"
-      title="Edited {{ data.modified * 1000 | date: 'medium' }}"
-      data-modified
-    >
-      (edited)
-    </span>
   </header>
 
-  <div class="outdated-content" *ngIf="ageInYearsGreaterThan(2)">
-    <i class="fad fa-fw fa-exclamation-triangle"></i> This post is over two
-    years old. The content here might not be relevant any more.
+  <div class="outdated-content" *ngIf="isStalePost()" data-outdated-content>
+    <i class="fad fa-fw fa-exclamation-triangle"></i>
+    This post was posted {{ data.date * 1000 | relativeDate }} and is most
+    likely no longer relevant.
   </div>
 
   <div class="content-area" data-test="post-content">
@@ -39,5 +23,22 @@
       </li>
       <li class="tagless" *ngIf="!hasTags()">Not tagged</li>
     </ul>
+
+    <ng-container
+      *ngTemplateOutlet="
+        dateTemplate;
+        context: {
+          date: data.modified || data.date,
+          icon: data.modified ? 'fa-calendar-edit' : 'fa-calendar'
+        }
+      "
+    ></ng-container>
   </footer>
 </article>
+
+<ng-template #dateTemplate let-date="date" let-icon="icon">
+  <span class="date" title="{{ date * 1000 | date: 'medium' }}" data-post-date>
+    <i class="fad fa-fw {{ icon }}" aria-hidden="true"></i>
+    {{ date * 1000 | relativeDate: { precise: isStalePost() } }}
+  </span>
+</ng-template>

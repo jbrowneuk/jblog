@@ -44,7 +44,7 @@
   --color-default-shadow: rgba(0, 0, 0, 0.2);
 
   --color-light-foreground: var(--_color-primary-a-01);
-  --color-light-border: --_color-primary-a-05;
+  --color-light-border: var(--_color-primary-a-05);
 
   --color-default-gradient: var(--_color-primary-a-10)
     linear-gradient(

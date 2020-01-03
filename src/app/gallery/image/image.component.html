@@ -47,14 +47,10 @@
     </a>
   </div>
 
-  <div class="container">
-    <article class="grid">
+  <div class="container post">
+    <article class="base-card">
       <header>
         <h1 id="image-title">{{ data.title }}</h1>
-        <div class="date" title="{{ data.date * 1000 | date: 'medium' }}">
-          <i class="fad fa-fw fa-calendar" aria-hidden="true"></i>
-          {{ data.date * 1000 | date: 'mediumDate' }}
-        </div>
       </header>
 
       <div class="content-area" data-test="description-text">
@@ -70,6 +66,11 @@
             }}</a>
           </li>
         </ul>
+
+        <span class="date" title="{{ data.date * 1000 | date: 'medium' }}">
+          <i class="fad fa-fw fa-calendar" aria-hidden="true"></i>
+          {{ data.date * 1000 | date: 'mediumDate' }}
+        </span>
       </footer>
     </article>
   </div>

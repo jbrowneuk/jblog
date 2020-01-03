@@ -1,7 +1,7 @@
 import { BehaviorSubject, of as observableOf } from 'rxjs';
 import { IMock, It, Mock, Times } from 'typemoq';
 
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -12,7 +12,6 @@ import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.com
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { TitleService } from '../../shared/title.service';
 import { TransitionCompleteService } from '../../shared/transition-complete.service';
-import { PostComponent } from '../post/post.component';
 import { PostListComponent } from './post-list.component';
 
 const mockPostData = {
@@ -30,6 +29,13 @@ const mockPostDataWrapper = {
   page: 1,
   totalPages: 4
 };
+
+@Component({
+  selector: 'jblog-post',
+  template: '<div data-post>Post data</div>',
+  styles: ['[data-post]{height:320px}']
+})
+class MockPostComponent {}
 
 describe('PostListComponent', () => {
   let mockPostService: IMock<PostService>;
@@ -65,7 +71,7 @@ describe('PostListComponent', () => {
       imports: [RouterTestingModule],
       declarations: [
         PaginationComponent,
-        PostComponent,
+        MockPostComponent,
         PostListComponent,
         LoadSpinnerComponent,
         InfiniteScrollDirective

@@ -1,5 +1,6 @@
 <div class="container">
   <div *ngIf="singlePostMode" class="all-post-header">
+    <i class="fad fa-fw fa-eye" aria-hidden="true"></i>
     You’re viewing a single post.
     <a routerLink="/journal/page/1">Return to all posts</a>?
   </div>
@@ -30,13 +31,16 @@
   </div>
 
   <ng-template #reachedBottom>
-    <span>Congratulations; You’ve read all the posts in the journal</span>
+    <span>
+      <i class="fad fa-fw fa-check" aria-hidden="true"></i>
+      Congratulations; You’ve read all the posts in the journal
+    </span>
   </ng-template>
 
   <div class="text-center button-container" id="post-limit-button-area">
     <a *ngIf="initialPage > 1" routerLink="/journal/page/1">Latest posts</a>
-    <a *ngIf="showNavigation" [routerLink]="['/journal/page', page + 1]"
-      >Older posts</a
-    >
+    <a *ngIf="showNavigation" [routerLink]="['/journal/page', page + 1]">
+      Older posts
+    </a>
   </div>
 </div>

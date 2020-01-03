@@ -50,6 +50,12 @@
 
   /* Gallery dimensions */
   --thumbnail-image-padding: 4px;
+
+  /* Posts */
+  --size-post-header-spacing: 30px;
+  --size-post-content-spacing: 20px;
+  --size-post-margin: 40px;
+  --size-post-padding: 40px 10%;
 }
 
 *,
@@ -178,6 +184,42 @@ h2 {
   border-radius: var(--border-radius-default);
   background-color: var(--color-container-background);
   border: 1px solid var(--color-container-border);
+}
+
+.post {
+  article {
+    margin-bottom: var(--size-post-margin);
+    padding: var(--size-post-padding);
+  }
+
+  .date,
+  .tags-area {
+    color: var(--color-secondary-foreground);
+  }
+
+  header {
+    line-height: 1;
+    margin-bottom: var(--size-post-header-spacing);
+
+    h1 {
+      margin: 0;
+      font-weight: 300;
+    }
+
+    h1 a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--size-post-content-spacing);
+    padding-top: var(--size-post-content-spacing);
+    border-top: 1px solid var(--color-default-border);
+  }
 }
 
 /* Shared loading spinner style */

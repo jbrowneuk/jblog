@@ -2,50 +2,10 @@
   display: block;
 }
 
-.content-area,
-.outdated-content,
-.tags-area {
-  grid-column: 2 / span 10;
-}
-
-.date,
-.tags-area {
-  color: var(--color-secondary-foreground);
-  cursor: help;
-}
-
-article {
-  margin-bottom: 56px;
-  padding-top: 48px;
-  padding-bottom: 48px;
-  border: 1px solid var(--color-container-border);
-  background-color: var(--color-container-background);
-  border-radius: var(--border-radius-default);
-}
-
-header,
-footer {
-  grid-column: 1 / span 12;
-  text-align: center;
-
-  h1 a {
-    /* Hide the link until the behaviour in single view is sorted */
-    text-decoration: none;
-    color: inherit;
-  }
-}
-
-header {
-  line-height: 1;
-
-  h1 {
-    margin-bottom: 16px;
-  }
-}
-
 .outdated-content {
+  margin-bottom: var(--size-post-content-spacing);
   padding: 8px 16px;
-  background-color: var(--color-light-foreground);
-  border: 1px solid var(--color-light-border);
+  border: 1px solid var(--color-error);
   border-radius: var(--border-radius-default);
+  color: var(--color-error);
 }
