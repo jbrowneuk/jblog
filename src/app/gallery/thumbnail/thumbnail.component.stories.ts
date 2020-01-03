@@ -3,20 +3,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { object, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/angular';
 
-import { ImageInfo } from '../../model/image-info';
 import { GalleryFormatPipe } from '../gallery-format.pipe';
+import { MOCK_IMAGEDATA } from '../mocks/mock-data';
 import { ThumbnailComponent } from './thumbnail.component';
-
-const imageData: ImageInfo = {
-  id: 1,
-  title: 'Image title',
-  date: 1553462026,
-  description: 'Description',
-  thumbnail: '//placehold.it/320x200',
-  src: '//placehold.it/1024x768',
-  containingAlbums: [{ name: 'name', title: 'Gallery title' }],
-  featured: false
-};
 
 const moduleMetadata: NgModule = {
   declarations: [GalleryFormatPipe, ThumbnailComponent],
@@ -33,7 +22,7 @@ storiesOf('Gallery', module)
   </div>
   </div>`,
     props: {
-      data: object('data', imageData)
+      data: object('data', MOCK_IMAGEDATA)
     },
     moduleMetadata
   }));

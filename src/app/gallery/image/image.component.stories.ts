@@ -7,18 +7,8 @@ import { storiesOf } from '@storybook/angular';
 
 import { ImageService } from '../../services/image.service';
 import { TitleService } from '../../shared/title.service';
+import { MOCK_IMAGEDATA } from '../mocks/mock-data';
 import { ImageComponent } from './image.component';
-
-const mockImageData = {
-  id: 1,
-  title: 'Image title',
-  date: 1553462026,
-  description: 'Description',
-  thumbnail: '//placehold.it/320x200',
-  src: '//placehold.it/1024x768',
-  containingAlbums: [{ name: 'name', title: 'Gallery title' }],
-  featured: false
-};
 
 const mockActivatedRoute = {
   params: of({ id: 1 })
@@ -29,7 +19,7 @@ const mockTitle = {
 };
 
 const mockImageService = {
-  getImageInfo: () => of(mockImageData)
+  getImageInfo: () => of(MOCK_IMAGEDATA)
 };
 
 @Component({
