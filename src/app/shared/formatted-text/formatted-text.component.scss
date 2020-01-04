@@ -25,7 +25,7 @@
     border-left: none;
     border-right: none;
     border-radius: var(--border-radius-default);
-    color: var(--color-blockquote-text);
+    color: var(--color-blockquote-foreground);
 
     &::before,
     &::after {

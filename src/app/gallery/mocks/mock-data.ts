@@ -3,21 +3,21 @@ import { AlbumInfo } from '../../model/album-info';
 export const MOCK_ALBUMDATA: AlbumInfo = {
   albumId: 1,
   title: 'title',
-  name: 'name',
-  description: 'description',
+  name: 'Album name',
+  description: 'Album description',
   imagesInAlbum: 8,
   imagesPerPage: 4,
   totalPages: 2,
-  iconUrl: 'http://url/jpg.jpg'
+  iconUrl: '//placehold.it/200x200'
 };
 
 export const MOCK_IMAGEDATA = {
   id: 1,
-  title: 'img_title',
+  title: 'Image title',
   date: 123456789,
-  description: 'img_desc',
-  thumbnail: 'http://localhost/thumb.jpg',
-  src: 'http://localhost/img.jpg',
+  description: 'Image description',
+  thumbnail: '//placehold.it/300x200',
+  src: '//placehold.it/1024x768',
   containingAlbums: [
     { name: 'name', title: 'album name' },
     { name: 'name2', title: 'album name 2' }
