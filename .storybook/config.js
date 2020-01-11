@@ -9,10 +9,32 @@ function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
 
-addParameters({
-  options: {
-    storySort: (a, b) => a[1].id.localeCompare(b[1].id)
+const defaultRoot = 'Components';
+const guidelinesRoot = 'Guidelines';
+
+function sortFn(a, b) {
+  const aRep = a[1];
+  const bRep = b[1];
+
+  // Rename kind to contain global root
+  if (!aRep.kind.includes('|')) {
+    aRep.kind = `${defaultRoot}|${aRep.kind}`;
   }
-});
+
+  if (!bRep.kind.includes('|')) {
+    bRep.kind = `${defaultRoot}|${bRep.kind}`;
+  }
+
+  if (
+    aRep.kind.includes(guidelinesRoot) &&
+    !bRep.kind.includes(guidelinesRoot)
+  ) {
+    return -1;
+  }
+
+  return aRep.id.localeCompare(bRep.id);
+}
+
+addParameters({ options: { storySort: sortFn } });
 
 configure(loadStories, module);

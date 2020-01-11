@@ -79,7 +79,18 @@ class ColourComponent implements OnInit {
   public getPropertiesForType(type: string): PropertyWrapper[] {
     const allProps = this.cssProperties.get(type);
     if (this.searchTerm && this.searchTerm.length > 0) {
-      return allProps.filter(p => p.name.includes(this.searchTerm));
+      const makeSearchable = (value: string) => {
+        const needle = /-+/g;
+        return value
+          .replace(needle, ' ')
+          .toLowerCase()
+          .trim();
+      };
+
+      const lowercaseTerm = makeSearchable(this.searchTerm);
+      return allProps.filter(p =>
+        makeSearchable(p.name).includes(lowercaseTerm)
+      );
     }
 
     return allProps;
