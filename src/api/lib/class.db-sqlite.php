@@ -38,11 +38,6 @@ class Database implements IDatabase
     return true;
   }
 
-  public function rawExec($rawSQL)
-  {
-    throw new Exception('Don\'t do this.');
-  }
-
   public function setTableScope($table)
   {
     if (StringExtensions::isEmpty($table))
