@@ -13,6 +13,14 @@ class ResponseHelpers {
     @header($_SERVER["SERVER_PROTOCOL"] . " 500 Internal Server Error");
   }
 
+  public static function respondNoContent() {
+    @header($_SERVER["SERVER_PROTOCOL"] . " 204 No Content");
+  }
+
+  public static function respondBadRequest() {
+    @header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
+  }
+
   public static function outputWithJsonHeader($obj) {
     @header("Content-Type:application/json; charset=utf-8");
     print json_encode($obj);
