@@ -37,6 +37,11 @@ export interface PostData {
    * Post slug
    */
   slug: string;
+
+  /**
+   * Post status
+   */
+  status: string;
 }
 
 /**

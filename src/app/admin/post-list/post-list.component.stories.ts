@@ -4,17 +4,19 @@ import { NgModule } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { storiesOf } from '@storybook/angular';
 
+import { PostData } from '../../model/post-data';
 import { PostService } from '../../services/post.service';
 import { PostListComponent } from './post-list.component';
 
-const mockPost = {
+const mockPost: PostData = {
   postId: 1,
   date: Math.floor(Date.now() / 1000),
   modified: null,
   title: 'My awesome post',
   content: '',
-  tags: '',
-  slug: 'my-awesome-post'
+  tags: [''],
+  slug: 'my-awesome-post',
+  status: 'publish'
 };
 
 const mockPostService = {

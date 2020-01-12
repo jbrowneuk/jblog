@@ -6,6 +6,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { PostData } from '../../model/post-data';
 import { PostService } from '../../services/post.service';
 import { InfiniteScrollDirective } from '../../shared/infinite-scroll.directive';
 import { LoadSpinnerComponent } from '../../shared/load-spinner/load-spinner.component';
@@ -14,14 +15,15 @@ import { TitleService } from '../../shared/title.service';
 import { TransitionCompleteService } from '../../shared/transition-complete.service';
 import { PostListComponent } from './post-list.component';
 
-const mockPostData = {
+const mockPostData: PostData = {
   postId: 1,
   date: 1024,
   modified: 2048,
   title: 'post title',
   content: 'long content here',
   tags: ['one', 'two'],
-  slug: 'mock-data'
+  slug: 'mock-data',
+  status: 'publish'
 };
 
 const mockPostDataWrapper = {

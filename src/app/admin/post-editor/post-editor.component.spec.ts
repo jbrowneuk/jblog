@@ -19,7 +19,8 @@ const mockPostData: PostData = {
   title: 'post title',
   content: 'content',
   tags: [],
-  slug: 'post-slug'
+  slug: 'post-slug',
+  status: 'publish'
 };
 
 @Component({

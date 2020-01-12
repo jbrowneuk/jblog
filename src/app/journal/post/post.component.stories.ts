@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { object, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/angular';
 
+import { PostData } from '../../model/post-data';
 import { SharedModule } from '../../shared/shared.module';
 import { DATE_FNS_CONFIG } from '../../variables';
 import { PostComponent } from './post.component';
@@ -15,16 +16,23 @@ const basePostData = {
   title: 'Post title',
   content: `This post content is rendered by the ngx-md module and may not be affected by changing the value in the knobs panel`,
   tags: ['tag-1', 'tag-2'],
-  slug: 'slug'
+  slug: 'slug',
+  status: 'publish'
 };
 
 const secondsInYear = 31557600;
 const recentDate = Math.floor(Date.now() / 1000) - 3600;
 const staleDate = Math.floor(Date.now() / 1000) - 3 * secondsInYear;
 
-const currentPostData = Object.assign({ date: recentDate }, basePostData);
-const stalePostData = Object.assign({ date: staleDate }, basePostData);
-const modifiedPostData = Object.assign(
+const currentPostData: PostData = Object.assign(
+  { date: recentDate, modified: null },
+  basePostData
+);
+const stalePostData: PostData = Object.assign(
+  { date: staleDate, modified: null },
+  basePostData
+);
+const modifiedPostData: PostData = Object.assign(
   { date: recentDate, modified: recentDate },
   basePostData
 );

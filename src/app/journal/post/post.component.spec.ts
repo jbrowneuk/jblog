@@ -2,16 +2,18 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { PostData } from '../../model/post-data';
 import { PostComponent } from './post.component';
 
-const mockPostData = {
+const mockPostData: PostData = {
   postId: 1,
   date: Date.now(),
   modified: null,
   title: 'post title',
   content: 'Example post content with an emoji :smile: . Yay!',
   tags: ['one', 'two'],
-  slug: 'mock'
+  slug: 'mock',
+  status: 'publish'
 };
 
 @Pipe({
