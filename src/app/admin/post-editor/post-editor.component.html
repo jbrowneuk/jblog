@@ -10,7 +10,12 @@
 </div>
 
 <div id="tab-container" *ngIf="postData$ | async as postData">
-  <form class="tab" #postForm="ngForm" id="post-form">
+  <form
+    class="tab"
+    #postForm="ngForm"
+    id="post-form"
+    (ngSubmit)="onFormSubmit(postData)"
+  >
     <fieldset id="post-content">
       <!-- https://github.com/w3c/csswg-drafts/issues/321 -->
       <div id="grid-container">
@@ -56,9 +61,14 @@
 
       <div class="options-row">
         <label class="emulated-checkbox">
-          <input type="checkbox" name="post-draft" data-post-draft />
+          <input
+            type="checkbox"
+            name="post-draft"
+            data-post-draft
+            [(ngModel)]="isDraft"
+          />
           <i class="fad fa-check-circle visual checked" aria-hidden="true"></i>
-          <i class="fad fa-circle visual unchecked" aria-hidden="true"></i>
+          <i class="fad fa-circle rm-d visual unchecked" aria-hidden="true"></i>
           Save as draft
         </label>
       </div>
@@ -82,6 +92,10 @@
         <div class="hint-text" [class.error]="identifier.errors">
           Alphanumeric and dashes only
         </div>
+      </div>
+
+      <div class="options-row">
+        <button type="submit" data-form-submit>Save post</button>
       </div>
     </fieldset>
   </form>
