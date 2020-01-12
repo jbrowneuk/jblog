@@ -1,5 +1,5 @@
 import { of, throwError } from 'rxjs';
-import { IMock, It, Mock } from 'typemoq';
+import { IMock, It, Mock, Times } from 'typemoq';
 
 import { TestBed } from '@angular/core/testing';
 
@@ -155,6 +155,70 @@ describe('UserService', () => {
           done();
         }
       });
+    });
+  });
+
+  describe('authorized GET convenience method', () => {
+    it('should GET with authentication header when logged in', () => {
+      const url = './any?url';
+      const token = 'mytoken';
+      spyOn(service as any, 'getSession').and.returnValue(token);
+
+      service.authGet<any>(url);
+
+      mockRestService.verify(
+        s => s.get<any>(It.isValue(url), It.isValue({ Authorization: token })),
+        Times.once()
+      );
+      expect().nothing();
+    });
+
+    it('should not GET when not logged in', () => {
+      const url = './any?url';
+      spyOn(service as any, 'getSession').and.returnValue(null);
+
+      service.authGet<any>(url);
+
+      mockRestService.verify(
+        s => s.get<any>(It.isAny(), It.isAny()),
+        Times.never()
+      );
+      expect().nothing();
+    });
+  });
+
+  describe('authorized POST convenience method', () => {
+    it('should POST with authentication header when logged in', () => {
+      const url = './any?url';
+      const token = 'mytoken';
+      const body = { prop: 'any data' };
+      spyOn(service as any, 'getSession').and.returnValue(token);
+
+      service.authPost(url, body);
+
+      mockRestService.verify(
+        s =>
+          s.post(
+            It.isValue(url),
+            It.isValue(body),
+            It.isValue({ Authorization: token })
+          ),
+        Times.once()
+      );
+      expect().nothing();
+    });
+
+    it('should not POST when not logged in', () => {
+      const url = './any?url';
+      spyOn(service as any, 'getSession').and.returnValue(null);
+
+      service.authPost(url, { prop: 'any data' });
+
+      mockRestService.verify(
+        s => s.post(It.isAny(), It.isAny(), It.isAny()),
+        Times.never()
+      );
+      expect().nothing();
     });
   });
 });
