@@ -179,7 +179,7 @@ describe('PostEditorComponent', () => {
 
       setTimeout(() => {
         mockRouter.verify(
-          r => r.navigate(It.isValue(['..']), It.isAny()),
+          r => r.navigate(It.isValue(['../..']), It.isAny()),
           Times.once()
         );
         expect().nothing();

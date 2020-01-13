@@ -52,7 +52,7 @@ export class PostEditorComponent implements OnInit {
     post.status = this.isDraft ? 'draft' : 'publish';
 
     this.postAdminService.sendPost(post).subscribe({
-      next: () => this.router.navigate(['..'], { relativeTo: this.route }),
+      next: () => this.router.navigate(['../..'], { relativeTo: this.route }),
       error: () => console.error('not success')
     });
   }
