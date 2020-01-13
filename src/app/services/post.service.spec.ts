@@ -7,24 +7,26 @@ import { PostData, PostDataWrapper } from '../model/post-data';
 import { PostService } from './post.service';
 import { RestService } from './rest.service';
 
-const mockFirstPost = {
+const mockFirstPost: PostData = {
   postId: 1,
   date: Date.now(),
   modified: null,
   title: 'first',
   content: 'first post!',
   tags: ['first', 'post'],
-  slug: 'first-post'
+  slug: 'first-post',
+  status: 'publish'
 };
 
-const mockSecondPost = {
+const mockSecondPost: PostData = {
   postId: 2,
   date: Date.now(),
   modified: null,
   title: '2nd',
   content: 'second post!',
   tags: ['second', 'post'],
-  slug: 'second post'
+  slug: 'second post',
+  status: 'publish'
 };
 
 describe('PostService', () => {

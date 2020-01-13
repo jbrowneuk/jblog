@@ -1,15 +1,16 @@
-import { of } from 'rxjs';
-import { IMock, It, Mock } from 'typemoq';
+import { of, throwError } from 'rxjs';
+import { IMock, It, Mock, Times } from 'typemoq';
 
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ActivatedRouteStub } from '../../../testing/activated-route-stub';
 import { PostData } from '../../model/post-data';
 import { PostService } from '../../services/post.service';
+import { PostAdminService } from '../post-admin.service';
 import { PostEditorComponent } from './post-editor.component';
 
 const mockPostData: PostData = {
@@ -19,7 +20,8 @@ const mockPostData: PostData = {
   title: 'post title',
   content: 'content',
   tags: [],
-  slug: 'post-slug'
+  slug: 'post-slug',
+  status: 'publish'
 };
 
 @Component({
@@ -30,7 +32,9 @@ class MockFormattedTextComponent {}
 
 describe('PostEditorComponent', () => {
   let mockActivatedRoute: ActivatedRouteStub;
+  let mockRouter: IMock<Router>;
   let mockPostService: IMock<PostService>;
+  let mockPostAdminService: IMock<PostAdminService>;
 
   let component: PostEditorComponent;
   let fixture: ComponentFixture<PostEditorComponent>;
@@ -38,18 +42,28 @@ describe('PostEditorComponent', () => {
 
   beforeAll(() => {
     mockPostService = Mock.ofType<PostService>();
+
+    // Return a copy of the post data so tests can modify
     mockPostService
       .setup(s => s.getPost(It.isAny()))
-      .returns(() => of(mockPostData));
+      .returns(() => of(Object.assign({}, mockPostData)));
   });
 
   function createFixture() {
+    mockRouter = Mock.ofType<Router>();
+    mockPostAdminService = Mock.ofType<PostAdminService>();
+
     return TestBed.configureTestingModule({
       declarations: [MockFormattedTextComponent, PostEditorComponent],
       imports: [RouterTestingModule, FormsModule],
       providers: [
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
-        { provide: PostService, useFactory: () => mockPostService.object }
+        { provide: Router, useFactory: () => mockRouter.object },
+        { provide: PostService, useFactory: () => mockPostService.object },
+        {
+          provide: PostAdminService,
+          useFactory: () => mockPostAdminService.object
+        }
       ]
     })
       .compileComponents()
@@ -89,11 +103,11 @@ describe('PostEditorComponent', () => {
       expect(identifierElement.value).toBe('');
     });
 
-    it('should not be marked as draft', () => {
+    it('should be marked as draft', () => {
       const draftCheckbox: HTMLInputElement = compiled.querySelector(
         '[data-post-draft]'
       );
-      expect(draftCheckbox.checked).toBeFalsy();
+      expect(draftCheckbox.checked).toBeTruthy();
     });
   });
 
@@ -124,6 +138,89 @@ describe('PostEditorComponent', () => {
         '[data-post-identifier]'
       );
       expect(identifierElement.value).toBe(mockPostData.slug);
+    });
+
+    it('should display matching post status', () => {
+      const draftCheckbox: HTMLInputElement = compiled.querySelector(
+        '[data-post-draft]'
+      );
+      expect(draftCheckbox.checked).toBe(mockPostData.status === 'draft');
+    });
+  });
+
+  describe('form submission', () => {
+    let submitButton: HTMLButtonElement;
+
+    beforeEach(async(() => {
+      mockActivatedRoute = new ActivatedRouteStub();
+      mockActivatedRoute.setParamMap({ id: mockPostData.postId });
+
+      createFixture().then(() => {
+        submitButton = compiled.querySelector('[data-form-submit]');
+      });
+    }));
+
+    it('should send post data using post admin service', () => {
+      submitButton.click();
+
+      mockPostAdminService.verify(
+        s => s.sendPost(It.isValue(mockPostData)),
+        Times.once()
+      );
+      expect().nothing();
+    });
+
+    it('should redirect if post submission successful', done => {
+      mockPostAdminService
+        .setup(s => s.sendPost(It.isAny()))
+        .returns(() => of(null));
+
+      submitButton.click();
+
+      setTimeout(() => {
+        mockRouter.verify(
+          r => r.navigate(It.isValue(['../..']), It.isAny()),
+          Times.once()
+        );
+        expect().nothing();
+        done();
+      });
+    });
+
+    it('should not redirect if post submission failed', done => {
+      mockPostAdminService
+        .setup(s => s.sendPost(It.isAny()))
+        .returns(() => throwError(new Error('failed')));
+
+      submitButton.click();
+
+      setTimeout(() => {
+        mockRouter.verify(
+          r => r.navigate(It.isValue(['..']), It.isAny()),
+          Times.never()
+        );
+        expect().nothing();
+        done();
+      });
+    });
+
+    it('should update draft status when submitting', () => {
+      const simplePostData = { status: 'draft' } as PostData;
+      const expectedPostData = { status: 'publish' } as PostData;
+
+      mockPostAdminService
+        .setup(s => s.sendPost(It.isAny()))
+        .returns(() => of(null));
+
+      component.isDraft = false;
+      component.onFormSubmit(simplePostData);
+
+      mockPostAdminService.verify(
+        s => s.sendPost(It.isObjectWith(expectedPostData)),
+        Times.once()
+      );
+
+      expect().nothing();
     });
   });
 });

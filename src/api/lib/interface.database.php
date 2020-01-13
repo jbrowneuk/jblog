@@ -3,7 +3,6 @@
 interface IDatabase
 {
   public function connect($params);
-  public function rawExec($rawSQL);
   public function setTableScope($table);
   public function insert($keyValuePairs, $table = "");
   public function update($keyValuePairs, $where, $options = array(), $table = "");

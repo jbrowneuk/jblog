@@ -56,14 +56,8 @@ export class UserService {
    * Accesses the token reflection endpoint to get the current user
    */
   public fetchUser(): Observable<User> {
-    const token = this.getSession();
-    if (!token) {
-      return of(null);
-    }
-
     const url = `${this.basePath}${API_URL}`;
-    const headers = { Authorization: token };
-    return this.restService.get<User>(url, headers).pipe(
+    return this.authGet<User>(url).pipe(
       tap(user => this.userSubject.next(user)),
       catchError(err => {
         this.endSession();
@@ -84,10 +78,12 @@ export class UserService {
     body.append('password', password);
 
     const url = `${this.basePath}${API_URL}`;
-    return this.restService.post(url, body).pipe(
-      catchError(this.handleSessionError.bind(this)),
-      tap(this.setSession)
-    );
+    return this.restService
+      .post(url, body)
+      .pipe(
+        catchError(this.handleSessionError.bind(this)),
+        tap(this.setSession)
+      );
   }
 
   /**
@@ -96,6 +92,32 @@ export class UserService {
   public endSession(): void {
     localStorage.removeItem(TOKEN_IDENTIFIER);
     this.userSubject.next(null);
+  }
+
+  /**
+   * Make a HTTP GET request with Authorization headers set
+   */
+  public authGet<T>(url: string): Observable<T> {
+    const token = this.getSession();
+    if (!token) {
+      return of(null);
+    }
+
+    const headers = { Authorization: token };
+    return this.restService.get<T>(url, headers);
+  }
+
+  /**
+   * Make a HTTP POST request with Authorization headers set
+   */
+  public authPost(url: string, body: { [key: string]: any }): any {
+    const token = this.getSession();
+    if (!token) {
+      return of(null);
+    }
+
+    const headers = { Authorization: token };
+    return this.restService.post(url, body, headers);
   }
 
   private handleSessionError(): Observable<void> {

@@ -1,11 +1,13 @@
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { PostData } from '../../model/post-data';
 import { PostService } from '../../services/post.service';
+import { PostAdminService } from '../post-admin.service';
 
 @Component({
   selector: 'jblog-post-editor',
@@ -14,10 +16,17 @@ import { PostService } from '../../services/post.service';
 })
 export class PostEditorComponent implements OnInit {
   public postData$: Observable<PostData>;
+  public isDraft: boolean;
   public isEditing: boolean;
 
-  constructor(private route: ActivatedRoute, private postService: PostService) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private postService: PostService,
+    private postAdminService: PostAdminService
+  ) {
     this.isEditing = true;
+    this.isDraft = true;
   }
 
   ngOnInit() {
@@ -29,7 +38,8 @@ export class PostEditorComponent implements OnInit {
         }
 
         return this.postService.getPost(id);
-      })
+      }),
+      tap(p => (this.isDraft = p.status === 'draft'))
     );
   }
 
@@ -37,15 +47,26 @@ export class PostEditorComponent implements OnInit {
     this.isEditing = !this.isEditing;
   }
 
+  public onFormSubmit(post: PostData): void {
+    // Modify post state – todo: use enum
+    post.status = this.isDraft ? 'draft' : 'publish';
+
+    this.postAdminService.sendPost(post).subscribe({
+      next: () => this.router.navigate(['../..'], { relativeTo: this.route }),
+      error: () => console.error('not success')
+    });
+  }
+
   private generateBlankPost(): PostData {
     return {
-      postId: 0,
-      date: Date.now(),
+      postId: -1,
+      date: 0,
       modified: null,
       title: '',
       content: '',
       tags: [],
-      slug: ''
+      slug: '',
+      status: 'draft'
     };
   }
 }

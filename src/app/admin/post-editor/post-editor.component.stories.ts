@@ -6,18 +6,20 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { storiesOf } from '@storybook/angular';
 
+import { PostData } from '../../model/post-data';
 import { PostService } from '../../services/post.service';
 import { SharedModule } from '../../shared/shared.module';
 import { PostEditorComponent } from './post-editor.component';
 
-const mockPost = {
+const mockPost: PostData = {
   postId: 1,
   date: Math.floor(Date.now() / 1000),
   modified: null,
   title: 'My awesome post',
   content: 'This is the post content',
-  tags: 'tag-1, tag-2',
-  slug: 'my-awesome-post'
+  tags: ['tag-1', 'tag-2'],
+  slug: 'my-awesome-post',
+  status: 'publish'
 };
 
 const mockPostService = {
