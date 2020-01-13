@@ -18,7 +18,7 @@ const mockPostData: PostData = {
   date: 1577487979,
   modified: null,
   title: 'post title',
-  content: 'content',
+  content: 'post textual content',
   tags: [],
   slug: 'post-slug',
   status: 'publish'
@@ -145,6 +145,22 @@ describe('PostEditorComponent', () => {
         '[data-post-draft]'
       );
       expect(draftCheckbox.checked).toBe(mockPostData.status === 'draft');
+    });
+
+    it('should display word and character count', () => {
+      const characterCountElement: HTMLElement = compiled.querySelector(
+        '[data-post-character-count]'
+      );
+      const wordCountElement: HTMLElement = compiled.querySelector(
+        '[data-post-word-count]'
+      );
+
+      expect(characterCountElement.innerText.trim()).toBe(
+        `${mockPostData.content.length} characters`
+      );
+      expect(wordCountElement.innerText.trim()).toBe(
+        `${mockPostData.content.split(' ').length} words`
+      );
     });
   });
 

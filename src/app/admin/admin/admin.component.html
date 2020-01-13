@@ -1,5 +1,5 @@
 <div class="container">
-  <div id="dashboard">
+  <div id="dashboard" class="base-card">
     <nav id="side">
       <ul>
         <li class="top-area">
@@ -25,8 +25,11 @@
         </li>
       </ul>
     </nav>
-    <div id="main">
-      <router-outlet></router-outlet>
+    <div
+      id="main"
+      [@adminRouterAnimations]="outlet.isActivated && outlet.activatedRoute.url"
+    >
+      <router-outlet #outlet="outlet"></router-outlet>
     </div>
   </div>
 </div>

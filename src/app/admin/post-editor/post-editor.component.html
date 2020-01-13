@@ -42,8 +42,13 @@
             data-post-content
             required
           ></textarea>
-          <div class="hint-text character-count" data-post-character-count>
-            {{ postData.content?.length }} characters
+          <div class="hint-text character-count">
+            <span class="info-block" data-post-character-count>
+              {{ postData.content?.length }} characters
+            </span>
+            <span class="info-block" data-post-word-count>
+              {{ calculateWordCount(postData.content) }} words
+            </span>
           </div>
         </ng-container>
 
