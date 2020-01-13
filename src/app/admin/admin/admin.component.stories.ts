@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { storiesOf } from '@storybook/angular';
 
@@ -11,7 +12,7 @@ const mockTitleService = {
 };
 
 const moduleMetadata: NgModule = {
-  imports: [RouterTestingModule],
+  imports: [RouterTestingModule, NoopAnimationsModule],
   providers: [{ provide: TitleService, useValue: mockTitleService }]
 };
 
