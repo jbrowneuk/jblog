@@ -132,6 +132,10 @@ textarea,
 
 .character-count {
   text-align: right;
+
+  .info-block {
+    margin-left: 0.5em;
+  }
 }
 
 .emulated-checkbox {

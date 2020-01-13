@@ -57,6 +57,10 @@ export class PostEditorComponent implements OnInit {
     });
   }
 
+  public calculateWordCount(text: string): number {
+    return text ? text.match(/\w+/g).length : 0;
+  }
+
   private generateBlankPost(): PostData {
     return {
       postId: -1,
