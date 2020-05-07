@@ -7,7 +7,7 @@
 
   <div class="outdated-content" *ngIf="isStalePost()" data-outdated-content>
     <i class="fad fa-fw fa-exclamation-triangle"></i>
-    This post was posted {{ data.date * 1000 | relativeDate }} and is most
+    This post was posted {{ data.date | unixEpoch | relativeDate }} and is most
     likely no longer relevant.
   </div>
 
@@ -37,8 +37,12 @@
 </article>
 
 <ng-template #dateTemplate let-date="date" let-icon="icon">
-  <span class="date" title="{{ date * 1000 | date: 'medium' }}" data-post-date>
+  <span
+    class="date"
+    title="{{ date | unixEpoch | date: 'medium' }}"
+    data-post-date
+  >
     <i class="fad fa-fw {{ icon }}" aria-hidden="true"></i>
-    {{ date * 1000 | relativeDate: { precise: isStalePost() } }}
+    {{ date | unixEpoch | relativeDate: { precise: isStalePost() } }}
   </span>
 </ng-template>

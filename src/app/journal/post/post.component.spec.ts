@@ -34,6 +34,15 @@ class MockRelativeDatePipe implements PipeTransform {
   }
 }
 
+@Pipe({
+  name: 'unixEpoch'
+})
+class MockUnixEpochPipe implements PipeTransform {
+  transform(value: any): string {
+    return `${value}`;
+  }
+}
+
 describe('PostComponent', () => {
   let component: PostComponent;
   let fixture: ComponentFixture<PostComponent>;
@@ -42,7 +51,12 @@ describe('PostComponent', () => {
   beforeEach(async(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [MockDatePipe, MockRelativeDatePipe, PostComponent],
+      declarations: [
+        MockDatePipe,
+        MockRelativeDatePipe,
+        MockUnixEpochPipe,
+        PostComponent
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
 

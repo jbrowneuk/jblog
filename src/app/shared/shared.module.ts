@@ -14,11 +14,13 @@ import { RelativeDatePipe } from './relative-date.pipe';
 import { StickyElementDirective } from './sticky-element.directive';
 import { TitleService } from './title.service';
 import { TransitionCompleteService } from './transition-complete.service';
+import { UnixEpochPipe } from './unix-epoch.pipe';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 
 const CORE_COMPONENTS = [
   LineSplittingPipe,
   RelativeDatePipe,
+  UnixEpochPipe,
   LoadSpinnerComponent,
   PaginationComponent,
   FormattedTextComponent,
