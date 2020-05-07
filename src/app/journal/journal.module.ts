@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { SharedModule } from '../shared/shared.module';
 import { PostListComponent } from './post-list/post-list.component';
+import { PostSingleComponent } from './post-single/post-single.component';
 import { PostComponent } from './post/post.component';
 import { JournalEffects } from './state/journal.effects';
 import { journalReducer } from './state/journal.reducer';
@@ -20,8 +21,8 @@ const journalRoutes: Routes = [
     data: { sectionId: sectionId }
   },
   {
-    path: 'post/:id',
-    component: PostListComponent,
+    path: 'post/:slug',
+    component: PostSingleComponent,
     data: { sectionId: sectionId }
   },
   {
@@ -45,6 +46,6 @@ const journalRoutes: Routes = [
     EffectsModule.forFeature([JournalEffects]),
     SharedModule
   ],
-  declarations: [PostComponent, PostListComponent]
+  declarations: [PostComponent, PostListComponent, PostSingleComponent]
 })
 export class JournalModule {}

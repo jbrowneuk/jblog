@@ -1,6 +1,6 @@
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { PostDataWrapper } from 'src/app/model/post-data';
+import { PostData } from 'src/app/model/post-data';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -8,11 +8,12 @@ import { ActivatedRoute } from '@angular/router';
 import { JournalFacade } from '../state/journal.facade';
 
 @Component({
-  selector: 'jblog-post-list',
-  templateUrl: './post-list.component.html'
+  selector: 'jblog-post-single',
+  templateUrl: './post-single.component.html',
+  styleUrls: ['./post-single.component.scss']
 })
-export class PostListComponent implements OnInit {
-  public postData$: Observable<PostDataWrapper>;
+export class PostSingleComponent implements OnInit {
+  public postData$: Observable<PostData>;
 
   constructor(
     private postFacade: JournalFacade,
@@ -26,9 +27,13 @@ export class PostListComponent implements OnInit {
   ngOnInit(): void {
     this.postData$ = this.route.params.pipe(
       switchMap(params => {
-        const page = +params.page || 1;
-        this.postFacade.loadPostList(page);
-        return this.postFacade.postList$;
+        const slug = params.slug;
+        if (!slug) {
+          return throwError('No param');
+        }
+
+        this.postFacade.loadPostBySlug(slug);
+        return this.postFacade.currentPost$;
       })
     );
   }

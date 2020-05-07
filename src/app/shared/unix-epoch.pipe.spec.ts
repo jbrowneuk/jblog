@@ -17,6 +17,6 @@ describe('Unix Epoch Pipe', () => {
 
     const actual = pipe.transform(myEpoch);
 
-    expect(actual.valueOf()).toBe(myEpochMsec);
+    expect(actual.getTime()).toBe(myEpochMsec);
   });
 });
