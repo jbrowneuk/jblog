@@ -52,6 +52,9 @@ describe('PostEditorComponent', () => {
   function createFixture() {
     mockRouter = Mock.ofType<Router>();
     mockPostAdminService = Mock.ofType<PostAdminService>();
+    mockPostAdminService
+      .setup(s => s.sendPost(It.isAny()))
+      .returns(() => of(null)); // TODO
 
     return TestBed.configureTestingModule({
       declarations: [MockFormattedTextComponent, PostEditorComponent],
