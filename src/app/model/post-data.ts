@@ -1,4 +1,15 @@
 /**
+ * An enumeration covering the statuses a post can have
+ */
+export enum PostStatus {
+  /** Published */
+  Publish = 'publish',
+
+  /** Unpublished draft */
+  Draft = 'draft'
+}
+
+/**
  * An interface which can be used by a class to encapsulate a journal post.
  */
 export interface PostData {
@@ -41,7 +52,7 @@ export interface PostData {
   /**
    * Post status
    */
-  status: string;
+  status: PostStatus;
 }
 
 /**

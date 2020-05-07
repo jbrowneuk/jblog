@@ -4,7 +4,7 @@ import { IMock, It, Mock } from 'typemoq';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { PostData, PostDataWrapper } from '../../model/post-data';
+import { PostData, PostDataWrapper, PostStatus } from '../../model/post-data';
 import { PostService } from '../../services/post.service';
 import { PostListComponent } from './post-list.component';
 
@@ -16,7 +16,7 @@ const mockPostData: PostData = {
   content: 'content',
   tags: [],
   slug: 'post-slug',
-  status: 'publish'
+  status: PostStatus.Publish
 };
 
 const mockPostDataWrapper: PostDataWrapper = {

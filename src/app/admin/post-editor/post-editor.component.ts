@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
-import { PostData } from '../../model/post-data';
+import { PostData, PostStatus } from '../../model/post-data';
 import { PostService } from '../../services/post.service';
 import { PostAdminService } from '../post-admin.service';
 
@@ -49,7 +49,7 @@ export class PostEditorComponent implements OnInit {
 
   public onFormSubmit(post: PostData): void {
     // Modify post state – todo: use enum
-    post.status = this.isDraft ? 'draft' : 'publish';
+    post.status = this.isDraft ? PostStatus.Draft : PostStatus.Publish;
 
     this.postAdminService.sendPost(post).subscribe({
       next: () => this.router.navigate(['../..'], { relativeTo: this.route }),
@@ -70,7 +70,7 @@ export class PostEditorComponent implements OnInit {
       content: '',
       tags: [],
       slug: '',
-      status: 'draft'
+      status: PostStatus.Draft
     };
   }
 }

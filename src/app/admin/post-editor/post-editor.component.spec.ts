@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ActivatedRouteStub } from '../../../testing/activated-route-stub';
-import { PostData } from '../../model/post-data';
+import { PostData, PostStatus } from '../../model/post-data';
 import { PostService } from '../../services/post.service';
 import { PostAdminService } from '../post-admin.service';
 import { PostEditorComponent } from './post-editor.component';
@@ -21,7 +21,7 @@ const mockPostData: PostData = {
   content: 'post textual content',
   tags: [],
   slug: 'post-slug',
-  status: 'publish'
+  status: PostStatus.Publish
 };
 
 @Component({

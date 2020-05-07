@@ -3,7 +3,7 @@ import { IMock, It, Mock } from 'typemoq';
 
 import { TestBed } from '@angular/core/testing';
 
-import { PostData, PostDataWrapper } from '../model/post-data';
+import { PostData, PostDataWrapper, PostStatus } from '../model/post-data';
 import { PostService } from './post.service';
 import { RestService } from './rest.service';
 
@@ -15,7 +15,7 @@ const mockFirstPost: PostData = {
   content: 'first post!',
   tags: ['first', 'post'],
   slug: 'first-post',
-  status: 'publish'
+  status: PostStatus.Publish
 };
 
 const mockSecondPost: PostData = {
@@ -26,7 +26,7 @@ const mockSecondPost: PostData = {
   content: 'second post!',
   tags: ['second', 'post'],
   slug: 'second post',
-  status: 'publish'
+  status: PostStatus.Publish
 };
 
 describe('PostService', () => {

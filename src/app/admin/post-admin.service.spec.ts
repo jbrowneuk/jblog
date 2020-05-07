@@ -2,7 +2,7 @@ import { IMock, It, Mock, Times } from 'typemoq';
 
 import { TestBed } from '@angular/core/testing';
 
-import { PostData } from '../model/post-data';
+import { PostData, PostStatus } from '../model/post-data';
 import { UserService } from '../services/user.service';
 import { PostAdminService } from './post-admin.service';
 
@@ -14,7 +14,7 @@ const mockPost: PostData = {
   content: 'first post!',
   tags: ['first', 'post'],
   slug: 'first-post',
-  status: 'publish'
+  status: PostStatus.Publish
 };
 
 describe('PostAdminService', () => {

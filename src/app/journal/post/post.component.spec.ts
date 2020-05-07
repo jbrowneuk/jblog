@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { PostData } from '../../model/post-data';
+import { PostData, PostStatus } from '../../model/post-data';
 import { PostComponent } from './post.component';
 
 const mockPostData: PostData = {
@@ -13,7 +13,7 @@ const mockPostData: PostData = {
   content: 'Example post content with an emoji :smile: . Yay!',
   tags: ['one', 'two'],
   slug: 'mock',
-  status: 'publish'
+  status: PostStatus.Publish
 };
 
 @Pipe({
