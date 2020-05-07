@@ -1,4 +1,4 @@
-import { AfterViewInit, ElementRef, HostListener } from '@angular/core';
+import { AfterViewInit, ElementRef, HostListener, Directive } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 export interface ScrollPosition {
@@ -7,6 +7,7 @@ export interface ScrollPosition {
   clientHeight: number;
 }
 
+@Directive()
 export abstract class ScrollDirectiveBase implements AfterViewInit {
   private lastKnownPosition: ScrollPosition;
   private lastScrollWasDown: boolean;

@@ -43,8 +43,6 @@ describe('PostAdminService', () => {
       mockUserService
         .setup(s => s.authPost(It.isAnyString(), It.isAny()))
         .callback((s: string, b: FormData) => {
-          console.log(s);
-          console.log(b);
           dataValue = b.get('data').toString();
         });
 

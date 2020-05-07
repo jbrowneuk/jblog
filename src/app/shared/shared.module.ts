@@ -34,7 +34,7 @@ const CORE_COMPONENTS = [
   exports: CORE_COMPONENTS
 })
 export class SharedModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<SharedModule> {
     return {
       ngModule: SharedModule,
       providers: [TitleService, TransitionCompleteService]
