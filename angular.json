@@ -31,7 +31,7 @@
               },
               {
                 "glob": "**/*.css",
-                "input": "src/theme/colors/",
+                "input": "node_modules/@jbrowneuk/style-bundle",
                 "output": "theme/"
               }
             ],
