@@ -65,9 +65,7 @@
           </span>
         </time>
       </header>
-      <jblog-text data-post-content>
-        {{ data.description }}
-      </jblog-text>
+      <jblog-text [text]="data.description" data-post-content></jblog-text>
       <footer class="footer-area">
         <ul class="tags-area" data-post-tags>
           <li><i class="fad fa-fw fa-tags" aria-hidden="true"></i></li>

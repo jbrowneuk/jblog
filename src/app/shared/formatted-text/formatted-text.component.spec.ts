@@ -1,59 +1,70 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { NgxMdModule } from 'ngx-md';
+import { PageObjectBase } from 'src/app/lib/testing/page-object.base';
 
-import { FormattedTextComponent } from './formatted-text.component';
-import { Component } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Component, Input } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-const mockTestContent = 'MockTestContent';
-const dataTestSelectors = {
-  noContent: 'no-content',
-  withContent: 'with-content'
-};
+import { FormattedTextComponent } from './formatted-text.component';
 
-@Component({
-  selector: 'ngx-md', // tslint:disable-line
-  template: '<ng-content></ng-content>'
-})
-class MockMarkdownComponent {}
+const mockTestContent = 'MockTestContent';
+const dataAttributes = {
+  noContent: 'data-no-content',
+  withContent: 'data-with-content',
+  markdown: 'data-text-area'
+};
 
 @Component({
   selector: 'jblog-test-wrapper',
   template: `
-    <jblog-text data-test="${dataTestSelectors.noContent}"></jblog-text>
-    <jblog-text data-test="${dataTestSelectors.withContent}"
-      >${mockTestContent}</jblog-text
-    >
+    <jblog-text ${dataAttributes.noContent}></jblog-text>
+    <jblog-text ${dataAttributes.withContent} [text]="text"></jblog-text>
   `
 })
-class TestComponent {}
+class TestComponent {
+  public text = mockTestContent;
+}
+
+class TestComponentPageObject extends PageObjectBase<TestComponent> {
+  public get noContent(): HTMLElement {
+    return this.select(`[${dataAttributes.noContent}]`);
+  }
+
+  public get withContent(): HTMLElement {
+    return this.select(`[${dataAttributes.withContent}]`);
+  }
+
+  public mdContainerFor(parent: HTMLElement): HTMLElement {
+    return parent.querySelector(`[${dataAttributes.markdown}]`);
+  }
+}
 
 describe('Formatted Text View', () => {
   let fixture: ComponentFixture<TestComponent>;
+  let pageObject: TestComponentPageObject;
 
   beforeEach(async(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        MockMarkdownComponent,
-        FormattedTextComponent,
-        TestComponent
-      ]
+      declarations: [FormattedTextComponent, TestComponent],
+      imports: [HttpClientTestingModule, NgxMdModule.forRoot()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestComponent);
+    pageObject = new TestComponentPageObject(fixture);
     fixture.detectChanges();
   }));
 
   it('should contain a markdown component', () => {
-    const mdElement = fixture.debugElement.query(
-      By.css(`[data-test=${dataTestSelectors.noContent}]`)
-    );
-    expect(mdElement).toBeTruthy();
+    const noContentMd = pageObject.mdContainerFor(pageObject.noContent);
+    expect(noContentMd).toBeTruthy();
+
+    const contentMd = pageObject.mdContainerFor(pageObject.withContent);
+    expect(contentMd).toBeTruthy();
   });
 
   it('should pass data to markdown component', async(async () => {
-    const mdElement = fixture.debugElement.query(
-      By.css(`[data-test=${dataTestSelectors.withContent}] ngx-md`)
-    );
-    expect(mdElement.nativeElement.innerHTML.trim()).toBe(mockTestContent);
+    const contentMd = pageObject.mdContainerFor(pageObject.withContent);
+    expect(contentMd.textContent.trim()).toBe(mockTestContent);
   }));
 });

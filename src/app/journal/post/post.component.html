@@ -28,9 +28,7 @@
     This post was posted {{ postData.date | unixEpoch | relativeDate }} and is
     most likely no longer relevant.
   </div>
-  <jblog-text data-post-content>
-    {{ postData.content }}
-  </jblog-text>
+  <jblog-text [text]="postData.content" data-post-content></jblog-text>
   <footer class="footer-area">
     <ul *ngIf="postData.tags" class="tags-area" data-post-tags>
       <li><i class="fad fa-fw fa-tags" aria-hidden="true"></i></li>
