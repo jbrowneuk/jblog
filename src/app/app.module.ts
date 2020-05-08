@@ -7,8 +7,11 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { ENV_PROVIDERS } from '../environments/environment';
+import { ENV_PROVIDERS, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorComponent } from './error/error.component';
@@ -25,6 +28,13 @@ registerLocaleData(locale);
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      name: 'jBlog',
+      maxAge: 25,
+      logOnly: environment.production
+    }),
+    EffectsModule.forRoot([]),
     SharedModule.forRoot(),
     HomeModule,
     AppRoutingModule

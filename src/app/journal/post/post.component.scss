@@ -1,5 +1,33 @@
-:host {
-  display: block;
+@media screen and (max-width: 450px) {
+  .date {
+    order: 0;
+  }
+
+  h1 {
+    order: 1;
+    text-align: center;
+  }
+}
+
+.skeleton h1 {
+  width: 45%;
+  color: transparent;
+  text-shadow: none;
+}
+
+.skeleton .month {
+  height: calc(1.5em + 4px);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.skeleton .paragraph {
+  height: 15em;
+}
+
+.skeleton .tags {
+  height: 14px;
+  width: 20%;
+  min-width: 60px;
 }
 
 .outdated-content {

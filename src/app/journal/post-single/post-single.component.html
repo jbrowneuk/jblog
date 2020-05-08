@@ -1,0 +1,25 @@
+<div class="container">
+  <a routerLink="../.." class="all-post-header" data-back-button>
+    <i class="fad fa-fw fa-chevron-left" aria-hidden="true"></i>
+    Return to updates
+  </a>
+
+  <ng-container *ngIf="postData$ | async as postData; else loadState">
+    <jblog-post
+      [postData]="postData"
+      [attr.data-post]="postData.postId"
+    ></jblog-post>
+  </ng-container>
+</div>
+
+<ng-template #loadState>
+  <div *ngIf="loading$ | async; else noPosts" data-loading-posts>
+    <jblog-post></jblog-post>
+  </div>
+</ng-template>
+
+<ng-template #noPosts>
+  <div data-no-posts>
+    There’s no post with that identifier.
+  </div>
+</ng-template>

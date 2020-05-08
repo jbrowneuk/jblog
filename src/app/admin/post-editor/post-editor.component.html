@@ -54,9 +54,10 @@
 
         <!-- Content text preview -->
         <div *ngIf="!isEditing" class="scroll-pane">
-          <jblog-text data-post-content-preview>{{
-            postData.content || '*No content*'
-          }}</jblog-text>
+          <jblog-text
+            [text]="postData.content || '*No content*'"
+            data-post-content-preview
+          ></jblog-text>
         </div>
       </div>
     </fieldset>
