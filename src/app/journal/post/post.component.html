@@ -31,11 +31,15 @@
   <jblog-text data-post-content>
     {{ postData.content }}
   </jblog-text>
-  <footer>
-    <ul *ngIf="postData.tags" class="tags secondary-text" data-post-tags>
+  <footer class="footer-area">
+    <ul *ngIf="postData.tags" class="tags-area" data-post-tags>
       <li><i class="fad fa-fw fa-tags" aria-hidden="true"></i></li>
-      <li *ngFor="let tag of postData.tags" [attr.data-post-tag]="tag">
-        #{{ tag }}
+      <li
+        *ngFor="let tag of postData.tags"
+        class="tag"
+        [attr.data-post-tag]="tag"
+      >
+        <a [routerLink]="['/journal/tag', tag]" class="rounded">#{{ tag }}</a>
       </li>
     </ul>
   </footer>

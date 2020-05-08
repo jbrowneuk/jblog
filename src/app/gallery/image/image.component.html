@@ -30,7 +30,7 @@
   <div class="controls button-container text-center">
     <a
       [routerLink]="['/art/album', getPrimaryAlbum().name]"
-      id="parent-folder-link"
+      data-parent-folder-link
     >
       <i class="fad fa-fw fa-th-large" aria-hidden="true"></i> Back to
       <em>{{ getPrimaryAlbum().title }}</em>
@@ -47,30 +47,40 @@
     </a>
   </div>
 
-  <div class="container post">
-    <article class="base-card">
-      <header>
-        <h1 id="image-title">{{ data.title }}</h1>
+  <!-- Image description -->
+  <div class="container">
+    <article class="post base-card">
+      <header class="header-area">
+        <h1 data-title>{{ data.title }}</h1>
+        <time
+          [attr.datetime]="data.date | unixEpoch | date: 'yyyy-MM-ddTHH:mmZ'"
+          class="shadowed date"
+          data-date
+        >
+          <span class="day" data-day>
+            {{ data.date | unixEpoch | date: 'd' }}
+          </span>
+          <span class="month" data-month-year>
+            {{ data.date | unixEpoch | date: 'MMM yyyy' }}
+          </span>
+        </time>
       </header>
-
-      <div class="content-area" data-test="description-text">
-        <jblog-text>{{ data.description }}</jblog-text>
-      </div>
-
-      <footer>
-        <ul class="tags-area" id="gallery-area">
-          <li><i class="fad fa-tags" aria-hidden="true"></i></li>
-          <li class="tag" *ngFor="let gallery of data.containingAlbums">
-            <a class="rounded" [routerLink]="['/art/album', gallery.name]">{{
-              gallery.title
-            }}</a>
+      <jblog-text data-post-content>
+        {{ data.description }}
+      </jblog-text>
+      <footer class="footer-area">
+        <ul class="tags-area" data-post-tags>
+          <li><i class="fad fa-fw fa-tags" aria-hidden="true"></i></li>
+          <li *ngFor="let gallery of data.containingAlbums" class="tag">
+            <a
+              [routerLink]="['/art/album', gallery.name]"
+              class="rounded"
+              [attr.data-post-tag]="gallery.name"
+            >
+              {{ gallery.title }}
+            </a>
           </li>
         </ul>
-
-        <span class="date" title="{{ data.date * 1000 | date: 'medium' }}">
-          <i class="fad fa-fw fa-calendar" aria-hidden="true"></i>
-          {{ data.date * 1000 | date: 'mediumDate' }}
-        </span>
       </footer>
     </article>
   </div>
