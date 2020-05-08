@@ -13,25 +13,13 @@
 
     <!-- posts  | arraySort: 'date' | arrayReverse -->
 
-    <nav class="text-center secondary-text" data-pagination>
-      <a
-        *ngIf="postData.page > 1"
-        [routerLink]="['../', postData.page - 1]"
-        data-previous
-      >
-        <i class="fad fa-fw fa-chevron-left" aria-label="Previous page"></i>
-      </a>
-      <span data-page
-        >Page {{ postData.page }} of {{ postData.totalPages }}</span
-      >
-      <a
-        *ngIf="postData.page < postData.totalPages"
-        [routerLink]="['../', postData.page + 1]"
-        data-next
-      >
-        <i class="fad fa-fw fa-chevron-right" aria-label="Next page"></i>
-      </a>
-    </nav>
+    <div class="text-center">
+      <jblog-pagination
+        [urlComponents]="calculateUrlComponents()"
+        [currentPage]="postData.page"
+        [totalPages]="postData.totalPages"
+      ></jblog-pagination>
+    </div>
   </ng-container>
 </div>
 
@@ -41,7 +29,7 @@
     class="text-center"
     data-loading-posts
   >
-    <jblog-post></jblog-post>>
+    <jblog-post></jblog-post>
   </div>
 </ng-template>
 

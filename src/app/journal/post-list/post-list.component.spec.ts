@@ -1,11 +1,13 @@
 import { of } from 'rxjs';
 import { PageObjectBase } from 'src/app/lib/testing/page-object.base';
 import { PostData, PostDataWrapper, PostStatus } from 'src/app/model/post-data';
+import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { IMock, It, Mock, Times } from 'typemoq';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -34,16 +36,8 @@ class PostListPageObject extends PageObjectBase<PostListComponent> {
     return this.selectAll('[data-post]');
   }
 
-  public get previousPage(): HTMLAnchorElement {
-    return this.select('[data-previous]');
-  }
-
-  public get nextPage(): HTMLAnchorElement {
-    return this.select('[data-next]');
-  }
-
-  public get paginationText(): HTMLSpanElement {
-    return this.select('[data-page]');
+  public get pagination(): PaginationComponent {
+    return this.selectDebug(By.css('jblog-pagination')).componentInstance;
   }
 }
 
@@ -105,19 +99,10 @@ describe('Post List Component', () => {
     });
   });
 
-  it('should display previous page link', () => {
-    expect(pageObject.previousPage).toBeTruthy();
-    expect(pageObject.previousPage.tagName.toUpperCase()).toBe('A');
-  });
-
-  it('should display next page link', () => {
-    expect(pageObject.nextPage).toBeTruthy();
-    expect(pageObject.nextPage.tagName.toUpperCase()).toBe('A');
-  });
-
-  it('should display pagination information', () => {
-    const expectedText = `${mockPostData.page} of ${mockPostData.totalPages}`;
-    expect(pageObject.paginationText).toBeTruthy();
-    expect(pageObject.paginationText.textContent).toContain(expectedText);
+  it('should display pagination', () => {
+    const pagination = pageObject.pagination;
+    expect(pagination).toBeTruthy();
+    expect(pagination.currentPage).toBe(mockPostData.page);
+    expect(pagination.totalPages).toBe(mockPostData.totalPages);
   });
 });
