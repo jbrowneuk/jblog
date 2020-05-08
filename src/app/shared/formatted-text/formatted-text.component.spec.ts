@@ -2,9 +2,8 @@ import { NgxMdModule } from 'ngx-md';
 import { PageObjectBase } from 'src/app/lib/testing/page-object.base';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 
 import { FormattedTextComponent } from './formatted-text.component';
 
