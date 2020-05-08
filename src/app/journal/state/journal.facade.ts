@@ -13,8 +13,8 @@ export class JournalFacade {
 
   constructor(private store: Store<JournalState>) {}
 
-  public loadPostList(page: number): void {
-    this.store.dispatch(new LoadPosts(page));
+  public loadPostList(page: number, tag: string): void {
+    this.store.dispatch(new LoadPosts(page, tag));
   }
 
   public loadPostBySlug(slug: string): void {

@@ -27,7 +27,8 @@ export class PostListComponent implements OnInit {
     this.postData$ = this.route.params.pipe(
       switchMap(params => {
         const page = +params.page || 1;
-        this.postFacade.loadPostList(page);
+        const tag = params.tag || null;
+        this.postFacade.loadPostList(page, tag);
         return this.postFacade.postList$;
       })
     );

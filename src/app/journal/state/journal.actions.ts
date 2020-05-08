@@ -14,7 +14,7 @@ export enum JournalActionsType {
 export class LoadPosts implements Action {
   public readonly type = JournalActionsType.LoadPosts;
 
-  constructor(public payload: number) {}
+  constructor(public page: number, public tag: string) {}
 }
 
 export class LoadPostsSuccess implements Action {

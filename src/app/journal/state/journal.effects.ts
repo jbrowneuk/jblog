@@ -16,7 +16,7 @@ export class JournalEffects {
   public loadPosts$ = this.actions.pipe(
     ofType(JournalActionsType.LoadPosts),
     switchMap((action: LoadPosts) =>
-      this.service.getPostsForPage(action.payload).pipe(
+      this.service.getPostsForPage(action.page, action.tag).pipe(
         map(r => new LoadPostsSuccess(r)),
         catchError(() => of(new LoadPostsFailure()))
       )

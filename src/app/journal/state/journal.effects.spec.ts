@@ -2,7 +2,7 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable, of, throwError } from 'rxjs';
 import { PostData, PostDataWrapper, PostStatus } from 'src/app/model/post-data';
 import { PostService } from 'src/app/services/post.service';
-import { IMock, Mock } from 'typemoq';
+import { IMock, It, Mock } from 'typemoq';
 
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -52,11 +52,12 @@ describe('Journal effects', () => {
   describe('loadPosts$', () => {
     it('should return LoadPostsSuccess action with the post data on success', () => {
       const page = 1;
+      const tag = 'any';
       mockService
-        .setup(s => s.getPostsForPage(page))
+        .setup(s => s.getPostsForPage(It.isValue(page), It.isValue(tag)))
         .returns(() => of(mockPostData));
 
-      const inputAction = new LoadPosts(page);
+      const inputAction = new LoadPosts(page, tag);
       const outcomeAction = new LoadPostsSuccess(mockPostData);
       actions = hot('--a-', { a: inputAction });
       const expected = cold('--b', { b: outcomeAction });
@@ -65,11 +66,12 @@ describe('Journal effects', () => {
 
     it('should return LoadPostsFailure action on failure', () => {
       const page = 1;
+      const tag = 'any';
       mockService
-        .setup(s => s.getPostsForPage(page))
+        .setup(s => s.getPostsForPage(It.isValue(page), It.isValue(tag)))
         .returns(() => throwError('nope'));
 
-      const inputAction = new LoadPosts(page);
+      const inputAction = new LoadPosts(page, tag);
       const outcomeAction = new LoadPostsFailure();
       actions = hot('--a-', { a: inputAction });
       const expected = cold('--b', { b: outcomeAction });

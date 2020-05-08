@@ -7,14 +7,16 @@ import {
 
 describe('Load Post action', () => {
   it('should have correct type', () => {
-    const action = new LoadPosts(1);
+    const action = new LoadPosts(1, 'any');
     expect(action.type).toBe(JournalActionsType.LoadPosts);
   });
 
-  it('should have page number as payload', () => {
+  it('should have page number and tag set', () => {
     const page = 42069;
-    const action = new LoadPosts(page);
-    expect(action.payload).toBe(page);
+    const tag = 'any';
+    const action = new LoadPosts(page, tag);
+    expect(action.page).toBe(page);
+    expect(action.tag).toBe(tag);
   });
 });
 

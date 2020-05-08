@@ -83,7 +83,7 @@ describe('Post List Component', () => {
   it('should load posts from facade on creation', () => {
     expect(component).toBeTruthy();
     mockFacade.verify(
-      f => f.loadPostList(It.isValue(mockPostData.page)),
+      f => f.loadPostList(It.isValue(mockPostData.page), It.isValue(null)),
       Times.once()
     );
   });

@@ -33,7 +33,7 @@ describe('Journal reducer', () => {
 
   describe('loading multiple posts', () => {
     it('should set loading to true on LoadPosts action', () => {
-      const action = new LoadPosts(1);
+      const action = new LoadPosts(1, 'any');
       const result = journalReducer(initialState, action);
       expect(result.postsLoading).toBeTrue();
     });
