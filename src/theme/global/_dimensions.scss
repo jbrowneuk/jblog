@@ -1,0 +1,49 @@
+:root {
+  /* Defaults */
+  --border-radius-default: 4px;
+  --box-shadow-default: 0 2px 4px;
+  --box-shadow-default-hover: 0 4px 8px;
+
+  /* Grid */
+  --grid-columns: 12;
+  --grid-column-width: calc(1% / var(--grid-columns) * 100);
+  --grid-gutter: 20px;
+  --grid-column-actual-width: calc(
+    var(--grid-column-width) - var(--grid-gutter)
+  );
+
+  /* Breakpoints */
+  --breakpoint-sm: $breakpoint-sm;
+  --breakpoint-md: $breakpoint-md;
+  --breakpoint-lg: $breakpoint-lg;
+  --breakpoint-xl: $breakpoint-xl;
+
+  /* Containers */
+  --width-container-sm: 540px;
+  --width-container-md: 720px;
+  --width-container-lg: 960px;
+  --width-container-xl: 1140px;
+
+  /* Page header */
+  --height-page-header: 50px;
+  --height-margin-page-header: 20px;
+  --margin-page-header: 0 0 var(--height-margin-page-header);
+  --box-shadow-page-header: 0 2px 4px;
+
+  /* Page footer */
+  --margin-page-footer: 20px 0;
+  --padding-page-footer: 16px 0 0;
+
+  /* Loading spinner */
+  --width-spinner-visual: 64px;
+  --width-spinner-icon: 48px;
+
+  /* Gallery dimensions */
+  --thumbnail-image-padding: 4px;
+
+  /* Posts */
+  --size-post-header-spacing: 30px;
+  --size-post-content-spacing: 20px;
+  --size-post-margin: 40px;
+  --size-post-padding: 40px 10%;
+}

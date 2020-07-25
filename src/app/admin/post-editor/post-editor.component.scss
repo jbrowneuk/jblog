@@ -84,29 +84,6 @@
   }
 }
 
-input,
-textarea,
-.title-input,
-.content-input {
-  border: 1px solid var(--color-input-border);
-  background: var(--color-input-background);
-  border-radius: var(--border-radius-default);
-  transition: border 200ms, background-color 200ms;
-
-  &:hover {
-    background: var(--color-input-background-focus);
-  }
-
-  &:invalid {
-    border-color: var(--color-error);
-  }
-
-  &:focus {
-    border-color: var(--color-input-border-focus);
-    background: var(--color-input-background-focus);
-  }
-}
-
 .title-input {
   font-size: 40px;
   margin-bottom: 5px;
