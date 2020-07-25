@@ -1,0 +1,93 @@
+// --------------------------------------------------------
+// Loading spinner
+// --------------------------------------------------------
+.load-spinner {
+  width: var(--width-spinner-visual);
+  height: var(--width-spinner-visual);
+  margin: 16px auto;
+  position: relative;
+  color: var(--color-loading-spinner-primary);
+
+  &::before,
+  & > div {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  $speed: 800ms;
+
+  /* Background block */
+  &::before {
+    content: '';
+    background-color: var(--color-loading-spinner-secondary);
+    border-radius: var(--border-radius-default);
+    animation-duration: $speed;
+    animation-name: load-spin;
+    animation-iteration-count: infinite;
+  }
+
+  .border {
+    border: 2px solid var(--color-loading-spinner-secondary);
+    border-radius: var(--border-radius-default);
+    animation-delay: 80ms;
+    animation-duration: $speed;
+    animation-name: load-spin;
+    animation-iteration-count: infinite;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  svg {
+    width: var(--width-spinner-icon);
+    height: var(--width-spinner-icon);
+  }
+}
+
+// --------------------------------------------------------
+// Loading shimmer - for skeleton loaders
+// --------------------------------------------------------
+.load-effect {
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading-bar-pulse;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate;
+  background: linear-gradient(
+    to right,
+    var(--color-loader-skeleton-primary) 50%,
+    var(--color-loader-skeleton-secondary) 50%
+  );
+  background-size: 200% 16px;
+}
+
+// --------------------------------------------------------
+// Animations
+// --------------------------------------------------------
+@keyframes load-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(89deg);
+  }
+}
+
+@keyframes loading-bar-pulse {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}
