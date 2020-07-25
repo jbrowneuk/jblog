@@ -1,23 +1,32 @@
+import { PageObjectBase } from 'src/app/lib/testing/page-object.base';
+import { IMock, It, Mock, Times } from 'typemoq';
+
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { It, Mock, Times } from 'typemoq';
 
 import { TitleService } from '../shared/title.service';
-
 import { ErrorComponent } from './error.component';
 
-describe('ErrorComponent', () => {
-  const mockTitleService = Mock.ofType<TitleService>();
-  mockTitleService.setup(x => x.setTitle(It.isAnyString()));
-  mockTitleService.setup(x => x.resetTitle());
+class ErrorPageObject extends PageObjectBase<ErrorComponent> {
+  public get title(): HTMLHeadingElement {
+    return this.select('[data-title]');
+  }
 
-  let component: ErrorComponent;
+  public get navigationLinks(): HTMLAnchorElement[] {
+    return this.selectAll('[data-navigation] a');
+  }
+}
+
+describe('Error Component', () => {
+  let mockTitleService: IMock<TitleService>;
   let fixture: ComponentFixture<ErrorComponent>;
+  let pageObject: ErrorPageObject;
 
   beforeEach(() => {
-    mockTitleService.reset();
+    mockTitleService = Mock.ofType<TitleService>();
+    mockTitleService.setup(x => x.setTitle(It.isAnyString()));
+    mockTitleService.setup(x => x.resetTitle());
 
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
@@ -29,17 +38,20 @@ describe('ErrorComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(ErrorComponent);
-    component = fixture.componentInstance;
+    pageObject = new ErrorPageObject(fixture);
     fixture.detectChanges();
   });
 
-  it('should create and show 404 text', () => {
-    expect(component).toBeTruthy();
+  it('should show 404 text', () => {
+    const heading = pageObject.title;
+    expect(heading).toBeTruthy();
+    expect(heading.textContent.length).toBeGreaterThan(0);
+  });
 
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content-area > h1').textContent).toContain(
-      'Feeling lost? Don’t worry'
-    );
+  it('should show navigation links', () => {
+    const links = pageObject.navigationLinks;
+    expect(links).toBeTruthy();
+    expect(links.length).toBeGreaterThan(0);
   });
 
   it('should reset title', () => {
