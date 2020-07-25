@@ -39,7 +39,8 @@ const enter = query(
       animate(timing, style({ opacity: 1, transform: imageTransformIn })),
       delayedOptionalAnimation
     )
-  ])
+  ]),
+  optionalAnimation
 );
 
 const leave = query(
