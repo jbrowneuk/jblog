@@ -7,7 +7,7 @@
     class="loading-area grid"
     *ngIf="isLoadingImages && (!images || images.length == 0)"
   >
-    <ng-container *ngFor="let loader of [].constructor(16)">
+    <ng-container *ngFor="let loader of imagePlaceholders">
       <ng-container *ngTemplateOutlet="ghostThumbnail"></ng-container>
     </ng-container>
   </div>

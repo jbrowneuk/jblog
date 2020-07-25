@@ -3,6 +3,8 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ImageInfo } from '../../model/image-info';
 import { ImageService } from '../../services/image.service';
 
+const defaultExpectedImages = 16;
+
 /**
  * The component that is used to load image data and display a thumbnail grid of
  * images that are either grouped by a specific tag or folder.
@@ -51,6 +53,17 @@ export class ImageContainerComponent implements OnChanges {
    * Constructor with injected services.
    */
   constructor(private imageService: ImageService) {}
+
+  /**
+   * Expected number of images to display. Used for loading placeholder
+   */
+  public get imagePlaceholders(): any[] {
+    const placeholderCount =
+      this.imageCount && this.imageCount <= 0
+        ? defaultExpectedImages
+        : this.imageCount;
+    return new Array(placeholderCount).fill(null);
+  }
 
   /**
    * Called when a property changes. Used to detect if the album or page has

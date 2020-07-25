@@ -92,4 +92,14 @@ describe('ImageContainerComponent', () => {
     );
     expect().nothing();
   });
+
+  it('should provide correct number of placeholders for loading', () => {
+    expect(component.imagePlaceholders.length).toBe(16);
+  });
+
+  it('should provide correct number of placeholders for loading if image count is set', () => {
+    const expectedImages = 4;
+    component.imageCount = expectedImages;
+    expect(component.imagePlaceholders.length).toBe(expectedImages);
+  });
 });
