@@ -2,50 +2,46 @@
   <div class="gratituous-image text-center">
     <img src="/assets/images/404-large.svg" alt="404 image" />
   </div>
-  <div class="post">
-    <article class="base-card">
-      <div class="content-area">
-        <h1>Feeling lost? Don’t worry</h1>
-        <p>
-          A “404” error appears if there is a broken link or we’ve moved a page.
-        </p>
-        <p>
-          We all get lost, once in a while. Here’s some directions back to known
-          locations, like you'd find on street signs in the real world.
-        </p>
-        <ul class="site-map fa-ul">
-          <li>
-            <a routerLink="/">
-              <span class="fa-li"><i class="fad fa-fw fa-home"></i></span>
-              Portfolio home
-            </a>
-          </li>
-          <li>
-            <a routerLink="/about/">
-              <span class="fa-li"><i class="fad fa-fw fa-male"></i></span> About
-              me
-            </a>
-          </li>
-          <li>
-            <a routerLink="/art/">
-              <span class="fa-li"><i class="fad fa-fw fa-images"></i></span> Art
-              gallery
-            </a>
-          </li>
-          <li>
-            <a routerLink="/projects/">
-              <span class="fa-li"><i class="fad fa-fw fa-rocket"></i></span>
-              Projects
-            </a>
-          </li>
-          <li>
-            <a routerLink="/journal/">
-              <span class="fa-li"><i class="fad fa-fw fa-pencil"></i></span>
-              Journal
-            </a>
-          </li>
-        </ul>
-      </div>
-    </article>
-  </div>
+  <article class="post base-card">
+    <header class="header-area">
+      <h1 data-title>Feeling lost? Don’t worry.</h1>
+    </header>
+    <div class="content-area">
+      <p>
+        A “404” error appears if there is a broken link or a page was moved.
+      </p>
+      <p>
+        We all get lost, once in a while. Here’s some directions back to known
+        locations, like you'd find on street signs in the real world.
+      </p>
+      <ul id="site-map" class="button-container" data-navigation>
+        <li>
+          <a routerLink="/">
+            <i class="fad fa-fw fa-home"></i>
+            Portfolio home
+          </a>
+        </li>
+        <li>
+          <a routerLink="/about/">
+            <i class="fad fa-fw fa-male"></i> About me
+          </a>
+        </li>
+        <li>
+          <a routerLink="/art/">
+            <i class="fad fa-fw fa-images"></i> Art gallery
+          </a>
+        </li>
+        <li>
+          <a routerLink="/projects/">
+            <i class="fad fa-fw fa-rocket"></i> Projects
+          </a>
+        </li>
+        <li>
+          <a routerLink="/journal/">
+            <i class="fad fa-fw fa-pencil"></i> Journal
+          </a>
+        </li>
+      </ul>
+    </div>
+  </article>
 </div>

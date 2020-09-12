@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { PostDataWrapper } from 'src/app/model/post-data';
+import { TitleService } from 'src/app/shared/title.service';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -17,7 +18,8 @@ export class PostListComponent implements OnInit {
 
   constructor(
     private postFacade: JournalFacade,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private title: TitleService
   ) {
     this.tag = null;
   }
@@ -32,6 +34,7 @@ export class PostListComponent implements OnInit {
       switchMap(params => {
         const page = +params.page || 1;
         this.tag = params.tag || null;
+        this.updateTitle(page, this.tag);
         this.postFacade.loadPostList(page, this.tag);
         return this.postFacade.postList$;
       })
@@ -45,5 +48,13 @@ export class PostListComponent implements OnInit {
     }
 
     return urlComponents;
+  }
+
+  private updateTitle(page: number, tag: string): void {
+    const baseTitle = 'Journal';
+    const tagInfo = tag ? `posts tagged ${tag}, ` : '';
+    const pageInfo = `page ${page}`;
+
+    this.title.setTitle(`${baseTitle} - ${tagInfo}${pageInfo}`);
   }
 }

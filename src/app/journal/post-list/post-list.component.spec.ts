@@ -1,8 +1,9 @@
-import { of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { PageObjectBase } from 'src/app/lib/testing/page-object.base';
 import { PostData, PostDataWrapper, PostStatus } from 'src/app/model/post-data';
 import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { TitleService } from 'src/app/shared/title.service';
 import { IMock, It, Mock, Times } from 'typemoq';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -44,25 +45,30 @@ class PostListPageObject extends PageObjectBase<PostListComponent> {
 describe('Post List Component', () => {
   let mockFacade: IMock<JournalFacade>;
   let mockRoute: IMock<ActivatedRoute>;
+  let mockTitleService: IMock<TitleService>;
   let component: PostListComponent;
   let fixture: ComponentFixture<PostListComponent>;
   let pageObject: PostListPageObject;
+  let paramsSubject: BehaviorSubject<any>;
 
   beforeEach(async(async () => {
     mockFacade = Mock.ofType<JournalFacade>();
     mockFacade.setup(f => f.postListLoading$).returns(() => of(false));
     mockFacade.setup(f => f.postList$).returns(() => of(mockPostData));
 
+    paramsSubject = new BehaviorSubject<any>({ page: mockPostData.page });
+
     mockRoute = Mock.ofType<ActivatedRoute>();
-    mockRoute
-      .setup(r => r.params)
-      .returns(() => of({ page: mockPostData.page }));
+    mockRoute.setup(r => r.params).returns(() => paramsSubject);
+
+    mockTitleService = Mock.ofType<TitleService>();
 
     await TestBed.configureTestingModule({
       declarations: [PostListComponent],
       providers: [
         { provide: JournalFacade, useFactory: () => mockFacade.object },
-        { provide: ActivatedRoute, useFactory: () => mockRoute.object }
+        { provide: ActivatedRoute, useFactory: () => mockRoute.object },
+        { provide: TitleService, useFactory: () => mockTitleService.object }
       ],
       imports: [RouterTestingModule, SharedModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -104,5 +110,34 @@ describe('Post List Component', () => {
     expect(pagination).toBeTruthy();
     expect(pagination.currentPage).toBe(mockPostData.page);
     expect(pagination.totalPages).toBe(mockPostData.totalPages);
+  });
+
+  describe('tab title behaviour', () => {
+    it('should update tab title with page number if no tag set', done => {
+      setTimeout(() => {
+        const expectedTitle = `Journal - page ${mockPostData.page}`;
+        mockTitleService.verify(
+          x => x.setTitle(It.isValue(expectedTitle)),
+          Times.once()
+        );
+        expect().nothing();
+        done();
+      });
+    });
+
+    it('should provide tag info and page number when tag set', done => {
+      const mockTag = 'mock tag';
+      paramsSubject.next({ page: mockPostData.page, tag: mockTag });
+
+      setTimeout(() => {
+        const expectedTitle = `Journal - posts tagged ${mockTag}, page ${mockPostData.page}`;
+        mockTitleService.verify(
+          x => x.setTitle(It.isValue(expectedTitle)),
+          Times.once()
+        );
+        expect().nothing();
+        done();
+      });
+    });
   });
 });
