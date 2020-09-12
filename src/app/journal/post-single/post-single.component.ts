@@ -1,6 +1,7 @@
 import { Observable, throwError } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { PostData } from 'src/app/model/post-data';
+import { TitleService } from 'src/app/shared/title.service';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -17,7 +18,8 @@ export class PostSingleComponent implements OnInit {
 
   constructor(
     private postFacade: JournalFacade,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private title: TitleService
   ) {}
 
   public get loading$(): Observable<boolean> {
@@ -34,7 +36,16 @@ export class PostSingleComponent implements OnInit {
 
         this.postFacade.loadPostBySlug(slug);
         return this.postFacade.currentPost$;
-      })
+      }),
+      tap({ next: this.handlePostChanged.bind(this) })
     );
+  }
+
+  private handlePostChanged(post: PostData): void {
+    if (!post) {
+      return this.title.resetTitle();
+    }
+
+    this.title.setTitle(`Journal - ${post.title}`);
   }
 }

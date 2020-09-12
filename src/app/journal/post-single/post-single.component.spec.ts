@@ -1,6 +1,7 @@
-import { of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { PageObjectBase } from 'src/app/lib/testing/page-object.base';
 import { PostData, PostStatus } from 'src/app/model/post-data';
+import { TitleService } from 'src/app/shared/title.service';
 import { IMock, It, Mock, Times } from 'typemoq';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -35,23 +36,29 @@ class PostSinglePageObject extends PageObjectBase<PostSingleComponent> {
 describe('Post (Single) Component', () => {
   let mockFacade: IMock<JournalFacade>;
   let mockRoute: IMock<ActivatedRoute>;
+  let mockTitleService: IMock<TitleService>;
+  let postSubject: BehaviorSubject<PostData>;
   let component: PostSingleComponent;
   let fixture: ComponentFixture<PostSingleComponent>;
   let pageObject: PostSinglePageObject;
 
   beforeEach(async(async () => {
+    postSubject = new BehaviorSubject<PostData>(mockPost);
     mockFacade = Mock.ofType<JournalFacade>();
     mockFacade.setup(f => f.postListLoading$).returns(() => of(false));
-    mockFacade.setup(f => f.currentPost$).returns(() => of(mockPost));
+    mockFacade.setup(f => f.currentPost$).returns(() => postSubject);
 
     mockRoute = Mock.ofType<ActivatedRoute>();
     mockRoute.setup(r => r.params).returns(() => of({ slug: mockPost.slug }));
+
+    mockTitleService = Mock.ofType<TitleService>();
 
     await TestBed.configureTestingModule({
       declarations: [PostSingleComponent],
       providers: [
         { provide: JournalFacade, useFactory: () => mockFacade.object },
-        { provide: ActivatedRoute, useFactory: () => mockRoute.object }
+        { provide: ActivatedRoute, useFactory: () => mockRoute.object },
+        { provide: TitleService, useFactory: () => mockTitleService.object }
       ],
       schemas: [RouterTestingModule, CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -74,5 +81,25 @@ describe('Post (Single) Component', () => {
     const relatedPost = pageObject.post;
     expect(relatedPost).toBeTruthy();
     expect(relatedPost.dataset.post).toBe(`${mockPost.postId}`);
+  });
+
+  describe('tab title behaviour', () => {
+    it('should set tab title to post title', () => {
+      mockTitleService.verify(
+        s => s.setTitle(It.isValue(`Journal - ${mockPost.title}`)),
+        Times.once()
+      );
+      expect().nothing();
+    });
+
+    it('should reset tab title if post data is invalid', done => {
+      postSubject.next(null);
+
+      setTimeout(() => {
+        mockTitleService.verify(s => s.resetTitle(), Times.once());
+        expect().nothing();
+        done();
+      });
+    });
   });
 });
