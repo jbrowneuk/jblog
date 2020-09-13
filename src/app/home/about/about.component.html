@@ -89,69 +89,45 @@
 
       <h3>Code</h3>
       <section class="experience-charts">
-        <span class="label">Angular 2+</span>
-        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 7 }">
-        </ng-container>
-
-        <span class="label">ReactJS</span>
-        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 5 }">
-        </ng-container>
-
         <span class="label">HTML</span>
-        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 9 }">
-        </ng-container>
+        <jblog-rating-bar [amount]="5" [value]="5"></jblog-rating-bar>
 
         <span class="label">CSS</span>
-        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 9 }">
-        </ng-container>
+        <jblog-rating-bar [amount]="5" [value]="5"></jblog-rating-bar>
+
+        <span class="label">Angular 2+</span>
+        <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
 
         <span class="label">JavaScript</span>
-        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 7 }">
-        </ng-container>
+        <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
 
         <span class="label">PHP</span>
-        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 7 }">
-        </ng-container>
+        <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
       </section>
 
       <h3>Vector Graphics</h3>
       <section class="experience-charts">
         <span class="label">Inkscape</span>
-        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 9 }">
-        </ng-container>
+        <jblog-rating-bar [amount]="5" [value]="5"></jblog-rating-bar>
 
         <span class="label">Affinity Designer</span>
-        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 7 }">
-        </ng-container>
+        <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
       </section>
 
       <h3>Design</h3>
       <section class="experience-charts">
         <span class="label">Sketch</span>
-        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 7 }">
-        </ng-container>
+        <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
+
+        <span class="label">icons8 Lunacy</span>
+        <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
 
         <span class="label">Figma</span>
-        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 5 }">
-        </ng-container>
-
-        <span class="label">Adobe Xd</span>
-        <ng-container *ngTemplateOutlet="valueBar; context: { amount: 6 }">
-        </ng-container>
+        <jblog-rating-bar [amount]="5" [value]="3"></jblog-rating-bar>
       </section>
     </div>
   </div>
 </div>
-
-<ng-template #valueBar let-amount="amount">
-  <span class="value amount-{{ amount }}">
-    <span class="dot"></span> <span class="dot"></span>
-    <span class="dot"></span> <span class="dot"></span>
-    <span class="dot"></span> <span class="dot"></span>
-    <span class="dot"></span> <span class="dot"></span>
-    <span class="dot"></span> <span class="dot"></span>
-  </span>
-</ng-template>
 
 <div class="personal-area container">
   <article class="post base-card">
