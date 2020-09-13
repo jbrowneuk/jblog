@@ -1,9 +1,14 @@
 @import '_variables';
 
-#page-header {
+#page-header,
+#page-header-spacer {
   margin: var(--margin-page-header);
   height: var(--height-page-header);
-  position: relative;
+}
+
+#page-header {
+  width: 100%;
+  position: fixed;
   z-index: 10;
   border-top: 4px solid var(--color-page-flair);
   background-color: var(--color-container-background);
