@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges
-} from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 /**
  * An interface which can be used by a class to encapsulate a pagination segment.
@@ -68,7 +62,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Called when the component is initialized. Uased to generate
+   * Called when the component is initialized. Used to generate
    * {@link PaginationSegment}s.
    */
   ngOnInit() {
@@ -80,8 +74,8 @@ export class PaginationComponent implements OnInit, OnChanges {
    * {@link PaginationSegment}s.
    */
   ngOnChanges(changes: SimpleChanges) {
-    // Only update the pagination links if the page has changed
-    if (!changes['currentPage']) {
+    // Don't regenerate segments when the change is due to generating segments
+    if (changes['segments']) {
       return;
     }
 
