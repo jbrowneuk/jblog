@@ -82,37 +82,7 @@
 
 .experience-charts {
   display: grid;
-  grid-template-columns: 40% 60%;
-
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-
-  .value {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-
-@for $count from 1 through 10 {
-  .amount-#{$count} {
-    @for $dot from 1 through 10 {
-      @if $dot <= $count {
-        .dot:nth-child(#{$dot}) {
-          background-color: var(--color-progressbar-active);
-        }
-      }
-
-      @if $dot > $count {
-        .dot:nth-child(#{$dot}) {
-          background-color: var(--color-progressbar-track);
-        }
-      }
-    }
-  }
+  grid-template-columns: 55% 45%;
 }
 
 .contacts-list {
