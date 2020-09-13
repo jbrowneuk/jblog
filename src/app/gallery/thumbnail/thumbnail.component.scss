@@ -34,7 +34,7 @@ img,
   background-color: var(--color-overlay-background);
   color: var(--color-default-foreground);
   transition: bottom 0.2s;
-  backdrop-filter: blur(5px);
+  backdrop-filter: var(--value-overlay-filter);
 
   .title,
   .galleries {
