@@ -10,6 +10,7 @@ import { LineSplittingPipe } from './line-splitting.pipe';
 import { LoadSpinnerComponent } from './load-spinner/load-spinner.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ParallaxScrollDirective } from './parallax-scroll.directive';
+import { RatingBarComponent } from './rating-bar/rating-bar.component';
 import { RelativeDatePipe } from './relative-date.pipe';
 import { StickyElementDirective } from './sticky-element.directive';
 import { TitleService } from './title.service';
@@ -25,6 +26,7 @@ const CORE_COMPONENTS = [
   PaginationComponent,
   FormattedTextComponent,
   UserMenuComponent,
+  RatingBarComponent,
   StickyElementDirective,
   ParallaxScrollDirective,
   InfiniteScrollDirective
