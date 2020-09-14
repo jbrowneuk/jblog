@@ -10,7 +10,8 @@ import { JournalFacade } from '../state/journal.facade';
 
 @Component({
   selector: 'jblog-post-list',
-  templateUrl: './post-list.component.html'
+  templateUrl: './post-list.component.html',
+  styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
   public postData$: Observable<PostDataWrapper>;

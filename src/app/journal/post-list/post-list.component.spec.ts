@@ -40,6 +40,10 @@ class PostListPageObject extends PageObjectBase<PostListComponent> {
   public get pagination(): PaginationComponent {
     return this.selectDebug(By.css('jblog-pagination')).componentInstance;
   }
+
+  public get tagName(): HTMLSpanElement {
+    return this.select('[data-tag]');
+  }
 }
 
 describe('Post List Component', () => {
@@ -136,6 +140,23 @@ describe('Post List Component', () => {
           Times.once()
         );
         expect().nothing();
+        done();
+      });
+    });
+  });
+
+  describe('Tag filter behaviour', () => {
+    it('should not have tag information if no tag specified', () => {
+      expect(pageObject.tagName).toBeFalsy();
+    });
+
+    it('should provide tag info and page number when tag set', done => {
+      const mockTag = 'mock-tag';
+      paramsSubject.next({ page: mockPostData.page, tag: mockTag });
+      fixture.detectChanges();
+
+      setTimeout(() => {
+        expect(pageObject.tagName.textContent).toBe(mockTag);
         done();
       });
     });

@@ -1,6 +1,6 @@
 <div class="container">
   <ng-container *ngIf="postData$ | async as postData; else loadState">
-    <nav id="breadcrumbs">
+    <nav id="breadcrumbs" class="breadcrumbs">
       <a routerLink="../.." data-back-button>Journal</a>
       <i class="spacer fad fa-angle-double-right" aria-hidden="true"></i>
       <span>{{ postData.title }}</span>
@@ -15,7 +15,7 @@
 
 <ng-template #loadState>
   <div *ngIf="loading$ | async; else noPosts" data-loading-posts>
-    <nav id="breadcrumbs">
+    <nav id="breadcrumbs" class="breadcrumbs">
       <a routerLink="../.." data-back-button>Journal</a>
       <i class="spacer fad fa-angle-double-right" aria-hidden="true"></i>
       <span>…</span>
