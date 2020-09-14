@@ -10,8 +10,7 @@ import { JournalFacade } from '../state/journal.facade';
 
 @Component({
   selector: 'jblog-post-single',
-  templateUrl: './post-single.component.html',
-  styleUrls: ['./post-single.component.scss']
+  templateUrl: './post-single.component.html'
 })
 export class PostSingleComponent implements OnInit {
   public postData$: Observable<PostData>;

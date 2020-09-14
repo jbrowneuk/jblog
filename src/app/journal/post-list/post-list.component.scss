@@ -1,0 +1,15 @@
+#tag-info .clear-tag {
+  padding: 2px 4px;
+  border: 1px solid var(--color-tag-border);
+  border-radius: var(--border-radius-default);
+  background: var(--color-tag-background);
+  color: var(--color-default-foreground);
+  text-decoration: none;
+  transition: 0.2s color, 0.2s border-color, 0.2s background-color;
+
+  &:hover {
+    border-color: var(--color-tag-hover-border);
+    background: var(--color-tag-hover-background);
+    color: var(--color-tag-hover-foreground);
+  }
+}
