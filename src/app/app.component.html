@@ -1,37 +1,41 @@
 <header id="page-header">
-  <nav id="menu" class="container">
-    <a class="pane left home-link" [routerLink]="['/']">
-      <svg class="icon"><use xlink:href="#sitesheet-logo" /></svg>
-    </a>
-    <div class="pane central">
-      <ul class="links">
-        <li>
-          <a
-            class="hide-when-small"
-            [routerLink]="['/']"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            >portfolio</a
-          >
-        </li>
-        <li>
-          <a [routerLink]="['/about']" routerLinkActive="active">about</a>
-        </li>
-        <li><a [routerLink]="['/art']" routerLinkActive="active">art</a></li>
-        <li>
-          <a [routerLink]="['/projects/code']" routerLinkActive="active"
-            >projects</a
-          >
-        </li>
-        <li>
-          <a [routerLink]="['/journal']" routerLinkActive="active">posts</a>
-        </li>
-      </ul>
-    </div>
-    <div class="pane right">
-      <jblog-user-menu></jblog-user-menu>
-    </div>
-  </nav>
+  <div id="sticky-menu">
+    <nav id="menu" class="container">
+      <div class="pane left">
+        <a class="home-link" [routerLink]="['/']">
+          <svg class="icon"><use xlink:href="#sitesheet-logo" /></svg>
+        </a>
+      </div>
+      <div class="pane central">
+        <ul class="links">
+          <li>
+            <a
+              class="hide-when-small"
+              [routerLink]="['/']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >portfolio</a
+            >
+          </li>
+          <li>
+            <a [routerLink]="['/about']" routerLinkActive="active">about</a>
+          </li>
+          <li><a [routerLink]="['/art']" routerLinkActive="active">art</a></li>
+          <li>
+            <a [routerLink]="['/projects/code']" routerLinkActive="active"
+              >projects</a
+            >
+          </li>
+          <li>
+            <a [routerLink]="['/journal']" routerLinkActive="active">posts</a>
+          </li>
+        </ul>
+      </div>
+      <div class="pane right">
+        <jblog-user-menu></jblog-user-menu>
+      </div>
+    </nav>
+  </div>
 </header>
 <main
   id="page-content"

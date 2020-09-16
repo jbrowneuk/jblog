@@ -23,7 +23,7 @@ const journalRoutes: Routes = [
   {
     path: 'post/:slug',
     component: PostSingleComponent,
-    data: { sectionId: sectionId }
+    data: { sectionId: sectionId + 0.1 }
   },
   {
     path: 'tag/:tag/page/:page',
