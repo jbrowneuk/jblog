@@ -19,7 +19,6 @@
     "type": "git",
     "url": "https://github.com/jbrowneuk/jblog.git"
   },
-  "dependencies": {},
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.901.12",
     "@angular/animations": "^9.1.12",
