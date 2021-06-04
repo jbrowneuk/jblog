@@ -4,7 +4,10 @@
 </div>
 
 <div *ngIf="!isLoading && hasError" class="text-center">
-  <h1>This image does not exist</h1>
+  <h1>
+    <i class="las la-frown fa-fw" aria-hidden="true"></i>
+    This image does not exist
+  </h1>
 </div>
 
 <div *ngIf="data && !isLoading">
@@ -16,7 +19,7 @@
   >
     <div class="image-area">
       <div class="featured" *ngIf="data.featured" title="Featured">
-        <i class="fad fa-fw fa-trophy" aria-hidden="true"></i>
+        <i class="las fa-fw la-award" aria-hidden="true"></i>
       </div>
       <img
         src="{{ data.src }}"
@@ -32,15 +35,15 @@
       [routerLink]="['/art/album', getPrimaryAlbum().name]"
       data-parent-folder-link
     >
-      <i class="fad fa-fw fa-th-large" aria-hidden="true"></i> Back to
+      <i class="las fa-fw la-th-large" aria-hidden="true"></i> Back to
       <em>{{ getPrimaryAlbum().title }}</em>
     </a>
     <a href="#" (click)="toggleZoom($event)">
       <i
-        class="fad fa-fw"
+        class="las fa-fw"
         aria-hidden="true"
-        [class.fa-search-plus]="isZoomedOut"
-        [class.fa-search-minus]="!isZoomedOut"
+        [class.la-search-plus]="isZoomedOut"
+        [class.la-search-minus]="!isZoomedOut"
       ></i>
       Zoom <span *ngIf="isZoomedOut">in</span>
       <span *ngIf="!isZoomedOut">out</span>
@@ -68,7 +71,7 @@
       <jblog-text [text]="data.description" data-post-content></jblog-text>
       <footer class="footer-area">
         <ul class="tags-area" data-post-tags>
-          <li><i class="fad fa-fw fa-tags" aria-hidden="true"></i></li>
+          <li><i class="las fa-fw la-tags" aria-hidden="true"></i></li>
           <li *ngFor="let gallery of data.containingAlbums" class="tag">
             <a
               [routerLink]="['/art/album', gallery.name]"
