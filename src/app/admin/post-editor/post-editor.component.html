@@ -1,10 +1,10 @@
 <div id="tab-bar" class="top-area">
   <button class="tab" [class.selected]="isEditing" (click)="isEditing = true">
-    <i class="fad fa-pencil" aria-hidden="true"></i>
+    <i class="las la-pencil-alt" aria-hidden="true"></i>
     Edit
   </button>
   <button class="tab" [class.selected]="!isEditing" (click)="isEditing = false">
-    <i class="fad fa-eye" aria-hidden="true"></i>
+    <i class="las la-eye" aria-hidden="true"></i>
     Preview
   </button>
 </div>
@@ -73,8 +73,8 @@
             data-post-draft
             [(ngModel)]="isDraft"
           />
-          <i class="fad fa-check-circle visual checked" aria-hidden="true"></i>
-          <i class="fad fa-circle rm-d visual unchecked" aria-hidden="true"></i>
+          <i class="las la-check-circle visual checked" aria-hidden="true"></i>
+          <i class="las la-circle rm-d visual unchecked" aria-hidden="true"></i>
           Save as draft
         </label>
       </div>
