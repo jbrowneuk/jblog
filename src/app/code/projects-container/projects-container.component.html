@@ -8,35 +8,35 @@
         <a href="{{ project.link }}" data-test="name">{{ project.name }}</a>
 
         <span *ngIf="project.archived" class="archived">
-          <i class="fad fa-box-alt" aria-hidden="true"></i> Archived
+          <i class="las la-box" aria-hidden="true"></i> Archived
         </span>
       </h1>
       <ul class="info">
         <li data-test="language">
-          <i class="fad fa-fw fa-code" aria-hidden="true"></i>
+          <i class="las fa-fw la-code" aria-hidden="true"></i>
           {{ project.language }}
         </li>
         <li data-test="license">
-          <i class="fad fa-fw fa-balance-scale" aria-hidden="true"></i>
+          <i class="las fa-fw la-balance-scale" aria-hidden="true"></i>
           {{ project.license }}
         </li>
         <li data-test="watchers">
-          <i class="fad fa-fw fa-eye" aria-hidden="true"></i>
+          <i class="las fa-fw la-eye" aria-hidden="true"></i>
           {{ project.watchers }}
         </li>
         <li data-test="stars">
-          <i class="fad fa-fw fa-star" aria-hidden="true"></i>
+          <i class="las fa-fw la-star" aria-hidden="true"></i>
           {{ project.stars }}
         </li>
         <li data-test="forks">
-          <i class="fad fa-fw fa-code-branch" aria-hidden="true"></i>
+          <i class="las fa-fw la-code-branch" aria-hidden="true"></i>
           {{ project.forks }}
         </li>
       </ul>
       <p data-test="description">{{ project.description }}</p>
       <div class="button-container">
         <a href="{{ project.link }}" data-test="link">
-          <i class="fad fa-rocket"></i> Go to project page
+          <i class="las la-rocket"></i> Go to project page
         </a>
       </div>
     </div>
@@ -49,7 +49,7 @@
       />
       <i
         *ngIf="project.archived"
-        class="fad fa-fw fa-box-alt fa-10x"
+        class="las fa-fw la-box icon-10x"
         aria-hidden="true"
       ></i>
     </div>

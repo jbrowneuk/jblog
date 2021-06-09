@@ -13,3 +13,16 @@
 @import 'global/components/headers';
 @import 'global/components/loading-effects';
 @import 'global/components/tags';
+
+// Font awesome replacements
+@for $i from 1 through 10 {
+  .icon-#{$i}x {
+    font-size: #{$i}em;
+  }
+}
+
+.fa-fw,
+.icon-fw {
+  text-align: center;
+  width: 1.25em;
+}
