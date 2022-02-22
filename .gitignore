@@ -1,17 +1,19 @@
-# compiled output
+# Compiled output
 /dist
 /tmp
-/storybook-static
+/out-tsc
+/bazel-out
 
-# dependencies
+# Node (for front-end)
 /node_modules
-/src/api/vendor
+npm-debug.log
+yarn-error.log
 
-# PHP Composer
+# PHP (for APIs)
 composer.phar
 
 # IDEs and editors
-/.idea
+.idea/
 .project
 .classpath
 .c9/
@@ -19,34 +21,31 @@ composer.phar
 .settings/
 *.sublime-workspace
 
-# IDE - VSCode
+# Visual Studio Code
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-!.vscode/*.code-snippets
+.history/*
 
-# misc
-/.sass-cache
+# Miscellaneous
+/.angular/cache
+.sass-cache/
 /connect.lock
-/coverage/*
+/coverage
 /libpeerconnection.log
-npm-debug.log
 testem.log
 /typings
 
-# e2e
-/e2e/*.js
-/e2e/*.map
-
-# System Files
+# System files
 .DS_Store
 Thumbs.db
 
 # Project-specific
 /src/api/conf/*.sqlite
 /src/api/conf/settings.php
+/src/api/vendor
 /public/theme
 
 # Potential secrets
@@ -56,6 +55,3 @@ Thumbs.db
 # Third-party assets
 /public/thirdparty
 /src/assets/thirdparty
-
-# Documentation is auto-generated
-/documentation
