@@ -10,10 +10,10 @@ import { JournalFacade } from '../state/journal.facade';
 
 @Component({
   selector: 'jblog-post-single',
-  templateUrl: './post-single.component.html'
+  templateUrl: './post-single.component.html',
 })
 export class PostSingleComponent implements OnInit {
-  public postData$: Observable<PostData>;
+  public postData$?: Observable<PostData | null>;
 
   constructor(
     private postFacade: JournalFacade,
@@ -27,21 +27,21 @@ export class PostSingleComponent implements OnInit {
 
   ngOnInit(): void {
     this.postData$ = this.route.params.pipe(
-      switchMap(params => {
-        const slug = params.slug;
+      switchMap((params) => {
+        const slug = params['slug'];
         if (!slug) {
-          return throwError('No param');
+          return throwError(() => new Error('No param'));
         }
 
         this.postFacade.loadPostBySlug(slug);
-        return this.postFacade.currentPost$;
+        return this.postFacade.currentPost$ as Observable<PostData>;
       }),
       tap({ next: this.handlePostChanged.bind(this) })
     );
   }
 
   private handlePostChanged(post: PostData): void {
-    if (!post) {
+    if (!post || post === null) {
       return this.title.resetTitle();
     }
 

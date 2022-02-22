@@ -1,17 +1,27 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
+const process = require('process');
+
 module.exports = function (config) {
+  const useChrome = !process.env.DISABLE_CHROME;
+  const browsers = [];
+  const plugins = [
+    require('karma-jasmine'),
+    require('karma-jasmine-html-reporter'),
+    require('karma-coverage'),
+    require('@angular-devkit/build-angular/plugins/karma')
+  ];
+
+  if (useChrome) {
+    plugins.push(require('karma-chrome-launcher'));
+    browsers.push('Chrome');
+  }
+
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
-    plugins: [
-      require('karma-jasmine'),
-      require('karma-chrome-launcher'),
-      require('karma-jasmine-html-reporter'),
-      require('karma-coverage'),
-      require('@angular-devkit/build-angular/plugins/karma')
-    ],
+    plugins,
     client: {
       jasmine: {
         // you can add configuration options for Jasmine here
@@ -37,7 +47,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers,
     singleRun: false,
     restartOnFileChange: true
   });

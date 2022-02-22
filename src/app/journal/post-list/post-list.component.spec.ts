@@ -7,8 +7,7 @@ import { TitleService } from 'src/app/shared/title.service';
 import { IMock, It, Mock, Times } from 'typemoq';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -38,7 +37,7 @@ class PostListPageObject extends PageObjectBase<PostListComponent> {
   }
 
   public get pagination(): PaginationComponent {
-    return this.selectDebug(By.css('jblog-pagination')).componentInstance;
+    return this.selectDebug('jblog-pagination').componentInstance;
   }
 
   public get tagName(): HTMLSpanElement {
@@ -55,7 +54,7 @@ describe('Post List Component', () => {
   let pageObject: PostListPageObject;
   let paramsSubject: BehaviorSubject<any>;
 
-  beforeEach(async(async () => {
+  beforeEach(waitForAsync(async () => {
     mockFacade = Mock.ofType<JournalFacade>();
     mockFacade.setup(f => f.postListLoading$).returns(() => of(false));
     mockFacade.setup(f => f.postList$).returns(() => of(mockPostData));
@@ -87,7 +86,7 @@ describe('Post List Component', () => {
   it('should load posts from facade on creation', () => {
     expect(component).toBeTruthy();
     mockFacade.verify(
-      f => f.loadPostList(It.isValue(mockPostData.page), It.isValue(null)),
+      f => f.loadPostList(It.isValue(mockPostData.page), It.isValue('')),
       Times.once()
     );
   });
@@ -97,7 +96,7 @@ describe('Post List Component', () => {
     mockPostData.posts.forEach((post, index) => {
       const relatedPostElement = posts[index];
       expect(relatedPostElement).toBeTruthy();
-      expect(relatedPostElement.dataset.post).toBe(`${post.postId}`);
+      expect(relatedPostElement.dataset['post']).toBe(`${post.postId}`);
     });
   });
 

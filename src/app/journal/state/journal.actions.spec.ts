@@ -71,7 +71,7 @@ describe('Load Single Post Success action', () => {
   };
 
   it('should have correct type', () => {
-    const action = new LoadSinglePostSuccess(null);
+    const action = new LoadSinglePostSuccess(mockPost);
     expect(action.type).toBe(JournalActionsType.LoadSinglePostSuccess);
   });
 

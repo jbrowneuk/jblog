@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthenticationGuard } from '../authentication.guard';
@@ -39,7 +39,7 @@ const adminRoutes: Routes = [
   declarations: [AdminComponent, PostListComponent, PostEditorComponent],
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     RouterModule.forChild(adminRoutes)
   ]

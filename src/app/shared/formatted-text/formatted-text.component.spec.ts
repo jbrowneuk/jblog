@@ -1,9 +1,9 @@
-import { NgxMdModule } from 'ngx-md';
+import { MarkdownModule } from 'ngx-markdown';
 import { PageObjectBase } from 'src/app/lib/testing/page-object.base';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormattedTextComponent } from './formatted-text.component';
 
@@ -35,7 +35,7 @@ class TestComponentPageObject extends PageObjectBase<TestComponent> {
   }
 
   public mdContainerFor(parent: HTMLElement): HTMLElement {
-    return parent.querySelector(`[${dataAttributes.markdown}]`);
+    return parent.querySelector(`[${dataAttributes.markdown}]`) as HTMLElement;
   }
 }
 
@@ -43,10 +43,10 @@ describe('Formatted Text View', () => {
   let fixture: ComponentFixture<TestComponent>;
   let pageObject: TestComponentPageObject;
 
-  beforeEach(async(async () => {
+  beforeEach(waitForAsync(async () => {
     await TestBed.configureTestingModule({
       declarations: [FormattedTextComponent, TestComponent],
-      imports: [HttpClientTestingModule, NgxMdModule.forRoot()]
+      imports: [HttpClientTestingModule, MarkdownModule.forRoot()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestComponent);
@@ -62,8 +62,8 @@ describe('Formatted Text View', () => {
     expect(contentMd).toBeTruthy();
   });
 
-  it('should pass data to markdown component', async(async () => {
+  it('should pass data to markdown component', () => {
     const contentMd = pageObject.mdContainerFor(pageObject.withContent);
-    expect(contentMd.textContent.trim()).toBe(mockTestContent);
-  }));
+    expect(`${contentMd.textContent}`.trim()).toBe(mockTestContent);
+  });
 });

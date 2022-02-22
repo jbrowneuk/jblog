@@ -11,7 +11,7 @@ import { PostService } from '../../services/post.service';
   styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
-  public postData$: Observable<PostDataWrapper>;
+  public postData$?: Observable<PostDataWrapper>;
 
   constructor(private postService: PostService) {}
 

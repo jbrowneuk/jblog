@@ -19,22 +19,22 @@ export class ImageComponent implements OnInit {
   /**
    * The image data that describes the view.
    */
-  public data: ImageInfo;
+  public data?: ImageInfo;
 
   /**
    * Controls whether to add the responsive resize class to the image element.
    */
-  public isZoomedOut: boolean;
+  public isZoomedOut = true;
 
   /**
    * Control variable set when the data for an image is loading.
    */
-  public isLoading: boolean;
+  public isLoading = false;
 
   /**
    * Control variable set when the data for an image has failed to load.
    */
-  public hasError: boolean;
+  public hasError = false;
 
   /**
    * Constructor with injected services
@@ -43,11 +43,7 @@ export class ImageComponent implements OnInit {
     private route: ActivatedRoute,
     private imageService: ImageService,
     private titleService: TitleService
-  ) {
-    this.isZoomedOut = true;
-    this.isLoading = false;
-    this.hasError = false;
-  }
+  ) {}
 
   /**
    * Called when the component is initialized. Used to get image data from a
@@ -88,7 +84,7 @@ export class ImageComponent implements OnInit {
    * Convenience method to get the image data from the {@link ImageService}.
    */
   private requestImageById(imageId: number): void {
-    this.data = null;
+    this.data = undefined;
     this.isLoading = true;
     this.hasError = false;
 

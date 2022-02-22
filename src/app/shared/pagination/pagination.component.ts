@@ -27,39 +27,35 @@ export class PaginationComponent implements OnInit, OnChanges {
   /**
    * The current page in the view.
    */
-  @Input() public currentPage: number;
+  @Input() public currentPage = 1;
 
   /**
    * The total number of pages in the view.
    */
-  @Input() public totalPages: number;
+  @Input() public totalPages = 1;
 
   /**
    * The name of the containing component, so generated links point to it.
    */
-  @Input() public componentName: string;
+  @Input() public componentName = '';
 
   /**
    * Optional URL components to put before the page number.
    * @example if ['a', 'b', 'c'] is specified, the resulting URL will be in the
    * format `/a/b/c/pageNumber`.
    */
-  @Input() public urlComponents: string[];
+  @Input() public urlComponents: string[] = [];
 
   /**
    * Boolean to signify whether parent component is loading that can prevent
    * pagination segments from appering before data is completely loaded
    */
-  @Input() public isLoading: boolean;
+  @Input() public isLoading = false;
 
   /**
    * List of {@link PaginationSegment}s.
    */
-  public segments: PaginationSegment[];
-
-  constructor() {
-    this.isLoading = false;
-  }
+  public segments: PaginationSegment[] = [];
 
   /**
    * Called when the component is initialized. Used to generate

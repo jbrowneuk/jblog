@@ -1,28 +1,14 @@
 import { of, throwError } from 'rxjs';
 import { IMock, It, Mock, Times } from 'typemoq';
 
-import { DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ActivatedRouteStub } from '../../../testing/activated-route-stub';
 import { UserService } from '../../services/user.service';
 import { LoginComponent } from './login.component';
-
-const Selectors = {
-  InputUsername: '[data-username]',
-  InputPassword: '[data-password]',
-  ButtonSubmit: '[data-submit]',
-  LoginError: '[data-error-message]'
-};
-
-function sendInput(inputElement: DebugElement, value: string): void {
-  const element = inputElement.nativeElement as HTMLInputElement;
-  element.value = value;
-  element.dispatchEvent(new Event('input'));
-}
+import { PageObjectBase } from 'src/app/lib/testing/page-object.base';
 
 describe('LoginComponent', () => {
   let mockUserService: IMock<UserService>;
@@ -30,197 +16,178 @@ describe('LoginComponent', () => {
   let mockActivatedRoute: ActivatedRouteStub;
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let pageObject: LoginPageObject;
 
-  beforeEach(async(async () => {
+  beforeEach(() => {
     mockUserService = Mock.ofType<UserService>();
     mockRouter = Mock.ofType<Router>();
     mockActivatedRoute = new ActivatedRouteStub();
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      imports: [FormsModule],
+      imports: [ReactiveFormsModule],
       providers: [
         { provide: UserService, useFactory: () => mockUserService.object },
         { provide: Router, useFactory: () => mockRouter.object },
-        { provide: ActivatedRoute, useValue: mockActivatedRoute }
-      ]
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+      ],
     }).compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
+    pageObject = new LoginPageObject(fixture);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should attempt to log in user when submit button is clicked', async(async () => {
-    const username = 'dawn';
-    const password = 'hikari';
+  describe('login on submission behaviour', () => {
+    it('should attempt to log in user when submit button is clicked', () => {
+      const username = 'dawn';
+      const password = 'hikari';
 
-    mockUserService
-      .setup(s => s.initialiseSession(It.isAnyString(), It.isAnyString()))
-      .returns(() => of('faketoken'));
-    mockUserService
-      .setup(s => s.fetchUser())
-      .returns(() => of({ uid: 'mock' }));
+      mockUserService
+        .setup((s) => s.initialiseSession(It.isAnyString(), It.isAnyString()))
+        .returns(() => of('faketoken'));
+      mockUserService
+        .setup((s) => s.fetchUser())
+        .returns(() => of({ uid: 'mock' }));
 
-    const inputUsername = fixture.debugElement.query(
-      By.css(Selectors.InputUsername)
-    );
-    const inputPassword = fixture.debugElement.query(
-      By.css(Selectors.InputPassword)
-    );
-    sendInput(inputUsername, username);
-    sendInput(inputPassword, password);
+      pageObject.sendInput(pageObject.inputUsername.nativeElement, username);
+      pageObject.sendInput(pageObject.inputPassword.nativeElement, password);
 
-    fixture.detectChanges();
-    await fixture.whenStable();
+      fixture.detectChanges();
 
-    const button = fixture.debugElement.query(By.css(Selectors.ButtonSubmit));
-    button.nativeElement.dispatchEvent(new MouseEvent('click'));
+      pageObject.click(pageObject.submit.nativeElement);
 
-    mockUserService.verify(
-      s => s.initialiseSession(It.isValue(username), It.isValue(password)),
-      Times.once()
-    );
-
-    // Verified using typemoq above
-    expect().nothing();
-  }));
-
-  it('should attempt to fetch user data user when login successful', done => {
-    mockUserService
-      .setup(s => s.initialiseSession(It.isAnyString(), It.isAnyString()))
-      .returns(() => of('faketoken'));
-    mockUserService
-      .setup(s => s.fetchUser())
-      .returns(() => of({ uid: 'mock' }));
-
-    component.username = 'dawn';
-    component.password = 'hikari';
-    component.submitForm(new MouseEvent('click'));
-
-    setTimeout(() => {
-      mockUserService.verify(s => s.fetchUser(), Times.once());
+      mockUserService.verify(
+        (s) => s.initialiseSession(It.isValue(username), It.isValue(password)),
+        Times.once()
+      );
 
       // Verified using typemoq above
       expect().nothing();
-      done();
+    });
+
+    it('should attempt to fetch user data user when login successful', (done) => {
+      mockUserService
+        .setup((s) => s.initialiseSession(It.isAnyString(), It.isAnyString()))
+        .returns(() => of('faketoken'));
+      mockUserService
+        .setup((s) => s.fetchUser())
+        .returns(() => of({ uid: 'mock' }));
+
+      component.loginForm?.get('username')?.setValue('dawn');
+      component.loginForm?.get('password')?.setValue('hikari');
+      component.submitForm(new MouseEvent('click'));
+
+      setTimeout(() => {
+        mockUserService.verify((s) => s.fetchUser(), Times.once());
+
+        // Verified using typemoq above
+        expect().nothing();
+        done();
+      });
+    });
+
+    it('should show login error if login unsuccessful', (done) => {
+      mockUserService
+        .setup((s) => s.initialiseSession(It.isAnyString(), It.isAnyString()))
+        .returns(() => throwError(() => 'faketoken'));
+
+      component.loginForm?.get('username')?.setValue('dawn');
+      component.loginForm?.get('password')?.setValue('hikari');
+      component.submitForm(new MouseEvent('click'));
+
+      fixture.detectChanges();
+
+      setTimeout(() => {
+        mockRouter.verify((r) => r.navigate(It.isAny()), Times.never());
+
+        expect(pageObject.errorMessage).toBeTruthy();
+        done();
+      });
     });
   });
 
-  it('should show login error if login unsuccessful', done => {
-    mockUserService
-      .setup(s => s.initialiseSession(It.isAnyString(), It.isAnyString()))
-      .returns(() => throwError('faketoken'));
-
-    component.username = 'dawn';
-    component.password = 'hikari';
-    component.submitForm(new MouseEvent('click'));
-
-    fixture.detectChanges();
-
-    setTimeout(() => {
-      const loginError = fixture.debugElement.query(
-        By.css(Selectors.LoginError)
-      );
-
-      mockRouter.verify(r => r.navigate(It.isAny()), Times.never());
-
-      expect(loginError).toBeTruthy();
-      done();
+  describe('redirect behaviour', () => {
+    beforeEach(() => {
+      // Set up user service in ‘no user’ state
+      // This ensures the redirect in ngOnInit is not fired
+      mockUserService
+        .setup((s) => s.initialiseSession(It.isAnyString(), It.isAnyString()))
+        .returns(() => of('faketoken'));
+      mockUserService
+        .setup((s) => s.fetchUser())
+        .returns(() => of({ uid: 'mock' }));
+      mockUserService
+        .setup((s) => s.authenticatedUser$)
+        .returns(() => of(null));
     });
-  });
-});
 
-describe('LoginComponent — login redirects', () => {
-  let mockUserService: IMock<UserService>;
-  let mockRouter: IMock<Router>;
-  let mockActivatedRoute: ActivatedRouteStub;
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+    it('should redirect on login if returnTo param set', (done) => {
+      const expectedUrl = 'any-page-here';
+      mockActivatedRoute.setQueryParams({ returnTo: expectedUrl });
 
-  beforeEach(async(async () => {
-    mockUserService = Mock.ofType<UserService>();
-    mockRouter = Mock.ofType<Router>();
-    mockActivatedRoute = new ActivatedRouteStub();
+      component.loginForm?.get('username')?.setValue('dawn');
+      component.loginForm?.get('password')?.setValue('hikari');
 
-    await TestBed.configureTestingModule({
-      declarations: [LoginComponent],
-      imports: [FormsModule],
-      providers: [
-        { provide: UserService, useFactory: () => mockUserService.object },
-        { provide: Router, useFactory: () => mockRouter.object },
-        { provide: ActivatedRoute, useValue: mockActivatedRoute }
-      ]
-    }).compileComponents();
+      // Initialise component here
+      fixture.detectChanges();
 
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-  }));
+      component.submitForm(new Event('mock'));
 
-  it('should redirect on login if returnTo param set', done => {
-    // Set up user service in ‘no user’ state
-    // This ensures the redirect in ngOnInit is not fired
-    mockUserService
-      .setup(s => s.initialiseSession(It.isAnyString(), It.isAnyString()))
-      .returns(() => of('faketoken'));
-    mockUserService
-      .setup(s => s.fetchUser())
-      .returns(() => of({ uid: 'mock' }));
-    mockUserService.setup(s => s.authenticatedUser$).returns(() => of(null));
+      setTimeout(() => {
+        mockRouter.verify(
+          (r) => r.navigate(It.isValue(['/', expectedUrl])),
+          Times.once()
+        );
 
-    const expectedUrl = 'any-page-here';
-    mockActivatedRoute.setQueryParams({ returnTo: expectedUrl });
-
-    component.username = 'valid';
-    component.password = 'valid';
-
-    // Initialise component here
-    fixture.detectChanges();
-
-    component.submitForm(new Event('mock'));
-
-    setTimeout(() => {
-      mockRouter.verify(
-        r => r.navigate(It.isValue(['/', expectedUrl])),
-        Times.once()
-      );
-
-      expect().nothing();
-      done();
+        expect().nothing();
+        done();
+      });
     });
-  });
 
-  it('should redirect to admin panel on login if returnTo param not set', done => {
-    // Set up user service in ‘no user’ state
-    // This ensures the redirect in ngOnInit is not fired
-    mockUserService
-      .setup(s => s.initialiseSession(It.isAnyString(), It.isAnyString()))
-      .returns(() => of('faketoken'));
-    mockUserService
-      .setup(s => s.fetchUser())
-      .returns(() => of({ uid: 'mock' }));
-    mockUserService.setup(s => s.authenticatedUser$).returns(() => of(null));
+    it('should redirect to admin panel on login if returnTo param not set', (done) => {
+      component.loginForm?.get('username')?.setValue('dawn');
+      component.loginForm?.get('password')?.setValue('hikari');
 
-    component.username = 'valid';
-    component.password = 'valid';
+      // Initialise component here
+      fixture.detectChanges();
 
-    // Initialise component here
-    fixture.detectChanges();
+      component.submitForm(new Event('mock'));
 
-    component.submitForm(new Event('mock'));
+      setTimeout(() => {
+        mockRouter.verify(
+          (r) => r.navigate(It.isValue(['/', 'admin'])),
+          Times.once()
+        );
 
-    setTimeout(() => {
-      mockRouter.verify(
-        r => r.navigate(It.isValue(['/', 'admin'])),
-        Times.once()
-      );
-
-      expect().nothing();
-      done();
+        expect().nothing();
+        done();
+      });
     });
   });
 });
+
+class LoginPageObject extends PageObjectBase<LoginComponent> {
+  public get inputUsername() {
+    return this.selectDebug('[data-username]');
+  }
+
+  public get inputPassword() {
+    return this.selectDebug('[data-password]');
+  }
+
+  public get submit() {
+    return this.selectDebug('[data-submit]');
+  }
+
+  public get errorMessage() {
+    return this.selectDebug('[data-error-message]');
+  }
+}

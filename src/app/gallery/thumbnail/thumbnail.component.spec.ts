@@ -1,5 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PageObjectBase } from 'src/app/lib/testing/page-object.base';
 
 import { GalleryFormatPipe } from '../gallery-format.pipe';
 
@@ -13,23 +14,27 @@ const mockImageInfo = {
   thumbnail: './thumb.jpg',
   src: './src.jpg',
   containingAlbums: [{ name: 'album', title: 'Album' }],
-  featured: false
+  featured: false,
 };
 
 describe('ThumbnailComponent', () => {
   let component: ThumbnailComponent;
   let fixture: ComponentFixture<ThumbnailComponent>;
+  let componentObject: ComponentObject;
   let compiled: HTMLElement;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [GalleryFormatPipe, ThumbnailComponent]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [RouterTestingModule],
+        declarations: [GalleryFormatPipe, ThumbnailComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ThumbnailComponent);
+    componentObject = new ComponentObject(fixture);
     component = fixture.componentInstance;
     component.data = mockImageInfo;
     compiled = fixture.debugElement.nativeElement;
@@ -42,11 +47,17 @@ describe('ThumbnailComponent', () => {
       compiled.querySelector('.image-area img')
     );
     expect(imageElement.src.endsWith('/thumb.jpg')).toBe(true);
-    expect(compiled.querySelector('.text-area .title').textContent.trim()).toBe(
-      'title'
-    );
-    expect(
-      compiled.querySelector('.text-area .galleries').textContent.trim()
-    ).toBe('Album');
+    expect(`${componentObject.title.textContent}`.trim()).toBe('title');
+    expect(`${componentObject.galleries.textContent}`.trim()).toBe('Album');
   });
 });
+
+class ComponentObject extends PageObjectBase<ThumbnailComponent> {
+  get title() {
+    return this.select('.text-area .title');
+  }
+
+  get galleries() {
+    return this.select('.text-area .galleries');
+  }
+}

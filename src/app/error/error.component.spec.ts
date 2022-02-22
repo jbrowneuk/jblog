@@ -25,16 +25,16 @@ describe('Error Component', () => {
 
   beforeEach(() => {
     mockTitleService = Mock.ofType<TitleService>();
-    mockTitleService.setup(x => x.setTitle(It.isAnyString()));
-    mockTitleService.setup(x => x.resetTitle());
+    mockTitleService.setup((x) => x.setTitle(It.isAnyString()));
+    mockTitleService.setup((x) => x.resetTitle());
 
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [ErrorComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
-        { provide: TitleService, useFactory: () => mockTitleService.object }
-      ]
+        { provide: TitleService, useFactory: () => mockTitleService.object },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ErrorComponent);
@@ -45,7 +45,7 @@ describe('Error Component', () => {
   it('should show 404 text', () => {
     const heading = pageObject.title;
     expect(heading).toBeTruthy();
-    expect(heading.textContent.length).toBeGreaterThan(0);
+    expect(`${heading.textContent}`.length).toBeGreaterThan(0);
   });
 
   it('should show navigation links', () => {
@@ -55,7 +55,7 @@ describe('Error Component', () => {
   });
 
   it('should reset title', () => {
-    mockTitleService.verify(s => s.resetTitle(), Times.once());
+    mockTitleService.verify((s) => s.resetTitle(), Times.once());
     expect().nothing();
   });
 });

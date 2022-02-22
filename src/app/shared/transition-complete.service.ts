@@ -9,8 +9,8 @@ export class TransitionCompleteService {
 
   constructor() {
     this.transitionSubject = new BehaviorSubject<[string, string]>([
-      null,
-      null
+      '',
+      ''
     ]);
     this.transitionComplete = this.transitionSubject.asObservable();
   }

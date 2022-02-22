@@ -4,7 +4,7 @@ import { ScrollDirectiveBase } from './scroll-directive.base';
 @Directive({ selector: '[jblogInfiniteScroll]' })
 export class InfiniteScrollDirective extends ScrollDirectiveBase {
   @Input() callbackPercentage = 80;
-  @Input() callback: () => void;
+  @Input() callback?: () => void;
   @Input() shouldBlockAfterCallback = true;
   private lastCallbackPosition: number;
 
@@ -33,7 +33,7 @@ export class InfiniteScrollDirective extends ScrollDirectiveBase {
     }
 
     this.lastCallbackPosition = positionControl;
-    this.callback();
+    this.callback && this.callback();
   }
 
   private isScrolledToPosition(): boolean {

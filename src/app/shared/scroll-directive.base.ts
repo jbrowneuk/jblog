@@ -1,5 +1,4 @@
 import { AfterViewInit, ElementRef, HostListener, Directive } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 export interface ScrollPosition {
   scrollHeight: number;
@@ -10,8 +9,8 @@ export interface ScrollPosition {
 @Directive()
 export abstract class ScrollDirectiveBase implements AfterViewInit {
   private lastKnownPosition: ScrollPosition;
-  private lastScrollWasDown: boolean;
-  private isTicking: boolean;
+  private lastScrollWasDown = false;
+  private isTicking = false;
 
   /**
    * Gets the vertical distance down the page

@@ -12,7 +12,7 @@ import { ImageInfo } from '../../model/image-info';
 })
 export class ThumbnailComponent {
   /**
-   * Th image data that describes the related image.
+   * The image data that describes the related image.
    */
-  @Input() public data: ImageInfo;
+  @Input() public data?: ImageInfo;
 }

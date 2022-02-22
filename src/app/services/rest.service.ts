@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-type Headers = { [key: string]: string };
+export type Headers = { [key: string]: string };
 
 @Injectable({
   providedIn: 'root'

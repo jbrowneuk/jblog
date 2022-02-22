@@ -9,7 +9,6 @@ import { JournalState } from './journal.state';
 
 describe('Journal reducer', () => {
   const initialState: JournalState = {
-    posts: null,
     currentPost: null,
     postsLoading: false
   };

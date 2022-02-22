@@ -17,7 +17,7 @@ const invalidIdentifier = -1;
 export class AppComponent {
   private currentSectionId: number;
 
-  @ViewChild('outlet', { static: true }) outlet: RouterOutlet;
+  @ViewChild('outlet', { static: true }) outlet?: RouterOutlet;
 
   constructor(private transitionCompleteService: TransitionCompleteService) {
     this.currentSectionId = invalidIdentifier;
@@ -27,7 +27,7 @@ export class AppComponent {
     return new Date().getFullYear();
   }
 
-  public prepareRouteTransition(outlet): string {
+  public prepareRouteTransition(outlet: RouterOutlet): string | null {
     const doesNotHaveIdentifier =
       typeof outlet.activatedRouteData['sectionId'] === 'undefined';
 

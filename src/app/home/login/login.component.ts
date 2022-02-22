@@ -1,6 +1,5 @@
-import { combineLatest } from 'rxjs';
-
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserService } from '../../services/user.service';
@@ -11,23 +10,28 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public username: string;
-  public password: string;
   public loginError: boolean;
+  public loginForm: FormGroup;
 
-  private returnTo: string;
+  private returnTo?: string;
 
   constructor(
+    private readonly fb: FormBuilder,
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute
   ) {
     this.loginError = false;
+
+    this.loginForm = this.fb.group({
+      username: [null, Validators.required],
+      password: [null, Validators.required]
+    });
   }
 
   public ngOnInit() {
     this.route.queryParams.subscribe({
-      next: params => (this.returnTo = params.returnTo)
+      next: params => (this.returnTo = params['returnTo'])
     });
   }
 
@@ -35,9 +39,13 @@ export class LoginComponent implements OnInit {
     evt.preventDefault();
     evt.stopPropagation();
 
+    if (this.loginForm?.invalid) {
+      return;
+    }
+
     this.loginError = false;
 
-    this.userService.initialiseSession(this.username, this.password).subscribe({
+    this.userService.initialiseSession(this.loginForm?.value.username, this.loginForm?.value.password).subscribe({
       next: this.fetchUserInfo.bind(this),
       error: () => (this.loginError = true)
     });

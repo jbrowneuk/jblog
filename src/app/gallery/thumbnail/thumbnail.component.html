@@ -1,14 +1,16 @@
-<a class="gallery-card" [routerLink]="['/art/view', data.id]">
-  <span class="load-area">
-    <svg viewBox="0 0 300 200">
-      <rect x="0" y="0" width="300" height="200" />
-    </svg>
-  </span>
-  <span class="image-area overlay">
-    <img src="{{ data.thumbnail }}" loading="lazy" alt="thumbnail image" />
-  </span>
-  <span class="text-area overlay">
-    <span class="title">{{ data.title }}</span>
-    <span class="galleries">{{ data.containingAlbums | galleryFormat }}</span>
-  </span>
-</a>
+<ng-container *ngIf="data">
+  <a class="gallery-card" [routerLink]="['/art/view', data.id]">
+    <span class="load-area">
+      <svg viewBox="0 0 300 200">
+        <rect x="0" y="0" width="300" height="200" />
+      </svg>
+    </span>
+    <span class="image-area overlay">
+      <img src="{{ data.thumbnail }}" loading="lazy" alt="thumbnail image" />
+    </span>
+    <span class="text-area overlay">
+      <span class="title">{{ data.title }}</span>
+      <span class="galleries">{{ data.containingAlbums | galleryFormat }}</span>
+    </span>
+  </a>
+</ng-container>

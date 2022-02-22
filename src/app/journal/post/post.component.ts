@@ -8,8 +8,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent {
-  @Input() public postData: PostData;
-  @Input() public titleLink: string;
+  @Input() public postData?: PostData;
+  @Input() public titleLink?: string;
 
   /**
    * Returns whether a post is older than a certain number of years
