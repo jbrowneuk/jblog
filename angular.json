@@ -27,7 +27,9 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
-              "includePaths": ["src/theme"]
+              "includePaths": [
+                "src/theme"
+              ]
             },
             "assets": [
               "src/favicon.ico",
@@ -110,7 +112,9 @@
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
             "stylePreprocessorOptions": {
-              "includePaths": ["src/theme"]
+              "includePaths": [
+                "src/theme"
+              ]
             },
             "assets": [
               "src/favicon.ico",
@@ -121,9 +125,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "jblog"
+  "defaultProject": "jblog",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

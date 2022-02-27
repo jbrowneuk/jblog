@@ -1,5 +1,6 @@
 {
   "extends": "stylelint-config-prettier",
+  "customSyntax": "postcss-scss",
   "rules": {
     "no-missing-end-of-source-newline": null,
     "max-empty-lines": 1,
@@ -14,7 +15,7 @@
       "ignoreTypes": ["/^jblog-/", "/deep/"]
     } ],
     "selector-pseudo-element-no-unknown": [ true, {
-      "ignorePseudoElements": ["ng-deep"],
+      "ignorePseudoElements": ["ng-deep"]
     } ],
     "at-rule-no-unknown": [ true, {
       "ignoreAtRules": ["mixin", "include", "if", "for"]
