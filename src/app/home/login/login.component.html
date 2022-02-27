@@ -1,11 +1,11 @@
 <div id="login-container" class="base-card">
-  <form #userForm="ngForm" (submit)="submitForm($event)" id="login-form">
+  <form [formGroup]="loginForm" (ngSubmit)="submitForm($event)" id="login-form">
     <h2 class="top-area">Log in</h2>
     <div class="form-row">
       <input
         type="text"
         name="username"
-        [(ngModel)]="username"
+        formControlName="username"
         placeholder="e.g. dawn"
         required
         data-username
@@ -16,7 +16,7 @@
       <input
         type="password"
         name="password"
-        [(ngModel)]="password"
+        formControlName="password"
         required
         data-password
       />

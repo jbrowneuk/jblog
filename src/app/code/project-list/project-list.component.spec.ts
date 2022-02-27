@@ -9,13 +9,15 @@ import { LineSplittingPipe } from '../../shared/line-splitting.pipe';
 
 // Classes under test
 import { ProjectListComponent } from './project-list.component';
+import { PageObjectBase } from 'src/app/lib/testing/page-object.base';
 
 describe('ProjectListComponent', () => {
   const mockTitleService = Mock.ofType<TitleService>();
-  mockTitleService.setup(x => x.setTitle(It.isAnyString()));
+  mockTitleService.setup((x) => x.setTitle(It.isAnyString()));
 
   let component: ProjectListComponent;
   let fixture: ComponentFixture<ProjectListComponent>;
+  let pageObject: ProjectListObject;
   let compiled: HTMLElement;
 
   beforeEach(() => {
@@ -26,11 +28,12 @@ describe('ProjectListComponent', () => {
       declarations: [LineSplittingPipe, ProjectListComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
-        { provide: TitleService, useFactory: () => mockTitleService.object }
-      ]
+        { provide: TitleService, useFactory: () => mockTitleService.object },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectListComponent);
+    pageObject = new ProjectListObject(fixture);
     component = fixture.componentInstance;
     compiled = fixture.debugElement.nativeElement;
     fixture.detectChanges();
@@ -41,16 +44,25 @@ describe('ProjectListComponent', () => {
   });
 
   it('should display blurb', () => {
-    expect(compiled.querySelector('#projects-blurb p').textContent).toContain(
-      'The computer at your desk. The phone in your pocket.'
-    );
-    expect(compiled.querySelector('#github-blurb h1').textContent).toContain(
-      'GitHub'
-    );
+    expect(pageObject.projectBlurb).toBeTruthy();
+    expect(pageObject.githubBlurb).toBeTruthy();
   });
 
   it('should change page title', () => {
-    mockTitleService.verify(x => x.setTitle(It.isValue('Code')), Times.once());
+    mockTitleService.verify(
+      (x) => x.setTitle(It.isValue('Code')),
+      Times.once()
+    );
     expect().nothing();
   });
 });
+
+class ProjectListObject extends PageObjectBase<ProjectListComponent> {
+  get projectBlurb() {
+    return this.select('#projects-blurb p');
+  }
+
+  get githubBlurb() {
+    return this.select('#github-blurb h1');
+  }
+}

@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { Inject, Injectable, Optional } from '@angular/core';
@@ -22,7 +22,7 @@ export class UserService {
    */
   protected basePath = 'http://localhost/api';
 
-  private userSubject: BehaviorSubject<User>;
+  private userSubject: BehaviorSubject<User | null>;
 
   /**
    * Injecting constructor.
@@ -35,13 +35,13 @@ export class UserService {
       this.basePath = basePath;
     }
 
-    this.userSubject = new BehaviorSubject<User>(null);
+    this.userSubject = new BehaviorSubject<User | null>(null);
   }
 
   /**
    * An observable that updates with the current user
    */
-  public get authenticatedUser$(): Observable<User> {
+  public get authenticatedUser$(): Observable<User | null> {
     return this.userSubject.asObservable();
   }
 
@@ -55,13 +55,13 @@ export class UserService {
   /**
    * Accesses the token reflection endpoint to get the current user
    */
-  public fetchUser(): Observable<User> {
+  public fetchUser(): Observable<User | null> {
     const url = `${this.basePath}${API_URL}`;
     return this.authGet<User>(url).pipe(
       tap(user => this.userSubject.next(user)),
       catchError(err => {
         this.endSession();
-        return throwError(err);
+        return throwError(() => err);
       })
     );
   }
@@ -97,7 +97,7 @@ export class UserService {
   /**
    * Make a HTTP GET request with Authorization headers set
    */
-  public authGet<T>(url: string): Observable<T> {
+  public authGet<T>(url: string): Observable<T | null> {
     const token = this.getSession();
     if (!token) {
       return of(null);
@@ -122,14 +122,14 @@ export class UserService {
 
   private handleSessionError(): Observable<void> {
     this.endSession();
-    return throwError(new Error('invalid login'));
+    return throwError(() => new Error('invalid login'));
   }
 
   private setSession(token: string): void {
     localStorage.setItem(TOKEN_IDENTIFIER, token);
   }
 
-  private getSession(): string {
+  private getSession(): string | null {
     return localStorage.getItem(TOKEN_IDENTIFIER);
   }
 }

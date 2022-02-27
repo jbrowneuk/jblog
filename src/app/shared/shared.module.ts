@@ -1,4 +1,4 @@
-import { NgxMdModule } from 'ngx-md';
+import { MarkdownModule } from 'ngx-markdown';
 
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
@@ -33,7 +33,7 @@ const CORE_COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild([]), NgxMdModule.forRoot()],
+  imports: [CommonModule, RouterModule.forChild([]), MarkdownModule.forRoot()],
   declarations: CORE_COMPONENTS,
   exports: CORE_COMPONENTS
 })

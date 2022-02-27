@@ -14,7 +14,7 @@ import { JournalFacade } from '../state/journal.facade';
   styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
-  public postData$: Observable<PostDataWrapper>;
+  public postData$?: Observable<PostDataWrapper | undefined>;
   public tag: string;
 
   constructor(
@@ -22,7 +22,7 @@ export class PostListComponent implements OnInit {
     private route: ActivatedRoute,
     private title: TitleService
   ) {
-    this.tag = null;
+    this.tag = '';
   }
 
   public get loading$(): Observable<boolean> {
@@ -30,11 +30,11 @@ export class PostListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tag = null;
+    this.tag = '';
     this.postData$ = this.route.params.pipe(
       switchMap(params => {
-        const page = +params.page || 1;
-        this.tag = params.tag || null;
+        const page = +params['page'] || 1;
+        this.tag = params['tag'] || '';
         this.updateTitle(page, this.tag);
         this.postFacade.loadPostList(page, this.tag);
         return this.postFacade.postList$;

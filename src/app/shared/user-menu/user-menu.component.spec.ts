@@ -2,7 +2,7 @@ import { of } from 'rxjs';
 import { IMock, It, Mock, Times } from 'typemoq';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
@@ -21,7 +21,7 @@ describe('UserMenuComponent', () => {
   let component: UserMenuComponent;
   let fixture: ComponentFixture<UserMenuComponent>;
 
-  beforeEach(async(async () => {
+  beforeEach(async () => {
     mockUserService = Mock.ofType<UserService>();
     mockUserService
       .setup(s => s.authenticatedUser$)
@@ -29,7 +29,7 @@ describe('UserMenuComponent', () => {
 
     mockRouter = Mock.ofType<Router>();
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [UserMenuComponent],
       providers: [
         { provide: UserService, useFactory: () => mockUserService.object },
@@ -37,11 +37,13 @@ describe('UserMenuComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(UserMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -57,7 +59,7 @@ describe('UserMenuComponent', () => {
     expect().nothing();
   });
 
-  it('should log out when button clicked', async(() => {
+  it('should log out when button clicked', () => {
     const logoutButton = fixture.debugElement.query(
       By.css(Selectors.buttonLogout)
     );
@@ -67,9 +69,9 @@ describe('UserMenuComponent', () => {
     mockUserService.verify(s => s.fetchUser(), Times.atLeastOnce());
 
     expect().nothing();
-  }));
+  });
 
-  it('should redirect to login page on log out', async(() => {
+  it('should redirect to login page on log out', () => {
     const logoutButton = fixture.debugElement.query(
       By.css(Selectors.buttonLogout)
     );
@@ -78,5 +80,5 @@ describe('UserMenuComponent', () => {
     mockRouter.verify(r => r.navigate(It.isValue(['/login'])), Times.once());
 
     expect().nothing();
-  }));
+  });
 });

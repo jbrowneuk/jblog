@@ -208,6 +208,15 @@ Some general things to note:
   of seconds since 1st Jan 1970, 00:00 UTC.
 - `*_id` fields must be unique and are the way the system refers to a record.
 
+## Unit testing the front-end
+Running `npm run test` will run unit tests using the locally installed version
+of Chrome. If using Chrome is undesired, set the environment variable
+`DISABLE_CHROME` to any value before running the tests. This will allow you to
+run the tests in any browser by navigating to the URL that appears in the console.
+
+## Unit testing the backend
+This needs to be done...
+
 # History
 
 jBlog started off as a pure PHP site that I intended to integrate with the

@@ -17,7 +17,7 @@
     <li
       *ngFor="let segment of segments"
       [class.spacer]="!segment.isLink"
-      [class.active]="segment.pageNumber == currentPage"
+      [class.active]="segment.pageNumber === currentPage"
     >
       <a
         *ngIf="segment.isLink"

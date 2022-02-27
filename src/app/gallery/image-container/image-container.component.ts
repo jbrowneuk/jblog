@@ -18,7 +18,7 @@ export class ImageContainerComponent implements OnChanges {
   /**
    * The name of the album to load images from.
    */
-  @Input() public albumName: string;
+  @Input() public albumName: string = '';
 
   /**
    * The current page to display.
@@ -32,10 +32,10 @@ export class ImageContainerComponent implements OnChanges {
   @Input() public imageCount = -1;
 
   /**
-   * A collection of {@link ImageInfo} that describe the thumbanils to be
+   * A collection of {@link ImageInfo} that describe the thumbnails to be
    * rendered in the view.
    */
-  public images: ImageInfo[];
+  public images: ImageInfo[] = [];
 
   /**
    * A boolean used to signify whether the image data is loading. Used to show

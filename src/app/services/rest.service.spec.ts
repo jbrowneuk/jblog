@@ -4,7 +4,7 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 
-import { RestService } from './rest.service';
+import { Headers, RestService } from './rest.service';
 
 describe('Rest Service', () => {
   let httpTestingController: HttpTestingController;
@@ -15,17 +15,17 @@ describe('Rest Service', () => {
       providers: [RestService]
     });
 
-    httpTestingController = TestBed.get(HttpTestingController);
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {
-    const service: RestService = TestBed.get(RestService);
+    const service: RestService = TestBed.inject(RestService);
     expect(service).toBeTruthy();
   });
 
   describe('GET method', () => {
     it('should GET from url', (done: DoneFn) => {
-      const service: RestService = TestBed.get(RestService);
+      const service: RestService = TestBed.inject(RestService);
       const mockResponse = { status: 'tested' };
       const mockUrl = 'http://localhost/url';
 
@@ -43,10 +43,10 @@ describe('Rest Service', () => {
     });
 
     it('should add HTTP headers to GET request', (done: DoneFn) => {
-      const service: RestService = TestBed.get(RestService);
+      const service: RestService = TestBed.inject(RestService);
       const mockResponse = { status: 'tested' };
       const mockUrl = 'http://localhost/url';
-      const mockHeaders = { PoweredBy: 'A Test Runner' };
+      const mockHeaders: Headers = { PoweredBy: 'A Test Runner' };
 
       service.get(mockUrl, mockHeaders).subscribe({
         next: (data: any) => {
@@ -61,7 +61,7 @@ describe('Rest Service', () => {
 
       const mockHeaderKeys = Object.keys(mockHeaders);
       mockHeaderKeys.forEach(key => {
-        const actualHeaderValue = req.request.headers.get(key);
+        const actualHeaderValue = req.request.headers.get(key) as string;
         expect(mockHeaders[key]).toBe(actualHeaderValue);
       });
 
@@ -71,7 +71,7 @@ describe('Rest Service', () => {
 
   describe('POST method', () => {
     it('should POST to URL with body', (done: DoneFn) => {
-      const service: RestService = TestBed.get(RestService);
+      const service: RestService = TestBed.inject(RestService);
       const mockResponse = 'text'; // see note in the service file
       const mockUrl = 'http://localhost/url';
       const mockBody = { body: 'body' };

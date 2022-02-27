@@ -1,4 +1,4 @@
-import { IMock, It, Mock, Times } from 'typemoq';
+import { IMock, It, Mock } from 'typemoq';
 
 import { TestBed } from '@angular/core/testing';
 
@@ -14,7 +14,7 @@ const mockPost: PostData = {
   content: 'first post!',
   tags: ['first', 'post'],
   slug: 'first-post',
-  status: PostStatus.Publish
+  status: PostStatus.Publish,
 };
 
 describe('PostAdminService', () => {
@@ -26,8 +26,8 @@ describe('PostAdminService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: UserService, useFactory: () => mockUserService.object }
-      ]
+        { provide: UserService, useFactory: () => mockUserService.object },
+      ],
     });
 
     service = TestBed.get(PostAdminService);
@@ -39,11 +39,11 @@ describe('PostAdminService', () => {
 
   describe('sendPost', () => {
     it('should send post data to backend', () => {
-      let dataValue: string;
+      let dataValue = '';
       mockUserService
-        .setup(s => s.authPost(It.isAnyString(), It.isAny()))
+        .setup((s) => s.authPost(It.isAnyString(), It.isAny()))
         .callback((s: string, b: FormData) => {
-          dataValue = b.get('data').toString();
+          dataValue = `${b.get('data')}`;
         });
 
       service.sendPost(mockPost);

@@ -1,4 +1,4 @@
-import { Observable, throwError as observableThrowError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Inject, Injectable, Optional } from '@angular/core';
@@ -54,7 +54,7 @@ export class PostService {
       apiRequestUrl += `&page=${pageNumber}`;
     }
 
-    if (tag && tag !== null) {
+    if (tag && tag !== null && tag.length > 0) {
       apiRequestUrl += `&tag=${tag}`;
     }
 
@@ -71,7 +71,7 @@ export class PostService {
    */
   public getPost(postId: string): Observable<PostData> {
     if (!postId) {
-      return observableThrowError(new Error('Post does not exist'));
+      return throwError(() => new Error('Post does not exist'));
     }
 
     const apiRequestUrl = `${this.basePath}${API_URL}&slug=${postId}`;

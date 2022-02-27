@@ -69,7 +69,7 @@ describe('Journal effects', () => {
       const tag = 'any';
       mockService
         .setup(s => s.getPostsForPage(It.isValue(page), It.isValue(tag)))
-        .returns(() => throwError('nope'));
+        .returns(() => throwError(() => 'nope'));
 
       const inputAction = new LoadPosts(page, tag);
       const outcomeAction = new LoadPostsFailure();

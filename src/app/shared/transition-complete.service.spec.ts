@@ -15,8 +15,8 @@ describe('TransitionCompleteService', () => {
       const expectedFromState = 'from-this';
       const expectedToState = 'to-this';
 
-      let actualFromState = null;
-      let actualToState = null;
+      let actualFromState = '';
+      let actualToState = '';
 
       const subscription = service.subscribe((fromState, toState) => {
         actualFromState = fromState;

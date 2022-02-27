@@ -5,7 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { formatDate } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { PostComponent } from './post.component';
@@ -18,7 +18,7 @@ const mockPostData: PostData = {
   content: 'mock post',
   tags: ['mock', 'post'],
   slug: 'mock-post',
-  status: PostStatus.Publish
+  status: PostStatus.Publish,
 };
 
 class PostPageObject extends PageObjectBase<PostComponent> {
@@ -56,7 +56,7 @@ class PostPageObject extends PageObjectBase<PostComponent> {
 }
 
 @Pipe({
-  name: 'relativeDate'
+  name: 'relativeDate',
 })
 class MockRelativeDatePipe implements PipeTransform {
   transform(value: any): string {
@@ -69,25 +69,27 @@ describe('PostComponent', () => {
   let fixture: ComponentFixture<PostComponent>;
   let pageObject: PostPageObject;
 
-  beforeEach(async(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [MockRelativeDatePipe, PostComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule, SharedModule]
-    }).compileComponents();
+  beforeEach(
+    waitForAsync(async () => {
+      await TestBed.configureTestingModule({
+        declarations: [MockRelativeDatePipe, PostComponent],
+        imports: [HttpClientTestingModule, RouterTestingModule, SharedModule],
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(PostComponent);
-    pageObject = new PostPageObject(fixture);
-    component = fixture.componentInstance;
-    component.postData = mockPostData;
-    fixture.detectChanges();
-  }));
+      fixture = TestBed.createComponent(PostComponent);
+      pageObject = new PostPageObject(fixture);
+      component = fixture.componentInstance;
+      component.postData = mockPostData;
+      fixture.detectChanges();
+    })
+  );
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('should display title', () => {
-    expect(pageObject.title.textContent.trim()).toBe(mockPostData.title);
+    expect(`${pageObject.title.textContent}`.trim()).toBe(mockPostData.title);
   });
 
   it('should display date in correct formats', () => {
@@ -108,28 +110,30 @@ describe('PostComponent', () => {
     );
 
     expect(pageObject.dateContainer.dateTime).toBe(expectedAttrValue);
-    expect(pageObject.dateDay.textContent.trim()).toBe(expectedDayValue);
-    expect(pageObject.dateMonthYear.textContent.trim()).toBe(
+    expect(`${pageObject.dateDay.textContent}`.trim()).toBe(expectedDayValue);
+    expect(`${pageObject.dateMonthYear.textContent}`.trim()).toBe(
       expectedMonthYearValue
     );
   });
 
   it('should display post content', () => {
-    expect(pageObject.postContent.textContent.trim()).toBe(
+    expect(`${pageObject.postContent.textContent}`.trim()).toBe(
       mockPostData.content
     );
   });
 
   it('should display tags', () => {
     const tagElements = pageObject.tags;
-    mockPostData.tags.forEach(tag => {
-      const relatedElement = tagElements.find(t => t.dataset.postTag === tag);
+    mockPostData.tags.forEach((tag) => {
+      const relatedElement = tagElements.find(
+        (t) => t.dataset['postTag'] === tag
+      );
       expect(relatedElement).toBeTruthy();
-      expect(relatedElement.textContent.trim()).toContain(tag);
+      expect(`${relatedElement?.textContent}`.trim()).toContain(tag);
     });
   });
 
-  it('should display outdated content warning when post is older than 2 years', async(() => {
+  it('should display outdated content warning when post is older than 2 years', () => {
     const numberYears = 2;
     // Convert Date.now to unix timestamp, subtract 1 second then subtract n years
     const secondsInYear = 31557600;
@@ -141,24 +145,21 @@ describe('PostComponent', () => {
     component.postData.date = date;
 
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(pageObject.outdatedContent).toBeTruthy();
-    });
-  }));
+    expect(pageObject.outdatedContent).toBeTruthy();
+  });
 
   describe('title clicking behaviour', () => {
     it('should not present a clickable title if title link property not provided', () => {
       expect(pageObject.titleLink).toBeFalsy();
-      expect(pageObject.title.textContent.trim()).toBe(mockPostData.title);
+      expect(`${pageObject.title.textContent}`.trim()).toBe(mockPostData.title);
     });
 
-    it('should present a clickable title if title link property is provided', async(() => {
+    it('should present a clickable title if title link property is provided', () => {
       component.titleLink = '/anywhere';
       fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        expect(pageObject.titleLink).toBeTruthy();
-        expect(pageObject.title.textContent.trim()).toBe(mockPostData.title);
-      });
-    }));
+
+      expect(pageObject.titleLink).toBeTruthy();
+      expect(`${pageObject.title.textContent}`.trim()).toBe(mockPostData.title);
+    });
   });
 });

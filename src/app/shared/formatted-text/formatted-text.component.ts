@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'jblog-text',
   template: `
-    <ngx-md [data]="text" class="text-area" data-text-area></ngx-md>
+    <markdown [data]="text" class="text-area" data-text-area></markdown>
   `,
   styleUrls: ['./formatted-text.component.scss']
 })

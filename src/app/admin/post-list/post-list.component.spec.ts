@@ -68,7 +68,7 @@ describe('PostListComponent', () => {
       const rowElement = postRows.item(index);
 
       const titleElement = rowElement.querySelector('[data-title]');
-      expect(titleElement.textContent.trim()).toBe(postData.title);
+      expect(`${titleElement?.textContent}`.trim()).toBe(postData.title);
     }
   });
 });

@@ -17,7 +17,7 @@ const maxSlides = 3;
   animations: TopPageTransitions
 })
 export class TopPageComponent implements OnInit, OnDestroy {
-  private carouselInterval: Subscription;
+  private carouselInterval?: Subscription;
 
   public slideNumber: number;
   public totalSlides: number;
@@ -66,7 +66,7 @@ export class TopPageComponent implements OnInit, OnDestroy {
   private clearSlideInterval(): void {
     if (this.carouselInterval) {
       this.carouselInterval.unsubscribe();
-      this.carouselInterval = null;
+      this.carouselInterval = undefined;
     }
   }
 }

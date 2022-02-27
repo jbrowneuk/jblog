@@ -2,31 +2,37 @@ import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { PostData, PostStatus } from '../../model/post-data';
 import { PostService } from '../../services/post.service';
 import { PostAdminService } from '../post-admin.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'jblog-post-editor',
   templateUrl: './post-editor.component.html',
-  styleUrls: ['./post-editor.component.scss']
+  styleUrls: ['./post-editor.component.scss'],
 })
 export class PostEditorComponent implements OnInit {
-  public postData$: Observable<PostData>;
-  public isDraft: boolean;
-  public isEditing: boolean;
+  public postData$?: Observable<PostData>;
+  public isEditing = true;
+
+  public postForm: FormGroup;
 
   constructor(
+    private readonly fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private postService: PostService,
     private postAdminService: PostAdminService
   ) {
-    this.isEditing = true;
-    this.isDraft = true;
+    this.postForm = this.fb.group({
+      title: ['', Validators.required],
+      content: ['', Validators.required],
+      slug: ['', Validators.required],
+      isDraft: [true]
+    });
   }
 
   ngOnInit() {
@@ -39,7 +45,14 @@ export class PostEditorComponent implements OnInit {
 
         return this.postService.getPost(id);
       }),
-      tap(p => (this.isDraft = p.status === 'draft'))
+      tap((p) => {
+        this.postForm.patchValue({
+          title: p.title,
+          content: p.content,
+          slug: p.slug,
+          isDraft: p.status === PostStatus.Draft
+        });
+      })
     );
   }
 
@@ -48,17 +61,28 @@ export class PostEditorComponent implements OnInit {
   }
 
   public onFormSubmit(post: PostData): void {
-    // Modify post state – todo: use enum
-    post.status = this.isDraft ? PostStatus.Draft : PostStatus.Publish;
+    const editableData: PostData = { ...post };
 
-    this.postAdminService.sendPost(post).subscribe({
-      next: () => this.router.navigate(['../..'], { relativeTo: this.route }),
-      error: () => console.error('not success')
+    // Update from form
+    const isDraft = this.postForm.value.isDraft;
+    editableData.title = this.postForm.value.title;
+    editableData.content = this.postForm.value.content;
+    editableData.slug = this.postForm.value.slug;
+    editableData.status = isDraft ? PostStatus.Draft : PostStatus.Publish
+
+    this.postAdminService.sendPost(editableData).subscribe({
+       next: () => this.router.navigate(['../..'], { relativeTo: this.route }),
+       error: () => console.error('not success'),
     });
   }
 
   public calculateWordCount(text: string): number {
-    return text ? text.match(/\w+/g).length : 0;
+    if (!text || text === null) {
+      return 0;
+    }
+
+    const matches = text.match(/\w+/g);
+    return matches !== null ? matches.length : 0;
   }
 
   private generateBlankPost(): PostData {
@@ -70,7 +94,7 @@ export class PostEditorComponent implements OnInit {
       content: '',
       tags: [],
       slug: '',
-      status: PostStatus.Draft
+      status: PostStatus.Draft,
     };
   }
 }

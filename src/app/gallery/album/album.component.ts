@@ -12,13 +12,13 @@ import { TitleService } from '../../shared/title.service';
 @Component({
   selector: 'jblog-album',
   templateUrl: './album.component.html',
-  styleUrls: ['./album.component.scss']
+  styleUrls: ['./album.component.scss'],
 })
 export class AlbumComponent implements OnInit {
   /**
    * The album data which describes the current view.
    */
-  public data: AlbumInfo;
+  public data?: AlbumInfo;
 
   /**
    * A boolean used to signify whether the album data is loading. Used to show
@@ -35,12 +35,12 @@ export class AlbumComponent implements OnInit {
   /**
    * The current page to display.
    */
-  public page: number;
+  public page = 1;
 
   /**
    * A control variable to prevent reloading the same album data.
    */
-  private lastLoadedAlbum: string;
+  private lastLoadedAlbum = '_unloaded';
 
   /**
    * Constructor with injected services.
@@ -74,12 +74,10 @@ export class AlbumComponent implements OnInit {
 
     this.loadingFailed = false;
     this.isLoadingAlbumData = true;
-    this.albumService
-      .getAlbumInfo(albumName)
-      .subscribe(
-        x => this.handleAlbumResponse(x),
-        e => this.handleImageLoadFailure(e)
-      );
+    this.albumService.getAlbumInfo(albumName).subscribe({
+      next: (data) => this.handleAlbumResponse(data),
+      error: (err) => this.handleImageLoadFailure(err),
+    });
   }
 
   /**

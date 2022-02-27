@@ -12,7 +12,12 @@ export class ActivatedRouteStub {
 
   constructor(initialParams?: Params) {
     this.paramMapSubject = new ReplaySubject<ParamMap>();
-    this.queryParamSubject = new ReplaySubject<Params>(null);
+    this.queryParamSubject = new ReplaySubject<Params>();
+
+    if (!initialParams) {
+      initialParams = [];
+    }
+
     this.setParamMap(initialParams);
   }
 
@@ -26,6 +31,10 @@ export class ActivatedRouteStub {
 
   /** Set the paramMap observables’s next value */
   setParamMap(params?: Params): void {
+    if (!params) {
+      throw new Error('Params is blank');
+    }
+
     this.paramMapSubject.next(convertToParamMap(params));
   }
 

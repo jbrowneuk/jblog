@@ -5,7 +5,7 @@ import { TitleService } from 'src/app/shared/title.service';
 import { IMock, It, Mock, Times } from 'typemoq';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -37,13 +37,13 @@ describe('Post (Single) Component', () => {
   let mockFacade: IMock<JournalFacade>;
   let mockRoute: IMock<ActivatedRoute>;
   let mockTitleService: IMock<TitleService>;
-  let postSubject: BehaviorSubject<PostData>;
+  let postSubject: BehaviorSubject<PostData | null>;
   let component: PostSingleComponent;
   let fixture: ComponentFixture<PostSingleComponent>;
   let pageObject: PostSinglePageObject;
 
-  beforeEach(async(async () => {
-    postSubject = new BehaviorSubject<PostData>(mockPost);
+  beforeEach(waitForAsync(() => {
+    postSubject = new BehaviorSubject<PostData | null>(mockPost);
     mockFacade = Mock.ofType<JournalFacade>();
     mockFacade.setup(f => f.postListLoading$).returns(() => of(false));
     mockFacade.setup(f => f.currentPost$).returns(() => postSubject);
@@ -53,7 +53,7 @@ describe('Post (Single) Component', () => {
 
     mockTitleService = Mock.ofType<TitleService>();
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [PostSingleComponent],
       providers: [
         { provide: JournalFacade, useFactory: () => mockFacade.object },
@@ -62,12 +62,14 @@ describe('Post (Single) Component', () => {
       ],
       schemas: [RouterTestingModule, CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
+  }));
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(PostSingleComponent);
     pageObject = new PostSinglePageObject(fixture);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should load post from facade on creation', () => {
     expect(component).toBeTruthy();
@@ -80,7 +82,7 @@ describe('Post (Single) Component', () => {
   it('should display posts', () => {
     const relatedPost = pageObject.post;
     expect(relatedPost).toBeTruthy();
-    expect(relatedPost.dataset.post).toBe(`${mockPost.postId}`);
+    expect(relatedPost.dataset['post']).toBe(`${mockPost.postId}`);
   });
 
   describe('tab title behaviour', () => {

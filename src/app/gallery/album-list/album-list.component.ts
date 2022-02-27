@@ -16,7 +16,7 @@ export class AlbumListComponent implements OnInit {
   /**
    * The album list
    */
-  public albums: AlbumInfo[];
+  public albums: AlbumInfo[] = [];
 
   /**
    * A boolean used to signify whether the image data is loading. Used to show
