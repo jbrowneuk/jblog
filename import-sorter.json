@@ -1,0 +1,7 @@
+{
+  "generalConfiguration.sortOnBeforeSave": true,
+  "sortConfiguration.joinImportPaths": true,
+  "importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "newLineEachExpressionAfterCountLimit",
+  "importStringConfiguration.tabSize": 2,
+  "sortConfiguration.removeUnusedImports": true
+}
