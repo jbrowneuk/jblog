@@ -10,8 +10,8 @@ class Database implements IDatabase
   public function __construct()
   {
     $this->db = null;
-    $this->tablePrefix = 'site_';
-    $this->tableScope = 'default';
+    $this->tablePrefix = "site_";
+    $this->tableScope = "default";
     $this->errorMessages = array();
   }
 
@@ -22,15 +22,15 @@ class Database implements IDatabase
       return false;
     }
 
-    $this->tablePrefix = $params['Prefix'];
+    $this->tablePrefix = $params["Prefix"];
 
     try
     {
-      $this->db = new PDO('sqlite:' . $params['Database']);
+      $this->db = new PDO("sqlite:" . $params["Database"]);
     }
     catch (PDOException $e)
     {
-      print 'Can\'t connect: ' . $e->getMessage();
+      print "Can't connect: " . $e->getMessage();
       $this->db = null;
       return false;
     }
@@ -227,7 +227,12 @@ class Database implements IDatabase
     {
       foreach ($where as $key => $value)
       {
-        if ($value[0] == '>' || $value[0] == '<')
+        // If the where clause is a row ID or something non-string
+        if (!is_string($value)) {
+          $value = "$value";
+        }
+
+        if ($value[0] == ">" || $value[0] == "<")
         {
           $value = trim(substr($value, 1));
         }
@@ -264,18 +269,23 @@ class Database implements IDatabase
 
   private function generateWhereSearchScope($value)
   {
+    // If the where clause is a row ID or something non-string
+    if (!is_string($value)) {
+      return "=";
+    }
+
     $hasWildcard = strpos($value, "%") !== FALSE;
     if ($hasWildcard)
     {
-      return 'LIKE';
+      return "LIKE";
     }
 
-    $hasGreaterOrLessThan = $value[0] == '<' || $value[0] == '>';
+    $hasGreaterOrLessThan = $value[0] == "<" || $value[0] == ">";
     if ($hasGreaterOrLessThan)
     {
       return $value[0];
     }
 
-    return '=';
+    return "=";
   }
 }
