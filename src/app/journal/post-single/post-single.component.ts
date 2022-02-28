@@ -10,7 +10,7 @@ import { JournalFacade } from '../state/journal.facade';
 
 @Component({
   selector: 'jblog-post-single',
-  templateUrl: './post-single.component.html',
+  templateUrl: './post-single.component.html'
 })
 export class PostSingleComponent implements OnInit {
   public postData$?: Observable<PostData | null>;
@@ -27,7 +27,7 @@ export class PostSingleComponent implements OnInit {
 
   ngOnInit(): void {
     this.postData$ = this.route.params.pipe(
-      switchMap((params) => {
+      switchMap(params => {
         const slug = params['slug'];
         if (!slug) {
           return throwError(() => new Error('No param'));

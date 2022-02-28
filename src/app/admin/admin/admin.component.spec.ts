@@ -1,6 +1,6 @@
 import { IMock, It, Mock, Times } from 'typemoq';
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { TitleService } from '../../shared/title.service';
@@ -11,7 +11,7 @@ describe('AdminComponent', () => {
   let component: AdminComponent;
   let fixture: ComponentFixture<AdminComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     mockTitleService = Mock.ofType<TitleService>();
 
     TestBed.configureTestingModule({
@@ -20,14 +20,14 @@ describe('AdminComponent', () => {
       providers: [
         { provide: TitleService, useFactory: () => mockTitleService.object }
       ]
-    })
-      .compileComponents()
-      .then(() => {
-        fixture = TestBed.createComponent(AdminComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-      });
-  }));
+    }).compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AdminComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

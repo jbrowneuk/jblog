@@ -1,18 +1,12 @@
 import { of as observableOf } from 'rxjs';
+import { Mock } from 'typemoq';
+
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  PipeTransform,
-  Pipe,
-  CUSTOM_ELEMENTS_SCHEMA,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-
-import { Mock } from 'typemoq';
 
 import { LineSplittingPipe } from '../../shared/line-splitting.pipe';
 import { ProjectService } from '../project.service';
-
 import { ProjectsContainerComponent } from './projects-container.component';
 
 const mockProject = {
@@ -24,13 +18,13 @@ const mockProject = {
   archived: false,
   stars: 2,
   watchers: 1,
-  forks: 0,
+  forks: 0
 };
 
 const mockProjects = [mockProject];
 
 @Pipe({
-  name: 'archivedProjects',
+  name: 'archivedProjects'
 })
 class MockFilterPipe implements PipeTransform {
   transform(val: any) {
@@ -45,7 +39,7 @@ describe('ProjectsContainerComponent', () => {
 
   const mockProjectService = Mock.ofType<ProjectService>();
   mockProjectService
-    .setup((x) => x.getProjects())
+    .setup(x => x.getProjects())
     .returns(() => observableOf(mockProjects));
 
   beforeEach(() => {
@@ -54,17 +48,19 @@ describe('ProjectsContainerComponent', () => {
       declarations: [
         LineSplittingPipe,
         ProjectsContainerComponent,
-        MockFilterPipe,
+        MockFilterPipe
       ],
       providers: [
         {
           provide: ProjectService,
-          useFactory: () => mockProjectService.object,
-        },
+          useFactory: () => mockProjectService.object
+        }
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(ProjectsContainerComponent);
     component = fixture.componentInstance;
     component.projects = mockProjects;
@@ -77,7 +73,9 @@ describe('ProjectsContainerComponent', () => {
   });
 
   function checkEquality(property: string, value: string): void {
-    const element = compiled.querySelector(`[data-test=${property}]`) as Element;
+    const element = compiled.querySelector(
+      `[data-test=${property}]`
+    ) as Element;
     expect(`${element.textContent}`).toContain(value);
   }
 
@@ -95,8 +93,6 @@ describe('ProjectsContainerComponent', () => {
 
   it('should display project link', () => {
     const element = compiled.querySelector('[data-test=link]') as Element;
-    expect(element.textContent).toContain(
-      'Go to project page'
-    );
+    expect(element.textContent).toContain('Go to project page');
   });
 });

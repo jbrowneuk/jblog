@@ -1,41 +1,26 @@
 import { PageObjectBase } from 'src/app/lib/testing/page-object.base';
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RatingBarComponent } from './rating-bar.component';
-
-class RatingBarPageObject extends PageObjectBase<RatingBarComponent> {
-  public get totalDotCount(): number {
-    const dots = this.selectAll('[data-dot]');
-    return dots.length;
-  }
-
-  public get filledDotCount(): number {
-    const dots = this.selectAll('[data-dot].filled');
-    return dots.length;
-  }
-
-  public get unfilledDotCount(): number {
-    const dots = this.selectAll('[data-dot]:not(.filled)');
-    return dots.length;
-  }
-}
 
 describe('Rating Bar Component', () => {
   let component: RatingBarComponent;
   let fixture: ComponentFixture<RatingBarComponent>;
   let pageObject: RatingBarPageObject;
 
-  beforeEach(async(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [RatingBarComponent]
     }).compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(RatingBarComponent);
     pageObject = new RatingBarPageObject(fixture);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -71,3 +56,20 @@ describe('Rating Bar Component', () => {
     expect(pageObject.filledDotCount).toBe(amount);
   });
 });
+
+class RatingBarPageObject extends PageObjectBase<RatingBarComponent> {
+  public get totalDotCount(): number {
+    const dots = this.selectAll('[data-dot]');
+    return dots.length;
+  }
+
+  public get filledDotCount(): number {
+    const dots = this.selectAll('[data-dot].filled');
+    return dots.length;
+  }
+
+  public get unfilledDotCount(): number {
+    const dots = this.selectAll('[data-dot]:not(.filled)');
+    return dots.length;
+  }
+}

@@ -5,12 +5,8 @@ import { IMock, It, Mock } from 'typemoq';
 
 import { formatDate } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  LOCALE_ID,
-  NO_ERRORS_SCHEMA
-} from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -18,38 +14,6 @@ import { ImageService } from '../../services/image.service';
 import { TitleService } from '../../shared/title.service';
 import { MOCK_IMAGEDATA } from '../mocks/mock-data';
 import { ImageComponent } from './image.component';
-
-class ImageComponentPageObject extends PageObjectBase<ImageComponent> {
-  public get imageDescription(): string {
-    const element = this.select('[data-post-content]');
-    return `${element.textContent}`.trim();
-  }
-
-  public get parentFolderLinkText(): string {
-    const element = this.select('[data-parent-folder-link');
-    return `${element.textContent}`.trim();
-  }
-
-  public get imageTitleText(): string {
-    return `${this.select('[data-title]').textContent}`.trim();
-  }
-
-  public get tags(): HTMLAnchorElement[] {
-    return this.selectAll('[data-post-tag]');
-  }
-
-  public get dateContainer(): HTMLTimeElement {
-    return this.select('[data-date]');
-  }
-
-  public get dateDay(): HTMLSpanElement {
-    return this.select('[data-day]');
-  }
-
-  public get dateMonthYear(): HTMLSpanElement {
-    return this.select('[data-month-year]');
-  }
-}
 
 describe('Image Component', () => {
   let mockImageService: IMock<ImageService>;
@@ -59,16 +23,16 @@ describe('Image Component', () => {
   let fixture: ComponentFixture<ImageComponent>;
   let pageObject: ImageComponentPageObject;
 
-  function resetMocks() {
+  function setupMocks() {
     mockTitleService = Mock.ofType<TitleService>();
-    mockTitleService.setup((x) => x.setTitle(It.isAnyString()));
+    mockTitleService.setup(x => x.setTitle(It.isAnyString()));
 
     mockImageService = Mock.ofType<ImageService>();
     mockImageService
-      .setup((s) => s.getImageInfo(It.isAnyNumber()))
+      .setup(s => s.getImageInfo(It.isAnyNumber()))
       .returns(() => observableOf(MOCK_IMAGEDATA));
     mockImageService
-      .setup((s) =>
+      .setup(s =>
         s.getImagesFromAlbum(
           It.isAnyString(),
           It.isAnyNumber(),
@@ -79,16 +43,14 @@ describe('Image Component', () => {
   }
 
   function moduleSetup(): Promise<any> {
-    const providers: any[] = [
-      { provide: ImageService, useFactory: () => mockImageService.object },
-      { provide: TitleService, useFactory: () => mockTitleService.object },
-    ];
-
     return TestBed.configureTestingModule({
       declarations: [ImageComponent],
       imports: [HttpClientTestingModule, RouterTestingModule, SharedModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-      providers: providers,
+      providers: [
+        { provide: ImageService, useFactory: () => mockImageService.object },
+        { provide: TitleService, useFactory: () => mockTitleService.object }
+      ]
     }).compileComponents();
   }
 
@@ -99,14 +61,15 @@ describe('Image Component', () => {
   }
 
   describe('Unloaded state', () => {
-    beforeEach(
-      waitForAsync(async () => {
-        resetMocks();
-        await moduleSetup();
-        componentSetup();
-        fixture.detectChanges();
-      })
-    );
+    beforeEach(() => {
+      setupMocks();
+      moduleSetup();
+    });
+
+    beforeEach(() => {
+      componentSetup();
+      fixture.detectChanges();
+    });
 
     it('should request image on load', () => {
       const mockParam: Params = { id: '1' };
@@ -122,15 +85,16 @@ describe('Image Component', () => {
   });
 
   describe('Loaded state', () => {
-    beforeEach(
-      waitForAsync(async () => {
-        resetMocks();
-        await moduleSetup();
-        componentSetup();
-        component.data = MOCK_IMAGEDATA;
-        fixture.detectChanges();
-      })
-    );
+    beforeEach(() => {
+      setupMocks();
+      moduleSetup();
+    });
+
+    beforeEach(() => {
+      componentSetup();
+      component.data = MOCK_IMAGEDATA;
+      fixture.detectChanges();
+    });
 
     it('should create and have zoomed out state', () => {
       expect(component).toBeTruthy();
@@ -190,7 +154,7 @@ describe('Image Component', () => {
       const originalZoomedOut = component.isZoomedOut;
 
       const mockEvent = Mock.ofType<Event>();
-      mockEvent.setup((e) => e.preventDefault());
+      mockEvent.setup(e => e.preventDefault());
 
       component.toggleZoom(mockEvent.object);
 
@@ -198,3 +162,35 @@ describe('Image Component', () => {
     });
   });
 });
+
+class ImageComponentPageObject extends PageObjectBase<ImageComponent> {
+  public get imageDescription(): string {
+    const element = this.select('[data-post-content]');
+    return `${element.textContent}`.trim();
+  }
+
+  public get parentFolderLinkText(): string {
+    const element = this.select('[data-parent-folder-link');
+    return `${element.textContent}`.trim();
+  }
+
+  public get imageTitleText(): string {
+    return `${this.select('[data-title]').textContent}`.trim();
+  }
+
+  public get tags(): HTMLAnchorElement[] {
+    return this.selectAll('[data-post-tag]');
+  }
+
+  public get dateContainer(): HTMLTimeElement {
+    return this.select('[data-date]');
+  }
+
+  public get dateDay(): HTMLSpanElement {
+    return this.select('[data-day]');
+  }
+
+  public get dateMonthYear(): HTMLSpanElement {
+    return this.select('[data-month-year]');
+  }
+}

@@ -8,16 +8,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TitleService } from '../shared/title.service';
 import { ErrorComponent } from './error.component';
 
-class ErrorPageObject extends PageObjectBase<ErrorComponent> {
-  public get title(): HTMLHeadingElement {
-    return this.select('[data-title]');
-  }
-
-  public get navigationLinks(): HTMLAnchorElement[] {
-    return this.selectAll('[data-navigation] a');
-  }
-}
-
 describe('Error Component', () => {
   let mockTitleService: IMock<TitleService>;
   let fixture: ComponentFixture<ErrorComponent>;
@@ -25,18 +15,20 @@ describe('Error Component', () => {
 
   beforeEach(() => {
     mockTitleService = Mock.ofType<TitleService>();
-    mockTitleService.setup((x) => x.setTitle(It.isAnyString()));
-    mockTitleService.setup((x) => x.resetTitle());
+    mockTitleService.setup(x => x.setTitle(It.isAnyString()));
+    mockTitleService.setup(x => x.resetTitle());
 
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [ErrorComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
       providers: [
-        { provide: TitleService, useFactory: () => mockTitleService.object },
-      ],
+        { provide: TitleService, useFactory: () => mockTitleService.object }
+      ]
     }).compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(ErrorComponent);
     pageObject = new ErrorPageObject(fixture);
     fixture.detectChanges();
@@ -55,7 +47,17 @@ describe('Error Component', () => {
   });
 
   it('should reset title', () => {
-    mockTitleService.verify((s) => s.resetTitle(), Times.once());
+    mockTitleService.verify(s => s.resetTitle(), Times.once());
     expect().nothing();
   });
 });
+
+class ErrorPageObject extends PageObjectBase<ErrorComponent> {
+  public get title(): HTMLHeadingElement {
+    return this.select('[data-title]');
+  }
+
+  public get navigationLinks(): HTMLAnchorElement[] {
+    return this.selectAll('[data-navigation] a');
+  }
+}

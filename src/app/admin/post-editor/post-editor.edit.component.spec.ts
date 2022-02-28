@@ -21,12 +21,12 @@ const mockPostData: PostData = {
   content: 'post textual content',
   tags: [],
   slug: 'post-slug',
-  status: PostStatus.Publish,
+  status: PostStatus.Publish
 };
 
 @Component({
   selector: 'jblog-text',
-  template: '<ng-content></ng-content>',
+  template: '<ng-content></ng-content>'
 })
 class MockFormattedTextComponent {}
 
@@ -45,83 +45,79 @@ describe('PostEditorComponent - Edit mode', () => {
 
     // Return a copy of the post data so tests can modify
     mockPostService
-      .setup((s) => s.getPost(It.isAny()))
+      .setup(s => s.getPost(It.isAny()))
       .returns(() => of(Object.assign({}, mockPostData)));
 
     mockRouter = Mock.ofType<Router>();
     mockPostAdminService = Mock.ofType<PostAdminService>();
+
+    mockActivatedRoute = new ActivatedRouteStub({
+      id: mockPostData.postId
+    });
+
+    TestBed.configureTestingModule({
+      declarations: [MockFormattedTextComponent, PostEditorComponent],
+      imports: [RouterTestingModule, ReactiveFormsModule],
+      providers: [
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        { provide: Router, useFactory: () => mockRouter.object },
+        { provide: PostService, useFactory: () => mockPostService.object },
+        {
+          provide: PostAdminService,
+          useFactory: () => mockPostAdminService.object
+        }
+      ]
+    }).compileComponents();
   });
 
-  describe('editing posts (with `id` route param)', () => {
-    beforeEach(() => {
-      mockActivatedRoute = new ActivatedRouteStub({
-        id: mockPostData.postId,
-      });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(PostEditorComponent);
+    component = fixture.componentInstance;
+    compiled = fixture.nativeElement;
+    fixture.detectChanges();
+  });
 
-      TestBed.configureTestingModule({
-        declarations: [MockFormattedTextComponent, PostEditorComponent],
-        imports: [RouterTestingModule, ReactiveFormsModule],
-        providers: [
-          { provide: ActivatedRoute, useValue: mockActivatedRoute },
-          { provide: Router, useFactory: () => mockRouter.object },
-          { provide: PostService, useFactory: () => mockPostService.object },
-          {
-            provide: PostAdminService,
-            useFactory: () => mockPostAdminService.object,
-          },
-        ],
-      }).compileComponents();
-    });
+  it('should have post title', () => {
+    const postTitleInput = compiled.querySelector(
+      '[data-post-title]'
+    ) as HTMLInputElement;
+    expect(postTitleInput.value).toBe(mockPostData.title);
+  });
 
-    beforeEach(() => {
-      fixture = TestBed.createComponent(PostEditorComponent);
-      component = fixture.componentInstance;
-      compiled = fixture.nativeElement;
-      fixture.detectChanges();
-    });
+  it('should have post content', () => {
+    const contentElement = compiled.querySelector(
+      '[data-post-content]'
+    ) as HTMLTextAreaElement;
+    expect(contentElement.value).toBe(mockPostData.content);
+  });
 
-    it('should have post title', () => {
-      const postTitleInput = compiled.querySelector(
-        '[data-post-title]'
-      ) as HTMLInputElement;
-      expect(postTitleInput.value).toBe(mockPostData.title);
-    });
+  it('should have post identifier', () => {
+    const identifierElement = compiled.querySelector(
+      '[data-post-identifier]'
+    ) as HTMLInputElement;
+    expect(identifierElement.value).toBe(mockPostData.slug);
+  });
 
-    it('should have post content', () => {
-      const contentElement = compiled.querySelector(
-        '[data-post-content]'
-      ) as HTMLTextAreaElement;
-      expect(contentElement.value).toBe(mockPostData.content);
-    });
+  it('should display matching post status', () => {
+    const draftCheckbox = compiled.querySelector(
+      '[data-post-draft]'
+    ) as HTMLInputElement;
+    expect(draftCheckbox.checked).toBe(mockPostData.status === 'draft');
+  });
 
-    it('should have post identifier', () => {
-      const identifierElement = compiled.querySelector(
-        '[data-post-identifier]'
-      ) as HTMLInputElement;
-      expect(identifierElement.value).toBe(mockPostData.slug);
-    });
+  it('should display word and character count', () => {
+    const characterCountElement = compiled.querySelector(
+      '[data-post-character-count]'
+    ) as HTMLElement;
+    const wordCountElement = compiled.querySelector(
+      '[data-post-word-count]'
+    ) as HTMLElement;
 
-    it('should display matching post status', () => {
-      const draftCheckbox = compiled.querySelector(
-        '[data-post-draft]'
-      ) as HTMLInputElement;
-      expect(draftCheckbox.checked).toBe(mockPostData.status === 'draft');
-    });
-
-    it('should display word and character count', () => {
-      const characterCountElement = compiled.querySelector(
-        '[data-post-character-count]'
-      ) as HTMLElement;
-      const wordCountElement = compiled.querySelector(
-        '[data-post-word-count]'
-      ) as HTMLElement;
-
-      expect(characterCountElement.innerText.trim()).toBe(
-        `${mockPostData.content.length} characters`
-      );
-      expect(wordCountElement.innerText.trim()).toBe(
-        `${mockPostData.content.split(' ').length} words`
-      );
-    });
+    expect(characterCountElement.innerText.trim()).toBe(
+      `${mockPostData.content.length} characters`
+    );
+    expect(wordCountElement.innerText.trim()).toBe(
+      `${mockPostData.content.split(' ').length} words`
+    );
   });
 });

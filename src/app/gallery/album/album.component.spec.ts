@@ -68,7 +68,9 @@ describe('AlbumComponent', () => {
         { provide: TitleService, useFactory: () => mockTitleService.object }
       ]
     }).compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(AlbumComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

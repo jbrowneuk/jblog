@@ -5,14 +5,11 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { FormattedTextComponent } from './formatted-text/formatted-text.component';
-import { InfiniteScrollDirective } from './infinite-scroll.directive';
 import { LineSplittingPipe } from './line-splitting.pipe';
 import { LoadSpinnerComponent } from './load-spinner/load-spinner.component';
 import { PaginationComponent } from './pagination/pagination.component';
-import { ParallaxScrollDirective } from './parallax-scroll.directive';
 import { RatingBarComponent } from './rating-bar/rating-bar.component';
 import { RelativeDatePipe } from './relative-date.pipe';
-import { StickyElementDirective } from './sticky-element.directive';
 import { TitleService } from './title.service';
 import { TransitionCompleteService } from './transition-complete.service';
 import { UnixEpochPipe } from './unix-epoch.pipe';
@@ -26,10 +23,7 @@ const CORE_COMPONENTS = [
   PaginationComponent,
   FormattedTextComponent,
   UserMenuComponent,
-  RatingBarComponent,
-  StickyElementDirective,
-  ParallaxScrollDirective,
-  InfiniteScrollDirective
+  RatingBarComponent
 ];
 
 @NgModule({

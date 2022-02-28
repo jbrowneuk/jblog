@@ -43,7 +43,7 @@ describe('ImageService', () => {
       ]
     });
 
-    service = TestBed.get(ImageService);
+    service = TestBed.inject(ImageService);
   });
 
   afterEach(() => {
@@ -154,7 +154,7 @@ describe('ImageService', () => {
 
     mockRestService
       .setup(s => s.get(It.isValue(expectedUrl)))
-      .returns(() => throwError(new Error('mock failure')));
+      .returns(() => throwError(() => new Error('mock failure')));
 
     service.getImagesFromAlbum(expectedAlbumName, 1).subscribe({
       next: () => fail('Should not get here'),
@@ -171,7 +171,7 @@ describe('ImageService', () => {
 
     mockRestService
       .setup(s => s.get(It.isValue(expectedUrl)))
-      .returns(() => throwError(new Error('mock failure')));
+      .returns(() => throwError(() => new Error('mock failure')));
 
     service.getImageInfo(1).subscribe({
       next: () => fail('Should not get here'),

@@ -1,5 +1,5 @@
-import { ArchivedProjectFilterPipe } from './archive.pipe';
 import { Project } from '../project';
+import { ArchivedProjectFilterPipe } from './archive.pipe';
 
 const mockProjects = [
   { archived: false } as Project,

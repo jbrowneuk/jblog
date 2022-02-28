@@ -1,4 +1,5 @@
-import { PipeTransform, Pipe } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
+
 import { Project } from '../project';
 
 @Pipe({

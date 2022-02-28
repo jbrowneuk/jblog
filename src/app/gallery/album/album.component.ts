@@ -12,7 +12,7 @@ import { TitleService } from '../../shared/title.service';
 @Component({
   selector: 'jblog-album',
   templateUrl: './album.component.html',
-  styleUrls: ['./album.component.scss'],
+  styleUrls: ['./album.component.scss']
 })
 export class AlbumComponent implements OnInit {
   /**
@@ -75,8 +75,8 @@ export class AlbumComponent implements OnInit {
     this.loadingFailed = false;
     this.isLoadingAlbumData = true;
     this.albumService.getAlbumInfo(albumName).subscribe({
-      next: (data) => this.handleAlbumResponse(data),
-      error: (err) => this.handleImageLoadFailure(err),
+      next: data => this.handleAlbumResponse(data),
+      error: err => this.handleImageLoadFailure(err)
     });
   }
 

@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { Inject, Injectable, Optional } from '@angular/core';
 
 import { PostData } from '../model/post-data';
-import { RestService } from '../services/rest.service';
 import { UserService } from '../services/user.service';
 import { BASE_PATH } from '../variables';
 

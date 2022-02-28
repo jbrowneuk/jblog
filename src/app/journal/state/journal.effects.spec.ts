@@ -8,8 +8,12 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 
 import {
-    LoadPosts, LoadPostsFailure, LoadPostsSuccess, LoadSinglePost, LoadSinglePostFailure,
-    LoadSinglePostSuccess
+  LoadPosts,
+  LoadPostsFailure,
+  LoadPostsSuccess,
+  LoadSinglePost,
+  LoadSinglePostFailure,
+  LoadSinglePostSuccess
 } from './journal.actions';
 import { JournalEffects } from './journal.effects';
 

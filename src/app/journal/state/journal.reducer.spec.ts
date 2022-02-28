@@ -1,8 +1,12 @@
 import { PostData, PostDataWrapper, PostStatus } from 'src/app/model/post-data';
 
 import {
-    LoadPosts, LoadPostsFailure, LoadPostsSuccess, LoadSinglePost, LoadSinglePostFailure,
-    LoadSinglePostSuccess
+  LoadPosts,
+  LoadPostsFailure,
+  LoadPostsSuccess,
+  LoadSinglePost,
+  LoadSinglePostFailure,
+  LoadSinglePostSuccess
 } from './journal.actions';
 import { journalReducer } from './journal.reducer';
 import { JournalState } from './journal.state';

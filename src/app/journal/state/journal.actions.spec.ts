@@ -1,8 +1,13 @@
 import { PostData, PostDataWrapper, PostStatus } from 'src/app/model/post-data';
 
 import {
-    JournalActionsType, LoadPosts, LoadPostsFailure, LoadPostsSuccess, LoadSinglePost,
-    LoadSinglePostFailure, LoadSinglePostSuccess
+  JournalActionsType,
+  LoadPosts,
+  LoadPostsFailure,
+  LoadPostsSuccess,
+  LoadSinglePost,
+  LoadSinglePostFailure,
+  LoadSinglePostSuccess
 } from './journal.actions';
 
 describe('Load Post action', () => {

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-
 import { BehaviorSubject, Observable } from 'rxjs';
+
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class TransitionCompleteService {
@@ -8,10 +8,7 @@ export class TransitionCompleteService {
   transitionComplete: Observable<[string, string]>;
 
   constructor() {
-    this.transitionSubject = new BehaviorSubject<[string, string]>([
-      '',
-      ''
-    ]);
+    this.transitionSubject = new BehaviorSubject<[string, string]>(['', '']);
     this.transitionComplete = this.transitionSubject.asObservable();
   }
 

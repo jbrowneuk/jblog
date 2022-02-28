@@ -1,10 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
+import { Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { TransitionCompleteService } from './shared/transition-complete.service';
-
 import { TRANSITIONS } from './route-transitions';
+import { TransitionCompleteService } from './shared/transition-complete.service';
 
 const invalidIdentifier = -1;
 

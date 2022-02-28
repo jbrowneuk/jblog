@@ -43,7 +43,7 @@ describe('PostService', () => {
       ]
     });
 
-    service = TestBed.get(PostService);
+    service = TestBed.inject(PostService);
   });
 
   afterEach(() => {
@@ -118,7 +118,7 @@ describe('PostService', () => {
 
     mockRestService
       .setup(s => s.get(It.isValue(expectedUrl)))
-      .returns(() => throwError(new Error('mock failure')));
+      .returns(() => throwError(() => new Error('mock failure')));
 
     service.getPostsForPage(page).subscribe({
       next: () => fail('Should never get here'),
@@ -136,7 +136,7 @@ describe('PostService', () => {
 
     mockRestService
       .setup(s => s.get(It.isValue(expectedUrl)))
-      .returns(() => throwError(new Error('mock failure')));
+      .returns(() => throwError(() => new Error('mock failure')));
 
     service.getPost(postId).subscribe({
       next: () => fail('Should never get here'),

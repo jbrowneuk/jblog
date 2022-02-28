@@ -1,10 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { IMock, It, Mock } from 'typemoq';
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { It, Mock, IMock } from 'typemoq';
-
 import { TitleService } from '../../shared/title.service';
-
 import { TopPageComponent } from './top-page.component';
 
 describe('Top Page', () => {
@@ -12,7 +11,7 @@ describe('Top Page', () => {
   let component: TopPageComponent;
   let fixture: ComponentFixture<TopPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     mockTitleService = Mock.ofType<TitleService>();
     mockTitleService.setup(x => x.setTitle(It.isAnyString()));
     mockTitleService.setup(x => x.resetTitle());
@@ -23,18 +22,18 @@ describe('Top Page', () => {
       providers: [
         { provide: TitleService, useFactory: () => mockTitleService.object }
       ]
-    })
-      .compileComponents()
-      .then(() => {
-        fixture = TestBed.createComponent(TopPageComponent);
-        component = fixture.componentInstance;
+    }).compileComponents();
+  });
 
-        // Stop interval interfering with tests
-        spyOn(component as any, 'setupSlideInterval');
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TopPageComponent);
+    component = fixture.componentInstance;
 
-        fixture.detectChanges();
-      });
-  }));
+    // Stop interval interfering with tests
+    spyOn(component as any, 'setupSlideInterval');
+
+    fixture.detectChanges();
+  });
 
   afterEach(() => fixture.destroy());
 

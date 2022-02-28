@@ -21,12 +21,12 @@ const mockPostData: PostData = {
   content: 'post textual content',
   tags: [],
   slug: 'post-slug',
-  status: PostStatus.Publish,
+  status: PostStatus.Publish
 };
 
 @Component({
   selector: 'jblog-text',
-  template: '<ng-content></ng-content>',
+  template: '<ng-content></ng-content>'
 })
 class MockFormattedTextComponent {}
 
@@ -45,14 +45,11 @@ describe('PostEditorComponent - Create mode', () => {
 
     // Return a copy of the post data so tests can modify
     mockPostService
-      .setup((s) => s.getPost(It.isAny()))
+      .setup(s => s.getPost(It.isAny()))
       .returns(() => of(Object.assign({}, mockPostData)));
 
     mockRouter = Mock.ofType<Router>();
     mockPostAdminService = Mock.ofType<PostAdminService>();
-  });
-
-  beforeEach(() => {
     mockActivatedRoute = new ActivatedRouteStub();
 
     TestBed.configureTestingModule({
@@ -64,9 +61,9 @@ describe('PostEditorComponent - Create mode', () => {
         { provide: PostService, useFactory: () => mockPostService.object },
         {
           provide: PostAdminService,
-          useFactory: () => mockPostAdminService.object,
-        },
-      ],
+          useFactory: () => mockPostAdminService.object
+        }
+      ]
     }).compileComponents();
   });
 

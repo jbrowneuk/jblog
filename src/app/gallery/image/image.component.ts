@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { AlbumNameTitlePair, ImageInfo } from '../../model/image-info';
@@ -88,14 +87,14 @@ export class ImageComponent implements OnInit {
     this.isLoading = true;
     this.hasError = false;
 
-    this.imageService.getImageInfo(imageId).subscribe(
-      res => this.handleImageResponse(res),
-      err => {
+    this.imageService.getImageInfo(imageId).subscribe({
+      next: res => this.handleImageResponse(res),
+      error: err => {
         this.hasError = true;
         this.isLoading = false;
-        console.log('Error: %s', err);
+        console.error(err);
       }
-    );
+    });
   }
 
   /**

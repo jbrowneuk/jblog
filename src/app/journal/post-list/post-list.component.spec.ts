@@ -7,7 +7,7 @@ import { TitleService } from 'src/app/shared/title.service';
 import { IMock, It, Mock, Times } from 'typemoq';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -54,7 +54,7 @@ describe('Post List Component', () => {
   let pageObject: PostListPageObject;
   let paramsSubject: BehaviorSubject<any>;
 
-  beforeEach(waitForAsync(async () => {
+  beforeEach(() => {
     mockFacade = Mock.ofType<JournalFacade>();
     mockFacade.setup(f => f.postListLoading$).returns(() => of(false));
     mockFacade.setup(f => f.postList$).returns(() => of(mockPostData));
@@ -66,7 +66,7 @@ describe('Post List Component', () => {
 
     mockTitleService = Mock.ofType<TitleService>();
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [PostListComponent],
       providers: [
         { provide: JournalFacade, useFactory: () => mockFacade.object },
@@ -76,12 +76,14 @@ describe('Post List Component', () => {
       imports: [RouterTestingModule, SharedModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(PostListComponent);
     pageObject = new PostListPageObject(fixture);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should load posts from facade on creation', () => {
     expect(component).toBeTruthy();

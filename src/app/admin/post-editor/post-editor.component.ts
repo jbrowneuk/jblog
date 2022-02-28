@@ -2,17 +2,17 @@ import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { PostData, PostStatus } from '../../model/post-data';
 import { PostService } from '../../services/post.service';
 import { PostAdminService } from '../post-admin.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'jblog-post-editor',
   templateUrl: './post-editor.component.html',
-  styleUrls: ['./post-editor.component.scss'],
+  styleUrls: ['./post-editor.component.scss']
 })
 export class PostEditorComponent implements OnInit {
   public postData$?: Observable<PostData>;
@@ -45,7 +45,7 @@ export class PostEditorComponent implements OnInit {
 
         return this.postService.getPost(id);
       }),
-      tap((p) => {
+      tap(p => {
         this.postForm.patchValue({
           title: p.title,
           content: p.content,
@@ -68,11 +68,11 @@ export class PostEditorComponent implements OnInit {
     editableData.title = this.postForm.value.title;
     editableData.content = this.postForm.value.content;
     editableData.slug = this.postForm.value.slug;
-    editableData.status = isDraft ? PostStatus.Draft : PostStatus.Publish
+    editableData.status = isDraft ? PostStatus.Draft : PostStatus.Publish;
 
     this.postAdminService.sendPost(editableData).subscribe({
-       next: () => this.router.navigate(['../..'], { relativeTo: this.route }),
-       error: () => console.error('not success'),
+      next: () => this.router.navigate(['../..'], { relativeTo: this.route }),
+      error: err => console.error(err.message | err)
     });
   }
 
@@ -94,7 +94,7 @@ export class PostEditorComponent implements OnInit {
       content: '',
       tags: [],
       slug: '',
-      status: PostStatus.Draft,
+      status: PostStatus.Draft
     };
   }
 }

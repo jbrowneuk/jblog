@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from 'date-fns';
 
 import { formatDate } from '@angular/common';
-import { Inject, LOCALE_ID, Optional, Pipe, PipeTransform } from '@angular/core';
+import { Inject, Pipe, PipeTransform } from '@angular/core';
 
 import { DATE_FNS_CONFIG } from '../variables';
 

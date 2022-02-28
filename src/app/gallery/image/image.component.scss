@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .controls {
   font-size: 14px;
   margin-bottom: 20px;
@@ -46,7 +48,7 @@ img.responsive {
 
     /* Lower frills bit */
     &::after {
-      $frill-size: $badge-width / 2;
+      $frill-size: math.div($badge-width, 2);
 
       display: block;
       content: '';

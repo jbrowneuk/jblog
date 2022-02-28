@@ -1,11 +1,4 @@
-import {
-  trigger,
-  animate,
-  style,
-  group,
-  query,
-  transition
-} from '@angular/animations';
+import { animate, group, query, style, transition, trigger } from '@angular/animations';
 
 const timing = '200ms ease-out';
 const delay = 100;

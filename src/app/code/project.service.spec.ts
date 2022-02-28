@@ -1,9 +1,6 @@
-import { TestBed, inject } from '@angular/core/testing';
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing';
 import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
 import { ProjectService, RepoApiEndpoint } from './project.service';
 
@@ -29,10 +26,6 @@ function createMockRepoData(id: string, isArchived: boolean = false): any {
   };
 }
 
-const rawGithubRepo1 = createMockRepoData('123456');
-
-const rawGithubRepo2 = {};
-
 describe('ProjectService', () => {
   let httpTestingController: HttpTestingController;
   let mockRepositories: any[];
@@ -41,9 +34,11 @@ describe('ProjectService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ProjectService]
-    });
+    }).compileComponents();
+  });
 
-    httpTestingController = TestBed.get(HttpTestingController);
+  beforeEach(() => {
+    httpTestingController = TestBed.inject(HttpTestingController);
     mockRepositories = [
       createMockRepoData('123456'),
       createMockRepoData('123457')
@@ -98,13 +93,13 @@ describe('ProjectService', () => {
     (service: ProjectService) => {
       const emsg = 'deliberate 404 error';
 
-      service.getProjects().subscribe(
-        () => fail('should not get here'),
-        (error: HttpErrorResponse) => {
-          expect(error.status).toEqual(404, 'status');
-          expect(error.error).toEqual(emsg, 'message');
+      service.getProjects().subscribe({
+        next: () => fail('should not get here'),
+        error: (error: HttpErrorResponse) => {
+          expect(error.status).withContext('status').toEqual(404);
+          expect(error.error).withContext('message').toEqual(emsg);
         }
-      );
+      });
 
       const req = httpTestingController.expectOne(RepoApiEndpoint);
       expect(req.request.method).toEqual('GET');

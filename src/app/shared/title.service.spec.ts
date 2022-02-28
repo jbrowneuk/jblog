@@ -1,5 +1,6 @@
+import { IMock, It, Mock, Times } from 'typemoq';
+
 import { Title } from '@angular/platform-browser';
-import { It, IMock, Mock, Times } from 'typemoq';
 
 import { TitleService } from './title.service';
 
