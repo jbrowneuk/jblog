@@ -1,0 +1,52 @@
+.hero-slideshow {
+  height: 400px;
+  /* stylelint-disable length-zero-no-unit */
+  margin-top: calc(0px - var(--height-margin-page-header));
+  /* stylelint-enable */
+  margin-bottom: var(--height-margin-page-header);
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--slide-background);
+  color: var(--color-light-foreground);
+
+  h1 {
+    margin: 0 0 0.5em 0;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .image,
+  .text {
+    width: 50%;
+  }
+
+  .image {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  &.full-width {
+    text-align: center;
+
+    .text {
+      width: 100%;
+    }
+  }
+}
