@@ -8,7 +8,7 @@ import { TitleService } from '../../shared/title.service';
 @Component({
   selector: 'jblog-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss']
+  styleUrls: ['./about.component.scss', './about.responsive.scss']
 })
 export class AboutComponent implements OnInit {
   constructor(private titleService: TitleService) {}
