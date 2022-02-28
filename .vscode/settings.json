@@ -1,0 +1,8 @@
+{
+  "editor.formatOnSave": true,
+
+  "codemetrics.basics.ComplexityLevelExtremeDescription": "(Extreme)",
+  "codemetrics.basics.ComplexityLevelHighDescription": "(High)",
+  "codemetrics.basics.ComplexityLevelNormalDescription": "(Medium)",
+  "codemetrics.basics.ComplexityLevelLowDescription": "(Low)"
+}
