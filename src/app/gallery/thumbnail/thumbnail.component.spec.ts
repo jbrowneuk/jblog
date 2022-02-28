@@ -1,9 +1,9 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { PageObjectBase } from 'src/app/lib/testing/page-object.base';
 
-import { GalleryFormatPipe } from '../gallery-format.pipe';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
+import { GalleryFormatPipe } from '../gallery-format.pipe';
 import { ThumbnailComponent } from './thumbnail.component';
 
 const mockImageInfo = {
@@ -14,7 +14,7 @@ const mockImageInfo = {
   thumbnail: './thumb.jpg',
   src: './src.jpg',
   containingAlbums: [{ name: 'album', title: 'Album' }],
-  featured: false,
+  featured: false
 };
 
 describe('ThumbnailComponent', () => {
@@ -23,14 +23,12 @@ describe('ThumbnailComponent', () => {
   let componentObject: ComponentObject;
   let compiled: HTMLElement;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [RouterTestingModule],
-        declarations: [GalleryFormatPipe, ThumbnailComponent],
-      }).compileComponents();
-    })
-  );
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
+      declarations: [GalleryFormatPipe, ThumbnailComponent]
+    }).compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ThumbnailComponent);
@@ -43,10 +41,9 @@ describe('ThumbnailComponent', () => {
 
   it('should render elements correctly', () => {
     expect(component).toBeTruthy();
-    const imageElement = <HTMLImageElement>(
-      compiled.querySelector('.image-area img')
-    );
+    const imageElement = componentObject.imageElement;
     expect(imageElement.src.endsWith('/thumb.jpg')).toBe(true);
+
     expect(`${componentObject.title.textContent}`.trim()).toBe('title');
     expect(`${componentObject.galleries.textContent}`.trim()).toBe('Album');
   });
@@ -59,5 +56,9 @@ class ComponentObject extends PageObjectBase<ThumbnailComponent> {
 
   get galleries() {
     return this.select('.text-area .galleries');
+  }
+
+  get imageElement() {
+    return this.select<HTMLImageElement>('.image-area img');
   }
 }

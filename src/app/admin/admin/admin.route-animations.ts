@@ -1,5 +1,12 @@
 import {
-    animate, animateChild, AnimationQueryOptions, group, query, style, transition, trigger
+  animate,
+  animateChild,
+  AnimationQueryOptions,
+  group,
+  query,
+  style,
+  transition,
+  trigger
 } from '@angular/animations';
 
 const animationEasing = '200ms ease-out';

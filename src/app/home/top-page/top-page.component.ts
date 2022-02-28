@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
+
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { TitleService } from '../../shared/title.service';
 import { TopPageTransitions } from './top-page.animations';

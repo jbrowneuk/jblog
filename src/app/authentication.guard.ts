@@ -1,10 +1,15 @@
-import { Observable, of } from 'rxjs';
-import { map, skip, switchMap, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
 import {
-    ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, NavigationExtras, Route, Router,
-    RouterStateSnapshot, UrlSegment
+  ActivatedRouteSnapshot,
+  CanActivate,
+  CanActivateChild,
+  CanLoad,
+  Route,
+  Router,
+  RouterStateSnapshot
 } from '@angular/router';
 
 import { UserService } from './services/user.service';
@@ -13,7 +18,8 @@ import { UserService } from './services/user.service';
   providedIn: 'root'
 })
 export class AuthenticationGuard
-  implements CanActivate, CanActivateChild, CanLoad {
+  implements CanActivate, CanActivateChild, CanLoad
+{
   constructor(private userService: UserService, private router: Router) {}
 
   canActivate(
@@ -30,7 +36,7 @@ export class AuthenticationGuard
     return this.checkLogin(state.url);
   }
 
-  canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
+  canLoad(route: Route): Observable<boolean> {
     return this.checkLogin(route.path);
   }
 

@@ -1,7 +1,10 @@
 import { PostStatus } from 'src/app/model/post-data';
 
 import {
-    getCurrentPost, getPostList, getPostListLoading, journalFeatureName
+  getCurrentPost,
+  getPostList,
+  getPostListLoading,
+  journalFeatureName
 } from './journal.selectors';
 import { JournalState } from './journal.state';
 

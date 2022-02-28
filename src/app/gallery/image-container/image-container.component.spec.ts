@@ -1,5 +1,5 @@
 import { of as observableOf } from 'rxjs';
-import { It, Mock, Times } from 'typemoq';
+import { IMock, It, Mock, Times } from 'typemoq';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
@@ -13,12 +13,12 @@ import { MOCK_IMAGEDATA } from '../mocks/mock-data';
 import { ImageContainerComponent } from './image-container.component';
 
 describe('ImageContainerComponent', () => {
-  const mockImageService = Mock.ofType<ImageService>();
-
+  let mockImageService: IMock<ImageService>;
   let component: ImageContainerComponent;
   let fixture: ComponentFixture<ImageContainerComponent>;
 
-  const setupImagesFromAlbumCall = () => {
+  beforeEach(() => {
+    mockImageService = Mock.ofType<ImageService>();
     mockImageService
       .setup(s =>
         s.getImagesFromAlbum(
@@ -28,11 +28,6 @@ describe('ImageContainerComponent', () => {
         )
       )
       .returns(() => observableOf([MOCK_IMAGEDATA]));
-  };
-
-  beforeEach(() => {
-    mockImageService.reset();
-    setupImagesFromAlbumCall();
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule],
@@ -46,7 +41,9 @@ describe('ImageContainerComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(ImageContainerComponent);
     component = fixture.componentInstance;
     component.page = 1;

@@ -19,7 +19,7 @@ describe('UserService', () => {
       ]
     });
 
-    service = TestBed.get(UserService);
+    service = TestBed.inject(UserService);
   });
 
   it('should be created', () => {
@@ -94,7 +94,7 @@ describe('UserService', () => {
 
       mockRestService
         .setup(s => s.post(It.isAnyString(), It.isAny()))
-        .returns(() => throwError('fail'));
+        .returns(() => throwError(() => new Error('fail')));
 
       const setSpy = spyOn(service as any, 'endSession');
 

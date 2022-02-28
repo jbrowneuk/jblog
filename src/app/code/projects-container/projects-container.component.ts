@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import { Transitions } from '../../shared/transitions';
 import { Project } from '../project';
 import { ProjectService } from '../project.service';
-import { Transitions } from '../../shared/transitions';
 
 /**
  * This component is used to show a summary list of code projects. When a
@@ -40,9 +40,10 @@ export class ProjectsContainerComponent implements OnInit {
    * When initialized, use the {@link ProjectService} to get a page of projects.
    */
   ngOnInit() {
-    this.projectService
-      .getProjects()
-      .subscribe(x => this.handleProjectListResponse(x), e => console.error(e));
+    this.projectService.getProjects().subscribe({
+      next: x => this.handleProjectListResponse(x),
+      error: e => console.error(e)
+    });
   }
 
   /**

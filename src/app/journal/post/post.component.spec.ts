@@ -5,7 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { formatDate } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { PostComponent } from './post.component';
@@ -18,45 +18,11 @@ const mockPostData: PostData = {
   content: 'mock post',
   tags: ['mock', 'post'],
   slug: 'mock-post',
-  status: PostStatus.Publish,
+  status: PostStatus.Publish
 };
 
-class PostPageObject extends PageObjectBase<PostComponent> {
-  public get title(): HTMLHeadingElement {
-    return this.select('[data-title]');
-  }
-
-  public get titleLink(): HTMLAnchorElement {
-    return this.select('[data-title-link]');
-  }
-
-  public get dateContainer(): HTMLTimeElement {
-    return this.select('[data-date]');
-  }
-
-  public get dateDay(): HTMLSpanElement {
-    return this.select('[data-day]');
-  }
-
-  public get dateMonthYear(): HTMLSpanElement {
-    return this.select('[data-month-year]');
-  }
-
-  public get postContent(): HTMLElement {
-    return this.select('[data-post-content]');
-  }
-
-  public get tags(): HTMLLIElement[] {
-    return this.selectAll('[data-post-tags] [data-post-tag]');
-  }
-
-  public get outdatedContent(): HTMLDivElement {
-    return this.select('[data-outdated-content]');
-  }
-}
-
 @Pipe({
-  name: 'relativeDate',
+  name: 'relativeDate'
 })
 class MockRelativeDatePipe implements PipeTransform {
   transform(value: any): string {
@@ -69,20 +35,20 @@ describe('PostComponent', () => {
   let fixture: ComponentFixture<PostComponent>;
   let pageObject: PostPageObject;
 
-  beforeEach(
-    waitForAsync(async () => {
-      await TestBed.configureTestingModule({
-        declarations: [MockRelativeDatePipe, PostComponent],
-        imports: [HttpClientTestingModule, RouterTestingModule, SharedModule],
-      }).compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [MockRelativeDatePipe, PostComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule, SharedModule]
+    }).compileComponents();
+  });
 
-      fixture = TestBed.createComponent(PostComponent);
-      pageObject = new PostPageObject(fixture);
-      component = fixture.componentInstance;
-      component.postData = mockPostData;
-      fixture.detectChanges();
-    })
-  );
+  beforeEach(() => {
+    fixture = TestBed.createComponent(PostComponent);
+    pageObject = new PostPageObject(fixture);
+    component = fixture.componentInstance;
+    component.postData = mockPostData;
+    fixture.detectChanges();
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -124,9 +90,9 @@ describe('PostComponent', () => {
 
   it('should display tags', () => {
     const tagElements = pageObject.tags;
-    mockPostData.tags.forEach((tag) => {
+    mockPostData.tags.forEach(tag => {
       const relatedElement = tagElements.find(
-        (t) => t.dataset['postTag'] === tag
+        t => t.dataset['postTag'] === tag
       );
       expect(relatedElement).toBeTruthy();
       expect(`${relatedElement?.textContent}`.trim()).toContain(tag);
@@ -163,3 +129,37 @@ describe('PostComponent', () => {
     });
   });
 });
+
+class PostPageObject extends PageObjectBase<PostComponent> {
+  public get title(): HTMLHeadingElement {
+    return this.select('[data-title]');
+  }
+
+  public get titleLink(): HTMLAnchorElement {
+    return this.select('[data-title-link]');
+  }
+
+  public get dateContainer(): HTMLTimeElement {
+    return this.select('[data-date]');
+  }
+
+  public get dateDay(): HTMLSpanElement {
+    return this.select('[data-day]');
+  }
+
+  public get dateMonthYear(): HTMLSpanElement {
+    return this.select('[data-month-year]');
+  }
+
+  public get postContent(): HTMLElement {
+    return this.select('[data-post-content]');
+  }
+
+  public get tags(): HTMLLIElement[] {
+    return this.selectAll('[data-post-tags] [data-post-tag]');
+  }
+
+  public get outdatedContent(): HTMLDivElement {
+    return this.select('[data-outdated-content]');
+  }
+}

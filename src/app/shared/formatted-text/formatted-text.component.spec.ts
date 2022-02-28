@@ -3,7 +3,7 @@ import { PageObjectBase } from 'src/app/lib/testing/page-object.base';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormattedTextComponent } from './formatted-text.component';
 
@@ -43,16 +43,18 @@ describe('Formatted Text View', () => {
   let fixture: ComponentFixture<TestComponent>;
   let pageObject: TestComponentPageObject;
 
-  beforeEach(waitForAsync(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [FormattedTextComponent, TestComponent],
       imports: [HttpClientTestingModule, MarkdownModule.forRoot()]
     }).compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(TestComponent);
     pageObject = new TestComponentPageObject(fixture);
     fixture.detectChanges();
-  }));
+  });
 
   it('should contain a markdown component', () => {
     const noContentMd = pageObject.mdContainerFor(pageObject.noContent);
