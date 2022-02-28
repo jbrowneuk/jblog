@@ -6,6 +6,10 @@ import { ErrorComponent } from './error/error.component';
 
 const appRoutes: Routes = [
   {
+    path: '',
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+  },
+  {
     path: 'art',
     loadChildren: () =>
       import('./gallery/gallery.module').then(m => m.GalleryModule)

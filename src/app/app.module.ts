@@ -15,7 +15,6 @@ import { ENV_PROVIDERS, environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorComponent } from './error/error.component';
-import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
 import { DATE_FNS_CONFIG } from './variables';
 
@@ -36,7 +35,6 @@ registerLocaleData(locale);
     }),
     EffectsModule.forRoot([]),
     SharedModule.forRoot(),
-    HomeModule,
     AppRoutingModule
   ],
   providers: [
