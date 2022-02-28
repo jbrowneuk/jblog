@@ -24,14 +24,14 @@
     </time>
   </header>
   <div class="outdated-content" *ngIf="isStalePost()" data-outdated-content>
-    <i class="las fa-fw la-exclamation-triangle"></i>
+    <i class="las icon-fw la-exclamation-triangle"></i>
     This post was posted {{ postData.date | unixEpoch | relativeDate }} and is
     most likely no longer relevant.
   </div>
   <jblog-text [text]="postData.content" data-post-content></jblog-text>
   <footer class="footer-area">
     <ul *ngIf="postData.tags" class="tags-area" data-post-tags>
-      <li><i class="las fa-fw la-tags" aria-hidden="true"></i></li>
+      <li><i class="las icon-fw la-tags" aria-hidden="true"></i></li>
       <li
         *ngFor="let tag of postData.tags"
         class="tag"

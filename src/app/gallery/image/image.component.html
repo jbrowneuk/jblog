@@ -5,7 +5,7 @@
 
 <div *ngIf="!isLoading && hasError" class="text-center">
   <h1>
-    <i class="las la-frown fa-fw" aria-hidden="true"></i>
+    <i class="las la-frown icon-fw" aria-hidden="true"></i>
     This image does not exist
   </h1>
 </div>
@@ -19,7 +19,7 @@
   >
     <div class="image-area">
       <div class="featured" *ngIf="data.featured" title="Featured">
-        <i class="las fa-fw la-award" aria-hidden="true"></i>
+        <i class="las icon-fw la-award" aria-hidden="true"></i>
       </div>
       <img
         src="{{ data.src }}"
@@ -35,12 +35,12 @@
       [routerLink]="['/art/album', getPrimaryAlbum().name]"
       data-parent-folder-link
     >
-      <i class="las fa-fw la-th-large" aria-hidden="true"></i> Back to
+      <i class="las icon-fw la-th-large" aria-hidden="true"></i> Back to
       <em>{{ getPrimaryAlbum().title }}</em>
     </a>
     <a href="#" (click)="toggleZoom($event)">
       <i
-        class="las fa-fw"
+        class="las icon-fw"
         aria-hidden="true"
         [class.la-search-plus]="isZoomedOut"
         [class.la-search-minus]="!isZoomedOut"
@@ -71,7 +71,7 @@
       <jblog-text [text]="data.description" data-post-content></jblog-text>
       <footer class="footer-area">
         <ul class="tags-area" data-post-tags>
-          <li><i class="las fa-fw la-tags" aria-hidden="true"></i></li>
+          <li><i class="las icon-fw la-tags" aria-hidden="true"></i></li>
           <li *ngFor="let gallery of data.containingAlbums" class="tag">
             <a
               [routerLink]="['/art/album', gallery.name]"

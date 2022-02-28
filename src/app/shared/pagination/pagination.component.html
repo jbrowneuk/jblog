@@ -7,10 +7,10 @@
         [routerLink]="getRouterLinkForPage(currentPage - 1)"
         class="text-container"
       >
-        <i class="las fa-fw la-angle-left" aria-hidden="true"></i>
+        <i class="las icon-fw la-angle-left" aria-hidden="true"></i>
       </a>
       <span *ngIf="!hasPreviousPage()" class="text-container">
-        <i class="las fa-fw la-angle-left" aria-hidden="true"></i>
+        <i class="las icon-fw la-angle-left" aria-hidden="true"></i>
       </span>
     </li>
     <!-- Main page count -->
@@ -36,10 +36,10 @@
         [routerLink]="getRouterLinkForPage(currentPage + 1)"
         class="text-container"
       >
-        <i class="las fa-fw la-angle-right" aria-hidden="true"></i>
+        <i class="las icon-fw la-angle-right" aria-hidden="true"></i>
       </a>
       <span *ngIf="!hasNextPage()" class="text-container">
-        <i class="las fa-fw la-angle-right" aria-hidden="true"></i>
+        <i class="las icon-fw la-angle-right" aria-hidden="true"></i>
       </span>
     </li>
   </ul>
