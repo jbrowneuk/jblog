@@ -14,7 +14,12 @@ const maxSlides = 3;
 @Component({
   selector: 'jblog-top-page',
   templateUrl: './top-page.component.html',
-  styleUrls: ['./top-page.component.scss'],
+  styleUrls: [
+    './top-page.component.scss',
+    './top-page.responsive.scss',
+    './top-page.slideshow.scss',
+    './top-page.indicators.scss'
+  ],
   animations: TopPageTransitions
 })
 export class TopPageComponent implements OnInit, OnDestroy {

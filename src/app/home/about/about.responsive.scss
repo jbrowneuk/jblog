@@ -1,0 +1,60 @@
+@import 'variables';
+
+$max-md-breakpoint: $breakpoint-md - 1;
+$max-lg-breakpoint: $breakpoint-lg - 1;
+
+@media screen and (max-width: $max-md-breakpoint) {
+  .name-area {
+    height: calc(var(--avatar-dimension-sm) + 2 * var(--avatar-border-width));
+
+    &::before {
+      height: 32px;
+    }
+  }
+
+  .mugshot {
+    width: var(--avatar-dimension-sm);
+    height: var(--avatar-dimension-sm);
+    margin-left: 8px;
+  }
+
+  .work-experience {
+    .column {
+      grid-column: span 12;
+    }
+
+    .skills {
+      order: 1;
+    }
+
+    .experience {
+      order: 2;
+    }
+
+    .education {
+      order: 3;
+    }
+  }
+}
+
+@media screen and (min-width: $breakpoint-md) and (max-width: $max-lg-breakpoint) {
+  .work-experience {
+    .experience,
+    .education {
+      grid-column: span 6;
+    }
+
+    .experience {
+      order: 2;
+    }
+
+    .education {
+      order: 3;
+    }
+
+    .skills {
+      order: 1;
+      grid-column: span 12;
+    }
+  }
+}

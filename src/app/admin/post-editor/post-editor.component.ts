@@ -12,7 +12,7 @@ import { PostAdminService } from '../post-admin.service';
 @Component({
   selector: 'jblog-post-editor',
   templateUrl: './post-editor.component.html',
-  styleUrls: ['./post-editor.component.scss']
+  styleUrls: ['./post-editor.component.scss', './post-editor.tabs.scss']
 })
 export class PostEditorComponent implements OnInit {
   public postData$?: Observable<PostData>;
