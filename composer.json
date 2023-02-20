@@ -2,7 +2,7 @@
   "name": "jbrowneuk/jblog-api",
   "description": "JBlog PHP Backend",
   "require": {
-    "firebase/php-jwt": "^5.0"
+    "firebase/php-jwt": "^6.0"
   },
   "config": {
     "vendor-dir": "./src/api/vendor"
