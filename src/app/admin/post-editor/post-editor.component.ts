@@ -2,7 +2,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { PostData, PostStatus } from '../../model/post-data';
@@ -18,10 +18,10 @@ export class PostEditorComponent implements OnInit {
   public postData$?: Observable<PostData>;
   public isEditing = true;
 
-  public postForm: FormGroup;
+  public postForm: UntypedFormGroup;
 
   constructor(
-    private readonly fb: FormBuilder,
+    private readonly fb: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private postService: PostService,
