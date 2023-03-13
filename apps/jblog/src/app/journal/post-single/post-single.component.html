@@ -1,0 +1,29 @@
+<div class="container">
+  <ng-container *ngIf="postData$ | async as postData; else loadState">
+    <nav id="breadcrumbs" class="breadcrumbs">
+      <a routerLink="../.." data-back-button>Journal</a>
+      <i class="spacer las la-angle-double-right" aria-hidden="true"></i>
+      <span>{{ postData.title }}</span>
+    </nav>
+
+    <jblog-post
+      [postData]="postData"
+      [attr.data-post]="postData.postId"
+    ></jblog-post>
+  </ng-container>
+</div>
+
+<ng-template #loadState>
+  <div *ngIf="loading$ | async; else noPosts" data-loading-posts>
+    <nav id="breadcrumbs" class="breadcrumbs">
+      <a routerLink="../.." data-back-button>Journal</a>
+      <i class="spacer las la-angle-double-right" aria-hidden="true"></i>
+      <span>…</span>
+    </nav>
+    <jblog-post></jblog-post>
+  </div>
+</ng-template>
+
+<ng-template #noPosts>
+  <div data-no-posts>There’s no post with that identifier.</div>
+</ng-template>

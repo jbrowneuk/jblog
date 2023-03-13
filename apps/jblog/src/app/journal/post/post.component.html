@@ -1,0 +1,55 @@
+<article
+  *ngIf="postData; else skeleton"
+  class="post base-card"
+  data-post-loaded
+>
+  <header class="header-area">
+    <h1 data-title>
+      <a *ngIf="titleLink" [routerLink]="titleLink" data-title-link>{{
+        postData.title
+      }}</a>
+      <ng-container *ngIf="!titleLink">{{ postData.title }}</ng-container>
+    </h1>
+    <time
+      [attr.datetime]="postData.date | unixEpoch | date : 'yyyy-MM-ddTHH:mmZ'"
+      class="shadowed date"
+      data-date
+    >
+      <span class="day" data-day>{{
+        postData.date | unixEpoch | date : 'd'
+      }}</span>
+      <span class="month" data-month-year>{{
+        postData.date | unixEpoch | date : 'MMM yyyy'
+      }}</span>
+    </time>
+  </header>
+  <div class="outdated-content" *ngIf="isStalePost()" data-outdated-content>
+    <i class="las icon-fw la-exclamation-triangle"></i>
+    This post was posted {{ postData.date | unixEpoch | relativeDate }} and is
+    most likely no longer relevant.
+  </div>
+  <jblog-text [text]="postData.content" data-post-content></jblog-text>
+  <footer class="footer-area">
+    <ul *ngIf="postData.tags" class="tags-area" data-post-tags>
+      <li><i class="las icon-fw la-tags" aria-hidden="true"></i></li>
+      <li
+        *ngFor="let tag of postData.tags"
+        class="tag"
+        [attr.data-post-tag]="tag"
+      >
+        <a [routerLink]="['/journal/tag', tag]" class="rounded">#{{ tag }}</a>
+      </li>
+    </ul>
+  </footer>
+</article>
+
+<ng-template #skeleton>
+  <div class="post base-card skeleton" data-post-loading>
+    <header class="header-area">
+      <h1 class="load-effect">Loading…</h1>
+      <div class="date load-effect"><span class="month"></span></div>
+    </header>
+    <p class="load-effect paragraph"></p>
+    <div class="load-effect tags"></div>
+  </div>
+</ng-template>

@@ -54,4 +54,4 @@ Thumbs.db
 
 # Third-party assets
 /public/thirdparty
-/src/assets/thirdparty
+/apps/jblog/src/assets/thirdparty

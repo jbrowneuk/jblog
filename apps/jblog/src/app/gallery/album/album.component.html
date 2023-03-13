@@ -1,0 +1,56 @@
+<div class="gallery-info" *ngIf="isLoadingAlbumData">
+  <div class="container">
+    <h1 class="title">Loading…</h1>
+    <div class="spacer"></div>
+    <div class="button-container">
+      <a routerLink="/art/albums" class="primary" id="album-choice">
+        <i class="las icon-fw la-images" aria-hidden="true"></i> Pick a
+        different album
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="loadingFailed">
+  <h2>There was a problem</h2>
+  <p>Please <a href=".">refresh the page</a> or try again later.</p>
+</div>
+
+<div class="gallery-info" *ngIf="data">
+  <div class="container">
+    <h1 class="title">{{ data.title }}</h1>
+    <div class="spacer"></div>
+    <div class="image-count">
+      {{ data.imagesInAlbum }} image{{ data.imagesInAlbum === 1 ? '' : 's' }}
+    </div>
+    <div class="button-container">
+      <a routerLink="/art/albums" class="primary" id="album-choice">
+        <i class="las icon-fw la-images" aria-hidden="true"></i> Pick a
+        different album
+      </a>
+    </div>
+  </div>
+</div>
+
+<div id="thumbnails" *ngIf="data">
+  <div class="text-center">
+    <jblog-pagination
+      [urlComponents]="['art', 'album', data.name]"
+      [currentPage]="page"
+      [totalPages]="data.totalPages"
+    ></jblog-pagination>
+  </div>
+  <div class="container">
+    <jblog-image-container
+      [albumName]="data.name"
+      [page]="page"
+    ></jblog-image-container>
+  </div>
+  <div class="text-center">
+    <jblog-pagination
+      [urlComponents]="['art', 'album', data.name]"
+      [currentPage]="page"
+      [totalPages]="data.totalPages"
+    ></jblog-pagination>
+  </div>
+</div>
