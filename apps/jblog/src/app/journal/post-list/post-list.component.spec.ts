@@ -125,7 +125,7 @@ describe('Post List Component', () => {
           x => x.setTitle(It.isValue(expectedTitle)),
           Times.once()
         );
-        expect().nothing();
+
         done();
       });
     });
@@ -140,7 +140,7 @@ describe('Post List Component', () => {
           x => x.setTitle(It.isValue(expectedTitle)),
           Times.once()
         );
-        expect().nothing();
+
         done();
       });
     });

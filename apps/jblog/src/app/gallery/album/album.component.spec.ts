@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { It, Mock, Times } from 'typemoq';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -34,12 +34,12 @@ describe('AlbumComponent', () => {
     mockAlbumService.reset();
     mockAlbumService
       .setup(s => s.getAlbumInfo(It.isAnyString()))
-      .returns(() => observableOf(MOCK_ALBUMDATA));
+      .returns(() => of(MOCK_ALBUMDATA));
 
     mockImageService.reset();
     mockImageService
       .setup(s => s.getImageInfo(It.isAnyNumber()))
-      .returns(() => observableOf(MOCK_IMAGEDATA));
+      .returns(() => of(MOCK_IMAGEDATA));
     mockImageService
       .setup(s =>
         s.getImagesFromAlbum(
@@ -48,7 +48,7 @@ describe('AlbumComponent', () => {
           It.isAnyNumber()
         )
       )
-      .returns(() => observableOf([MOCK_IMAGEDATA]));
+      .returns(() => of([MOCK_IMAGEDATA]));
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule],
@@ -96,6 +96,5 @@ describe('AlbumComponent', () => {
       x => x.setTitle(It.isValue(MOCK_ALBUMDATA.title)),
       Times.once()
     );
-    expect().nothing();
   });
 });

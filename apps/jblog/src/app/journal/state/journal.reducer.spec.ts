@@ -37,13 +37,13 @@ describe('Journal reducer', () => {
     it('should set loading to true on LoadPosts action', () => {
       const action = new LoadPosts(1, 'any');
       const result = journalReducer(initialState, action);
-      expect(result.postsLoading).toBeTrue();
+      expect(result.postsLoading).toBe(true);
     });
 
     it('should set loading to false on LoadPostsSuccess action', () => {
       const action = new LoadPostsSuccess(mockPostData);
       const result = journalReducer(initialState, action);
-      expect(result.postsLoading).toBeFalse();
+      expect(result.postsLoading).toBe(false);
     });
 
     it('should set post data on LoadPostsSuccess action', () => {
@@ -55,7 +55,7 @@ describe('Journal reducer', () => {
     it('should set loading to false on LoadPostsFailure action', () => {
       const action = new LoadPostsFailure();
       const result = journalReducer(initialState, action);
-      expect(result.postsLoading).toBeFalse();
+      expect(result.postsLoading).toBe(false);
     });
 
     it('should not change post data on LoadPostsFailure action', () => {
@@ -69,13 +69,13 @@ describe('Journal reducer', () => {
     it('should set loading to true on LoadSinglePost action', () => {
       const action = new LoadSinglePost('any');
       const result = journalReducer(initialState, action);
-      expect(result.postsLoading).toBeTrue();
+      expect(result.postsLoading).toBe(true);
     });
 
     it('should set loading to false on LoadSinglePostSuccess action', () => {
       const action = new LoadSinglePostSuccess(mockPost);
       const result = journalReducer(initialState, action);
-      expect(result.postsLoading).toBeFalse();
+      expect(result.postsLoading).toBe(false);
     });
 
     it('should set post data on LoadSinglePostSuccess action', () => {
@@ -87,7 +87,7 @@ describe('Journal reducer', () => {
     it('should set loading to false on LoadSinglePostFailure action', () => {
       const action = new LoadSinglePostFailure();
       const result = journalReducer(initialState, action);
-      expect(result.postsLoading).toBeFalse();
+      expect(result.postsLoading).toBe(false);
     });
 
     it('should not change current post data on LoadSinglePostFailure action', () => {

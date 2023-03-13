@@ -24,13 +24,13 @@
         [attr.data-post-id]="post.slug"
       >
         <td>
-          <a routerLink="../edit/{{ post.slug }}" data-title>
+          <a routerLink="/admin/posts/edit/{{ post.slug }}" data-title>
             {{ post.title }}
           </a>
         </td>
         <td data-date>{{ post.date * 1000 | date : 'mediumDate' }}</td>
         <td>
-          <a routerLink="../edit/{{ post.slug }}" title="Edit post">
+          <a routerLink="/admin/posts/edit/{{ post.slug }}" title="Edit post">
             <i class="las icon-fw la-edit" aria-hidden="true"></i>
           </a>
 
@@ -42,7 +42,7 @@
           </a>
 
           <a
-            routerLink="../delete/{{ post.slug }}"
+            routerLink="/admin/posts/delete/{{ post.slug }}"
             title="Delete post"
             class="delete"
           >

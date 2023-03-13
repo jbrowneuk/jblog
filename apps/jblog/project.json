@@ -106,19 +106,23 @@
       }
     },
     "test": {
-      "executor": "@angular-devkit/build-angular:karma",
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "main": "apps/jblog/src/test.ts",
-        "polyfills": ["zone.js"],
-        "tsConfig": "apps/jblog/tsconfig.spec.json",
-        "karmaConfig": "apps/jblog/karma.conf.js",
+        "jestConfig": "apps/jblog/jest.config.ts",
+        "passWithNoTests": false,
         "inlineStyleLanguage": "scss",
         "stylePreprocessorOptions": {
           "includePaths": ["apps/jblog/src/theme"]
         },
         "assets": ["apps/jblog/src/favicon.ico", "apps/jblog/src/assets"],
-        "styles": ["apps/jblog/src/styles.scss"],
-        "scripts": []
+        "styles": ["apps/jblog/src/styles.scss"]
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
       }
     },
     "lint": {

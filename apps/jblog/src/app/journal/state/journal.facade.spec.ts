@@ -37,7 +37,6 @@ describe('Journal facade', () => {
     facade.loadPostList(page, tag);
     const action = new LoadPosts(page, tag);
     mockStore.verify(s => s.dispatch(It.isValue(action)), Times.once());
-    expect().nothing();
   });
 
   it('should dispatch load single post action', () => {
@@ -45,6 +44,5 @@ describe('Journal facade', () => {
     facade.loadPostBySlug(slug);
     const action = new LoadSinglePost(slug);
     mockStore.verify(s => s.dispatch(It.isValue(action)), Times.once());
-    expect().nothing();
   });
 });

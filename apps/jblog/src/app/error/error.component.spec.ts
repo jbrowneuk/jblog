@@ -48,7 +48,6 @@ describe('Error Component', () => {
 
   it('should reset title', () => {
     mockTitleService.verify(s => s.resetTitle(), Times.once());
-    expect().nothing();
   });
 });
 

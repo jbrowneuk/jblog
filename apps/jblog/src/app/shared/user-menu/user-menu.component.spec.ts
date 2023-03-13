@@ -54,9 +54,6 @@ describe('UserMenuComponent', () => {
 
     // At least once as the fixture.detectChanges in the beforeEach may call ngOnInit too
     mockUserService.verify(s => s.fetchUser(), Times.atLeastOnce());
-
-    // Prevents the test being marked as incomplete
-    expect().nothing();
   });
 
   it('should log out when button clicked', () => {
@@ -67,8 +64,6 @@ describe('UserMenuComponent', () => {
 
     mockUserService.verify(s => s.endSession(), Times.once());
     mockUserService.verify(s => s.fetchUser(), Times.atLeastOnce());
-
-    expect().nothing();
   });
 
   it('should redirect to login page on log out', () => {
@@ -78,7 +73,5 @@ describe('UserMenuComponent', () => {
     logoutButton.nativeElement.click();
 
     mockRouter.verify(r => r.navigate(It.isValue(['/login'])), Times.once());
-
-    expect().nothing();
   });
 });

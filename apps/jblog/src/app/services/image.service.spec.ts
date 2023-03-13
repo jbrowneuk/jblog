@@ -125,7 +125,6 @@ describe('ImageService', () => {
       .getImagesFromAlbum(expectedAlbumName, expectedPage, expectedCount)
       .subscribe({
         next: () => {
-          expect().nothing();
           done();
         }
       });

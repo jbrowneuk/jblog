@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { TitleService } from '../../shared/title.service';
 import { TopPageComponent } from './top-page.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('Top Page', () => {
   let mockTitleService: IMock<TitleService>;
@@ -17,7 +18,7 @@ describe('Top Page', () => {
     mockTitleService.setup(x => x.resetTitle());
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, NoopAnimationsModule],
       declarations: [TopPageComponent],
       providers: [
         { provide: TitleService, useFactory: () => mockTitleService.object }
@@ -30,7 +31,7 @@ describe('Top Page', () => {
     component = fixture.componentInstance;
 
     // Stop interval interfering with tests
-    spyOn(component as any, 'setupSlideInterval');
+    jest.spyOn(component as any, 'setupSlideInterval').mockImplementation(() => {});
 
     fixture.detectChanges();
   });

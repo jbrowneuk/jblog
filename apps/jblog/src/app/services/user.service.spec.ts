@@ -45,7 +45,7 @@ describe('UserService', () => {
 
     it('should retrieve user info if token is set', done => {
       // Required as it seems impossible to reliably mock localStorage using spyOn
-      spyOn(service as any, 'getSession').and.returnValue(mockToken);
+      jest.spyOn(service as any, 'getSession').mockReturnValue(mockToken);
 
       service.fetchUser().subscribe({
         next: userInfo => {
@@ -56,7 +56,7 @@ describe('UserService', () => {
     });
 
     it('should return null if token is not set', done => {
-      spyOn(service as any, 'getSession').and.returnValue(null);
+      jest.spyOn(service as any, 'getSession').mockReturnValue(null);
 
       service.fetchUser().subscribe({
         next: userInfo => {
@@ -77,7 +77,7 @@ describe('UserService', () => {
         .setup(s => s.post(It.isAnyString(), It.isAny()))
         .returns(() => of(mockToken));
 
-      const setSpy = spyOn(service as any, 'setSession');
+      const setSpy = jest.spyOn(service as any, 'setSession');
 
       service.initialiseSession(validName, validPass).subscribe({
         next: token => {
@@ -96,7 +96,7 @@ describe('UserService', () => {
         .setup(s => s.post(It.isAnyString(), It.isAny()))
         .returns(() => throwError(() => new Error('fail')));
 
-      const setSpy = spyOn(service as any, 'endSession');
+      const setSpy = jest.spyOn(service as any, 'endSession');
 
       service.initialiseSession(invalidName, invalidPass).subscribe({
         next: token => {
@@ -135,8 +135,8 @@ describe('UserService', () => {
   describe('User properties', () => {
     it('should return whether user is logged in', done => {
       // Mock out session storage
-      spyOn(service as any, 'setSession');
-      spyOn(service as any, 'getSession').and.returnValue('anything');
+      jest.spyOn(service as any, 'setSession').mockImplementation(() => {});
+      jest.spyOn(service as any, 'getSession').mockReturnValue('anything');
 
       const mockUser = { uid: 'a' };
 
@@ -162,7 +162,7 @@ describe('UserService', () => {
     it('should GET with authentication header when logged in', () => {
       const url = './any?url';
       const token = 'mytoken';
-      spyOn(service as any, 'getSession').and.returnValue(token);
+      jest.spyOn(service as any, 'getSession').mockReturnValue(token);
 
       service.authGet<any>(url);
 
@@ -170,12 +170,11 @@ describe('UserService', () => {
         s => s.get<any>(It.isValue(url), It.isValue({ Authorization: token })),
         Times.once()
       );
-      expect().nothing();
     });
 
     it('should not GET when not logged in', () => {
       const url = './any?url';
-      spyOn(service as any, 'getSession').and.returnValue(null);
+      jest.spyOn(service as any, 'getSession').mockReturnValue(null);
 
       service.authGet<any>(url);
 
@@ -183,7 +182,6 @@ describe('UserService', () => {
         s => s.get<any>(It.isAny(), It.isAny()),
         Times.never()
       );
-      expect().nothing();
     });
   });
 
@@ -192,7 +190,7 @@ describe('UserService', () => {
       const url = './any?url';
       const token = 'mytoken';
       const body = { prop: 'any data' };
-      spyOn(service as any, 'getSession').and.returnValue(token);
+      jest.spyOn(service as any, 'getSession').mockReturnValue(token);
 
       service.authPost(url, body);
 
@@ -205,12 +203,11 @@ describe('UserService', () => {
           ),
         Times.once()
       );
-      expect().nothing();
     });
 
     it('should not POST when not logged in', () => {
       const url = './any?url';
-      spyOn(service as any, 'getSession').and.returnValue(null);
+      jest.spyOn(service as any, 'getSession').mockReturnValue(null);
 
       service.authPost(url, { prop: 'any data' });
 
@@ -218,7 +215,6 @@ describe('UserService', () => {
         s => s.post(It.isAny(), It.isAny(), It.isAny()),
         Times.never()
       );
-      expect().nothing();
     });
   });
 });

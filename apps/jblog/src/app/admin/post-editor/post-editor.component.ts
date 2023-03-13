@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { Component, OnInit } from '@angular/core';
 import {
@@ -24,6 +24,8 @@ export class PostEditorComponent implements OnInit {
 
   public postForm: UntypedFormGroup;
 
+  public wordCount$: Observable<number>;
+
   constructor(
     private readonly fb: UntypedFormBuilder,
     private route: ActivatedRoute,
@@ -37,6 +39,11 @@ export class PostEditorComponent implements OnInit {
       slug: ['', Validators.required],
       isDraft: [true]
     });
+
+    const control = this.postForm.controls['content'];
+    this.wordCount$ = control.valueChanges.pipe(
+      map(content => this.calculateWordCount(content))
+    );
   }
 
   ngOnInit() {
@@ -50,6 +57,7 @@ export class PostEditorComponent implements OnInit {
         return this.postService.getPost(id);
       }),
       tap(p => {
+        // TODO: word count doesn't seem to update; need to investigate
         this.postForm.patchValue({
           title: p.title,
           content: p.content,

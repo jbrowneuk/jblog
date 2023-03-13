@@ -39,6 +39,5 @@ describe('AboutComponent', () => {
 
   it('should set title on init', () => {
     mockTitleService.verify(x => x.setTitle(It.isValue('About')), Times.once());
-    expect().nothing();
   });
 });

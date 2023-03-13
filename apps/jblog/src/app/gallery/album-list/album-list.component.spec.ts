@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { It, Mock, Times } from 'typemoq';
 
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -17,7 +17,7 @@ describe('AlbumListComponent', () => {
   const mockAlbumService = Mock.ofType<AlbumService>();
   mockAlbumService
     .setup(s => s.getAllAlbumInfo())
-    .returns(() => observableOf(ALBUM_LIST));
+    .returns(() => of(ALBUM_LIST));
 
   const mockTitleService = Mock.ofType<TitleService>();
   mockTitleService.setup(x => x.setTitle(It.isAnyString()));
@@ -54,6 +54,5 @@ describe('AlbumListComponent', () => {
       x => x.setTitle(It.isValue('All albums')),
       Times.once()
     );
-    expect().nothing();
   });
 });

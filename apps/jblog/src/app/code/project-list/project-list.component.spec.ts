@@ -50,7 +50,6 @@ describe('ProjectListComponent', () => {
 
   it('should change page title', () => {
     mockTitleService.verify(x => x.setTitle(It.isValue('Code')), Times.once());
-    expect().nothing();
   });
 });
 

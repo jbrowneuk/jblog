@@ -1,4 +1,4 @@
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { IMock, It, Mock } from 'typemoq';
 
 import { formatDate } from '@angular/common';
@@ -34,7 +34,7 @@ describe('Image Component', () => {
     mockImageService = Mock.ofType<ImageService>();
     mockImageService
       .setup(s => s.getImageInfo(It.isAnyNumber()))
-      .returns(() => observableOf(MOCK_IMAGEDATA));
+      .returns(() => of(MOCK_IMAGEDATA));
     mockImageService
       .setup(s =>
         s.getImagesFromAlbum(
@@ -43,10 +43,10 @@ describe('Image Component', () => {
           It.isAnyNumber()
         )
       )
-      .returns(() => observableOf([MOCK_IMAGEDATA]));
+      .returns(() => of([MOCK_IMAGEDATA]));
   }
 
-  function moduleSetup(): Promise<any> {
+  function moduleSetup() {
     return TestBed.configureTestingModule({
       declarations: [ImageComponent],
       imports: [HttpClientTestingModule, RouterTestingModule, SharedModule],
@@ -67,12 +67,10 @@ describe('Image Component', () => {
   describe('Unloaded state', () => {
     beforeEach(() => {
       setupMocks();
-      moduleSetup();
-    });
-
-    beforeEach(() => {
-      componentSetup();
-      fixture.detectChanges();
+      moduleSetup().then(() => {
+        componentSetup();
+        fixture.detectChanges();
+      });
     });
 
     it('should request image on load', () => {
@@ -91,13 +89,11 @@ describe('Image Component', () => {
   describe('Loaded state', () => {
     beforeEach(() => {
       setupMocks();
-      moduleSetup();
-    });
-
-    beforeEach(() => {
-      componentSetup();
-      component.data = MOCK_IMAGEDATA;
-      fixture.detectChanges();
+      moduleSetup().then(() => {
+        componentSetup();
+        component.data = MOCK_IMAGEDATA;
+        fixture.detectChanges();
+      });
     });
 
     it('should create and have zoomed out state', () => {
@@ -174,7 +170,7 @@ class ImageComponentPageObject extends PageObjectBase<ImageComponent> {
   }
 
   public get parentFolderLinkText(): string {
-    const element = this.select('[data-parent-folder-link');
+    const element = this.select('[data-parent-folder-link]');
     return `${element.textContent}`.trim();
   }
 

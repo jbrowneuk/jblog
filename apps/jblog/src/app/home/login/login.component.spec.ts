@@ -68,9 +68,6 @@ describe('LoginComponent', () => {
         s => s.initialiseSession(It.isValue(username), It.isValue(password)),
         Times.once()
       );
-
-      // Verified using typemoq above
-      expect().nothing();
     });
 
     it('should attempt to fetch user data user when login successful', done => {
@@ -87,9 +84,6 @@ describe('LoginComponent', () => {
 
       setTimeout(() => {
         mockUserService.verify(s => s.fetchUser(), Times.once());
-
-        // Verified using typemoq above
-        expect().nothing();
         done();
       });
     });
@@ -145,7 +139,6 @@ describe('LoginComponent', () => {
           Times.once()
         );
 
-        expect().nothing();
         done();
       });
     });
@@ -165,7 +158,6 @@ describe('LoginComponent', () => {
           Times.once()
         );
 
-        expect().nothing();
         done();
       });
     });

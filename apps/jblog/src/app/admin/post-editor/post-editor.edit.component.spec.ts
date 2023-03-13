@@ -1,4 +1,4 @@
-import { of } from 'rxjs';
+import { of, take } from 'rxjs';
 import { IMock, It, Mock } from 'typemoq';
 
 import { Component } from '@angular/core';
@@ -12,8 +12,9 @@ import { PostData, PostStatus } from '../../model/post-data';
 import { PostService } from '../../services/post.service';
 import { PostAdminService } from '../post-admin.service';
 import { PostEditorComponent } from './post-editor.component';
+import { PageObjectBase } from '../../lib/testing/page-object.base';
 
-const mockPostData: PostData = {
+const mockPostData: PostData = Object.freeze({
   postId: 1,
   date: 1577487979,
   modified: null,
@@ -22,7 +23,7 @@ const mockPostData: PostData = {
   tags: [],
   slug: 'post-slug',
   status: PostStatus.Publish
-};
+});
 
 @Component({
   selector: 'jblog-text',
@@ -36,14 +37,11 @@ describe('PostEditorComponent - Edit mode', () => {
   let mockPostService: IMock<PostService>;
   let mockPostAdminService: IMock<PostAdminService>;
 
-  let component: PostEditorComponent;
   let fixture: ComponentFixture<PostEditorComponent>;
-  let compiled: HTMLElement;
+  let pageObject: PostEditorPageObject;
 
   beforeEach(() => {
     mockPostService = Mock.ofType<PostService>();
-
-    // Return a copy of the post data so tests can modify
     mockPostService
       .setup(s => s.getPost(It.isAny()))
       .returns(() => of(Object.assign({}, mockPostData)));
@@ -55,7 +53,7 @@ describe('PostEditorComponent - Edit mode', () => {
       id: mockPostData.postId
     });
 
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       declarations: [MockFormattedTextComponent, PostEditorComponent],
       imports: [RouterTestingModule, ReactiveFormsModule],
       providers: [
@@ -67,57 +65,61 @@ describe('PostEditorComponent - Edit mode', () => {
           useFactory: () => mockPostAdminService.object
         }
       ]
-    }).compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PostEditorComponent);
-    component = fixture.componentInstance;
-    compiled = fixture.nativeElement;
-    fixture.detectChanges();
+    })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(PostEditorComponent);
+        pageObject = new PostEditorPageObject(fixture);
+        fixture.detectChanges();
+      });
   });
 
   it('should have post title', () => {
-    const postTitleInput = compiled.querySelector(
-      '[data-post-title]'
-    ) as HTMLInputElement;
-    expect(postTitleInput.value).toBe(mockPostData.title);
+    expect(pageObject.postTitleInput.value).toBe(mockPostData.title);
   });
 
   it('should have post content', () => {
-    const contentElement = compiled.querySelector(
-      '[data-post-content]'
-    ) as HTMLTextAreaElement;
-    expect(contentElement.value).toBe(mockPostData.content);
+    expect(pageObject.postContentTextarea.value).toBe(mockPostData.content);
   });
 
   it('should have post identifier', () => {
-    const identifierElement = compiled.querySelector(
-      '[data-post-identifier]'
-    ) as HTMLInputElement;
-    expect(identifierElement.value).toBe(mockPostData.slug);
+    expect(pageObject.postIdentifierInput.value).toBe(mockPostData.slug);
   });
 
   it('should display matching post status', () => {
-    const draftCheckbox = compiled.querySelector(
-      '[data-post-draft]'
-    ) as HTMLInputElement;
-    expect(draftCheckbox.checked).toBe(mockPostData.status === 'draft');
+    expect(pageObject.postDraftInput.checked).toBe(
+      mockPostData.status === 'draft'
+    );
   });
 
-  it('should display word and character count', () => {
-    const characterCountElement = compiled.querySelector(
-      '[data-post-character-count]'
-    ) as HTMLElement;
-    const wordCountElement = compiled.querySelector(
-      '[data-post-word-count]'
-    ) as HTMLElement;
+  it('should have word count', done => {
+    fixture.componentInstance.wordCount$.pipe(take(1)).subscribe({
+      next: count => {
+        expect(count).toBe(mockPostData.content.split(' ').length);
+        done();
+      }
+    });
 
-    expect(characterCountElement.innerText.trim()).toBe(
-      `${mockPostData.content.length} characters`
-    );
-    expect(wordCountElement.innerText.trim()).toBe(
-      `${mockPostData.content.split(' ').length} words`
-    );
+    pageObject.postContentTextarea.value = mockPostData.content;
+    pageObject.postContentTextarea.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
   });
 });
+
+class PostEditorPageObject extends PageObjectBase<PostEditorComponent> {
+  public get postTitleInput(): HTMLInputElement {
+    return this.select('[data-post-title]');
+  }
+
+  public get postIdentifierInput(): HTMLInputElement {
+    return this.select('[data-post-identifier]');
+  }
+
+  public get postDraftInput(): HTMLInputElement {
+    return this.select('[data-post-draft]');
+  }
+
+  public get postContentTextarea(): HTMLTextAreaElement {
+    return this.select('[data-post-content]');
+  }
+}

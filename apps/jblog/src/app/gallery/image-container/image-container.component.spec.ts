@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { IMock, It, Mock, Times } from 'typemoq';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -27,7 +27,7 @@ describe('ImageContainerComponent', () => {
           It.isAnyNumber()
         )
       )
-      .returns(() => observableOf([MOCK_IMAGEDATA]));
+      .returns(() => of([MOCK_IMAGEDATA]));
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule],
@@ -67,7 +67,6 @@ describe('ImageContainerComponent', () => {
         ),
       Times.once()
     );
-    expect().nothing();
   });
 
   it('should update images when album changed', () => {
@@ -87,7 +86,6 @@ describe('ImageContainerComponent', () => {
         ),
       Times.once()
     );
-    expect().nothing();
   });
 
   it('should provide correct number of placeholders for loading', () => {

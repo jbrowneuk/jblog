@@ -96,7 +96,6 @@ describe('PostEditorComponent - Submit form', () => {
       s => s.sendPost(It.isValue(mockPostData)),
       Times.once()
     );
-    expect().nothing();
   });
 
   it('should redirect if post submission successful', done => {
@@ -111,7 +110,6 @@ describe('PostEditorComponent - Submit form', () => {
         r => r.navigate(It.isValue(['../..']), It.isAny()),
         Times.once()
       );
-      expect().nothing();
       done();
     });
   });
@@ -125,7 +123,6 @@ describe('PostEditorComponent - Submit form', () => {
 
     setTimeout(() => {
       mockRouter.verify(r => r.navigate(It.isAny(), It.isAny()), Times.never());
-      expect().nothing();
       done();
     });
   });
@@ -148,8 +145,6 @@ describe('PostEditorComponent - Submit form', () => {
       s => s.sendPost(It.isObjectWith(expectedPostData)),
       Times.once()
     );
-
-    expect().nothing();
   });
 });
 

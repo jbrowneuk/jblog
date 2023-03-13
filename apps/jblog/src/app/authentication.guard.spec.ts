@@ -84,7 +84,6 @@ describe('AuthenticationGuard', () => {
               Times.once()
             );
 
-            expect().nothing();
             done();
           }
         });
@@ -132,7 +131,6 @@ describe('AuthenticationGuard', () => {
               Times.once()
             );
 
-            expect().nothing();
             done();
           }
         });
@@ -176,7 +174,6 @@ describe('AuthenticationGuard', () => {
             Times.once()
           );
 
-          expect().nothing();
           done();
         }
       });

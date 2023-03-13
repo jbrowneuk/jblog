@@ -91,7 +91,6 @@ describe('Post (Single) Component', () => {
         s => s.setTitle(It.isValue(`Journal - ${mockPost.title}`)),
         Times.once()
       );
-      expect().nothing();
     });
 
     it('should reset tab title if post data is invalid', done => {
@@ -99,7 +98,6 @@ describe('Post (Single) Component', () => {
 
       setTimeout(() => {
         mockTitleService.verify(s => s.resetTitle(), Times.once());
-        expect().nothing();
         done();
       });
     });

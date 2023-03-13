@@ -99,8 +99,8 @@ describe('ProjectService', () => {
       service.getProjects().subscribe({
         next: () => fail('should not get here'),
         error: (error: HttpErrorResponse) => {
-          expect(error.status).withContext('status').toEqual(404);
-          expect(error.error).withContext('message').toEqual(emsg);
+          expect(error.status).toEqual(404);
+          expect(error.error).toEqual(emsg);
         }
       });
 

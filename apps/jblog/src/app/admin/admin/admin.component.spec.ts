@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { TitleService } from '../../shared/title.service';
 import { AdminComponent } from './admin.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AdminComponent', () => {
   let mockTitleService: IMock<TitleService>;
@@ -16,7 +17,7 @@ describe('AdminComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [AdminComponent],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, NoopAnimationsModule],
       providers: [
         { provide: TitleService, useFactory: () => mockTitleService.object }
       ]
@@ -35,6 +36,5 @@ describe('AdminComponent', () => {
 
   it('should set title', () => {
     mockTitleService.verify(x => x.setTitle(It.isValue('Admin')), Times.once());
-    expect().nothing();
   });
 });

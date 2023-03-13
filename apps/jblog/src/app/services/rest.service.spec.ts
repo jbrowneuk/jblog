@@ -24,7 +24,7 @@ describe('Rest Service', () => {
   });
 
   describe('GET method', () => {
-    it('should GET from url', (done: DoneFn) => {
+    it('should GET from url', done => {
       const service: RestService = TestBed.inject(RestService);
       const mockResponse = { status: 'tested' };
       const mockUrl = 'http://localhost/url';
@@ -42,7 +42,7 @@ describe('Rest Service', () => {
       req.flush(mockResponse);
     });
 
-    it('should add HTTP headers to GET request', (done: DoneFn) => {
+    it('should add HTTP headers to GET request', done => {
       const service: RestService = TestBed.inject(RestService);
       const mockResponse = { status: 'tested' };
       const mockUrl = 'http://localhost/url';
@@ -70,7 +70,7 @@ describe('Rest Service', () => {
   });
 
   describe('POST method', () => {
-    it('should POST to URL with body', (done: DoneFn) => {
+    it('should POST to URL with body', done => {
       const service: RestService = TestBed.inject(RestService);
       const mockResponse = 'text'; // see note in the service file
       const mockUrl = 'http://localhost/url';

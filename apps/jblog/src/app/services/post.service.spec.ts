@@ -50,7 +50,7 @@ describe('PostService', () => {
     mockRestService.verifyAll();
   });
 
-  it('should get posts for a specified page', (done: DoneFn) => {
+  it('should get posts for a specified page', done => {
     const expectedPage = 3;
     const expectedUrl = `http://localhost/api/?posts&page=${expectedPage}`;
 
@@ -72,7 +72,7 @@ describe('PostService', () => {
     });
   });
 
-  it('should get posts for a specified tag', (done: DoneFn) => {
+  it('should get posts for a specified tag', done => {
     const expectedTag = 'myTag';
     const expectedUrl = `http://localhost/api/?posts&tag=${expectedTag}`;
 
@@ -94,7 +94,7 @@ describe('PostService', () => {
     });
   });
 
-  it('should get a specific post', (done: DoneFn) => {
+  it('should get a specific post', done => {
     const slug = mockFirstPost.slug;
     const expectedUrl = `http://localhost/api/?posts&slug=${slug}`;
     const mockResponse: PostData[] = [mockFirstPost];
@@ -112,7 +112,7 @@ describe('PostService', () => {
     });
   });
 
-  it('should handle errors when getting post list', (done: DoneFn) => {
+  it('should handle errors when getting post list', done => {
     const page = 1024;
     const expectedUrl = `http://localhost/api/?posts&page=${page}`;
 
@@ -130,7 +130,7 @@ describe('PostService', () => {
     });
   });
 
-  it('should handle errors when getting single post information', (done: DoneFn) => {
+  it('should handle errors when getting single post information', done => {
     const postId = '1024';
     const expectedUrl = `http://localhost/api/?posts&slug=${postId}`;
 
@@ -147,7 +147,7 @@ describe('PostService', () => {
     });
   });
 
-  it('should handle errors when getting post information for invalid id', (done: DoneFn) => {
+  it('should handle errors when getting post information for invalid id', done => {
     const postId = '';
 
     service.getPost(postId).subscribe({

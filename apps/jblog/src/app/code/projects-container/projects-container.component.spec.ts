@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { Mock } from 'typemoq';
 
 import {
@@ -13,6 +13,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LineSplittingPipe } from '../../shared/line-splitting.pipe';
 import { ProjectService } from '../project.service';
 import { ProjectsContainerComponent } from './projects-container.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const mockProject = {
   name: 'test',
@@ -32,7 +33,7 @@ const mockProjects = [mockProject];
   name: 'archivedProjects'
 })
 class MockFilterPipe implements PipeTransform {
-  transform(val: any) {
+  transform(val: string) {
     return val;
   }
 }
@@ -45,11 +46,11 @@ describe('ProjectsContainerComponent', () => {
   const mockProjectService = Mock.ofType<ProjectService>();
   mockProjectService
     .setup(x => x.getProjects())
-    .returns(() => observableOf(mockProjects));
+    .returns(() => of(mockProjects));
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, NoopAnimationsModule],
       declarations: [
         LineSplittingPipe,
         ProjectsContainerComponent,
