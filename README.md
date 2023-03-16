@@ -5,56 +5,66 @@ I've been constantly developing since early 2004. I've decided to open-source it
 now that I have ported it to Angular in the hopes that someone else can learn
 from it.
 
-# Building and running
+## History
 
-jBlog is an Angular front-end with a PHP back-end. Therefore, in order to build
-and run the site, you'll need to have a development environment with Node.js
-(6.7+) and PHP (5.6+).
+jBlog started off as a pure PHP site that I intended to integrate with the
+PHP-powered web forum software I was using at the time. However, I never fully
+got around to getting the integration working and after a few years I closed
+down the forum software as it had been replaced with a variety of social
+networks that did a better job.
 
-## Why a PHP back-end?
+I've ported the front-end to Angular in an effort to learn the framework as well
+as share knowledge (hence the public GitHub repo!). However, the backend remains
+written in PHP, as that is all my web hosting provider allows me to use on my
+hosting package - it's a LAMP package that I bought a long time ago and now rely
+on for more than just site hosting so I don't plan on switching provider!
 
-The simple answer is that my web host only allows PHP scripts–it's a LAMP
-package which I purchased a long time ago when PHP sites were the norm. I now
-rely upon it for day-to-day things (i.e. e-mail) that it is actually difficult
-to switch provider.
+# Getting started
 
-## Super quick start
+The site is an Nx-powered monorepo comprising of an Angular front-end and a PHP
+back-end. Therefore, in order to build and run the site, you'll need to have a
+development environment with the latest LTS versions of Node.js and PHP
+(currently Node.JS 18 and PHP 8.2).
+
+The PHP-side of the monorepo is currently unhooked from Nx as I try and work out
+how to make them play nice together. As such, the PHP instructions are run
+outside of the Nx environment.
+
+## TL;DR:
 
 1. Install node and npm (or yarn) and composer
 1. Pull down the code (git clone ...)
-1. Install JavaScript packages (dependencies) using npm (or yarn): `npm install`
-1. Install PHP packages: `php ./composer.phar install`
-1. Run a development server using `ng serve`
-1. Have a PHP server serve the backend (`/src/api`) at localhost:8080/api
 
-## Setting up the development environment
+**Front-end:**
+
+1. Install JavaScript packages (dependencies) using npm (or yarn): `npm install`
+1. Run a development server using `npm run serve`
+
+**Back-end**
+
+1. Install PHP packages: `php ./composer.phar install`
+1. Have a PHP server serve the backend (`/libs/api/src`) at localhost:8080/api
+
+# Setting up the development environment
 
 Requirements for front-end work:
 
-- Node.js (6.7+)
+- Node.js (latest LTS)
 - A web browser you're familiar with for debugging in
 
 Requirements for back-end work:
 
-- PHP (5.6+)
-- A way to get PHP to serve the contents of the `/src/api` directory.
+- PHP (latest LTS)
+- Composer
+- A way to get PHP to serve the contents of the `/libs/api/src` directory.
 - Some way to edit SQLite databases.
 
-Also, optionally:
-
-- Global install of [Angular CLI](https://cli.angular.io)
-
 If you're unsure what editor to use for coding, I recommend
-[Visual Studio Code](https://code.visualstudio.com/) with the following plugins:
+[Visual Studio Code](https://code.visualstudio.com/). It will load the
+recommended configuration and suggest some plugins to make development easier
+when the root directory is selected.
 
-- CodeMetrics
-- Prettier - Code formatter (enable format on save)
-- stylelint
-- SCSS IntelliSense
-
-## Building the site
-
-### Front-end
+# Developing and running the Front-end
 
 The front-end is written using the Angular framework in TypeScript, and must be
 transpiled in order to run in a web browser. To do this, you'll need to pull
@@ -63,30 +73,40 @@ directory of this repository in a terminal and run `npm install`
 (or `yarn install`) to do this.
 
 Once this is complete, a live-reload development server can be run with
-`npm start`. This server can be accessed by visiting http://localhost:4200 in
+`npm run serve`. This server can be accessed by visiting http://localhost:4200 in
 a web browser. Every time there is a code change, the web browser will
-automatically reload with the latest changes.
+automatically reload with the latest changes. The server will serve a
+_development_ build of the site.
 
-Alternatively, running `npm run build` will generate a `dist` folder that can be
-upload onto a web server containing a _debug_ version of the site. To generate a
-_production_ build, run `npm run build:prod`.
+Running `npm run build` will generate a `dist` folder that can be upload onto a
+web server containing. This is a _production_ build and therefore with
+minification and tree shaking applied.
 
-Debug and Production builds request the backend from different locations. These
-are set in the environment files found in `/src/environments/`:
+Different configurations of the site builds request the backend from different
+locations. These are provided by the files in `apps/jblog/src/environments/`
+which will be swapped in to the build using the values defined in
+`apps/jblog/project.json`.
 
-- Debug uses `environment.ts`
-- Production uses `environment.prod.ts`
+## Unit testing
 
-Anything else falls back to debug unless specified in `/.angular-cli.json`.
+Running `npm run test` will run unit tests using the Jest testing framework.
+Jest emulates a browser using JSDom so these tests should be able to run on
+environments without a browser installed (i.e. CI pipelines).
 
-### Back-end
+# Developing and running the back-end
 
 To get the back-end to work, the configuration file and SQLite databases need to
 be generated.
 
-#### Enabling administration panel
+## Enabling authentication
 
-The authentication stuff is powered by Firebase-JWT. Install using composer.
+While having a user account set up for the site is optional (you can add posts
+by modifying the database directly), the authentication libraries _need_ to be
+fetched using composer before the back-end can be run.
+
+`php ./composer.phar install`
+
+The rest of this section is optional if user setup is unwanted.
 
 Generate a private and public key pair for JWT signing by running the following:
 
@@ -96,107 +116,21 @@ ssh-keygen -t rsa -b 4096 -m PEM -f jwtRS256.key
 openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
 ```
 
-Move the `jwtRS256.key` and `jwtRS256.key.pub` to a secure location on the server and update the paths in the settings file.
+Move the `jwtRS256.key` and `jwtRS256.key.pub` to a secure location on the
+server and update the paths in the settings file.
 
-#### Configuration file
+## Configuration file
 
-The PHP scripts are configured by the file `/api/conf/settings.php`. There is a
-demo in the folder which can be used as a starting point.
+The PHP scripts are configured by the file `/libs/api/src/conf/settings.php`.
+A template file, settings-template.php, can be used as a starting point for this.
+The variables are documented within that file.
 
-```php
-<?php
-$settings = array(
-  'Database' => array(
-    'Prefix' => 'blog_', // Prefix to the table names for large databases, can be left blank
-    'Database' => '{path to database}' // Path to SQLite Database
-  ),
-  'Formats' => array(
-    'ShortDateTime' => 'd M Y, H:i', // Short date format string, used in summaries
-    'LongDateTime' => 'l, jS F Y, H:i T' // Long date format string, used in detail views
-  ),
-  'Defaults' => array(
-    'PostsVisible' => 5 // Posts visible on a journal page for pagination
-  )
-);
-```
+## Creating the SQLite database
 
-#### Creating the SQLite database
-
-The SQLite database is generated with the following SQL code. Note that if you
-have specified a different database prefix in the settings file, you will need
-to adjust the table names in this code as appropriate.
-
-```sql
-BEGIN TRANSACTION;
-
--- Blog posts, used by journal module
-CREATE TABLE `blog_posts` (
-  -- Unique identifier for the post
-  `post_id`           INTEGER PRIMARY KEY,
-
-  -- Post title
-  `title`             TEXT,
-
-  -- Post content. Expects HTML
-  `content`           TEXT,
-
-  -- Post date, as Unix timestamp
-  `post_date`         INTEGER,
-
-  -- Post status. 'publish' or 'draft' expected.
-  `status`            TEXT,
-
-  -- Space separated list of tags to associate with the post
-  `tag`               TEXT,
-
-  -- Future work: whether comments can be added
-  `comment_status`    TEXT,
-
-  -- Future work: cached number of comments
-  `comment_count`     INTEGER,
-
-  -- Post last modification date, as a Unix timestamp.
-  -- NULL signifies an unmodified post
-  `modification_date` INTEGER
-);
-
--- Gallery images, used by the gallery module
-CREATE TABLE `blog_gallery` (
-  -- Unique identifier for the image
-  `image_id`    INTEGER PRIMARY KEY,
-
-  -- Space separated list of album ids that contain this image
-  `galleries`   TEXT,
-
-  -- File name, i.e. 'pic.jpg'. Backend controls full path to image and thumbnail
-  `file`        TEXT,
-
-  -- Image title
-  `title`       TEXT,
-
-  -- Image description
-  `description` TEXT,
-
-  -- Image date, as a Unix timestamp
-  `image_date`  INTEGER
-);
-
--- Gallery albums, used by the gallery module
-CREATE TABLE `blog_albums` (
-  -- Unique identifier for the album
-  `album_id`    INTEGER PRIMARY KEY,
-
-  -- Album title, displayed to users. Can use spaces, apostrophes, commas, etc.
-  `title`       TEXT,
-
-  -- Album name, used in URLs. must only be letters and numbers
-  `name`        TEXT,
-
-  -- Album description
-  `description` TEXT
-);
-COMMIT;
-```
+The SQLite database is generated with the SQL file in the
+`/libs/api/src/conf/setup.sql` file. Note that if you have specified a different
+database prefix in the settings file, you will need to adjust the table names in
+the SQL as appropriate.
 
 There are a few 'gotchas' when adding data to the tables manually. Many of the
 data storage decisions date back to the initial versions of the software and I
@@ -208,27 +142,9 @@ Some general things to note:
   of seconds since 1st Jan 1970, 00:00 UTC.
 - `*_id` fields must be unique and are the way the system refers to a record.
 
-## Unit testing the front-end
-Running `npm run test` will run unit tests using the locally installed version
-of Chrome. If using Chrome is undesired, set the environment variable
-`DISABLE_CHROME` to any value before running the tests. This will allow you to
-run the tests in any browser by navigating to the URL that appears in the console.
+## Unit testing
 
-## Unit testing the backend
-This needs to be done...
-
-# History
-
-jBlog started off as a pure PHP site that I intended to integrate with the
-PHP-powered web forum software I was using at the time. However, I never fully
-got around to getting the integration working and after a few years I closed
-down the forum software as it had been replaced with a variety of social
-networks that did a better job.
-
-I've ported it to Angular in an effort to learn the framework. The backend is
-written in PHP, as that is all my web hosting provider allows me to use on my
-hosting package. This backend uses an SQL database (currently SQLite) to store
-content and, in the future, configuration.
+This needs to be set up…
 
 # Design philosophy for contributing
 
@@ -236,8 +152,8 @@ _Last updated January 2019_
 
 ## Core
 
-- All colours are defined as CSS variables in `src/theme/colors/palette-*.css`. Refer to this file to use colours.
-- All dimensions ~~are defined~~ need to be refactored out into CSS variables and placed in the `src/styles.scss :root` rule.
+- All colours are defined as CSS variables in `apps/jblog/src/theme/colors/palette-*.css`. Refer to this file to use colours.
+- All dimensions ~~are defined~~ need to be refactored out into CSS variables and placed in the `apps/jblog/src/styles.scss :root` rule.
 
 ## Basics
 
