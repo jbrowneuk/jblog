@@ -1,10 +1,12 @@
 {
   "name": "jbrowneuk/jblog-api",
+  "type": "project",
+  "license": "Apache-2.0",
   "description": "JBlog PHP Backend",
   "require": {
     "firebase/php-jwt": "^6.0"
   },
   "config": {
-    "vendor-dir": "./src/api/vendor"
+    "vendor-dir": "libs/api/src/api/vendor"
   }
 }

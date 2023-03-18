@@ -43,9 +43,9 @@ testem.log
 Thumbs.db
 
 # Project-specific
-/src/api/conf/*.sqlite
-/src/api/conf/settings.php
-/src/api/vendor
+/libs/api/src/conf/*.sqlite
+/libs/api/src/conf/settings.php
+/libs/api/src/vendor
 /public/theme
 
 # Potential secrets
@@ -54,4 +54,4 @@ Thumbs.db
 
 # Third-party assets
 /public/thirdparty
-/src/assets/thirdparty
+/apps/jblog/src/assets/thirdparty
