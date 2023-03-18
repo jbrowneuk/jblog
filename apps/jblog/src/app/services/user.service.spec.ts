@@ -99,7 +99,7 @@ describe('UserService', () => {
       const setSpy = jest.spyOn(service as any, 'endSession');
 
       service.initialiseSession(invalidName, invalidPass).subscribe({
-        next: token => {
+        next: () => {
           fail('Should not get here');
         },
         error: (error: Error) => {
@@ -135,6 +135,7 @@ describe('UserService', () => {
   describe('User properties', () => {
     it('should return whether user is logged in', done => {
       // Mock out session storage
+      /* eslint-disable-next-line @typescript-eslint/no-empty-function */
       jest.spyOn(service as any, 'setSession').mockImplementation(() => {});
       jest.spyOn(service as any, 'getSession').mockReturnValue('anything');
 

@@ -18,7 +18,7 @@ export class ImageContainerComponent implements OnChanges {
   /**
    * The name of the album to load images from.
    */
-  @Input() public albumName: string = '';
+  @Input() public albumName = '';
 
   /**
    * The current page to display.

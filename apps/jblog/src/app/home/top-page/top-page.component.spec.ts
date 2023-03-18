@@ -31,7 +31,11 @@ describe('Top Page', () => {
     component = fixture.componentInstance;
 
     // Stop interval interfering with tests
-    jest.spyOn(component as any, 'setupSlideInterval').mockImplementation(() => {});
+    /* eslint-disable @typescript-eslint/no-empty-function */
+    jest
+      .spyOn(component as any, 'setupSlideInterval')
+      .mockImplementation(() => {});
+    /* eslint-enable @typescript-eslint/no-empty-function */
 
     fixture.detectChanges();
   });

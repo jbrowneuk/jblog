@@ -7,9 +7,11 @@ import { AppComponent } from './app.component';
 import { TransitionCompleteService } from './shared/transition-complete.service';
 
 describe('AppComponent', () => {
+  /* eslint-disable @typescript-eslint/no-empty-function */
   const mockTransitionCompleteService = {
     completedTransition(s: string, s1: string) {}
   };
+  /* eslint-enable @typescript-eslint/no-empty-function */
 
   beforeEach(() => {
     TestBed.configureTestingModule({
