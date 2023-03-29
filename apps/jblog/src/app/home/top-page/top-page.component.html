@@ -1,15 +1,17 @@
 <div class="hero-slideshow" [@carouselTransitions]="slideNumber">
-  <div class="slide full-width" *ngIf="slideNumber === 0">
+  <div class="slide full-width" *ngIf="slideNumber === 0" data-test="slide-0">
     <div class="container">
       <div class="text">
-        <svg class="signature"><use xlink:href="#sitesheet-signature" /></svg>
-        <div class="tagline">
+        <svg class="signature" data-test="signature">
+          <use xlink:href="#sitesheet-signature" />
+        </svg>
+        <div class="tagline" data-test="tagline">
           <span>Artworks</span> • <span>Visual Design</span> • <span>Code</span>
         </div>
       </div>
     </div>
   </div>
-  <div class="slide" *ngIf="slideNumber === 1">
+  <div class="slide" *ngIf="slideNumber === 1" data-test="slide-1">
     <div class="container">
       <div class="text">
         <h1>Software</h1>
@@ -35,7 +37,7 @@
       </div>
     </div>
   </div>
-  <div class="slide" *ngIf="slideNumber === 2">
+  <div class="slide" *ngIf="slideNumber === 2" data-test="slide-2">
     <div class="container">
       <div class="text">
         <h1>Visuals and artworks</h1>
@@ -98,6 +100,7 @@
     class="indicator item-{{ id }}"
     [class.active]="slideNumber === id"
     (click)="setSlide(id)"
+    [attr.data-test]="'slide-button-' + id"
   >
     <span class="title-text">{{ title }}</span>
     <img

@@ -1,8 +1,8 @@
-<header id="page-header">
+<header id="page-header" data-test="page-header">
   <div id="sticky-menu">
     <nav id="menu" class="container">
       <div class="pane left">
-        <a class="home-link" [routerLink]="['/']">
+        <a class="home-link" data-test="home-icon" [routerLink]="['/']">
           <svg class="icon"><use xlink:href="#sitesheet-logo" /></svg>
         </a>
       </div>
@@ -14,20 +14,41 @@
               [routerLink]="['/']"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
+              data-test="home-link"
               >portfolio</a
             >
           </li>
           <li>
-            <a [routerLink]="['/about']" routerLinkActive="active">about</a>
+            <a
+              [routerLink]="['/about']"
+              routerLinkActive="active"
+              data-test="about-link"
+              >about</a
+            >
           </li>
-          <li><a [routerLink]="['/art']" routerLinkActive="active">art</a></li>
           <li>
-            <a [routerLink]="['/projects/code']" routerLinkActive="active"
+            <a
+              [routerLink]="['/art']"
+              routerLinkActive="active"
+              data-test="art-link"
+              >art</a
+            >
+          </li>
+          <li>
+            <a
+              [routerLink]="['/projects/code']"
+              routerLinkActive="active"
+              data-test="projects-link"
               >projects</a
             >
           </li>
           <li>
-            <a [routerLink]="['/journal']" routerLinkActive="active">posts</a>
+            <a
+              [routerLink]="['/journal']"
+              routerLinkActive="active"
+              data-test="journal-link"
+              >posts</a
+            >
           </li>
         </ul>
       </div>
@@ -52,7 +73,7 @@
   <div class="container">
     <div class="text-line top-border">
       Powered by <a href="//angular.io">Angular</a>. Full attribution can be
-      found <a [routerLink]="['licenses']">here</a>.
+      found <a [routerLink]="['licenses']" data-test="licenses-link">here</a>.
     </div>
     <div class="text-line">&copy;2004&ndash;{{ currentYear }} Jason Browne</div>
   </div>
