@@ -1,0 +1,30 @@
+{
+  "posts": [
+    {
+      "postId": 2,
+      "date": 1680093020,
+      "title": "Post two",
+      "content": "Post two content",
+      "tags": ["post-two", "testing"],
+      "slug": "post-two"
+    },
+    {
+      "postId": 1,
+      "date": 1680093010,
+      "title": "Post one",
+      "content": "Post one content",
+      "tags": ["post-one", "testing"],
+      "slug": "post-one"
+    },
+    {
+      "postId": 0,
+      "date": 1680093000,
+      "title": "Post zero",
+      "content": "Post zero content",
+      "tags": ["testing"],
+      "slug": "post-zero"
+    }
+  ],
+  "page": 1,
+  "totalPages": 10
+}

@@ -93,6 +93,12 @@ Running `npm run test` will run unit tests using the Jest testing framework.
 Jest emulates a browser using JSDom so these tests should be able to run on
 environments without a browser installed (i.e. CI pipelines).
 
+## End-to-end testing
+
+Running `npm run e2e` will run the tests using Cypress in a CI format. Running
+`npm run e2e:watch` will run the Cypress tests interactively and watch for any
+code changes.
+
 # Developing and running the back-end
 
 To get the back-end to work, the configuration file and SQLite databases need to
@@ -152,8 +158,10 @@ _Last updated January 2019_
 
 ## Core
 
-- All colours are defined as CSS variables in `apps/jblog/src/theme/colors/palette-*.css`. Refer to this file to use colours.
-- All dimensions ~~are defined~~ need to be refactored out into CSS variables and placed in the `apps/jblog/src/styles.scss :root` rule.
+- All colours are defined as CSS variables in
+  `apps/jblog/src/theme/colors/palette-*.css`. Refer to this file to use colours.
+- All dimensions ~~are defined~~ need to be refactored out into CSS variables
+  and placed in the `apps/jblog/src/styles.scss :root` rule.
 
 ## Basics
 
