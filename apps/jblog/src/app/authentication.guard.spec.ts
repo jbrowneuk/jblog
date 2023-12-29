@@ -2,11 +2,7 @@ import { of } from 'rxjs';
 import { IMock, It, Mock, Times } from 'typemoq';
 
 import { TestBed } from '@angular/core/testing';
-import {
-  ActivatedRouteSnapshot,
-  Router,
-  RouterStateSnapshot
-} from '@angular/router';
+import { Router, RouterState } from '@angular/router';
 
 import { AuthenticationGuard } from './authentication.guard';
 import { UserService } from './services/user.service';
@@ -16,8 +12,7 @@ describe('AuthenticationGuard', () => {
   let mockRouter: IMock<Router>;
   let guard: AuthenticationGuard;
 
-  let mockStateSnapshot: IMock<RouterStateSnapshot>;
-  let mockRouteSnapshot: IMock<ActivatedRouteSnapshot>;
+  let mockRouterState: IMock<RouterState>;
 
   beforeEach(() => {
     mockUserService = Mock.ofType<UserService>();
@@ -33,10 +28,7 @@ describe('AuthenticationGuard', () => {
 
     guard = TestBed.inject(AuthenticationGuard);
 
-    mockStateSnapshot = Mock.ofType<RouterStateSnapshot>();
-    mockStateSnapshot.setup(s => s.url).returns(() => 'mock-url');
-
-    mockRouteSnapshot = Mock.ofType<ActivatedRouteSnapshot>();
+    mockRouterState = Mock.ofType<RouterState>();
   });
 
   it('should initialise', () => {
@@ -49,103 +41,7 @@ describe('AuthenticationGuard', () => {
         .setup(s => s.fetchUser())
         .returns(() => of({ uid: 'mock' }));
 
-      guard
-        .canActivate(mockRouteSnapshot.object, mockStateSnapshot.object)
-        .subscribe({
-          next: actual => {
-            expect(actual).toBeTruthy();
-            done();
-          }
-        });
-    });
-
-    it('should return false if user is not logged in', done => {
-      mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
-
-      guard
-        .canActivate(mockRouteSnapshot.object, mockStateSnapshot.object)
-        .subscribe({
-          next: actual => {
-            expect(actual).toBeFalsy();
-            done();
-          }
-        });
-    });
-
-    it('should redirect if user is not logged in', done => {
-      mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
-
-      guard
-        .canActivate(mockRouteSnapshot.object, mockStateSnapshot.object)
-        .subscribe({
-          next: () => {
-            mockRouter.verify(
-              r => r.navigate(It.isValue(['/login']), It.isAny()),
-              Times.once()
-            );
-
-            done();
-          }
-        });
-    });
-  });
-
-  describe('canActivateChild', () => {
-    it('should return true if user is logged in', done => {
-      mockUserService
-        .setup(s => s.fetchUser())
-        .returns(() => of({ uid: 'mock' }));
-
-      guard
-        .canActivateChild(mockRouteSnapshot.object, mockStateSnapshot.object)
-        .subscribe({
-          next: actual => {
-            expect(actual).toBeTruthy();
-            done();
-          }
-        });
-    });
-
-    it('should return false if user is not logged in', done => {
-      mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
-
-      guard
-        .canActivateChild(mockRouteSnapshot.object, mockStateSnapshot.object)
-        .subscribe({
-          next: actual => {
-            expect(actual).toBeFalsy();
-            done();
-          }
-        });
-    });
-
-    it('should redirect if user is not logged in', done => {
-      mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
-
-      guard
-        .canActivateChild(mockRouteSnapshot.object, mockStateSnapshot.object)
-        .subscribe({
-          next: () => {
-            mockRouter.verify(
-              r => r.navigate(It.isValue(['/login']), It.isAny()),
-              Times.once()
-            );
-
-            done();
-          }
-        });
-    });
-  });
-
-  describe('canLoad', () => {
-    const mockRoute = { path: 'mock-url' };
-
-    it('should return true if user is logged in', done => {
-      mockUserService
-        .setup(s => s.fetchUser())
-        .returns(() => of({ uid: 'mock' }));
-
-      guard.canLoad(mockRoute).subscribe({
+      guard.canActivate(mockRouterState.object).subscribe({
         next: actual => {
           expect(actual).toBeTruthy();
           done();
@@ -156,7 +52,7 @@ describe('AuthenticationGuard', () => {
     it('should return false if user is not logged in', done => {
       mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
 
-      guard.canLoad(mockRoute).subscribe({
+      guard.canActivate(mockRouterState.object).subscribe({
         next: actual => {
           expect(actual).toBeFalsy();
           done();
@@ -167,7 +63,91 @@ describe('AuthenticationGuard', () => {
     it('should redirect if user is not logged in', done => {
       mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
 
-      guard.canLoad(mockRoute).subscribe({
+      guard.canActivate(mockRouterState.object).subscribe({
+        next: () => {
+          mockRouter.verify(
+            r => r.navigate(It.isValue(['/login']), It.isAny()),
+            Times.once()
+          );
+
+          done();
+        }
+      });
+    });
+  });
+
+  describe('canActivateChild', () => {
+    it('should return true if user is logged in', done => {
+      mockUserService
+        .setup(s => s.fetchUser())
+        .returns(() => of({ uid: 'mock' }));
+
+      guard.canActivateChild(mockRouterState.object).subscribe({
+        next: actual => {
+          expect(actual).toBeTruthy();
+          done();
+        }
+      });
+    });
+
+    it('should return false if user is not logged in', done => {
+      mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
+
+      guard.canActivateChild(mockRouterState.object).subscribe({
+        next: actual => {
+          expect(actual).toBeFalsy();
+          done();
+        }
+      });
+    });
+
+    it('should redirect if user is not logged in', done => {
+      mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
+
+      guard.canActivateChild(mockRouterState.object).subscribe({
+        next: () => {
+          mockRouter.verify(
+            r => r.navigate(It.isValue(['/login']), It.isAny()),
+            Times.once()
+          );
+
+          done();
+        }
+      });
+    });
+  });
+
+  describe('canLoad', () => {
+    // const mockRoute = { path: 'mock-url' };
+
+    it('should return true if user is logged in', done => {
+      mockUserService
+        .setup(s => s.fetchUser())
+        .returns(() => of({ uid: 'mock' }));
+
+      guard.canLoad(mockRouterState.object).subscribe({
+        next: actual => {
+          expect(actual).toBeTruthy();
+          done();
+        }
+      });
+    });
+
+    it('should return false if user is not logged in', done => {
+      mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
+
+      guard.canLoad(mockRouterState.object).subscribe({
+        next: actual => {
+          expect(actual).toBeFalsy();
+          done();
+        }
+      });
+    });
+
+    it('should redirect if user is not logged in', done => {
+      mockUserService.setup(s => s.fetchUser()).returns(() => of(null));
+
+      guard.canLoad(mockRouterState.object).subscribe({
         next: () => {
           mockRouter.verify(
             r => r.navigate(It.isValue(['/login']), It.isAny()),

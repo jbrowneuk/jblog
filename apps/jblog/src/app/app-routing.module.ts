@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule, inject } from '@angular/core';
+import { Router, RouterModule, Routes } from '@angular/router';
 
 import { AuthenticationGuard } from './authentication.guard';
 import { ErrorComponent } from './error/error.component';
@@ -26,7 +26,9 @@ const appRoutes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-    canLoad: [AuthenticationGuard]
+    canLoad: [
+      () => inject(AuthenticationGuard).canLoad(inject(Router).routerState)
+    ]
   },
   { path: 'code', redirectTo: 'projects/code' },
   { path: '**', component: ErrorComponent, data: { sectionId: 0 } }

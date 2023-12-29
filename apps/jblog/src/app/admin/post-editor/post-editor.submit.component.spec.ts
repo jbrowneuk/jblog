@@ -115,6 +115,11 @@ describe('PostEditorComponent - Submit form', () => {
   });
 
   it('should not redirect if post submission failed', done => {
+    // Hide the log for this test
+    const mockConsole = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+
     mockPostAdminService
       .setup(s => s.sendPost(It.isAny()))
       .returns(() => throwError(() => new Error('failed')));
@@ -123,6 +128,8 @@ describe('PostEditorComponent - Submit form', () => {
 
     setTimeout(() => {
       mockRouter.verify(r => r.navigate(It.isAny(), It.isAny()), Times.never());
+      expect(mockConsole).toHaveBeenCalled();
+      mockConsole.mockRestore();
       done();
     });
   });

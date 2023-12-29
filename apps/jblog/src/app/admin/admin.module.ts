@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 
 import { AuthenticationGuard } from '../authentication.guard';
 import { SharedModule } from '../shared/shared.module';
@@ -14,12 +14,19 @@ const adminRoutes: Routes = [
   {
     path: '',
     component: AdminComponent,
-    canActivate: [AuthenticationGuard],
+    canActivate: [
+      () => inject(AuthenticationGuard).canActivate(inject(Router).routerState)
+    ],
     data: { sectionId: sectionId },
     children: [
       {
         path: 'posts',
-        canActivateChild: [AuthenticationGuard],
+        canActivateChild: [
+          () =>
+            inject(AuthenticationGuard).canActivateChild(
+              inject(Router).routerState
+            )
+        ],
         children: [
           { path: 'create', component: PostEditorComponent },
           { path: 'edit/:id', component: PostEditorComponent },
