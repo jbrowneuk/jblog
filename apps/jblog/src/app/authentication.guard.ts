@@ -2,47 +2,29 @@ import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  CanActivateChild,
-  CanLoad,
-  Route,
-  Router,
-  RouterStateSnapshot
-} from '@angular/router';
+import { Router, RouterState } from '@angular/router';
 
 import { UserService } from './services/user.service';
 
-// TODO: fix deprecations - see:
-// https://angular.io/guide/deprecations#router-class-and-injectiontoken-guards-and-resolvers
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationGuard
-  implements CanActivate, CanActivateChild, CanLoad
-{
+export class AuthenticationGuard {
   constructor(private userService: UserService, private router: Router) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.checkLogin(state.url);
+  canActivate(routerState: RouterState): Observable<boolean> {
+    return this.checkLogin(routerState);
   }
 
-  canActivateChild(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.checkLogin(state.url);
+  canActivateChild(routerState: RouterState): Observable<boolean> {
+    return this.checkLogin(routerState);
   }
 
-  canLoad(route: Route): Observable<boolean> {
-    return this.checkLogin(route.path);
+  canLoad(routerState: RouterState): Observable<boolean> {
+    return this.checkLogin(routerState);
   }
 
-  private checkLogin(url?: string): Observable<boolean> {
+  private checkLogin(routerState?: RouterState): Observable<boolean> {
     return this.userService.fetchUser().pipe(
       take(1),
       map(user => {
@@ -50,8 +32,8 @@ export class AuthenticationGuard
           return true;
         }
 
-        const navigationOpts = url
-          ? { queryParams: { returnTo: url } }
+        const navigationOpts = routerState
+          ? { queryParams: { returnTo: routerState.snapshot.url } }
           : undefined;
 
         this.router.navigate(['/login'], navigationOpts);
