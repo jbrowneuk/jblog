@@ -28,6 +28,11 @@
             "output": "assets/thirdparty/normalize/"
           },
           {
+            "glob": "**/*.*",
+            "input": "node_modules/line-awesome/dist/line-awesome/",
+            "output": "assets/thirdparty/la/"
+          },
+          {
             "glob": "**/*.css",
             "input": "node_modules/@jbrowneuk/style-bundle",
             "output": "theme/"
