@@ -29,8 +29,11 @@ composer.phar
 !.vscode/extensions.json
 .history/*
 
+# Framework caches
+.nx/cache
+.angular
+
 # Miscellaneous
-/.angular/cache
 .sass-cache/
 /connect.lock
 /coverage
