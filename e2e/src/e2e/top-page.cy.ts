@@ -8,6 +8,7 @@ describe('Top page', () => {
   beforeEach(() => {
     cy.visit('/');
     appPage = new AppPageObject();
+    topPage = new TopPageObject();
   });
 
   it('should visit page', () => {});
@@ -18,6 +19,7 @@ describe('Top page', () => {
 
   describe('first slide', () => {
     beforeEach(() => {
+      topPage.slideButton1.should('exist');
       topPage.slideButton1.click();
     });
 
@@ -36,6 +38,7 @@ describe('Top page', () => {
 
   describe('second slide', () => {
     beforeEach(() => {
+      topPage.slideButton2.should('exist');
       topPage.slideButton2.click();
     });
 
@@ -46,6 +49,7 @@ describe('Top page', () => {
 
   describe('third slide', () => {
     beforeEach(() => {
+      topPage.slideButton3.should('exist');
       topPage.slideButton3.click();
     });
 
