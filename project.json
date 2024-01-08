@@ -1,0 +1,116 @@
+{
+  "name": "jblog",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "jblog",
+  "sourceRoot": "./src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/jblog",
+        "index": "./src/index.html",
+        "browser": "./src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "./tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "stylePreprocessorOptions": {
+          "includePaths": ["./src/theme"]
+        },
+        "assets": [
+          "./src/favicon.ico",
+          "./src/assets",
+          {
+            "glob": "**/*.css",
+            "input": "node_modules/normalize.css/",
+            "output": "assets/thirdparty/normalize/"
+          },
+          {
+            "glob": "**/*.*",
+            "input": "node_modules/line-awesome/dist/line-awesome/",
+            "output": "assets/thirdparty/la/"
+          },
+          {
+            "glob": "**/*.css",
+            "input": "node_modules/@jbrowneuk/style-bundle",
+            "output": "theme/"
+          }
+        ],
+        "styles": ["./src/styles.scss"],
+        "scripts": ["node_modules/marked/marked.min.js"]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "600kb",
+              "maximumError": "750kb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all",
+          "optimization": {
+            "scripts": true,
+            "fonts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            }
+          }
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "jblog:build:production"
+        },
+        "development": {
+          "buildTarget": "jblog:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "jblog:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["./src"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectName}"],
+      "options": {
+        "jestConfig": "jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "jblog:build",
+        "staticFilePath": "dist/jblog/browser"
+      }
+    }
+  }
+}
