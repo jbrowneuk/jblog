@@ -174,7 +174,9 @@ class ApiModule {
       "thumbnail"         => $this->thumbnailUrl . $image->getImageUri(),
       "src"               => $this->imageUrl . $image->getImageUri(),
       "containingAlbums"  => $containingGalleries,
-      "featured"          => $isFeatured
+      "featured"          => $isFeatured,
+      "horizontal"        => $image->isHorizontal(),
+      "dimensions"        => $image->dimensions()
     );
   }
 
