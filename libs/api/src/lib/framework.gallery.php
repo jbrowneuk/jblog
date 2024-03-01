@@ -17,6 +17,8 @@ class GalleryImage
     $this->imageFile =    $dbRow["file"];
     $this->title =        $dbRow["title"];
     $this->date =         $dbRow["image_date"];
+    $this->width =        $dbRow["width"];
+    $this->height =       $dbRow["height"];
   }
 
   public function getId()
@@ -47,6 +49,16 @@ class GalleryImage
   public function getGalleries()
   {
     return $this->galleries;
+  }
+
+  public function isHorizontal()
+  {
+    return $this->width >= $this->height;
+  }
+
+  public function dimensions()
+  {
+    return array('width' => $this->width, 'height' => $this->height);
   }
 }
 
@@ -95,7 +107,7 @@ class GalleryAlbumList extends ArrayObject
     $database->setTableScope('albums');
     $where = array('album_id' => $albumId);
     $options = array('LIMIT' => 1);
-    $resultSet = $database->getWhere("ALL", $where, $options);
+    $resultSet = $database->getWhere('ALL', $where, $options);
     if (count($resultSet) == 0)
     {
       return null;
@@ -109,7 +121,7 @@ class GalleryAlbumList extends ArrayObject
     $database->setTableScope('albums');
     $where = array('name' => $albumName);
     $options = array('LIMIT' => 1);
-    $resultSet = $database->getWhere("ALL", $where, $options);
+    $resultSet = $database->getWhere('ALL', $where, $options);
     if (count($resultSet) == 0)
     {
       return null;
@@ -165,7 +177,7 @@ class GalleryImageList extends ArrayObject
     $database->setTableScope('gallery');
     $where = array('image_id' => $imageId);
     $options = array('LIMIT' => 1);
-    $resultSet = $database->getWhere("ALL", $where, $options);
+    $resultSet = $database->getWhere('ALL', $where, $options);
     if (count($resultSet) == 0)
     {
       return null;
