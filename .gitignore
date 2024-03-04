@@ -49,12 +49,10 @@ Thumbs.db
 /libs/api/src/conf/*.sqlite
 /libs/api/src/conf/settings.php
 /libs/api/src/vendor
-/public/theme
 
 # Potential secrets
 *.key
 *.key.pub
 
 # Third-party assets
-/public/thirdparty
-/apps/jblog/src/assets/thirdparty
+/src/assets/thirdparty
