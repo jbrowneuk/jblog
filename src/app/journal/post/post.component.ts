@@ -4,8 +4,7 @@ import { PostData } from '../../model/post-data';
 
 @Component({
   selector: 'jblog-post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss']
+  templateUrl: './post.component.html'
 })
 export class PostComponent {
   @Input() public postData?: PostData;

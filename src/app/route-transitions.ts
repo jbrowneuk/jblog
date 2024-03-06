@@ -89,8 +89,8 @@ export const TRANSITIONS = [
   trigger('routerAnimations', [
     transition(':increment', increaseSectionId),
     transition(':decrement', decreaseSectionId),
-    transition('* => licenses, * => login', decreaseSectionId),
-    transition('licenses => *, login => *', increaseSectionId)
+    transition('* => licenses, * => login', increaseSectionId),
+    transition('licenses => *, login => *', decreaseSectionId)
   ]),
   trigger('footerAnimations', [transition('* => *', footerQuery)])
 ];

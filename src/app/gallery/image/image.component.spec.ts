@@ -143,10 +143,10 @@ describe('Image Component', () => {
       const tagListElements = pageObject.tags;
       expect(tagListElements.length).toBe(2);
       expect(`${tagListElements[0].textContent}`.trim()).toBe(
-        MOCK_IMAGEDATA.containingAlbums[0].title
+        `#${MOCK_IMAGEDATA.containingAlbums[0].title}`
       );
       expect(`${tagListElements[1].textContent}`.trim()).toBe(
-        MOCK_IMAGEDATA.containingAlbums[1].title
+        `#${MOCK_IMAGEDATA.containingAlbums[1].title}`
       );
     });
 

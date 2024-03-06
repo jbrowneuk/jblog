@@ -1,27 +1,31 @@
 #login-container {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  overflow: hidden;
   max-width: 800px;
   margin: 0 auto;
+  overflow: hidden;
+  background: var(--page_color_background);
+  color: var(--page_color_foreground);
+  border-radius: var(--generic_border_radius);
 }
 
 #login-form,
-#side-blurb {
+#side-image {
   grid-row: 1;
 }
 
 #login-form {
   grid-column: 2;
+  padding: 20px;
 }
 
-#side-blurb {
+#side-image {
   grid-column: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-dashboard-side-background);
-  color: var(--color-dashboard-side-foreground);
+  background-color: var(--page-footer_color_background);
+  color: var(--page-footer_color_icon);
 }
 
 .top-area {
@@ -33,8 +37,7 @@
 }
 
 .form-row,
-.error-row,
-.button-container {
+.error-row {
   position: relative;
   margin: 0 16px 16px;
 
@@ -51,7 +54,7 @@
 }
 
 .error-row {
-  color: var(--color-error);
+  color: var(--error_color);
 
   .error-text {
     display: block;

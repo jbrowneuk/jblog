@@ -1,0 +1,21 @@
+:root {
+  --toolbar-item_margin_horizontal: 10px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toolbar .spacer {
+  margin: auto;
+}
+
+.toolbar .left-side {
+  margin-right: var(--toolbar-item_margin_horizontal);
+}
+
+.toolbar .right-side {
+  margin-left: var(--toolbar-item_margin_horizontal);
+}

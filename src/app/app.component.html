@@ -1,63 +1,63 @@
-<header id="page-header" data-test="page-header">
+<header id="page-header">
   <div id="sticky-menu">
     <nav id="menu" class="container">
-      <div class="pane left">
-        <a class="home-link" data-test="home-icon" [routerLink]="['/']">
-          <svg class="icon"><use xlink:href="#sitesheet-logo" /></svg>
-        </a>
-      </div>
-      <div class="pane central">
-        <ul class="links">
-          <li>
-            <a
-              class="hide-when-small"
-              [routerLink]="['/']"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              data-test="home-link"
-              >portfolio</a
-            >
-          </li>
-          <li>
-            <a
-              [routerLink]="['/about']"
-              routerLinkActive="active"
-              data-test="about-link"
-              >about</a
-            >
-          </li>
-          <li>
-            <a
-              [routerLink]="['/art']"
-              routerLinkActive="active"
-              data-test="art-link"
-              >art</a
-            >
-          </li>
-          <li>
-            <a
-              [routerLink]="['/projects/code']"
-              routerLinkActive="active"
-              data-test="projects-link"
-              >projects</a
-            >
-          </li>
-          <li>
-            <a
-              [routerLink]="['/journal']"
-              routerLinkActive="active"
-              data-test="journal-link"
-              >posts</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="pane right">
-        <jblog-user-menu></jblog-user-menu>
-      </div>
+      <a [routerLink]="['/']" class="home-link">
+        <svg
+          class="link-icon"
+          viewBox="0 0 48 48"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <use href="#sitesheet-logo"></use>
+        </svg>
+        <span class="link-text hide-sm">Jason Browne</span>
+      </a>
+      <ul id="nav-links">
+        <li>
+          <a
+            [routerLink]="['/']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            data-nav-link
+            data-test="home-link"
+            class="hide-md hide-sm"
+            >portfolio</a
+          >
+        </li>
+        <li>
+          <a
+            [routerLink]="['/projects/code']"
+            routerLinkActive="active"
+            data-nav-link
+            data-test="projects-link"
+            >projects</a
+          >
+        </li>
+        <li>
+          <a
+            [routerLink]="['/art']"
+            routerLinkActive="active"
+            data-nav-link
+            data-test="art-link"
+            >art</a
+          >
+        </li>
+        <li>
+          <a
+            [routerLink]="['/journal']"
+            routerLinkActive="active"
+            data-nav-link
+            data-test="journal-link"
+            >posts</a
+          >
+        </li>
+        <li>
+          <jblog-user-menu></jblog-user-menu>
+        </li>
+      </ul>
     </nav>
   </div>
 </header>
+
 <main
   id="page-content"
   [@routerAnimations]="prepareRouteTransition(outlet)"
@@ -65,16 +65,53 @@
 >
   <router-outlet #outlet="outlet"></router-outlet>
 </main>
-<footer
-  id="page-footer"
-  class="page-footer"
-  [@footerAnimations]="prepareRouteTransition(outlet)"
->
+
+<footer id="page-footer" [@footerAnimations]="prepareRouteTransition(outlet)">
   <div class="container">
-    <div class="text-line top-border">
-      Powered by <a href="//angular.io">Angular</a>. Full attribution can be
-      found <a [routerLink]="['licenses']" data-test="licenses-link">here</a>.
+    <svg
+      id="backdrop-icon"
+      viewBox="0 0 48 48"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <use href="#sitesheet-logo"></use>
+    </svg>
+    <div id="site-map">
+      <svg
+        id="site-icon"
+        viewBox="0 0 48 48"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <use href="#sitesheet-logo"></use>
+      </svg>
+      <div class="map-list">
+        <header>Portfolio</header>
+        <ul>
+          <li><a [routerLink]="['/']">Home</a></li>
+          <li><a [routerLink]="['/art']">Art</a></li>
+          <li><a [routerLink]="['/projects/code']">Projects</a></li>
+          <li><a [routerLink]="['/journal']">Posts</a></li>
+        </ul>
+      </div>
+      <div class="map-list">
+        <header>Connect</header>
+        <ul>
+          <li><a href="//github.com/jbrowneuk">GitHub</a></li>
+          <li><a href="//linkedin.com/in/jbrowneuk">LinkedIn</a></li>
+          <li><a href="//jbrowne.io/discord">Discord</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="text-line">&copy;2004&ndash;{{ currentYear }} Jason Browne</div>
+  </div>
+  <div id="legal-stuff">
+    <div class="container">
+      <div class="text-container">
+        <p>
+          <a [routerLink]="['/licenses']" data-test="licenses-link"
+            >Open Source Licenses</a
+          >
+        </p>
+        <p>&copy;2004&ndash;{{ currentYear }} Jason Browne</p>
+      </div>
+    </div>
   </div>
 </footer>

@@ -1,0 +1,11 @@
+::-moz-selection {
+  color: var(--selection_color_foreground);
+  -webkit-text-fill-color: var(--selection_color_foreground);
+  background-color: var(--selection_color_background);
+}
+
+::selection {
+  color: var(--selection_color_foreground);
+  -webkit-text-fill-color: var(--selection_color_foreground);
+  background-color: var(--selection_color_background);
+}

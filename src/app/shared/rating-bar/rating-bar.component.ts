@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class RatingBarComponent {
   @Input() public value = 0;
   @Input() public amount = 10;
+  @Input() public variant = '';
 
   public get dotValues(): boolean[] {
     if (this.amount === 0) {

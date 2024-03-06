@@ -1,30 +1,30 @@
+import { MockPipe } from 'ng-mocks';
+import { take } from 'rxjs';
 import { IMock, It, Mock, Times } from 'typemoq';
 
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { PageObjectBase } from '../../lib/testing/page-object.base';
 import { LineSplittingPipe } from '../../shared/line-splitting.pipe';
 import { TitleService } from '../../shared/title.service';
-// Classes under test
 import { ProjectListComponent } from './project-list.component';
 
 describe('ProjectListComponent', () => {
   let mockTitleService: IMock<TitleService>;
-
   let component: ProjectListComponent;
   let fixture: ComponentFixture<ProjectListComponent>;
   let pageObject: ProjectListObject;
-  let compiled: HTMLElement;
 
   beforeEach(() => {
     mockTitleService = Mock.ofType<TitleService>();
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [LineSplittingPipe, ProjectListComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      imports: [CommonModule, RouterTestingModule],
+      declarations: [MockPipe(LineSplittingPipe), ProjectListComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: TitleService, useFactory: () => mockTitleService.object }
       ]
@@ -35,7 +35,6 @@ describe('ProjectListComponent', () => {
     fixture = TestBed.createComponent(ProjectListComponent);
     pageObject = new ProjectListObject(fixture);
     component = fixture.componentInstance;
-    compiled = fixture.debugElement.nativeElement;
     fixture.detectChanges();
   });
 
@@ -48,17 +47,39 @@ describe('ProjectListComponent', () => {
     expect(pageObject.githubBlurb).toBeTruthy();
   });
 
-  it('should change page title', () => {
+  it('should change page title when initialised', () => {
     mockTitleService.verify(x => x.setTitle(It.isValue('Code')), Times.once());
+  });
+
+  describe('Archive visibility', () => {
+    it('should set archive visibility on setArchiveVisible', done => {
+      const values: boolean[] = [];
+
+      // take(2) here takes the initial value (it's a BehaviorSubject) and the first emitted after that
+      component.archiveVisible$.pipe(take(2)).subscribe({
+        next: value => {
+          values.push(value);
+
+          if (values.length === 2) {
+            expect(values).toEqual([false, true]);
+            done();
+          }
+        }
+      });
+
+      component.setArchiveVisible(!component.archiveVisible$.value);
+    });
+
+    // it('should not set archive visibility if set to the same value', done => {});
   });
 });
 
 class ProjectListObject extends PageObjectBase<ProjectListComponent> {
   get projectBlurb() {
-    return this.select('#projects-blurb p');
+    return this.selectByDataAttribute('project-blurb');
   }
 
   get githubBlurb() {
-    return this.select('#github-blurb h1');
+    return this.selectByDataAttribute('github-blurb');
   }
 }

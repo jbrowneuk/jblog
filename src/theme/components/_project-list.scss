@@ -1,0 +1,43 @@
+@import 'variables';
+
+.project-list-section .text-area {
+  grid-column: 1 / span 8;
+}
+
+.project-list-section .project-info {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none inside;
+  color: var(--page_color_foreground-secondary);
+
+  li {
+    margin-right: 20px;
+  }
+}
+
+.project-list-section .image-area {
+  grid-column: 9 / span 4;
+  text-align: right;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .project-icon-archived {
+    font-size: 10em;
+  }
+}
+
+@media screen and (max-width: $breakpoint-md) {
+  .project-list-section .text-area {
+    grid-column-start: 1;
+    grid-column-end: -1;
+  }
+
+  .project-list-section .image-area {
+    display: none;
+  }
+}

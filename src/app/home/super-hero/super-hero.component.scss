@@ -1,0 +1,14 @@
+#tagline {
+  font-size: 18px;
+}
+
+.scroll-bouncer {
+  position: absolute;
+  bottom: 20px;
+  font-size: 40px;
+
+  .icon {
+    position: relative;
+    animation: gentle-v-bounce 2s ease-in-out infinite alternate;
+  }
+}

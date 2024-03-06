@@ -1,0 +1,21 @@
+@import 'variables';
+
+$max-md-breakpoint: $breakpoint-md - 1;
+
+@media screen and (max-width: $max-md-breakpoint) {
+  #skills-grid {
+    grid-template-columns: 1fr;
+
+    #work-experience {
+      order: 2;
+    }
+
+    #skill-set {
+      order: 1;
+    }
+
+    #education {
+      order: 3;
+    }
+  }
+}

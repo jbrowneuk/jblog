@@ -1,0 +1,44 @@
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  box-sizing: border-box;
+  font-family: Nunito Sans, Arial, sans-serif;
+  font-size: var(--page_font_size-default);
+  line-height: 1.5;
+  background: var(--page_color_background);
+  color: var(--page_color_foreground);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 300;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+main {
+  flex-grow: 1;
+}
+
+a {
+  color: var(--link_color_default);
+
+  &:hover {
+    color: var(--link_color_hover);
+  }
+}

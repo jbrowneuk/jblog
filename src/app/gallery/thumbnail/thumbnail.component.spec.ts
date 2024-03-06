@@ -1,31 +1,29 @@
+import { MockPipe } from 'ng-mocks';
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { PageObjectBase } from '../../lib/testing/page-object.base';
 import { GalleryFormatPipe } from '../gallery-format.pipe';
+import { MOCK_IMAGEDATA } from '../mocks/mock-data';
 import { ThumbnailComponent } from './thumbnail.component';
 
-const mockImageInfo = {
-  id: 1,
-  title: 'title',
-  date: Date.now(),
-  description: 'description',
-  thumbnail: './thumb.jpg',
-  src: './src.jpg',
-  containingAlbums: [{ name: 'album', title: 'Album' }],
-  featured: false
-};
+const testGallerySeparator = '|';
 
 describe('ThumbnailComponent', () => {
   let component: ThumbnailComponent;
   let fixture: ComponentFixture<ThumbnailComponent>;
   let componentObject: ComponentObject;
-  let compiled: HTMLElement;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [GalleryFormatPipe, ThumbnailComponent]
+      declarations: [
+        ThumbnailComponent,
+        MockPipe(GalleryFormatPipe, (galleries: any[]) =>
+          galleries.map(g => g.title).join(testGallerySeparator)
+        )
+      ]
     }).compileComponents();
   });
 
@@ -33,31 +31,37 @@ describe('ThumbnailComponent', () => {
     fixture = TestBed.createComponent(ThumbnailComponent);
     componentObject = new ComponentObject(fixture);
     component = fixture.componentInstance;
-    component.data = mockImageInfo;
-    compiled = fixture.debugElement.nativeElement;
+    component.data = MOCK_IMAGEDATA;
     fixture.detectChanges();
   });
 
-  it('should render elements correctly', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
-    const imageElement = componentObject.imageElement;
-    expect(imageElement.src.endsWith('/thumb.jpg')).toBe(true);
+  });
 
-    expect(`${componentObject.title.textContent}`.trim()).toBe('title');
-    expect(`${componentObject.galleries.textContent}`.trim()).toBe('Album');
+  it('should render elements correctly', () => {
+    const imageElement = componentObject.imageElement;
+    expect(imageElement.src.endsWith(MOCK_IMAGEDATA.thumbnail)).toBe(true); // .endsWith() as the protocol will be added
+
+    expect(componentObject.titleText).toBe(MOCK_IMAGEDATA.title);
+
+    const expectedTitles = MOCK_IMAGEDATA.containingAlbums
+      .map(g => g.title)
+      .join(testGallerySeparator);
+    expect(componentObject.galleriesText).toBe(expectedTitles);
   });
 });
 
 class ComponentObject extends PageObjectBase<ThumbnailComponent> {
-  get title() {
-    return this.select('.text-area .title');
+  get titleText() {
+    return this.selectByDataAttribute('title').textContent?.trim();
   }
 
-  get galleries() {
-    return this.select('.text-area .galleries');
+  get galleriesText() {
+    return this.selectByDataAttribute('galleries').textContent?.trim();
   }
 
   get imageElement() {
-    return this.select<HTMLImageElement>('.image-area img');
+    return this.selectByDataAttribute('image') as HTMLImageElement;
   }
 }

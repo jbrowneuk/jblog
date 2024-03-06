@@ -1,8 +1,10 @@
 <span class="sr-only">{{ value }} out of {{ amount }}</span>
-<span
-  *ngFor="let dot of dotValues"
-  class="dot"
-  [class.filled]="dot"
-  role="presentation"
-  data-dot
-></span>
+<span class="rating-bar">
+  <span
+    *ngFor="let dot of dotValues"
+    class="dot"
+    [class.filled]="dot"
+    role="presentation"
+    data-dot
+  ></span>
+</span>

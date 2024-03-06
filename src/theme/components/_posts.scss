@@ -1,0 +1,137 @@
+@import 'variables';
+
+/* Global post styles, for use outside post list if required */
+main :nth-child(even of .post),
+main :nth-child(even of jblog-post) .post {
+  background: var(--page-section_color_background-alternate);
+}
+
+/* Post styles (shared with journal and gallery */
+:root {
+  --post-content_margin_top: 40px;
+  --post-content_margin_bottom: var(--post-content_margin_top);
+
+  --calendar_dimension: 72px;
+}
+
+.post {
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--post-content_margin_top);
+
+    time {
+      display: flex;
+      flex-direction: column;
+      min-width: var(--calendar_dimension);
+      min-height: var(--calendar_dimension);
+      margin-left: 0.5em;
+      background: var(--calendar_color_background);
+      box-shadow: 0 2px 4px var(--generic_color_shadow);
+    }
+
+    time .day,
+    time .month {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 4px;
+    }
+
+    time .day {
+      order: 2;
+      font-size: 30px;
+    }
+
+    time .month {
+      order: 1;
+      font-size: 12px;
+      background-color: var(--calendar_color_background-title);
+      color: var(--calendar_color_foreground-title);
+    }
+  }
+
+  footer {
+    margin-top: var(--post-content_margin_bottom);
+  }
+
+  .outdated-content {
+    display: flex;
+    overflow: hidden;
+    border: 1px solid var(--error_color);
+    border-radius: var(--generic_border_radius);
+    background: var(--page_color_background);
+    color: var(--error_color);
+
+    .icon {
+      padding: 5px;
+      font-size: 32px;
+      background: var(--error_color);
+      color: var(--page_color_background);
+    }
+
+    .text {
+      padding: 5px 10px;
+      align-self: center;
+    }
+  }
+
+  .tags-area {
+    list-style: none inside;
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+    .tag-container {
+      margin-left: 0.25em;
+    }
+  }
+
+  // Styles for items in the post area
+  img.posted {
+    max-width: 100%;
+    height: auto;
+  }
+
+  figure figcaption {
+    font-style: italic;
+  }
+
+  // Skeleton loader style
+  &.skeleton {
+    h1 {
+      height: 1em;
+      width: 50%;
+    }
+
+    time .month {
+      height: 18px;
+    }
+
+    .paragraph {
+      height: 15em;
+    }
+  }
+}
+
+/* Mobile devices */
+@media screen and (max-width: $breakpoint-sm) {
+  .post {
+    --post-content_margin_top: 20px;
+  }
+
+  .post header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    time {
+      order: 0;
+      margin: 0 auto var(--post-content_margin_top);
+    }
+
+    h1 {
+      order: 1;
+    }
+  }
+}

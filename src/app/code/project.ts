@@ -28,4 +28,10 @@ export interface Project {
 
   /** Number of forks of the GitHub repository */
   forks: number;
+
+  /** Number of open issues */
+  issues: number;
+
+  /** Last updated timestamp */
+  lastUpdated: Date;
 }

@@ -1,56 +1,80 @@
-<div class="gallery-info" *ngIf="isLoadingAlbumData">
-  <div class="container">
-    <h1 class="title">Loading…</h1>
-    <div class="spacer"></div>
-    <div class="button-container">
-      <a routerLink="/art/albums" class="primary" id="album-choice">
-        <i class="las icon-fw la-images" aria-hidden="true"></i> Pick a
-        different album
-      </a>
+<!-- Loading state -->
+<ng-container *ngIf="isLoadingAlbumData; else loadedAlbumData">
+  <!-- Hero -->
+  <section id="page-hero" class="page-section small-hero">
+    <div class="container">
+      <div class="toolbar">
+        <h1>Loading…</h1>
+        <div class="spacer"></div>
+        <a
+          routerLink="/art/albums"
+          class="button primary right-side"
+          data-album-selector-loading-state
+          >Pick another album</a
+        >
+      </div>
     </div>
-  </div>
-</div>
+  </section>
+</ng-container>
 
-<div class="container" *ngIf="loadingFailed">
-  <h2>There was a problem</h2>
-  <p>Please <a href=".">refresh the page</a> or try again later.</p>
-</div>
-
-<div class="gallery-info" *ngIf="data">
-  <div class="container">
-    <h1 class="title">{{ data.title }}</h1>
-    <div class="spacer"></div>
-    <div class="image-count">
-      {{ data.imagesInAlbum }} image{{ data.imagesInAlbum === 1 ? '' : 's' }}
+<!-- Loading failed state -->
+<ng-container *ngIf="loadingFailed">
+  <section id="page-hero" class="page-section small-hero">
+    <div class="container">
+      <h1>Art</h1>
     </div>
-    <div class="button-container">
-      <a routerLink="/art/albums" class="primary" id="album-choice">
-        <i class="las icon-fw la-images" aria-hidden="true"></i> Pick a
-        different album
-      </a>
-    </div>
-  </div>
-</div>
+  </section>
+  <section class="page-section">
+    <article class="container">
+      <h2>Couldn’t find that album</h2>
+      <p>
+        Please try viewing <a routerLink="/art/albums">a different album</a>.
+      </p>
+    </article>
+  </section>
+</ng-container>
 
-<div id="thumbnails" *ngIf="data">
-  <div class="text-center">
+<!-- Loaded state -->
+<ng-template #loadedAlbumData>
+  <!-- Hero -->
+  <section *ngIf="data" id="page-hero" class="page-section small-hero">
+    <div class="container">
+      <div class="toolbar">
+        <h1>{{ data.title }}</h1>
+        <div class="spacer"></div>
+        <div class="secondary-text right-side" data-image-count>
+          {{ data.imagesInAlbum }}
+          <ng-container [ngPlural]="data.imagesInAlbum">
+            <ng-template ngPluralCase="=1">image</ng-template>
+            <ng-template ngPluralCase="other">images</ng-template>
+          </ng-container>
+        </div>
+        <a
+          routerLink="/art/albums"
+          class="button primary right-side"
+          data-album-selector
+          >Pick another album</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- Thumbnails -->
+  <ng-container *ngIf="data">
     <jblog-pagination
       [urlComponents]="['art', 'album', data.name]"
       [currentPage]="page"
       [totalPages]="data.totalPages"
     ></jblog-pagination>
-  </div>
-  <div class="container">
     <jblog-image-container
       [albumName]="data.name"
       [page]="page"
+      [imageCount]="11"
     ></jblog-image-container>
-  </div>
-  <div class="text-center">
     <jblog-pagination
       [urlComponents]="['art', 'album', data.name]"
       [currentPage]="page"
       [totalPages]="data.totalPages"
     ></jblog-pagination>
-  </div>
-</div>
+  </ng-container>
+</ng-template>

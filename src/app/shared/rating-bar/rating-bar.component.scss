@@ -1,4 +1,4 @@
-:host {
+.rating-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,9 +8,9 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: var(--color-progressbar-track);
+  background-color: var(--progress-bar_color_background-empty);
 
   &.filled {
-    background-color: var(--color-progressbar-active);
+    background-color: var(--progress-bar_color_background-full);
   }
 }

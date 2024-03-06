@@ -1,63 +1,102 @@
-<article
-  *ngFor="let project of projects | archivedProjects : showArchived"
-  [@visibilityFade]
->
-  <div class="grid">
-    <div class="text-area">
-      <h1>
-        <a href="{{ project.link }}" data-test="name">{{ project.name }}</a>
+<ng-container *ngIf="projects$ | async as projects; else loadingError">
+  <ng-container
+    *ngFor="let project of projects | archivedProjects : showArchived"
+  >
+    <ng-container
+      *ngTemplateOutlet="projectPost; context: { project }"
+    ></ng-container>
+  </ng-container>
 
+  <!-- -->
+
+  <div class="project-loader text-center" *ngIf="projects.length === 0">
+    <jblog-load-spinner></jblog-load-spinner>
+    <h2>Hang tight!</h2>
+    <p>Loading projects…</p>
+  </div>
+</ng-container>
+
+<ng-template #projectPost let-project="project">
+  <section
+    [@visibilityFade]
+    class="page-section post project-list-section"
+    [attr.data-project-name]="project.name"
+  >
+    <article class="container">
+      <header>
+        <h1>
+          <a href="{{ project.link }}" data-test="name">{{ project.name }}</a>
+        </h1>
         <span *ngIf="project.archived" class="archived">
           <i class="las la-box" aria-hidden="true"></i> Archived
         </span>
-      </h1>
-      <ul class="info">
-        <li data-test="language">
-          <i class="las icon-fw la-code" aria-hidden="true"></i>
-          {{ project.language }}
-        </li>
-        <li data-test="license">
-          <i class="las icon-fw la-balance-scale" aria-hidden="true"></i>
-          {{ project.license }}
-        </li>
-        <li data-test="watchers">
-          <i class="las icon-fw la-eye" aria-hidden="true"></i>
-          {{ project.watchers }}
-        </li>
-        <li data-test="stars">
-          <i class="las icon-fw la-star" aria-hidden="true"></i>
-          {{ project.stars }}
-        </li>
-        <li data-test="forks">
-          <i class="las icon-fw la-code-branch" aria-hidden="true"></i>
-          {{ project.forks }}
-        </li>
-      </ul>
-      <p data-test="description">{{ project.description }}</p>
-      <div class="button-container">
-        <a href="{{ project.link }}" data-test="link">
-          <i class="las la-rocket"></i> Go to project page
-        </a>
-      </div>
-    </div>
-    <div class="image-area">
-      <img
-        *ngIf="!project.archived"
-        src="/public/images/code/{{ project.name }}.jpg"
-        alt="project image"
-        class="rounded"
-      />
-      <i
-        *ngIf="project.archived"
-        class="las icon-fw la-box icon-10x"
-        aria-hidden="true"
-      ></i>
-    </div>
-  </div>
-</article>
+      </header>
 
-<div class="project-loader text-center" *ngIf="projects.length === 0">
-  <jblog-load-spinner></jblog-load-spinner>
-  <h2>Hang tight!</h2>
-  <p>Loading projects…</p>
-</div>
+      <div class="grid">
+        <div class="text-area">
+          <ul class="project-info">
+            <li data-project-language>
+              <i class="las la-code" aria-hidden="true"></i>
+              {{ project.language }}
+            </li>
+            <li data-project-license>
+              <i class="las la-balance-scale" aria-hidden="true"></i>
+              {{ project.license }}
+            </li>
+            <li *ngIf="project.watchers" data-project-watchers>
+              <i class="las la-eye" aria-hidden="true"></i>
+              {{ project.watchers }}
+            </li>
+            <li *ngIf="project.stars" data-project-stars>
+              <i class="las la-star" aria-hidden="true"></i>
+              {{ project.stars }}
+            </li>
+            <li *ngIf="project.forks" data-project-forks>
+              <i class="las la-code-branch" aria-hidden="true"></i>
+              {{ project.forks }}
+            </li>
+            <li data-project-last-updated>
+              <i class="las la-calendar" aria-hidden="true"></i>
+              Last updated {{ project.lastUpdated | date }}
+            </li>
+          </ul>
+
+          <p data-test="description">{{ project.description }}</p>
+
+          <div class="button-container">
+            <a
+              href="{{ project.link }}"
+              class="button neutral"
+              data-project-link
+            >
+              <i class="las la-rocket"></i> Go to project page
+            </a>
+          </div>
+        </div>
+
+        <div class="image-area">
+          <img
+            *ngIf="!project.archived"
+            src="/public/images/code/{{ project.name }}.jpg"
+            alt="project image"
+            class="rounded"
+          />
+          <i
+            *ngIf="project.archived"
+            class="las la-box project-icon-archived"
+            aria-hidden="true"
+          ></i>
+        </div>
+      </div>
+    </article>
+  </section>
+</ng-template>
+
+<ng-template #loadingError>
+  <section class="page-section">
+    <article class="container">
+      <h2>Couldn’t load GitHub projects</h2>
+      <p>The connection to GitHub failed.</p>
+    </article>
+  </section>
+</ng-template>

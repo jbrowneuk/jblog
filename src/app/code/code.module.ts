@@ -8,7 +8,7 @@ import { ProjectService } from './project.service';
 import { ArchivedProjectFilterPipe } from './projects-container/archive.pipe';
 import { ProjectsContainerComponent } from './projects-container/projects-container.component';
 
-const sectionId = 3.1;
+const sectionId = 2;
 const codeRoutes: Routes = [
   {
     path: '',

@@ -1,40 +1,49 @@
-<div id="login-container" class="base-card">
-  <form [formGroup]="loginForm" (ngSubmit)="submitForm($event)" id="login-form">
-    <h2 class="top-area">Log in</h2>
-    <div class="form-row">
-      <input
-        type="text"
-        name="username"
-        formControlName="username"
-        placeholder="e.g. dawn"
-        required
-        data-username
-      />
-      <i class="accessory las la-user-alt" aria-hidden="true"></i>
-    </div>
-    <div class="form-row">
-      <input
-        type="password"
-        name="password"
-        formControlName="password"
-        required
-        data-password
-      />
-      <i class="accessory las la-fingerprint" aria-hidden="true"></i>
-    </div>
-    <div *ngIf="loginError" class="error-row" data-error-message>
-      <i class="accessory las la-question-circle" aria-hidden="true"></i>
-      <span class="error-text">
-        Sorry, your login details seem to be incorrect. Please check them and
-        try again.
-      </span>
-    </div>
-    <div class="button-container">
-      <button type="submit" data-submit>Log in</button>
-    </div>
-  </form>
+<section id="page-hero" class="page-section">
+  <div id="login-container" class="base-card">
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="submitForm($event)"
+      id="login-form"
+    >
+      <h1 class="top-area">Log in</h1>
+      <div class="form-row">
+        <input
+          type="text"
+          name="username"
+          formControlName="username"
+          placeholder="e.g. dawn"
+          required
+          data-username
+        />
+        <i class="accessory las la-user-alt" aria-hidden="true"></i>
+      </div>
+      <div class="form-row">
+        <input
+          type="password"
+          name="password"
+          formControlName="password"
+          required
+          data-password
+        />
+        <i class="accessory las la-fingerprint" aria-hidden="true"></i>
+      </div>
+      <div *ngIf="loginError" class="error-row" data-error-message>
+        <i class="accessory las la-question-circle" aria-hidden="true"></i>
+        <span class="error-text">
+          Sorry, your login details seem to be incorrect. Please check them and
+          try again.
+        </span>
+      </div>
+      <div class="button-container">
+        <button type="submit" class="primary" data-submit>
+          <i class="las la-sign-in-alt"></i>
+          Log in
+        </button>
+      </div>
+    </form>
 
-  <div id="side-blurb">
-    <svg class="site-icon"><use xlink:href="#sitesheet-logo" /></svg>
+    <div id="side-image">
+      <svg class="site-icon"><use xlink:href="#sitesheet-logo" /></svg>
+    </div>
   </div>
-</div>
+</section>

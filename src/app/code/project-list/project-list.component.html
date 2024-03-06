@@ -1,11 +1,13 @@
-<div class="container">
-  <article id="projects-blurb">
+<section class="page-section post project-list-section" data-project-blurb>
+  <article class="container">
+    <header>
+      <h1>
+        Looking to <strong>challenge</strong> the limits of computers using
+        software
+      </h1>
+    </header>
     <div class="grid">
       <div class="text-area">
-        <h1>
-          Looking to <strong>challenge</strong> the limits of computers using
-          software
-        </h1>
         <p>
           The computer at your desk. The phone in your pocket. The console under
           your TV. Each one of these devices has the potential to be the next
@@ -35,56 +37,59 @@
       </div>
     </div>
   </article>
+</section>
 
-  <article id="github-blurb">
-    <div class="grid">
-      <div class="text-area">
-        <h1>GitHub</h1>
-        <p>
-          The code projects that you can find on this page are all hosted on my
-          GitHub profile page.
-        </p>
-        <div class="button-container">
-          <a href="//github.com/jbrowneuk" class="button primary">
-            <i class="fab icon-fw fa-github" aria-hidden="true"></i> GitHub
-            profile
-          </a>
-        </div>
-      </div>
-      <div class="image-area">
-        <i class="fab icon-fw fa-github fa-10x" aria-hidden="true"></i>
-      </div>
+<section class="page-section post" data-github-blurb>
+  <article class="container">
+    <header>
+      <h1>GitHub</h1>
+    </header>
+    <p>
+      The code projects that you can find on this page are all hosted on my
+      GitHub profile page.
+    </p>
+
+    <div class="button-container">
+      <a href="//github.com/jbrowneuk" class="button primary">
+        <i class="fab fa-github" aria-hidden="true"></i> GitHub profile
+      </a>
     </div>
   </article>
+</section>
 
-  <label for="archive-filter-toggle" class="filter-bar">
-    <i
-      class="las icon-2x icon-fw"
-      [class.la-toggle-on]="archiveFilter.checked"
-      [class.la-toggle-off]="!archiveFilter.checked"
-      aria-hidden="true"
-    ></i>
-    Archived projects
-  </label>
+<ng-container *ngTemplateOutlet="archiveBlockTemplate"></ng-container>
 
-  <input
-    type="checkbox"
-    id="archive-filter-toggle"
-    #archiveFilter
-    (change)="(1)"
-  />
+<jblog-projects-container
+  [showArchived]="(archiveVisible$ | async) || false"
+></jblog-projects-container>
 
-  <jblog-projects-container
-    [showArchived]="archiveFilter.checked"
-  ></jblog-projects-container>
+<ng-container *ngTemplateOutlet="archiveBlockTemplate"></ng-container>
 
-  <label for="archive-filter-toggle" class="filter-bar">
-    <i
-      class="las icon-2x icon-fw"
-      [class.la-toggle-on]="archiveFilter.checked"
-      [class.la-toggle-off]="!archiveFilter.checked"
-      aria-hidden="true"
-    ></i>
-    Archived projects
-  </label>
-</div>
+<ng-template #archiveBlockTemplate>
+  <!-- archiveContext is needed to prevent change after checked exception -->
+  <section
+    *ngIf="{ isVisible: (archiveVisible$ | async) || false } as archiveContext"
+    class="archive-block page-section background-dark"
+  >
+    <label class="container">
+      <i
+        class="las toggle-icon"
+        [class.la-toggle-on]="archiveContext.isVisible"
+        [class.la-toggle-off]="!archiveContext.isVisible"
+        aria-hidden="true"
+      ></i>
+      <span>
+        Archived projects are
+        <ng-container *ngIf="archiveContext.isVisible">shown</ng-container>
+        <ng-container *ngIf="!archiveContext.isVisible">hidden</ng-container>
+      </span>
+
+      <input
+        type="checkbox"
+        [checked]="archiveContext.isVisible"
+        #archiveFilter
+        (change)="setArchiveVisible(archiveFilter.checked)"
+      />
+    </label>
+  </section>
+</ng-template>
