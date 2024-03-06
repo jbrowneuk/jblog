@@ -46,7 +46,9 @@ export class ProjectService {
         archived: !!ghProject.archived,
         stars: ghProject.stargazers_count || 0,
         watchers: ghProject.watchers_count || 0,
-        forks: ghProject.forks_count || 0
+        forks: ghProject.forks_count || 0,
+        issues: ghProject.open_issues || 0,
+        lastUpdated: new Date(ghProject.pushed_at)
       };
       projects.push(project);
     });

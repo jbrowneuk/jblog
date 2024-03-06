@@ -1,47 +1,45 @@
-<div class="container">
-  <div *ngIf="tag" id="tag-info" class="breadcrumbs">
-    Viewing posts tagged
-    <a class="clear-tag" routerLink="/journal" title="Remove tag filter">
-      <span data-tag>{{ tag }}</span>
-      <i class="las fa-xs icon-fw la-times close-icon" aria-hidden="true"></i>
-      <span class="sr-only">Remove tag filter</span>
-    </a>
+<section id="page-hero" class="page-section small-hero">
+  <div class="container">
+    <h1>Journal</h1>
   </div>
+</section>
 
-  <ng-container *ngIf="postData$ | async as postData; else journalLoadState">
-    <ng-container *ngIf="postData.posts.length === 0">
-      <ng-container *ngTemplateOutlet="noPosts"></ng-container>
-    </ng-container>
+<nav *ngIf="tag" id="tag-info" class="breadcrumbs page-section background-dark">
+  <span>Showing posts with the label</span>
+  <span class="tag" data-tag>{{ tag }}</span>
+  <a routerLink="/journal">Show all posts</a>
+</nav>
 
-    <jblog-post
-      *ngFor="let post of postData.posts"
-      [postData]="post"
-      [titleLink]="'../../post/' + post.slug"
-      [attr.data-post]="post.postId"
-    ></jblog-post>
-
-    <div class="text-center">
-      <jblog-pagination
-        [urlComponents]="calculateUrlComponents()"
-        [currentPage]="postData.page"
-        [totalPages]="postData.totalPages"
-      ></jblog-pagination>
-    </div>
+<ng-container *ngIf="postData$ | async as postData; else journalLoadState">
+  <ng-container *ngIf="postData.posts.length === 0">
+    <ng-container *ngTemplateOutlet="noPosts"></ng-container>
   </ng-container>
-</div>
+
+  <jblog-post
+    *ngFor="let post of postData.posts"
+    [postData]="post"
+    [titleLink]="'../../post/' + post.slug"
+    [attr.data-post]="post.postId"
+  ></jblog-post>
+
+  <jblog-pagination
+    [urlComponents]="calculateUrlComponents()"
+    [currentPage]="postData.page"
+    [totalPages]="postData.totalPages"
+  ></jblog-pagination>
+</ng-container>
 
 <ng-template #journalLoadState>
-  <div
-    *ngIf="loading$ | async; else noPosts"
-    class="text-center"
-    data-loading-posts
-  >
-    <jblog-post></jblog-post>
-  </div>
+  <ng-container *ngIf="loading$ | async; else noPosts">
+    <jblog-post data-loading-posts></jblog-post>
+  </ng-container>
 </ng-template>
 
 <ng-template #noPosts>
-  <div class="post" data-no-posts>
-    <h2>No posts</h2>
-  </div>
+  <section class="page-section" data-no-posts>
+    <article class="container">
+      <h2>No posts</h2>
+      <p>There are no posts in this journal.</p>
+    </article>
+  </section>
 </ng-template>

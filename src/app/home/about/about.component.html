@@ -1,158 +1,108 @@
-<div class="name-area">
-  <div class="text text-center">
-    <h1>About</h1>
-    <div class="name">Jason Browne</div>
-  </div>
-  <img class="mugshot" src="/assets/images/about/jason2019.jpg" />
-</div>
-
-<div class="work-experience container" data-test="experience">
-  <div class="grid">
-    <article class="column experience" data-test="work-experience">
-      <h2>Work Experience</h2>
-
-      <section class="experience">
-        <div class="role">Front end developer & Visual Designer</div>
-        <div class="company">Schlumberger Oilfield UK Plc.</div>
-        <div class="timespan">2018–present</div>
-      </section>
-
-      <section class="experience">
-        <div class="role">Web application developer</div>
-        <div class="company">Schlumberger Oilfield UK Plc.</div>
-        <div class="timespan">2016–2018</div>
-      </section>
-
-      <section class="experience">
-        <div class="role">Desktop application developer</div>
-        <div class="company">Schlumberger Oilfield UK Plc.</div>
-        <div class="timespan">2013–2016</div>
-      </section>
-
-      <section class="experience">
-        <div class="role">Shared C++ library development</div>
-        <div class="company">Schlumberger Oilfield UK Plc.</div>
-        <div class="timespan">2012–2013</div>
-      </section>
-    </article>
-
-    <div class="column education" data-test="education">
-      <h2>Education</h2>
-
-      <section class="experience">
-        <div class="role">BSc (Hons) Computer Science</div>
-        <div class="company">Nottingham Trent University.</div>
-        <div class="timespan">2009–2012</div>
-      </section>
-
-      <h2>Contact</h2>
-      <ul class="contacts-list" data-test="contacts">
-        <li>
-          <a href="//github.com/jbrowneuk">
-            <i class="lab la-github circular"></i>
-            <span>github.com/jbrowneuk</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="//twitter.com/jbrowneuk">
-            <i class="lab la-twitter circular"></i>
-            <span>twitter.com/jbrowneuk</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="//linkedin.com/in/jbrowneuk">
-            <i class="lab la-linkedin-in circular"></i>
-            <span>linkedin.com/in/jbrowneuk</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="//twitch.tv/jbrowneuk">
-            <i class="lab la-twitch circular"></i>
-            <span>twitch.tv/jbrowneuk</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="//discord.gg/vH4zaDT">
-            <i class="lab la-discord circular"></i>
-            <span>discord.gg/vH4zaDT</span>
-          </a>
-        </li>
-      </ul>
+<section class="page-section background-alternate about-block">
+  <header>
+    <div class="container mugshot-container">
+      <span class="fancy-heading-container blue"><h1>Background</h1></span>
+      <img class="mugshot" src="/assets/images/about/jason2019.jpg" />
     </div>
+  </header>
+  <div class="container">
+    <div id="skills-grid">
+      <!-- Work, column 1 -->
+      <article id="work-experience" class="column" name="work">
+        <h2>Work Experience</h2>
+        <section class="experience">
+          <div class="role">Front end developer &amp; Visual Designer</div>
+          <div class="company">Schlumberger Oilfield UK Plc.</div>
+          <div class="timespan">2018–present</div>
+        </section>
 
-    <div class="column skills" data-test="skills">
-      <h2>Skills</h2>
+        <section class="experience">
+          <div class="role">Web application developer</div>
+          <div class="company">Schlumberger Oilfield UK Plc.</div>
+          <div class="timespan">2016–2018</div>
+        </section>
 
-      <h3>Code</h3>
-      <section class="experience-charts">
-        <span class="label">HTML</span>
-        <jblog-rating-bar [amount]="5" [value]="5"></jblog-rating-bar>
+        <section class="experience">
+          <div class="role">Desktop application developer</div>
+          <div class="company">Schlumberger Oilfield UK Plc.</div>
+          <div class="timespan">2013–2016</div>
+        </section>
 
-        <span class="label">CSS</span>
-        <jblog-rating-bar [amount]="5" [value]="5"></jblog-rating-bar>
+        <section class="experience">
+          <div class="role">Shared C++ library development</div>
+          <div class="company">Schlumberger Oilfield UK Plc.</div>
+          <div class="timespan">2012–2013</div>
+        </section>
 
-        <span class="label">Angular 2+</span>
-        <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
+        <h2>Education</h2>
+        <section class="experience">
+          <div class="role">BSc (Hons) Computer Science</div>
+          <div class="company">Nottingham Trent University.</div>
+          <div class="timespan">2009–2012</div>
+        </section>
+      </article>
+      <!-- Skills, column 2 -->
+      <article id="skill-set" class="column" name="skills">
+        <h2>Skills</h2>
+        <h3>Code</h3>
+        <section class="experience-charts">
+          <span class="label">HTML</span>
+          <jblog-rating-bar
+            [amount]="5"
+            [value]="5"
+            variant="dark"
+          ></jblog-rating-bar>
 
-        <span class="label">JavaScript</span>
-        <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
+          <span class="label">CSS</span>
+          <jblog-rating-bar
+            [amount]="5"
+            [value]="5"
+            variant="dark"
+          ></jblog-rating-bar>
 
-        <span class="label">PHP</span>
-        <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
-      </section>
+          <span class="label">Angular 2+</span>
+          <jblog-rating-bar
+            [amount]="5"
+            [value]="4"
+            variant="dark"
+          ></jblog-rating-bar>
 
-      <h3>Vector Graphics</h3>
-      <section class="experience-charts">
-        <span class="label">Inkscape</span>
-        <jblog-rating-bar [amount]="5" [value]="5"></jblog-rating-bar>
+          <span class="label">JavaScript</span>
+          <jblog-rating-bar
+            [amount]="5"
+            [value]="4"
+            variant="dark"
+          ></jblog-rating-bar>
 
-        <span class="label">Affinity Designer</span>
-        <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
-      </section>
+          <span class="label">PHP</span>
+          <jblog-rating-bar
+            [amount]="5"
+            [value]="4"
+            variant="dark"
+          ></jblog-rating-bar>
+        </section>
 
-      <h3>Design</h3>
-      <section class="experience-charts">
-        <span class="label">Sketch</span>
-        <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
+        <h3>Vector Graphics</h3>
+        <section class="experience-charts">
+          <span class="label">Inkscape</span>
+          <jblog-rating-bar [amount]="5" [value]="5"></jblog-rating-bar>
 
-        <span class="label">icons8 Lunacy</span>
-        <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
+          <span class="label">Affinity Designer</span>
+          <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
+        </section>
 
-        <span class="label">Figma</span>
-        <jblog-rating-bar [amount]="5" [value]="3"></jblog-rating-bar>
-      </section>
+        <h3>Design</h3>
+        <section class="experience-charts">
+          <span class="label">Sketch</span>
+          <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
+
+          <span class="label">icons8 Lunacy</span>
+          <jblog-rating-bar [amount]="5" [value]="4"></jblog-rating-bar>
+
+          <span class="label">Figma</span>
+          <jblog-rating-bar [amount]="5" [value]="3"></jblog-rating-bar>
+        </section>
+      </article>
     </div>
   </div>
-</div>
-
-<div class="personal-area container" data-test="manifesto">
-  <article class="post base-card">
-    <header class="header-area">
-      <h1>Creative at heart–and <strong>not</strong> afraid to express it</h1>
-    </header>
-    <div class="content-area">
-      <p>
-        I’m a front-end developer, working on web and desktop apps in
-        post-brexit UK. I specialise in HTML, CSS and JavaScript for the web,
-        and a variety of different programming languages and interface
-        frameworks for desktop and mobile.
-      </p>
-      <p>
-        When I’m not lost in a screenful of code, you’ll probably find me
-        drawing, taking photos, reading up on things or tinkering with creating
-        objects I’ve created using my 3D printer.
-      </p>
-      <p>
-        Creating usable software which is a delight to use is no easy task, and
-        I am constantly learning new things to keep up with the industry. I aim
-        to produce software which
-        <strong>puts the user first and in direct control</strong>, whilst still
-        being <strong>powerful and feature rich</strong>.
-      </p>
-    </div>
-  </article>
-</div>
+</section>

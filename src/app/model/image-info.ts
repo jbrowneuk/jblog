@@ -14,6 +14,11 @@ export interface AlbumNameTitlePair {
   title: string;
 }
 
+export interface ImageDimensions {
+  width: number;
+  height: number;
+}
+
 /**
  * An interface which can be used by a class to encapsulate an album image.
  */
@@ -57,4 +62,14 @@ export interface ImageInfo {
    * Whether the image is featured
    */
   featured: boolean;
+
+  /**
+   * Whether the image is horizontal (landscape)
+   */
+  horizontal: boolean;
+
+  /**
+   * The pixel dimensions of the image
+   */
+  dimensions: ImageDimensions;
 }

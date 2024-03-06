@@ -1,0 +1,104 @@
+:root {
+  --button_padding: 8px 20px;
+  --button_border_thickness: 2px;
+  --button_border_radius: 24px;
+}
+
+button,
+.button {
+  display: inline-block;
+  border: var(--button_border_thickness) solid var(--button_color_border);
+  border-radius: var(--button_border_radius);
+  color: var(--current_color_foreground);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 300;
+  text-decoration: none;
+  outline: none;
+  padding: var(--button_padding);
+  position: relative;
+  transition: background-color 250ms, border-color 250ms, box-shadow 250ms;
+  background-color: var(--current_color_background);
+}
+
+button:after,
+.button:after {
+  bottom: 0;
+  border-radius: var(--button_border_radius);
+  box-shadow: none;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: box-shadow 250ms;
+}
+
+button:active,
+.button:active,
+button:hover,
+.button:hover {
+  box-shadow: 0 4px 16px var(--current_color_background) inset;
+  color: var(--current_color_foreground);
+}
+
+button:hover,
+.button:hover {
+  background-color: var(--current_color_background-hover);
+}
+
+button:active,
+.button:active {
+  --button_color_border: var(--button_color_border-active);
+
+  background-color: var(--current_color_background-active);
+}
+
+button:focus,
+.button:focus {
+  --button_color_border: var(--button_color_border-active);
+}
+
+button:active::after,
+.button:active::after,
+button:focus::after,
+.button:focus::after {
+  box-shadow: 0 0 8px 2px var(--button_color_border-active);
+}
+
+button.primary,
+.button.primary {
+  --current_color_foreground: var(--button-primary_color_foreground);
+  --current_color_background: var(--button-primary_color_background);
+  --current_color_background-active: var(
+    --button-primary_color_background-active
+  );
+  --current_color_background-hover: var(
+    --button-primary_color_background-hover
+  );
+}
+
+button.positive,
+.button.positive {
+  --current_color_foreground: var(--button-positive_color_foreground);
+  --current_color_background: var(--button-positive_color_background);
+  --current_color_background-active: var(
+    --button-positive_color_background-active
+  );
+  --current_color_background-hover: var(
+    --button-positive_color_background-hover
+  );
+}
+
+button.neutral,
+.button.neutral {
+  --current_color_foreground: var(--button-neutral_color_foreground);
+  --current_color_background: var(--button-neutral_color_background);
+  --current_color_background-active: var(
+    --button-neutral_color_background-active
+  );
+  --current_color_background-hover: var(
+    --button-neutral_color_background-hover
+  );
+}

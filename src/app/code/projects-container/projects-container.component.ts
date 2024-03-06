@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { Component, Input } from '@angular/core';
 
 import { Transitions } from '../../shared/transitions';
 import { Project } from '../project';
@@ -14,10 +16,9 @@ import { ProjectService } from '../project.service';
 @Component({
   selector: 'jblog-projects-container',
   templateUrl: './projects-container.component.html',
-  styleUrls: ['../project-list.shared.scss'],
   animations: [Transitions.visibilityFade]
 })
-export class ProjectsContainerComponent implements OnInit {
+export class ProjectsContainerComponent {
   /**
    * Whether to show archived projects in the rendered HTML.
    */
@@ -26,30 +27,12 @@ export class ProjectsContainerComponent implements OnInit {
   /**
    * List of projects to display.
    */
-  public projects: Project[];
-
+  public readonly projects$: Observable<Project[]>;
   /**
    * Constructor that takes an injectable {@link ProjectService} that the
    * component uses during its lifetime.
    */
   constructor(private projectService: ProjectService) {
-    this.projects = [];
-  }
-
-  /**
-   * When initialized, use the {@link ProjectService} to get a page of projects.
-   */
-  ngOnInit() {
-    this.projectService.getProjects().subscribe({
-      next: x => this.handleProjectListResponse(x),
-      error: e => console.error(e)
-    });
-  }
-
-  /**
-   * Handles a successful project response.
-   */
-  private handleProjectListResponse(response: Project[]): void {
-    this.projects = response;
+    this.projects$ = this.projectService.getProjects();
   }
 }

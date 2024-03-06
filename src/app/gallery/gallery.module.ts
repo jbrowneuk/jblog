@@ -8,11 +8,10 @@ import { AlbumComponent } from './album/album.component';
 import { GalleryFormatPipe } from './gallery-format.pipe';
 import { ImageContainerComponent } from './image-container/image-container.component';
 import { ImageComponent } from './image/image.component';
-import { InsightsComponent } from './insights/insights.component';
 import { ThumbnailComponent } from './thumbnail/thumbnail.component';
 
-const sectionId = 2;
-const leftSection = sectionId;
+const sectionId = 3;
+const albumSection = sectionId;
 const mainSection = sectionId + 0.1;
 const detailSection = sectionId + 0.2;
 
@@ -21,7 +20,7 @@ const galleryRoutes: Routes = [
   {
     path: 'albums',
     component: AlbumListComponent,
-    data: { sectionId: leftSection }
+    data: { sectionId: albumSection }
   },
   {
     path: 'album/:name/page/:page',
@@ -37,11 +36,6 @@ const galleryRoutes: Routes = [
     path: 'view/:id',
     component: ImageComponent,
     data: { sectionId: detailSection }
-  },
-  {
-    path: 'insights',
-    component: InsightsComponent,
-    data: { sectionId: sectionId + 0.5 }
   }
 ];
 
@@ -53,8 +47,7 @@ const galleryRoutes: Routes = [
     GalleryFormatPipe,
     ImageComponent,
     ImageContainerComponent,
-    ThumbnailComponent,
-    InsightsComponent
+    ThumbnailComponent
   ],
   exports: [ImageContainerComponent]
 })

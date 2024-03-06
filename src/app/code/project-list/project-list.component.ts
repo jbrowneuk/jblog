@@ -1,3 +1,5 @@
+import { BehaviorSubject } from 'rxjs';
+
 import { Component, OnInit } from '@angular/core';
 
 import { TitleService } from '../../shared/title.service';
@@ -10,12 +12,24 @@ import { TitleService } from '../../shared/title.service';
 @Component({
   selector: 'jblog-project-list',
   templateUrl: './project-list.component.html',
-  styleUrls: ['../project-list.shared.scss']
+  styleUrls: ['./project-list.component.scss']
 })
 export class ProjectListComponent implements OnInit {
-  constructor(private titleService: TitleService) {}
+  public archiveVisible$: BehaviorSubject<boolean>;
+
+  constructor(private titleService: TitleService) {
+    this.archiveVisible$ = new BehaviorSubject(false);
+  }
 
   ngOnInit() {
     this.titleService.setTitle('Code');
+  }
+
+  public setArchiveVisible(reqVisibility: boolean): void {
+    if (reqVisibility === this.archiveVisible$.value) {
+      return;
+    }
+
+    this.archiveVisible$.next(reqVisibility);
   }
 }

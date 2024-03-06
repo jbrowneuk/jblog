@@ -1,59 +1,68 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { MockComponent } from 'ng-mocks';
+
 import { TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
+import { PageObjectBase } from './lib/testing/page-object.base';
 import { TransitionCompleteService } from './shared/transition-complete.service';
+import { UserMenuComponent } from './shared/user-menu/user-menu.component';
 
 describe('AppComponent', () => {
+  let app: AppComponent;
+  let componentObject: AppComponentObject;
+
   /* eslint-disable @typescript-eslint/no-empty-function */
   const mockTransitionCompleteService = {
-    completedTransition(s: string, s1: string) {}
+    completedTransition(_: string, __: string) {}
   };
   /* eslint-enable @typescript-eslint/no-empty-function */
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule],
-      declarations: [AppComponent],
+      declarations: [AppComponent, MockComponent(UserMenuComponent)],
       providers: [
         {
           provide: TransitionCompleteService,
           useValue: mockTransitionCompleteService
         }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
+      ]
     }).compileComponents();
   });
 
-  it('should create the app', () => {
+  beforeEach(() => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
+    componentObject = new AppComponentObject(fixture);
+    app = fixture.debugElement.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create the app', () => {
     expect(app).toBeTruthy();
   });
 
   // Check menu availability
   it('should render menu in the correct tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-
-    const menu = compiled.querySelectorAll('.links > li > a');
-    expect(menu[0].textContent).toContain('portfolio');
-    expect(menu[1].textContent).toContain('about');
-    expect(menu[2].textContent).toContain('art');
-    expect(menu[3].textContent).toContain('projects');
-    expect(menu[4].textContent).toContain('posts');
+    const menuLinks = componentObject.navigationMenuLinks;
+    expect(menuLinks[0].textContent).toContain('portfolio');
+    expect(menuLinks[1].textContent).toContain('projects');
+    expect(menuLinks[2].textContent).toContain('art');
+    expect(menuLinks[3].textContent).toContain('posts');
   });
 
-  // Check footer availability
-  it('should render footer in the correct tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-
-    // Check the footer exists
-    expect(compiled.querySelector('.page-footer')).toBeTruthy();
+  it('should render page footer', () => {
+    expect(componentObject.pageFooter).toBeTruthy();
   });
 });
+
+class AppComponentObject extends PageObjectBase<AppComponent> {
+  get navigationMenuLinks() {
+    return this.selectAllByDataAttribute('nav-link');
+  }
+
+  get pageFooter() {
+    return this.select('#page-footer');
+  }
+}

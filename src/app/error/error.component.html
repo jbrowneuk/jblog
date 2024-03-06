@@ -1,47 +1,65 @@
-<div class="container">
-  <div class="gratituous-image text-center">
+<div id="page-hero" class="error-image">
+  <div class="container">
     <img src="/assets/images/404-large.svg" alt="404 image" />
   </div>
-  <article class="post base-card">
-    <header class="header-area">
+</div>
+<section class="page-section background-alternate">
+  <article class="container">
+    <header>
       <h1 data-title>Feeling lost? Don’t worry.</h1>
     </header>
-    <div class="content-area">
-      <p>
-        A “404” error appears if there is a broken link or a page was moved.
-      </p>
-      <p>
-        We all get lost, once in a while. Here’s some directions back to known
-        locations, like you'd find on street signs in the real world.
-      </p>
-      <ul id="site-map" class="button-container" data-navigation>
-        <li>
-          <a routerLink="/">
-            <i class="las icon-fw la-home"></i>
-            Portfolio home
-          </a>
-        </li>
-        <li>
-          <a routerLink="/about/">
-            <i class="las icon-fw la-user"></i> About me
-          </a>
-        </li>
-        <li>
-          <a routerLink="/art/">
-            <i class="las icon-fw la-images"></i> Art gallery
-          </a>
-        </li>
-        <li>
-          <a routerLink="/projects/">
-            <i class="las icon-fw la-rocket"></i> Projects
-          </a>
-        </li>
-        <li>
-          <a routerLink="/journal/">
-            <i class="las icon-fw la-pencil-alt"></i> Journal
-          </a>
-        </li>
-      </ul>
-    </div>
+    <p>A “404” error appears if there is a broken link or a page was moved.</p>
+    <p>
+      We all get lost, once in a while. Here’s some directions back to known
+      locations, like you'd find on street signs in the real world.
+    </p>
+    <ul id="site-map" class="button-container" data-navigation>
+      <ng-container
+        *ngTemplateOutlet="
+          indicatorTemplate;
+          context: { title: 'Home', image: 'about', link: '/' }
+        "
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          indicatorTemplate;
+          context: { title: 'Art', image: 'art', link: '/art' }
+        "
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          indicatorTemplate;
+          context: {
+            title: 'Software',
+            image: 'software',
+            link: '/projects/code/'
+          }
+        "
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          indicatorTemplate;
+          context: { title: 'Journal', image: 'about', link: '/journal/' }
+        "
+      ></ng-container>
+    </ul>
   </article>
-</div>
+</section>
+
+<ng-template
+  #indicatorTemplate
+  let-title="title"
+  let-image="image"
+  let-link="link"
+>
+  <li>
+    <a [routerLink]="link" class="indicator">
+      <span class="title-text">{{ title }}</span>
+      <img
+        class="image"
+        src="/assets/images/indicators/{{ image }}.svg"
+        alt="{{ title }}"
+      />
+    </a>
+  </li>
+</ng-template>

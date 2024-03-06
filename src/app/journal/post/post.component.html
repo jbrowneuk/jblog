@@ -1,55 +1,63 @@
-<article
+<section
   *ngIf="postData; else skeleton"
-  class="post base-card"
+  class="page-section post"
   data-post-loaded
 >
-  <header class="header-area">
-    <h1 data-title>
-      <a *ngIf="titleLink" [routerLink]="titleLink" data-title-link>{{
-        postData.title
-      }}</a>
-      <ng-container *ngIf="!titleLink">{{ postData.title }}</ng-container>
-    </h1>
-    <time
-      [attr.datetime]="postData.date | unixEpoch | date : 'yyyy-MM-ddTHH:mmZ'"
-      class="shadowed date"
-      data-date
-    >
-      <span class="day" data-day>{{
-        postData.date | unixEpoch | date : 'd'
-      }}</span>
-      <span class="month" data-month-year>{{
-        postData.date | unixEpoch | date : 'MMM yyyy'
-      }}</span>
-    </time>
-  </header>
-  <div class="outdated-content" *ngIf="isStalePost()" data-outdated-content>
-    <i class="las icon-fw la-exclamation-triangle"></i>
-    This post was posted {{ postData.date | unixEpoch | relativeDate }} and is
-    most likely no longer relevant.
-  </div>
-  <jblog-text [text]="postData.content" data-post-content></jblog-text>
-  <footer class="footer-area">
-    <ul *ngIf="postData.tags" class="tags-area" data-post-tags>
-      <li><i class="las icon-fw la-tags" aria-hidden="true"></i></li>
-      <li
-        *ngFor="let tag of postData.tags"
-        class="tag"
-        [attr.data-post-tag]="tag"
+  <article class="container">
+    <header>
+      <h1 data-title>
+        <a *ngIf="titleLink" [routerLink]="titleLink" data-title-link>
+          {{ postData.title }}
+        </a>
+        <ng-container *ngIf="!titleLink">{{ postData.title }}</ng-container>
+      </h1>
+      <time
+        [attr.datetime]="postData.date | unixEpoch | date : 'yyyy-MM-ddTHH:mmZ'"
+        data-date
+        ><span class="day" data-day>{{
+          postData.date | unixEpoch | date : 'd'
+        }}</span
+        ><span class="month" data-month-year>{{
+          postData.date | unixEpoch | date : 'MMM yyyy'
+        }}</span></time
       >
-        <a [routerLink]="['/journal/tag', tag]" class="rounded">#{{ tag }}</a>
-      </li>
-    </ul>
-  </footer>
-</article>
+    </header>
+    <div *ngIf="isStalePost()" class="outdated-content" data-outdated-content>
+      <i class="las la-exclamation-triangle icon"></i>
+      <span class="text">
+        This content was posted over 2 years ago and is most likely no longer
+        relevant.
+      </span>
+    </div>
+    <jblog-text [text]="postData.content" data-post-content></jblog-text>
+    <footer>
+      <ul *ngIf="postData.tags" class="tags-area" data-post-tags>
+        <li><i class="las la-tags" aria-hidden="true"></i></li>
+        <li
+          *ngFor="let tag of postData.tags"
+          class="tag-container"
+          [attr.data-post-tag]="tag"
+        >
+          <a [routerLink]="['/journal/tag', tag]" class="tag">#{{ tag }}</a>
+        </li>
+      </ul>
+    </footer>
+  </article>
+</section>
 
 <ng-template #skeleton>
-  <div class="post base-card skeleton" data-post-loading>
-    <header class="header-area">
-      <h1 class="load-effect">Loading…</h1>
-      <div class="date load-effect"><span class="month"></span></div>
-    </header>
-    <p class="load-effect paragraph"></p>
-    <div class="load-effect tags"></div>
-  </div>
+  <section class="page-section post skeleton" data-post-loading>
+    <article class="container">
+      <header>
+        <h1 class="skeleton-loader-background" data-title>&nbsp;</h1>
+        <time data-date
+          ><span class="day" data-day>&nbsp;</span
+          ><span class="month skeleton-loader-background" data-month-year
+            >&nbsp;</span
+          ></time
+        >
+      </header>
+      <p class="skeleton-loader-background paragraph">&nbsp;</p>
+    </article>
+  </section>
 </ng-template>

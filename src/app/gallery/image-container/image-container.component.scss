@@ -1,52 +1,23 @@
 @import 'variables';
 
-$single-column-breakpoint: 450px;
-
-.ghost-thumbnail {
-  position: relative;
-  padding: 4px;
-  background-color: var(--color-container-background);
-  border-radius: var(--border-radius-default);
-  box-shadow: 0 2px 4px var(--color-default-shadow);
-
-  .load-effect {
-    position: absolute;
-    top: var(--thumbnail-image-padding);
-    right: var(--thumbnail-image-padding);
-    bottom: var(--thumbnail-image-padding);
-    left: var(--thumbnail-image-padding);
-    border-radius: calc(var(--border-radius-default) / 2);
-  }
-
-  svg {
-    display: block;
-    width: 100%;
-    fill: transparent;
-  }
+:host {
+  --gallery-grid_dimension_gap: 15px;
+  --gallery-grid_width_column-minimum: 320px;
+  --gallery-grid_height_row: 320px;
 }
 
-.gallery-container jblog-thumbnail,
-.loading-area .ghost-thumbnail {
-  grid-column: span 3;
+.grid-list {
+  display: grid;
+  gap: var(--gallery-grid_dimension_gap);
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--gallery-grid_width_column-minimum), 1fr)
+  );
+  grid-auto-rows: var(--gallery-grid_height_row);
 }
 
-@media screen and (max-width: $single-column-breakpoint) {
-  .gallery-container jblog-thumbnail,
-  .loading-area .ghost-thumbnail {
-    grid-column: span 12;
-  }
-}
-
-@media screen and (min-width: $single-column-breakpoint + 1) and (max-width: $breakpoint-md) {
-  .gallery-container jblog-thumbnail,
-  .loading-area .ghost-thumbnail {
-    grid-column: span 6;
-  }
-}
-
-@media screen and (min-width: $breakpoint-md + 1) and (max-width: $breakpoint-lg) {
-  .gallery-container jblog-thumbnail,
-  .loading-area .ghost-thumbnail {
-    grid-column: span 4;
+@media screen and (max-width: $breakpoint-sm) {
+  .grid-list {
+    grid-template-columns: 1fr;
   }
 }
