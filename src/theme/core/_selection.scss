@@ -1,3 +1,4 @@
+/* stylelint-disable-next-line selector-no-vendor-prefix -- needed for Firefox selection style */
 ::-moz-selection {
   color: var(--selection_color_foreground);
   -webkit-text-fill-color: var(--selection_color_foreground);

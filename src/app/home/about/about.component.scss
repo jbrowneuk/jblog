@@ -47,8 +47,8 @@
 
 .mugshot {
   position: absolute;
-  right: 0px;
-  bottom: 0px;
+  right: 0;
+  bottom: 0;
   box-sizing: content-box; // Don’t scale the image for the border
   width: var(--avatar-dimension);
   height: var(--avatar-dimension);

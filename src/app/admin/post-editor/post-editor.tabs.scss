@@ -1,3 +1,15 @@
+#tab-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+
+  .tab {
+    flex-grow: 1;
+    width: 100%;
+    padding: 8px;
+  }
+}
+
 #tab-bar {
   padding: 5px;
   border-bottom: 1px solid var(--color-container-border);
@@ -26,17 +38,5 @@
       background: var(--color-navigation-links-active-background);
       color: var(--color-navigation-links-active-foreground);
     }
-  }
-}
-
-#tab-container {
-  display: flex;
-  align-items: stretch;
-  justify-content: stretch;
-
-  .tab {
-    flex-grow: 1;
-    width: 100%;
-    padding: 8px;
   }
 }

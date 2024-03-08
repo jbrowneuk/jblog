@@ -1,6 +1,12 @@
 {
   "extends": ["stylelint-config-standard-scss"],
   "rules": {
+    "custom-property-pattern": [
+      "^([a-z][a-z0-9]*)([-_][a-z0-9]+)*$",
+      {
+        "message": "Expected custom property name to be in the format component-name_property-type_item-name"
+      }
+    ],
     "no-missing-end-of-source-newline": null,
     "color-hex-length": "long",
     "declaration-colon-newline-after": null,

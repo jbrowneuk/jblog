@@ -31,7 +31,7 @@
 .top-area {
   height: 48px;
   padding: 0 8px;
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
   line-height: 48px;
   border-bottom: 1px solid var(--color-container-border);
 }
@@ -53,16 +53,16 @@
   text-align: center;
 }
 
+.error-text,
+input {
+  width: 100%;
+  padding: 4px 8px 4px 32px;
+}
+
 .error-row {
   color: var(--error_color);
 
   .error-text {
     display: block;
   }
-}
-
-.error-text,
-input {
-  width: 100%;
-  padding: 4px 8px 4px 32px;
 }

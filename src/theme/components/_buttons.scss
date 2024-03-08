@@ -22,16 +22,13 @@ button,
   background-color: var(--current_color_background);
 }
 
-button:after,
-.button:after {
-  bottom: 0;
+button::after,
+.button::after {
   border-radius: var(--button_border_radius);
   box-shadow: none;
   content: '';
-  left: 0;
   position: absolute;
-  right: 0;
-  top: 0;
+  inset: 0;
   transition: box-shadow 250ms;
 }
 

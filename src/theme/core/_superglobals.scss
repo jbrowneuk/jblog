@@ -27,6 +27,7 @@
 
 .fancy-heading-container {
   display: inline-block;
+  /* stylelint-disable-next-line property-no-vendor-prefix -- needed for Safari to work */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
