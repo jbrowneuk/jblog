@@ -1,16 +1,9 @@
 @import 'variables';
 
-/* Global post styles, for use outside post list if required */
-main :nth-child(even of .post),
-main :nth-child(even of jblog-post) .post {
-  background: var(--page-section_color_background-alternate);
-}
-
 /* Post styles (shared with journal and gallery */
 :root {
   --post-content_margin_top: 40px;
   --post-content_margin_bottom: var(--post-content_margin_top);
-
   --calendar_dimension: 72px;
 }
 
@@ -134,4 +127,10 @@ main :nth-child(even of jblog-post) .post {
       order: 1;
     }
   }
+}
+
+/* Alternate colours for multiple posts in a container */
+main :nth-child(even of .post),
+main :nth-child(even of jblog-post) .post {
+  background: var(--page-section_color_background-alternate);
 }

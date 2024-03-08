@@ -1,20 +1,3 @@
-@mixin vertical-background-gradient($topColor, $bottomColor) {
-  background-image: -moz-linear-gradient(top, $topColor 0%, $bottomColor 100%);
-  background-image: -webkit-linear-gradient(
-    top,
-    $topColor 0%,
-    $bottomColor 100%
-  );
-  background-image: linear-gradient(to bottom, $topColor 0%, $bottomColor 100%);
-}
-
-@mixin opacity($opacity) {
-  opacity: $opacity;
-  $opacity-ie: $opacity * 100;
-
-  filter: alpha(opacity=$opacity-ie);
-}
-
 @mixin truncate-text() {
   overflow: hidden;
   text-overflow: ellipsis;

@@ -33,8 +33,7 @@
 
 @media screen and (max-width: $breakpoint-md) {
   .project-list-section .text-area {
-    grid-column-start: 1;
-    grid-column-end: -1;
+    grid-column: 1 / -1;
   }
 
   .project-list-section .image-area {

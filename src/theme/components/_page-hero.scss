@@ -3,35 +3,8 @@
 :root {
   --hero_font-size_heading: 56px;
   --hero_font-weight_heading: 300;
-
   --hero-small_padding_vertical: 10px;
   --hero-small_font-size_heading: 35px;
-}
-
-#page-hero {
-  color: var(--hero_color_foreground);
-  background: linear-gradient(
-    var(--hero_angle_gradient),
-    var(--hero_color_background),
-    var(--hero_color_background-secondary)
-  );
-  background-size: 400% 400%;
-  animation: background-back-and-forth 15s ease infinite;
-}
-
-#page-hero h1 {
-  font-size: var(--hero_font-size_heading);
-  font-weight: var(--hero_font-weight_heading);
-}
-
-#page-hero.small-hero {
-  --page-section_padding_top: var(--hero-small_padding_vertical);
-  --page-section_padding_bottom: var(--hero-small_padding_vertical);
-  --hero_font-size_heading: var(--hero-small_font-size_heading);
-}
-
-#page-hero .secondary-text {
-  color: var(--hero_color_foreground-secondary);
 }
 
 /* Large heroes - i.e. top page sections */
@@ -43,7 +16,7 @@
 
 .top-hero-section {
   h1 {
-    margin: 0 0 0.5em 0;
+    margin: 0 0 0.5em;
   }
 
   .container {
@@ -107,14 +80,10 @@
 /* Beam effects */
 .beam-container .beam {
   position: absolute;
-  width: 0px;
-  opacity: 0.7;
+  width: 0;
   box-shadow: 0 0 20px 2px var(--hero_color_foreground);
   opacity: 0;
-  top: 100%;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  inset: 100% 0 0;
   margin: auto;
   animation: beam-up linear infinite;
 
@@ -168,5 +137,31 @@
     animation-duration: 4.1s;
     transform: scale(0.9);
     left: 85%;
+  }
+}
+
+#page-hero {
+  color: var(--hero_color_foreground);
+  background: linear-gradient(
+    var(--hero_angle_gradient),
+    var(--hero_color_background),
+    var(--hero_color_background-secondary)
+  );
+  background-size: 400% 400%;
+  animation: background-back-and-forth 15s ease infinite;
+
+  h1 {
+    font-size: var(--hero_font-size_heading);
+    font-weight: var(--hero_font-weight_heading);
+  }
+
+  &.small-hero {
+    --page-section_padding_top: var(--hero-small_padding_vertical);
+    --page-section_padding_bottom: var(--hero-small_padding_vertical);
+    --hero_font-size_heading: var(--hero-small_font-size_heading);
+  }
+
+  .secondary-text {
+    color: var(--hero_color_foreground-secondary);
   }
 }

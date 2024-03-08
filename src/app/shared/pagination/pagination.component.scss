@@ -32,6 +32,11 @@ a {
   }
 }
 
+span,
+.spacer {
+  color: var(--page_color_foreground-secondary);
+}
+
 .active {
   a,
   span {
@@ -39,11 +44,6 @@ a {
     border-color: var(--navigation-link_color_border-active);
     color: var(--navigation-link_color_foreground-active);
   }
-}
-
-span,
-.spacer {
-  color: var(--page_color_foreground-secondary);
 }
 
 .pagination {
