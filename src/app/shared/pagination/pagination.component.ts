@@ -105,8 +105,8 @@ export class PaginationComponent implements OnInit, OnChanges {
   /**
    * Gets a full Angular Router path for a specific page.
    */
-  public getRouterLinkForPage(page: number): any[] {
-    let bits: any[] = [];
+  public getRouterLinkForPage(page: number): (string | number)[] {
+    let bits: (string | number)[] = [];
     if (this.componentName) {
       bits.push(`${this.componentName}`);
     }

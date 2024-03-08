@@ -67,7 +67,7 @@ export class ImageContainerComponent implements OnChanges {
   /**
    * Expected number of images to display. Used for loading placeholder
    */
-  public get imagePlaceholders(): any[] {
+  public get imagePlaceholders(): null[] {
     const placeholderCount =
       this.imageCount && this.imageCount <= 0
         ? defaultExpectedImages

@@ -3,11 +3,7 @@ import { IMock, It, Mock } from 'typemoq';
 
 import { formatDate } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  LOCALE_ID,
-  NO_ERRORS_SCHEMA
-} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -50,7 +46,7 @@ describe('Image Component', () => {
     return TestBed.configureTestingModule({
       declarations: [ImageComponent],
       imports: [HttpClientTestingModule, RouterTestingModule, SharedModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: ImageService, useFactory: () => mockImageService.object },
         { provide: TitleService, useFactory: () => mockTitleService.object }

@@ -1,4 +1,5 @@
 import { MockPipe } from 'ng-mocks';
+import { AlbumNameTitlePair } from 'src/app/model/image-info';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -20,7 +21,7 @@ describe('ThumbnailComponent', () => {
       imports: [RouterTestingModule],
       declarations: [
         ThumbnailComponent,
-        MockPipe(GalleryFormatPipe, (galleries: any[]) =>
+        MockPipe(GalleryFormatPipe, (galleries: AlbumNameTitlePair[]) =>
           galleries.map(g => g.title).join(testGallerySeparator)
         )
       ]

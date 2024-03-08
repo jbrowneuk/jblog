@@ -122,7 +122,8 @@ describe('ProjectsContainerComponent', () => {
           const rendered = getRenderedProjectProperty(property);
           expect(rendered).toBeTruthy();
 
-          const expectedValue = `${(editedProject as any)[property]}`; // `as any` needed for dynamic propert accessor
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any -- `as any` needed for dynamic propert accessor
+          const expectedValue = `${(editedProject as any)[property]}`;
           expect(rendered.textContent?.trim()).toBe(expectedValue);
         });
 

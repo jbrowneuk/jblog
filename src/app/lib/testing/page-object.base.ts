@@ -35,6 +35,10 @@ export abstract class PageObjectBase<T> {
     return this.debugElement.query(By.css(selector));
   }
 
+  protected selectAllDebug(selector: string): DebugElement[] {
+    return this.debugElement.queryAll(By.css(selector));
+  }
+
   protected selectPredicate(predicate: Predicate<DebugElement>): DebugElement {
     return this.debugElement.query(predicate);
   }

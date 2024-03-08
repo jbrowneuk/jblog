@@ -36,7 +36,6 @@ describe('PostEditorComponent - Create mode', () => {
   let mockPostService: IMock<PostService>;
   let mockPostAdminService: IMock<PostAdminService>;
 
-  let component: PostEditorComponent;
   let fixture: ComponentFixture<PostEditorComponent>;
   let compiled: HTMLElement;
 
@@ -69,7 +68,6 @@ describe('PostEditorComponent - Create mode', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PostEditorComponent);
-    component = fixture.componentInstance;
     compiled = fixture.nativeElement;
     fixture.detectChanges();
   });

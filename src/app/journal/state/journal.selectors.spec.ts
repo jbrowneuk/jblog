@@ -26,8 +26,7 @@ const mockState: JournalState = {
   postsLoading: false
 };
 
-const appState: any = {};
-appState[journalFeatureName] = mockState;
+const appState = { [journalFeatureName]: mockState };
 
 describe('getPostList', () => {
   it('should return post list from store', () => {

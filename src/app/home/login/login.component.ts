@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { UserService } from '../../services/user.service';
+import { User, UserService } from '../../services/user.service';
 
 @Component({
   selector: 'jblog-login',
@@ -63,7 +67,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  private onLoginComplete(user: any): void {
+  private onLoginComplete(user: User | null): void {
     if (!user) {
       return;
     }

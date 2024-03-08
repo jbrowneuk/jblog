@@ -4,6 +4,7 @@ import { IMock, It, Mock } from 'typemoq';
 
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
+import { Action } from '@ngrx/store';
 
 import { PostData, PostDataWrapper, PostStatus } from '../../model/post-data';
 import { PostService } from '../../services/post.service';
@@ -35,7 +36,7 @@ describe('Journal effects', () => {
     totalPages: 4
   };
 
-  let actions: Observable<any>;
+  let actions: Observable<Action>;
   let mockService: IMock<PostService>;
   let effects: JournalEffects;
 

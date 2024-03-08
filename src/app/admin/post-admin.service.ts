@@ -23,7 +23,7 @@ export class PostAdminService {
     }
   }
 
-  public sendPost(post: PostData): Observable<any> {
+  public sendPost(post: PostData): Observable<void> {
     const body = new FormData();
     body.append('data', JSON.stringify(post));
 

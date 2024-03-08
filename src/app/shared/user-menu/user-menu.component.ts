@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UserService } from '../../services/user.service';
+import { User, UserService } from '../../services/user.service';
 
 @Component({
   selector: 'jblog-user-menu',
@@ -13,7 +13,7 @@ import { UserService } from '../../services/user.service';
 export class UserMenuComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {}
 
-  public get user$(): Observable<any> {
+  public get user$(): Observable<User | null> {
     return this.userService.authenticatedUser$;
   }
 

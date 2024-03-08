@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { GithubRepoData } from './github-repo-data';
 import { Project } from './project';
 
 // Exported for use in unit test
@@ -29,13 +30,13 @@ export class ProjectService {
    */
   public getProjects(): Observable<Project[]> {
     return this.http
-      .get<any>(RepoApiEndpoint)
+      .get<GithubRepoData[]>(RepoApiEndpoint)
       .pipe(map(this.convertToProjects));
   }
 
-  private convertToProjects(ghProjects: any[]): Project[] {
+  private convertToProjects(ghProjects: GithubRepoData[]): Project[] {
     const projects: Project[] = [];
-    ghProjects.forEach((ghProject: any) => {
+    ghProjects.forEach(ghProject => {
       const license = ghProject.license ? ghProject.license.name : 'No license';
       const project: Project = {
         name: ghProject.name,

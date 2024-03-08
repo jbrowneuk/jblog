@@ -1,10 +1,12 @@
-import { TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController
 } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { Headers, RestService } from './rest.service';
+
+type GenericObject = { [key: string]: string };
 
 describe('Rest Service', () => {
   let httpTestingController: HttpTestingController;
@@ -29,8 +31,8 @@ describe('Rest Service', () => {
       const mockResponse = { status: 'tested' };
       const mockUrl = 'http://localhost/url';
 
-      service.get(mockUrl).subscribe({
-        next: (data: any) => {
+      service.get<GenericObject>(mockUrl).subscribe({
+        next: data => {
           httpTestingController.verify();
           expect(data).toEqual(mockResponse);
           done();
@@ -48,8 +50,8 @@ describe('Rest Service', () => {
       const mockUrl = 'http://localhost/url';
       const mockHeaders: Headers = { PoweredBy: 'A Test Runner' };
 
-      service.get(mockUrl, mockHeaders).subscribe({
-        next: (data: any) => {
+      service.get<GenericObject>(mockUrl, mockHeaders).subscribe({
+        next: data => {
           httpTestingController.verify();
           expect(data).toEqual(mockResponse);
           done();
@@ -72,12 +74,12 @@ describe('Rest Service', () => {
   describe('POST method', () => {
     it('should POST to URL with body', done => {
       const service: RestService = TestBed.inject(RestService);
-      const mockResponse = 'text'; // see note in the service file
+      const mockResponse = { test: 'true' }; // see note in the service file
       const mockUrl = 'http://localhost/url';
       const mockBody = { body: 'body' };
 
-      service.post(mockUrl, mockBody).subscribe({
-        next: (data: any) => {
+      service.post<GenericObject>(mockUrl, mockBody).subscribe({
+        next: data => {
           httpTestingController.verify();
           expect(data).toEqual(mockResponse);
           done();

@@ -1,4 +1,5 @@
 import { MockComponent } from 'ng-mocks';
+import { Mock } from 'typemoq';
 
 import { TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,20 +14,17 @@ describe('AppComponent', () => {
   let app: AppComponent;
   let componentObject: AppComponentObject;
 
-  /* eslint-disable @typescript-eslint/no-empty-function */
-  const mockTransitionCompleteService = {
-    completedTransition(_: string, __: string) {}
-  };
-  /* eslint-enable @typescript-eslint/no-empty-function */
-
   beforeEach(() => {
+    const mockTransitionCompleteService =
+      Mock.ofType<TransitionCompleteService>();
+
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, RouterTestingModule],
       declarations: [AppComponent, MockComponent(UserMenuComponent)],
       providers: [
         {
           provide: TransitionCompleteService,
-          useValue: mockTransitionCompleteService
+          useValue: mockTransitionCompleteService.object
         }
       ]
     }).compileComponents();

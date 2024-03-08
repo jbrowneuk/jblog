@@ -32,7 +32,6 @@ class ApiModule {
     parse_str($_SERVER["QUERY_STRING"], $queryStringBits);
     $actionKey = "action";
     if (!isset($queryStringBits[$actionKey])) {
-      print "no act";
       return ResponseHelpers::respondNotFound();
     }
 

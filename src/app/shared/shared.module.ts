@@ -9,7 +9,6 @@ import { LineSplittingPipe } from './line-splitting.pipe';
 import { LoadSpinnerComponent } from './load-spinner/load-spinner.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { RatingBarComponent } from './rating-bar/rating-bar.component';
-import { RelativeDatePipe } from './relative-date.pipe';
 import { TitleService } from './title.service';
 import { TransitionCompleteService } from './transition-complete.service';
 import { UnixEpochPipe } from './unix-epoch.pipe';
@@ -17,7 +16,6 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
 
 const CORE_COMPONENTS = [
   LineSplittingPipe,
-  RelativeDatePipe,
   UnixEpochPipe,
   LoadSpinnerComponent,
   PaginationComponent,

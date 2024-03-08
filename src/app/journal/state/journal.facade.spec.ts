@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
 import { IMock, It, Mock, Times } from 'typemoq';
 
-import { Store } from '@ngrx/store';
+import { MemoizedSelector, Store } from '@ngrx/store';
 
 import { PostDataWrapper } from '../../model/post-data';
 import { LoadPosts, LoadSinglePost } from './journal.actions';
@@ -22,10 +22,22 @@ describe('Journal facade', () => {
   beforeEach(() => {
     mockStore = Mock.ofType<Store<JournalState>>();
     mockStore
-      .setup(store => store.select(It.is((s: any) => s === getPostList)))
+      .setup(store =>
+        store.select(
+          It.is(
+            (s: MemoizedSelector<object, PostDataWrapper>) => s === getPostList
+          )
+        )
+      )
       .returns(() => of(mockPostData));
     mockStore
-      .setup(store => store.select(It.is((s: any) => s === getPostListLoading)))
+      .setup(store =>
+        store.select(
+          It.is(
+            (s: MemoizedSelector<object, boolean>) => s === getPostListLoading
+          )
+        )
+      )
       .returns(() => of(false));
 
     facade = new JournalFacade(mockStore.object);
