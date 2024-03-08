@@ -12,7 +12,7 @@ export class LineSplittingPipe implements PipeTransform {
    * Transform a string with new line characters into an array of strings
    * split by line
    */
-  transform(value: string, args?: any): any {
+  transform(value: string): string[] {
     return value.split('\n').filter(String);
   }
 }

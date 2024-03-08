@@ -63,8 +63,8 @@ class ApiModule {
 
     // Generate session token
     $session = array("uid" => $username);
-    $jwt = $this->auth->setAuthInfo($session);
-    ResponseHelpers::outputWithPlainTextHeader($jwt);
+    $user = array("token" => $this->auth->setAuthInfo($session));
+    ResponseHelpers::outputWithJsonHeader($user);
   }
 
   private function getUserHash($username) {

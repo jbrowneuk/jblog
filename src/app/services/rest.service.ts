@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 export type Headers = { [key: string]: string };
 
@@ -24,19 +25,16 @@ export class RestService {
     return this.http.get<T>(url, options);
   }
 
-  public post(
+  public post<T>(
     url: string,
-    body: { [key: string]: any },
+    body: FormData | { [key: string]: string | number | boolean },
     headers?: Headers
-  ): Observable<any> {
-    // TODO: remove responseType once API returns JSON
-    // https://stackoverflow.com/a/54383818
-    const responseType = 'text' as any;
+  ): Observable<T> {
+    // Caveat: API must return JSON
     const options = {
-      headers: headers ? headers : undefined,
-      responseType
+      headers: headers ? headers : undefined
     };
 
-    return this.http.post(url, body, options);
+    return this.http.post<T>(url, body, options);
   }
 }

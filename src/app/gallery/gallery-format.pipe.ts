@@ -14,7 +14,7 @@ export class GalleryFormatPipe implements PipeTransform {
    * Transform a colection of {@link AlbumNameTitlePair} into a comma separated
    * string of album titles
    */
-  transform(value: AlbumNameTitlePair[], args?: any): any {
+  transform(value: AlbumNameTitlePair[]): string {
     if (value.length === 0) {
       return 'None';
     }

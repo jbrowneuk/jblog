@@ -6,12 +6,12 @@ import { Project } from '../project';
   name: 'archivedProjects'
 })
 export class ArchivedProjectFilterPipe implements PipeTransform {
-  transform(input: Project[], args?: any) {
+  transform(input: Project[], showArchived?: boolean) {
     if (!input) {
       return [];
     }
 
-    if (args) {
+    if (showArchived) {
       return input;
     }
 

@@ -9,7 +9,7 @@ describe('LineSplittingPipe', () => {
   it('Splits lines with new line characters into an array', () => {
     const input = 'I like\nnew lines\nthere should be three';
     const pipe = new LineSplittingPipe();
-    const output = pipe.transform(input, null);
+    const output = pipe.transform(input);
 
     expect(output.length).toBe(3);
     expect(output[0]).toBe('I like');

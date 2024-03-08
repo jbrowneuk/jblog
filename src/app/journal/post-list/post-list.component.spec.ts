@@ -1,9 +1,10 @@
+import { MockComponent } from 'ng-mocks';
 import { BehaviorSubject, of } from 'rxjs';
 import { IMock, It, Mock, Times } from 'typemoq';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { PageObjectBase } from '../../lib/testing/page-object.base';
@@ -11,6 +12,7 @@ import { PostData, PostDataWrapper, PostStatus } from '../../model/post-data';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { SharedModule } from '../../shared/shared.module';
 import { TitleService } from '../../shared/title.service';
+import { PostComponent } from '../post/post.component';
 import { JournalFacade } from '../state/journal.facade';
 import { PostListComponent } from './post-list.component';
 
@@ -31,20 +33,6 @@ const mockPostData: PostDataWrapper = {
   totalPages: 4
 };
 
-class PostListPageObject extends PageObjectBase<PostListComponent> {
-  public get posts(): HTMLElement[] {
-    return this.selectAll('[data-post]');
-  }
-
-  public get pagination(): PaginationComponent {
-    return this.selectDebug('jblog-pagination').componentInstance;
-  }
-
-  public get tagName(): HTMLSpanElement {
-    return this.select('[data-tag]');
-  }
-}
-
 describe('Post List Component', () => {
   let mockFacade: IMock<JournalFacade>;
   let mockRoute: IMock<ActivatedRoute>;
@@ -52,14 +40,14 @@ describe('Post List Component', () => {
   let component: PostListComponent;
   let fixture: ComponentFixture<PostListComponent>;
   let pageObject: PostListPageObject;
-  let paramsSubject: BehaviorSubject<any>;
+  let paramsSubject: BehaviorSubject<Params>;
 
   beforeEach(() => {
     mockFacade = Mock.ofType<JournalFacade>();
     mockFacade.setup(f => f.postListLoading$).returns(() => of(false));
     mockFacade.setup(f => f.postList$).returns(() => of(mockPostData));
 
-    paramsSubject = new BehaviorSubject<any>({ page: mockPostData.page });
+    paramsSubject = new BehaviorSubject({ page: mockPostData.page } as Params);
 
     mockRoute = Mock.ofType<ActivatedRoute>();
     mockRoute.setup(r => r.params).returns(() => paramsSubject);
@@ -67,7 +55,7 @@ describe('Post List Component', () => {
     mockTitleService = Mock.ofType<TitleService>();
 
     TestBed.configureTestingModule({
-      declarations: [PostListComponent],
+      declarations: [PostListComponent, MockComponent(PostComponent)],
       providers: [
         { provide: JournalFacade, useFactory: () => mockFacade.object },
         { provide: ActivatedRoute, useFactory: () => mockRoute.object },
@@ -103,9 +91,9 @@ describe('Post List Component', () => {
   });
 
   it('should provide title link to posts', () => {
-    const posts = pageObject.posts;
+    const posts = pageObject.postComponents;
     mockPostData.posts.forEach((post, index) => {
-      const relatedPostElement = posts[index] as any;
+      const relatedPostElement = posts[index];
       expect(relatedPostElement.titleLink).toContain(post.slug);
     });
   });
@@ -163,3 +151,21 @@ describe('Post List Component', () => {
     });
   });
 });
+
+class PostListPageObject extends PageObjectBase<PostListComponent> {
+  public get posts(): HTMLElement[] {
+    return this.selectAll('[data-post]');
+  }
+
+  public get postComponents(): PostComponent[] {
+    return this.selectAllDebug('[data-post]').map(el => el.componentInstance);
+  }
+
+  public get pagination(): PaginationComponent {
+    return this.selectDebug('jblog-pagination').componentInstance;
+  }
+
+  public get tagName(): HTMLSpanElement {
+    return this.select('[data-tag]');
+  }
+}

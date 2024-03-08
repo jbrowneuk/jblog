@@ -23,7 +23,7 @@
       <jblog-thumbnail
         *ngFor="let image of images; index as idx"
         [data]="image"
-        [isPromoted]="promotedImageIndex == idx"
+        [isPromoted]="promotedImageIndex === idx"
       ></jblog-thumbnail>
     </div>
   </div>

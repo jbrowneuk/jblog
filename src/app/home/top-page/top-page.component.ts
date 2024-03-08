@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { TitleService } from '../../shared/title.service';
 
@@ -10,7 +10,7 @@ import { TitleService } from '../../shared/title.service';
   templateUrl: './top-page.component.html',
   styleUrls: ['./top-page.component.scss']
 })
-export class TopPageComponent {
+export class TopPageComponent implements OnInit {
   constructor(private titleService: TitleService) {}
 
   public ngOnInit() {

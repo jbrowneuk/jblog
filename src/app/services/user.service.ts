@@ -1,16 +1,20 @@
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { Inject, Injectable, Optional } from '@angular/core';
 
 import { BASE_PATH } from '../variables';
 import { RestService } from './rest.service';
 
-const API_URL = '/?user';
-const TOKEN_IDENTIFIER = 'token';
+export const API_URL = '/?user';
+export const TOKEN_IDENTIFIER = 'token';
 
-interface User {
+export interface User {
   uid: string;
+}
+
+export interface TokenInfo {
+  token: string;
 }
 
 @Injectable({
@@ -78,12 +82,11 @@ export class UserService {
     body.append('password', password);
 
     const url = `${this.basePath}${API_URL}`;
-    return this.restService
-      .post(url, body)
-      .pipe(
-        catchError(this.handleSessionError.bind(this)),
-        tap(this.setSession)
-      );
+    return this.restService.post<TokenInfo>(url, body).pipe(
+      catchError(() => this.handleSessionError()),
+      tap(this.setSession),
+      map(t => t.token)
+    );
   }
 
   /**
@@ -110,6 +113,7 @@ export class UserService {
   /**
    * Make a HTTP POST request with Authorization headers set
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- post can accept multiple types
   public authPost(url: string, body: { [key: string]: any }): any {
     const token = this.getSession();
     if (!token) {
@@ -120,13 +124,13 @@ export class UserService {
     return this.restService.post(url, body, headers);
   }
 
-  private handleSessionError(): Observable<void> {
+  private handleSessionError(): Observable<never> {
     this.endSession();
     return throwError(() => new Error('invalid login'));
   }
 
-  private setSession(token: string): void {
-    localStorage.setItem(TOKEN_IDENTIFIER, token);
+  private setSession(tokenInfo: TokenInfo): void {
+    localStorage.setItem(TOKEN_IDENTIFIER, tokenInfo.token);
   }
 
   private getSession(): string | null {
