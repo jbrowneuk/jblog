@@ -10,8 +10,7 @@ const invalidIdentifier = -1;
 @Component({
   animations: TRANSITIONS,
   selector: 'jblog-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   private currentSectionId: number;
