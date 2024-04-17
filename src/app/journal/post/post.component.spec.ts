@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
+import { LOCALE_ID } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -20,15 +20,6 @@ const mockPostData: PostData = {
   status: PostStatus.Publish
 };
 
-@Pipe({
-  name: 'relativeDate'
-})
-class MockRelativeDatePipe implements PipeTransform {
-  transform(value: any): string {
-    return `${value}`;
-  }
-}
-
 describe('PostComponent', () => {
   let component: PostComponent;
   let fixture: ComponentFixture<PostComponent>;
@@ -36,7 +27,7 @@ describe('PostComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MockRelativeDatePipe, PostComponent],
+      declarations: [PostComponent],
       imports: [HttpClientTestingModule, RouterTestingModule, SharedModule]
     }).compileComponents();
   });

@@ -1,19 +1,27 @@
-.gratituous-image {
-  line-height: 1;
-  margin-top: 20px;
-  margin-bottom: -2px;
-}
+.error-image {
+  padding-top: 30px;
 
-article {
-  padding-top: 48px;
-  padding-bottom: 48px;
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 #site-map {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   list-style: none;
   list-style-position: inside;
   margin: 0;
   padding: 0;
+
+  li {
+    width: 20%;
+  }
+
+  .button {
+    display: block;
+  }
 }

@@ -31,14 +31,11 @@
         <td data-date>{{ post.date * 1000 | date : 'mediumDate' }}</td>
         <td>
           <a routerLink="/admin/posts/edit/{{ post.slug }}" title="Edit post">
-            <i class="las icon-fw la-edit" aria-hidden="true"></i>
+            <i class="las la-edit" aria-hidden="true"></i>
           </a>
 
           <a routerLink="/journal/post/{{ post.slug }}" title="View post">
-            <i
-              class="las icon-fw la-external-link-square-alt"
-              aria-hidden="true"
-            ></i>
+            <i class="las la-external-link-square-alt" aria-hidden="true"></i>
           </a>
 
           <a
@@ -46,7 +43,7 @@
             title="Delete post"
             class="delete"
           >
-            <i class="las icon-fw la-trash" aria-hidden="true"></i>
+            <i class="las la-trash" aria-hidden="true"></i>
           </a>
         </td>
       </tr>

@@ -13,21 +13,33 @@ export abstract class PageObjectBase<T> {
     return this.fixture.debugElement;
   }
 
-  protected select<E extends Element = Element>(selector: string): E {
+  protected select<E extends Element>(selector: string): E {
     return this.nativeElement.querySelector<E>(selector) as E;
   }
 
-  protected selectAll<E extends Element = Element>(selector: string): E[] {
+  protected selectAll<E extends Element>(selector: string): E[] {
     return Array.from(this.nativeElement.querySelectorAll(selector));
+  }
+
+  protected selectByDataAttribute<E extends Element>(attrName: string): E {
+    return this.nativeElement.querySelector(`[data-${attrName}]`) as E;
+  }
+
+  protected selectAllByDataAttribute<E extends Element>(attrName: string): E[] {
+    return Array.from(
+      this.nativeElement.querySelectorAll(`[data-${attrName}]`)
+    );
   }
 
   protected selectDebug(selector: string): DebugElement {
     return this.debugElement.query(By.css(selector));
   }
 
-  protected selectDebugByPredicate(
-    predicate: Predicate<DebugElement>
-  ): DebugElement {
+  protected selectAllDebug(selector: string): DebugElement[] {
+    return this.debugElement.queryAll(By.css(selector));
+  }
+
+  protected selectPredicate(predicate: Predicate<DebugElement>): DebugElement {
     return this.debugElement.query(predicate);
   }
 

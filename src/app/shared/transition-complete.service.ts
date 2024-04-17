@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 
@@ -20,7 +20,9 @@ export class TransitionCompleteService {
     this.transitionSubject.next([fromState, toState]);
   }
 
-  subscribe(callback: (fromState: string, toState: string) => void): any {
+  subscribe(
+    callback: (fromState: string, toState: string) => void
+  ): Subscription {
     return this.transitionComplete.subscribe(
       (stateChange: [string, string]) => {
         callback(stateChange[0], stateChange[1]);

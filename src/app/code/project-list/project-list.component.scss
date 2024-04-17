@@ -1,0 +1,29 @@
+.archive-block {
+  --page-section_padding_top: 8px;
+  --page-section_padding_bottom: 8px;
+
+  label {
+    display: block;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--link-light_color_default);
+
+    &:hover {
+      color: var(--link-light_color_hover);
+    }
+  }
+
+  input {
+    display: none;
+  }
+
+  i, span {
+    vertical-align: middle;
+  }
+
+  .toggle-icon {
+    font-size: 24px;
+    margin-right: .25em;
+  }
+}

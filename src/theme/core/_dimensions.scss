@@ -1,0 +1,41 @@
+:root {
+  /* Grid */
+  --grid-columns: 12;
+  --grid-column-width: calc(1% / var(--grid-columns) * 100);
+  --grid-gutter: 20px;
+  --grid-column-actual-width: calc(
+    var(--grid-column-width) - var(--grid-gutter)
+  );
+
+  // Breakpoints
+  --breakpoint-sm: $breakpoint-sm;
+  --breakpoint-md: $breakpoint-md;
+  --breakpoint-lg: $breakpoint-lg;
+  --breakpoint-xl: $breakpoint-xl;
+
+  // Containers
+  --width-container-sm: 540px;
+  --width-container-md: 720px;
+  --width-container-lg: 960px;
+  --width-container-xl: 1140px;
+
+  // Generics
+  --generic_border_radius: 6px;
+  --generic-subtle_border_radius: 4px;
+
+  // Font sizes
+  --page_font_size-default: 16px;
+
+  // Loading spinner
+  --load-spinner_dimension: 80px;
+  --load-spinner-icon_dimension: 70px;
+
+  // Gallery
+  --gallery-thumbnail-overlay_padding: 10px 15px;
+
+  // Hero
+  --hero_angle_gradient: 135deg;
+
+  // Home
+  --home-slideshow-indicators_height: 56px;
+}

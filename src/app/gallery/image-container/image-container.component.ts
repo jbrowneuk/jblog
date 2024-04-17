@@ -32,6 +32,11 @@ export class ImageContainerComponent implements OnChanges {
   @Input() public imageCount = -1;
 
   /**
+   * Enables or disables the large thumbnail promoting a specific image.
+   */
+  @Input() public canPromote = true;
+
+  /**
    * A collection of {@link ImageInfo} that describe the thumbnails to be
    * rendered in the view.
    */
@@ -50,6 +55,11 @@ export class ImageContainerComponent implements OnChanges {
   public loadingFailed = false;
 
   /**
+   * The index of the promoted image.
+   */
+  public promotedImageIndex = -1;
+
+  /**
    * Constructor with injected services.
    */
   constructor(private imageService: ImageService) {}
@@ -57,7 +67,7 @@ export class ImageContainerComponent implements OnChanges {
   /**
    * Expected number of images to display. Used for loading placeholder
    */
-  public get imagePlaceholders(): any[] {
+  public get imagePlaceholders(): null[] {
     const placeholderCount =
       this.imageCount && this.imageCount <= 0
         ? defaultExpectedImages
@@ -97,6 +107,7 @@ export class ImageContainerComponent implements OnChanges {
    */
   private handleImageResponse(response: ImageInfo[]): void {
     this.images = response;
+    this.promoteImage();
   }
 
   /**
@@ -112,5 +123,25 @@ export class ImageContainerComponent implements OnChanges {
    */
   private handleImageRequestComplete(): void {
     this.isLoadingImages = false;
+  }
+
+  private selectImageToPromote() {
+    const featured = this.images.filter(d => d.featured);
+    if (featured.length > 0) {
+      const chosenFeature = Math.floor(Math.random() * featured.length);
+      const id = featured[chosenFeature].id;
+      return this.images.findIndex(d => d.id === id);
+    }
+
+    return Math.floor(Math.random() * this.images.length);
+  }
+
+  private promoteImage(): void {
+    if (!this.canPromote) {
+      this.promotedImageIndex = -1;
+      return;
+    }
+
+    this.promotedImageIndex = this.selectImageToPromote();
   }
 }

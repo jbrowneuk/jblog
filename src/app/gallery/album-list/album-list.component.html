@@ -1,50 +1,72 @@
-<div class="container">
-  <h1>All albums</h1>
-  <div
-    *ngIf="isLoadingAlbums && (!albums || albums.length === 0)"
-    class="loading-area grid"
-  >
-    <ng-container *ngFor="let loader of [].constructor(5)">
-      <ng-container *ngTemplateOutlet="ghostThumbnail"></ng-container>
-    </ng-container>
-  </div>
+<!-- Loading state -->
+<ng-container
+  *ngIf="
+    isLoadingAlbums && (!albums || albums.length === 0);
+    else loadedAlbumData
+  "
+>
+  <!-- Hero -->
+  <section id="page-hero" class="page-section small-hero">
+    <div class="container">
+      <h1>Loading…</h1>
+    </div>
+  </section>
 
-  <div class="albums-container grid">
-    <a
-      class="album-card"
-      *ngFor="let album of albums"
-      [routerLink]="['/art/album', album.name, 'page', 1]"
-    >
-      <div class="colour-area"></div>
-      <div class="image-area">
-        <img src="{{ album.iconUrl }}" alt="icon" class="preview" />
+  <!-- Loading effects -->
+  <section class="page-section">
+    <div class="container">
+      <div id="albums-container" class="grid">
+        <ng-container *ngFor="let loader of [].constructor(4)">
+          <ng-container *ngTemplateOutlet="loadingAlbumCard"></ng-container>
+        </ng-container>
       </div>
-      <div class="text-area">
-        <h2>{{ album.title }}</h2>
-        <div
-          class="badge-area"
-          title="{{ album.imagesInAlbum }} image{{
-            album.imagesInAlbum === 1 ? '' : 's'
-          }}"
-        >
-          {{ album.imagesInAlbum }}
-        </div>
-      </div>
-    </a>
-  </div>
-</div>
+    </div>
+  </section>
+</ng-container>
 
-<ng-template #ghostThumbnail>
-  <div class="album-card ghost-thumbnail">
-    <div class="colour-area"></div>
-    <div class="image-area load-effect">
-      <svg viewbox="0 0 200 200">
-        <rect x="0" y="0" width="200" height="200" />
-      </svg>
+<!-- Loaded state -->
+<ng-template #loadedAlbumData>
+  <!-- Hero -->
+  <section id="page-hero" class="page-section small-hero">
+    <div class="container">
+      <h1>All albums</h1>
+    </div>
+  </section>
+
+  <!-- Album list -->
+  <section class="page-section">
+    <div class="container">
+      <div id="albums-container" class="grid">
+        <ng-container *ngFor="let album of albums">
+          <ng-container
+            *ngTemplateOutlet="albumCard; context: { album }"
+          ></ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </section>
+</ng-template>
+
+<!-- Album card -->
+<ng-template #albumCard let-album="album">
+  <a class="album-card" [routerLink]="['/art/album', album.name, 'page', 1]">
+    <div class="image-area">
+      <img src="{{ album.iconUrl }}" alt="icon" class="preview" />
     </div>
     <div class="text-area">
-      <div class="title-text load-effect"></div>
-      <div class="badge-area load-effect"></div>
+      <h2>{{ album.title }}</h2>
+      <div class="badge-area">
+        {{ album.imagesInAlbum }}
+        <ng-container [ngPlural]="album.imagesInAlbum">
+          <ng-template ngPluralCase="=1">image</ng-template>
+          <ng-template ngPluralCase="other">images</ng-template>
+        </ng-container>
+      </div>
     </div>
-  </div>
+  </a>
+</ng-template>
+
+<!-- Loader album card -->
+<ng-template #loadingAlbumCard>
+  <span class="album-card skeleton-loader-background"></span>
 </ng-template>

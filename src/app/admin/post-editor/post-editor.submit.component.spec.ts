@@ -88,7 +88,7 @@ describe('PostEditorComponent - Submit form', () => {
   it('should send post data using post admin service', () => {
     mockPostAdminService
       .setup(s => s.sendPost(It.isAny()))
-      .returns(() => of(null));
+      .returns(() => of(undefined));
 
     submitButton.click();
 
@@ -101,7 +101,7 @@ describe('PostEditorComponent - Submit form', () => {
   it('should redirect if post submission successful', done => {
     mockPostAdminService
       .setup(s => s.sendPost(It.isAny()))
-      .returns(() => of(null));
+      .returns(() => of(undefined));
 
     submitButton.click();
 
@@ -140,7 +140,7 @@ describe('PostEditorComponent - Submit form', () => {
 
     mockPostAdminService
       .setup(s => s.sendPost(It.isAny()))
-      .returns(() => of(null));
+      .returns(() => of(undefined));
 
     pageObject.draftCheck.checked = simplePostData.status !== PostStatus.Draft;
     pageObject.draftCheck.dispatchEvent(new Event('change'));

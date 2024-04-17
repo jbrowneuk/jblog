@@ -19,32 +19,31 @@ span {
 
 a {
   text-decoration: none;
-  border: 1px solid var(--color-navigation-links-border);
-  border-radius: var(--border-radius-default);
-  color: var(--color-navigation-links-foreground);
-  background-color: var(--color-navigation-links-border);
-  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+  border: 1px solid var(--navigation-link_color_border);
+  border-radius: var(--generic_border_radius);
+  color: var(--navigation-link_color_foreground);
+  background-color: var(--navigation-link_color_background);
 
   &:hover {
-    background-color: var(--color-navigation-links-hover-background);
-    border-color: var(--color-navigation-links-hover-border);
-    color: var(--color-navigation-links-hover-foreground);
-    text-shadow: 0 1px 1px var(--color-default-shadow);
-  }
-}
-
-.active {
-  a,
-  span {
-    background-color: var(--color-navigation-links-active-background);
-    border-color: var(--color-navigation-links-active-border);
-    color: var(--color-navigation-links-active-foreground);
+    background-color: var(--navigation-link_color_background-hover);
+    border-color: var(--navigation-link_color_border-hover);
+    color: var(--navigation-link_color_foreground-hover);
+    text-shadow: 0 1px 1px var(--generic_color_shadow);
   }
 }
 
 span,
 .spacer {
-  color: var(--color-secondary-foreground);
+  color: var(--page_color_foreground-secondary);
+}
+
+.active {
+  a,
+  span {
+    background-color: var(--navigation-link_color_background-active);
+    border-color: var(--navigation-link_color_border-active);
+    color: var(--navigation-link_color_foreground-active);
+  }
 }
 
 .pagination {

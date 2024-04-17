@@ -1,0 +1,21 @@
+table {
+  margin: 0 auto 5px;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: var(--generic-subtle_border_radius);
+  background: var(--table_color_background);
+  box-shadow: 0 0 0 1px var(--table_color_background-title);
+
+  td {
+    padding: 4px 8px;
+  }
+
+  thead tr th {
+    background: var(--table_color_background-title);
+    color: var(--table_color_foreground-title);
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: var(--table_color_background-alt);
+  }
+}

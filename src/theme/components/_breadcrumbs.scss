@@ -1,0 +1,27 @@
+.breadcrumbs {
+  --page-section_padding_top: 10px;
+  --page-section_padding_bottom: 10px;
+  --override_color_tag-hole: var(--page-section_color_background-dark);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--page-section_color_background-dark);
+  color: var(--page-section_color_foreground-dark);
+
+  & > * {
+    margin: 0 0.25em;
+  }
+
+  a {
+    color: var(--link-light_color_default);
+
+    &:hover {
+      color: var(--link-light_color_hover);
+    }
+  }
+
+  .spacer {
+    margin: 0 .25em;
+  }
+}

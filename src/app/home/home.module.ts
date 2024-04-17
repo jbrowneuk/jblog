@@ -5,12 +5,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
 import { AboutComponent } from './about/about.component';
+import { ArtworksComponent } from './artworks/artworks.component';
 import { LicensesComponent } from './licenses/licenses.component';
 import { LoginComponent } from './login/login.component';
+import { SoftwareComponent } from './software/software.component';
+import { SuperHeroComponent } from './super-hero/super-hero.component';
 import { TopPageComponent } from './top-page/top-page.component';
 
 const homeRoutes: Routes = [
-  { path: 'about', component: AboutComponent, data: { sectionId: 1 } },
   {
     path: 'licenses',
     component: LicensesComponent,
@@ -37,10 +39,13 @@ const homeRoutes: Routes = [
     SharedModule
   ],
   declarations: [
-    TopPageComponent,
     AboutComponent,
+    ArtworksComponent,
     LicensesComponent,
-    LoginComponent
+    LoginComponent,
+    SoftwareComponent,
+    SuperHeroComponent,
+    TopPageComponent
   ]
 })
 export class HomeModule {}

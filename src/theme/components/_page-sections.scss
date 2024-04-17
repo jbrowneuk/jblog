@@ -1,0 +1,40 @@
+@import 'variables';
+
+:root {
+  --page-section_padding_top: 60px;
+  --page-section_padding_bottom: var(--page-section_padding_top);
+  --page-section_font-size_heading: 50px;
+  --page-section-weight_heading: 300;
+}
+
+/* Mobile devices */
+@media screen and (max-width: $breakpoint-sm) {
+  :root {
+    --page-section_padding_top: 30px;
+    --page-section_font-size_heading: 35px;
+  }
+}
+
+.page-section {
+  padding: var(--page-section_padding_top) 0 var(--page-section_padding_bottom) 0;
+}
+
+.page-section.background-alternate {
+  background: var(--page-section_color_background-alternate);
+}
+
+.page-section.background-dark {
+  background: var(--page-section_color_background-dark);
+  color: var(--page-section_color_foreground-dark);
+}
+
+.page-section h1,
+.page-section h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.page-section h1 {
+  font-size: var(--page-section_font-size_heading);
+  font-weight: var(--page-section_font-weight_heading);
+}

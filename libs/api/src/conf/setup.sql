@@ -52,7 +52,11 @@ CREATE TABLE `blog_gallery` (
   `description` TEXT,
 
   -- Image date, as a Unix timestamp
-  `image_date`  INTEGER
+  `image_date`  INTEGER,
+
+  -- Image pixel dimensions
+  `width`       INTEGER,
+  `height`      INTEGER
 );
 
 -- Gallery albums, used by the gallery module

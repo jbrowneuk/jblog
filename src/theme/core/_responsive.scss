@@ -1,0 +1,16 @@
+@import 'variables';
+
+$max-sm-breakpoint: $breakpoint-sm - 1;
+$max-md-breakpoint: $breakpoint-md - 1;
+
+@media screen and (max-width: $max-sm-breakpoint) {
+  .hide-sm {
+    display: none;
+  }
+}
+
+@media screen and (max-width: $max-md-breakpoint) {
+  .hide-md {
+    display: none;
+  }
+}
