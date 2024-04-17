@@ -26,7 +26,7 @@
     "@angular/platform-browser": "~17.0.0",
     "@angular/platform-browser-dynamic": "~17.0.0",
     "@angular/router": "~17.0.0",
-    "@jbrowneuk/style-bundle": "git+https://git@github.com/jbrowneuk/style-bundle.git#semver:^3.0.0",
+    "@jbrowneuk/style-bundle": "git+https://git@github.com/jbrowneuk/style-bundle.git#semver:^3.2.2",
     "@ngrx/effects": "^17.0.0",
     "@ngrx/store": "^17.0.0",
     "@ngrx/store-devtools": "^17.0.0",

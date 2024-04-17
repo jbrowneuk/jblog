@@ -17,7 +17,10 @@
         "tsConfig": "./tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "stylePreprocessorOptions": {
-          "includePaths": ["./src/theme"]
+          "includePaths": [
+            "node_modules/@jbrowneuk/style-bundle/src",
+            "../style-bundle/src"
+          ]
         },
         "assets": [
           "./src/favicon.ico",
@@ -33,12 +36,11 @@
             "output": "assets/thirdparty/la/"
           },
           {
-            "glob": "**/*.css",
+            "glob": "*.css",
             "input": "node_modules/@jbrowneuk/style-bundle",
             "output": "theme/"
           }
         ],
-        "styles": ["./src/styles.scss"],
         "scripts": ["node_modules/marked/marked.min.js"]
       },
       "configurations": {
