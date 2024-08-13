@@ -78,10 +78,6 @@ a web browser. Every time there is a code change, the web browser will
 automatically reload with the latest changes. The server will serve a
 _development_ build of the site.
 
-Running `npm run build` will generate a `dist` folder that can be upload onto a
-web server containing. This is a _production_ build and therefore with
-minification and tree shaking applied.
-
 Different configurations of the site builds request the backend from different
 locations. These are provided by the files in `apps/jblog/src/environments/`
 which will be swapped in to the build using the values defined in
@@ -98,6 +94,18 @@ environments without a browser installed (i.e. CI pipelines).
 Running `npm run e2e` will run the tests using Cypress in a CI format. Running
 `npm run e2e:watch` will run the Cypress tests interactively and watch for any
 code changes.
+
+## Building the site in production mode
+
+Running `npm run build` will generate a `dist` folder that can be upload onto a
+web server containing. This is a _production_ build and therefore with
+minification and tree shaking applied.
+
+### Note: known build issues
+
+If you cannot build due to a SCSS import error, you may need to clone the related [style-bundle](https://github.com/jbrowneuk/style-bundle) repository and `npm link` that after running `npm install`. This is due to a coupling between a variable in one of the style bundle source files, and the build of the style bundle does not include the source files.
+
+The removal of this coupling is a work in progress.
 
 # Developing and running the back-end
 
