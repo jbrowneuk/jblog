@@ -1,29 +1,17 @@
 export class TopPageObject {
-  get signature() {
-    return cy.byDataTest('signature');
+  get pageHero() {
+    return cy.get('jblog-super-hero');
   }
 
-  get tagline() {
-    return cy.byDataTest('tagline');
+  get softwareSection() {
+    return cy.get('jblog-software-section');
   }
 
-  get slideButton1() {
-    return cy.byDataTest('slide-button-0');
-  }
-  get slideButton2() {
-    return cy.byDataTest('slide-button-1');
-  }
-  get slideButton3() {
-    return cy.byDataTest('slide-button-2');
+  get artworksSection() {
+    return cy.get('jblog-artworks-section');
   }
 
-  get slide1() {
-    return cy.byDataTest('slide-0');
-  }
-  get slide2() {
-    return cy.byDataTest('slide-1');
-  }
-  get slide3() {
-    return cy.byDataTest('slide-2');
+  get aboutSection() {
+    return cy.get('jblog-about');
   }
 }

@@ -1,54 +1,26 @@
-<header id="page-header">
+<header id="page-header" data-test="page-header">
   <div id="sticky-menu">
-    <nav id="menu" class="container">
+    <nav id="menu" class="container" data-test="main-menu">
       <a [routerLink]="['/']" class="home-link">
-        <svg
-          class="link-icon"
-          viewBox="0 0 48 48"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg class="link-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" data-test="home-icon">
           <use href="#sitesheet-logo"></use>
         </svg>
         <span class="link-text hide-sm">Jason Browne</span>
       </a>
       <ul id="nav-links">
         <li>
-          <a
-            [routerLink]="['/']"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            data-nav-link
-            data-test="home-link"
-            class="hide-md hide-sm"
-            >portfolio</a
-          >
+          <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" data-nav-link
+            data-test="home-link" class="hide-md hide-sm">portfolio</a>
         </li>
         <li>
-          <a
-            [routerLink]="['/projects/code']"
-            routerLinkActive="active"
-            data-nav-link
-            data-test="projects-link"
-            >projects</a
-          >
+          <a [routerLink]="['/projects/code']" routerLinkActive="active" data-nav-link
+            data-test="projects-link">projects</a>
         </li>
         <li>
-          <a
-            [routerLink]="['/art']"
-            routerLinkActive="active"
-            data-nav-link
-            data-test="art-link"
-            >art</a
-          >
+          <a [routerLink]="['/art']" routerLinkActive="active" data-nav-link data-test="art-link">art</a>
         </li>
         <li>
-          <a
-            [routerLink]="['/journal']"
-            routerLinkActive="active"
-            data-nav-link
-            data-test="journal-link"
-            >posts</a
-          >
+          <a [routerLink]="['/journal']" routerLinkActive="active" data-nav-link data-test="journal-link">posts</a>
         </li>
         <li>
           <jblog-user-menu></jblog-user-menu>
@@ -58,29 +30,18 @@
   </div>
 </header>
 
-<main
-  id="page-content"
-  [@routerAnimations]="prepareRouteTransition(outlet)"
-  (@routerAnimations.done)="onPageTransitionComplete($event)"
->
+<main id="page-content" [@routerAnimations]="prepareRouteTransition(outlet)"
+  (@routerAnimations.done)="onPageTransitionComplete($event)">
   <router-outlet #outlet="outlet"></router-outlet>
 </main>
 
 <footer id="page-footer" [@footerAnimations]="prepareRouteTransition(outlet)">
   <div class="container">
-    <svg
-      id="backdrop-icon"
-      viewBox="0 0 48 48"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg id="backdrop-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
       <use href="#sitesheet-logo"></use>
     </svg>
     <div id="site-map">
-      <svg
-        id="site-icon"
-        viewBox="0 0 48 48"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg id="site-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
         <use href="#sitesheet-logo"></use>
       </svg>
       <div class="map-list">
@@ -106,9 +67,7 @@
     <div class="container">
       <div class="text-container">
         <p>
-          <a [routerLink]="['/licenses']" data-test="licenses-link"
-            >Open Source Licenses</a
-          >
+          <a [routerLink]="['/licenses']" data-test="licenses-link">Open Source Licenses</a>
         </p>
         <p>&copy;2004&ndash;{{ currentYear }} Jason Browne</p>
       </div>

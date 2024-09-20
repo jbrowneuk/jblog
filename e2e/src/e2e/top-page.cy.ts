@@ -11,50 +11,25 @@ describe('Top page', () => {
     topPage = new TopPageObject();
   });
 
-  it('should visit page', () => {});
+  it('should visit page', () => { });
 
   it('should have page header menu', () => {
     appPage.menu.should('exist');
   });
 
-  describe('first slide', () => {
-    beforeEach(() => {
-      topPage.slideButton1.should('exist');
-      topPage.slideButton1.click();
-    });
-
-    it('should have slide container', () => {
-      topPage.slide1.should('exist');
-    });
-
-    it('should have signature block', () => {
-      topPage.signature.should('exist');
-    });
-
-    it('should have tagline block', () => {
-      topPage.tagline.should('exist');
-    });
+  it('should have hero section', () => {
+    topPage.pageHero.should('exist');
   });
 
-  describe('second slide', () => {
-    beforeEach(() => {
-      topPage.slideButton2.should('exist');
-      topPage.slideButton2.click();
-    });
-
-    it('should have slide container', () => {
-      topPage.slide2.should('exist');
-    });
+  it('should have software section', () => {
+    topPage.softwareSection.should('exist');
   });
 
-  describe('third slide', () => {
-    beforeEach(() => {
-      topPage.slideButton3.should('exist');
-      topPage.slideButton3.click();
-    });
+  it('should have artworks section', () => {
+    topPage.artworksSection.should('exist');
+  });
 
-    it('should have slide container', () => {
-      topPage.slide3.should('exist');
-    });
+  it('should have about section', () => {
+    topPage.aboutSection.should('exist');
   });
 });
