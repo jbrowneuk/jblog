@@ -29,7 +29,7 @@ const mockPostData: PostData = {
   selector: 'jblog-text',
   template: '<ng-content></ng-content>'
 })
-class MockFormattedTextComponent {}
+class MockFormattedTextComponent { }
 
 describe('PostEditorComponent - Submit form', () => {
   let mockActivatedRoute: ActivatedRouteStub;
@@ -118,7 +118,7 @@ describe('PostEditorComponent - Submit form', () => {
     // Hide the log for this test
     const mockConsole = jest
       .spyOn(console, 'error')
-      .mockImplementation(() => {});
+      .mockImplementation(() => null);
 
     mockPostAdminService
       .setup(s => s.sendPost(It.isAny()))

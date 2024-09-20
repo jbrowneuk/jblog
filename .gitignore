@@ -31,6 +31,7 @@ composer.phar
 
 # Framework caches
 .nx/cache
+.nx/workspace-data
 .angular
 
 # Miscellaneous

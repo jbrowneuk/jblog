@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
 import { IMock, It, Mock } from 'typemoq';
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { PostData, PostDataWrapper, PostStatus } from '../../model/post-data';
@@ -31,7 +31,7 @@ describe('PostListComponent', () => {
   let component: PostListComponent;
   let fixture: ComponentFixture<PostListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     mockPostService = Mock.ofType<PostService>();
     mockPostService
       .setup(s => s.getPostsForPage(It.isAny()))
