@@ -49,7 +49,7 @@ export class ImageService {
   public getImagesFromAlbum(
     albumName: string,
     pageId: number,
-    count: number = 0
+    count = 0
   ): Observable<ImageInfo[]> {
     if (albumName === '') {
       albumName = DEFAULT_ALBUM_NAME;

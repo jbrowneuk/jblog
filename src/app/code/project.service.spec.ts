@@ -10,7 +10,7 @@ import { ProjectService, RepoApiEndpoint } from './project.service';
 
 function createMockRepoData(
   id: number,
-  isArchived: boolean = false
+  isArchived = false
 ): GithubRepoData {
   return {
     id,
