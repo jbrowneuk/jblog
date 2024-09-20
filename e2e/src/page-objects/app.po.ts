@@ -15,10 +15,6 @@ export class AppPageObject {
     return cy.byDataTest('home-link');
   }
 
-  get menuAboutLink() {
-    return cy.byDataTest('about-link');
-  }
-
   get menuArtLink() {
     return cy.byDataTest('art-link');
   }
