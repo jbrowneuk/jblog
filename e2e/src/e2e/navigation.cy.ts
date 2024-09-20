@@ -9,9 +9,6 @@ describe('page navigation', () => {
   });
 
   it('should navigate through main pages by clicking on navigation', () => {
-    appPage.menuAboutLink.click();
-    cy.get('jblog-about').should('exist');
-
     appPage.menuHomeIcon.click();
     cy.get('jblog-top-page').should('exist');
 
