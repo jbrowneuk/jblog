@@ -1,5 +1,7 @@
 {
-  "extends": ["stylelint-config-standard-scss"],
+  "extends": [
+    "stylelint-config-standard-scss"
+  ],
   "rules": {
     "custom-property-pattern": [
       "^([a-z][a-z0-9]*)([-_][a-z0-9]+)*$",
@@ -15,19 +17,29 @@
     "selector-type-no-unknown": [
       true,
       {
-        "ignoreTypes": ["/^jblog-/", "/deep/"]
+        "ignoreTypes": [
+          "/^jblog-/",
+          "/deep/"
+        ]
       }
     ],
     "selector-pseudo-element-no-unknown": [
       true,
       {
-        "ignorePseudoElements": ["ng-deep"]
+        "ignorePseudoElements": [
+          "ng-deep"
+        ]
       }
     ],
     "at-rule-no-unknown": [
       true,
       {
-        "ignoreAtRules": ["mixin", "include", "if", "for"]
+        "ignoreAtRules": [
+          "mixin",
+          "use",
+          "if",
+          "for"
+        ]
       }
     ]
   }

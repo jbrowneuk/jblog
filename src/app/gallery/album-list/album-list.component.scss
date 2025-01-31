@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables';
 
 $single-column-breakpoint: 450px;
 
@@ -32,13 +32,13 @@ $single-column-breakpoint: 450px;
   }
 }
 
-@media screen and (min-width: ($single-column-breakpoint + 1)) and (max-width: $breakpoint-md) {
+@media screen and (min-width: ($single-column-breakpoint + 1)) and (max-width: variables.$breakpoint-md) {
   .album-card {
     grid-column: span 6;
   }
 }
 
-@media screen and (min-width: ($breakpoint-md + 1)) and (max-width: $breakpoint-lg) {
+@media screen and (min-width: (variables.$breakpoint-md + 1)) and (max-width: variables.$breakpoint-lg) {
   .album-card {
     grid-column: span 4;
   }

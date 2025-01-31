@@ -1,6 +1,6 @@
-@import 'variables';
+@use 'variables';
 
-$max-md-breakpoint: $breakpoint-md - 1;
+$max-md-breakpoint: variables.$breakpoint-md - 1;
 
 @media screen and (max-width: $max-md-breakpoint) {
   #skills-grid {

@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables';
 
 :host {
   --gallery-thumbnail-overlay_backdrop-filter: blur(10px) saturate(50%);
@@ -62,7 +62,8 @@
 }
 
 /* Mobile devices */
-@media screen and (max-width: $breakpoint-sm) {
+@media screen and (max-width: variables.$breakpoint-sm) {
+  // Disable the multi-row or -column images on mobile
   :host-context(.large.horizontal),
   :host-context(.large.vertical) {
     grid-column: span 1;
