@@ -3,8 +3,9 @@ import { Component, Input } from '@angular/core';
 import { PostData } from '../../model/post-data';
 
 @Component({
-  selector: 'jblog-post',
-  templateUrl: './post.component.html'
+    selector: 'jblog-post',
+    templateUrl: './post.component.html',
+    standalone: false
 })
 export class PostComponent {
   @Input() public postData?: PostData;

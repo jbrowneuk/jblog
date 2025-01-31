@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
  * The component that renders the artworks section
  */
 @Component({
-  selector: 'jblog-artworks-section',
-  templateUrl: './artworks.component.html'
+    selector: 'jblog-artworks-section',
+    templateUrl: './artworks.component.html',
+    standalone: false
 })
 export class ArtworksComponent {}

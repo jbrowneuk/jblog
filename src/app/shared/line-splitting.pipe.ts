@@ -5,7 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  * representing multiple lines with each segment
  */
 @Pipe({
-  name: 'lineSplitting'
+    name: 'lineSplitting',
+    standalone: false
 })
 export class LineSplittingPipe implements PipeTransform {
   /**

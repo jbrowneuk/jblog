@@ -6,9 +6,10 @@ import { PostDataWrapper } from '../../model/post-data';
 import { PostService } from '../../services/post.service';
 
 @Component({
-  selector: 'jblog-post-list',
-  templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.scss']
+    selector: 'jblog-post-list',
+    templateUrl: './post-list.component.html',
+    styleUrls: ['./post-list.component.scss'],
+    standalone: false
 })
 export class PostListComponent implements OnInit {
   public postData$?: Observable<PostDataWrapper>;

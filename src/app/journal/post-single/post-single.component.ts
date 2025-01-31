@@ -9,8 +9,9 @@ import { TitleService } from '../../shared/title.service';
 import { JournalFacade } from '../state/journal.facade';
 
 @Component({
-  selector: 'jblog-post-single',
-  templateUrl: './post-single.component.html'
+    selector: 'jblog-post-single',
+    templateUrl: './post-single.component.html',
+    standalone: false
 })
 export class PostSingleComponent implements OnInit {
   public postData$?: Observable<PostData | null>;

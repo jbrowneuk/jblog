@@ -8,9 +8,10 @@ import { TransitionCompleteService } from './shared/transition-complete.service'
 const invalidIdentifier = -1;
 
 @Component({
-  animations: TRANSITIONS,
-  selector: 'jblog-root',
-  templateUrl: './app.component.html'
+    animations: TRANSITIONS,
+    selector: 'jblog-root',
+    templateUrl: './app.component.html',
+    standalone: false
 })
 export class AppComponent {
   private currentSectionId: number;

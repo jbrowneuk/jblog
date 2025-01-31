@@ -6,9 +6,10 @@ import { ImageInfo } from '../../model/image-info';
  * The component that represents an image thumbnail.
  */
 @Component({
-  selector: 'jblog-thumbnail',
-  templateUrl: './thumbnail.component.html',
-  styleUrls: ['./thumbnail.component.scss']
+    selector: 'jblog-thumbnail',
+    templateUrl: './thumbnail.component.html',
+    styleUrls: ['./thumbnail.component.scss'],
+    standalone: false
 })
 export class ThumbnailComponent {
   private _isPromoted = false;

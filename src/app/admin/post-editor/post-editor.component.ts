@@ -14,9 +14,10 @@ import { PostService } from '../../services/post.service';
 import { PostAdminService } from '../post-admin.service';
 
 @Component({
-  selector: 'jblog-post-editor',
-  templateUrl: './post-editor.component.html',
-  styleUrls: ['./post-editor.component.scss', './post-editor.tabs.scss']
+    selector: 'jblog-post-editor',
+    templateUrl: './post-editor.component.html',
+    styleUrls: ['./post-editor.component.scss', './post-editor.tabs.scss'],
+    standalone: false
 })
 export class PostEditorComponent implements OnInit {
   public postData$?: Observable<PostData>;

@@ -25,9 +25,10 @@ interface PaginationSegment {
  * A component that shows pagination links for multiple-page views.
  */
 @Component({
-  selector: 'jblog-pagination',
-  templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.scss']
+    selector: 'jblog-pagination',
+    templateUrl: './pagination.component.html',
+    styleUrls: ['./pagination.component.scss'],
+    standalone: false
 })
 export class PaginationComponent implements OnInit, OnChanges {
   /**

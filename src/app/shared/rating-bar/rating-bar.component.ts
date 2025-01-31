@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'jblog-rating-bar',
-  templateUrl: './rating-bar.component.html',
-  styleUrls: ['./rating-bar.component.scss']
+    selector: 'jblog-rating-bar',
+    templateUrl: './rating-bar.component.html',
+    styleUrls: ['./rating-bar.component.scss'],
+    standalone: false
 })
 export class RatingBarComponent {
   @Input() public value = 0;

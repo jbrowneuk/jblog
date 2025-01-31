@@ -6,9 +6,10 @@ import { Router } from '@angular/router';
 import { User, UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'jblog-user-menu',
-  templateUrl: './user-menu.component.html',
-  styleUrls: ['./user-menu.component.scss']
+    selector: 'jblog-user-menu',
+    templateUrl: './user-menu.component.html',
+    styleUrls: ['./user-menu.component.scss'],
+    standalone: false
 })
 export class UserMenuComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {}

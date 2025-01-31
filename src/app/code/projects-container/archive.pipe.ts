@@ -3,7 +3,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Project } from '../project';
 
 @Pipe({
-  name: 'archivedProjects'
+    name: 'archivedProjects',
+    standalone: false
 })
 export class ArchivedProjectFilterPipe implements PipeTransform {
   transform(input: Project[], showArchived?: boolean) {

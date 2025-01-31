@@ -6,9 +6,10 @@ import { TitleService } from '../../shared/title.service';
  * The component that renders the top (home) page.
  */
 @Component({
-  selector: 'jblog-top-page',
-  templateUrl: './top-page.component.html',
-  styleUrls: ['./top-page.component.scss']
+    selector: 'jblog-top-page',
+    templateUrl: './top-page.component.html',
+    styleUrls: ['./top-page.component.scss'],
+    standalone: false
 })
 export class TopPageComponent implements OnInit {
   constructor(private titleService: TitleService) {}

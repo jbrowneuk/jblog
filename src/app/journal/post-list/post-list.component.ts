@@ -9,8 +9,9 @@ import { TitleService } from '../../shared/title.service';
 import { JournalFacade } from '../state/journal.facade';
 
 @Component({
-  selector: 'jblog-post-list',
-  templateUrl: './post-list.component.html'
+    selector: 'jblog-post-list',
+    templateUrl: './post-list.component.html',
+    standalone: false
 })
 export class PostListComponent implements OnInit {
   public postData$?: Observable<PostDataWrapper | undefined>;

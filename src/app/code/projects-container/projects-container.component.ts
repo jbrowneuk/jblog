@@ -14,9 +14,10 @@ import { ProjectService } from '../project.service';
  * of the {@link ProjectService}.
  */
 @Component({
-  selector: 'jblog-projects-container',
-  templateUrl: './projects-container.component.html',
-  animations: [Transitions.visibilityFade]
+    selector: 'jblog-projects-container',
+    templateUrl: './projects-container.component.html',
+    animations: [Transitions.visibilityFade],
+    standalone: false
 })
 export class ProjectsContainerComponent {
   /**

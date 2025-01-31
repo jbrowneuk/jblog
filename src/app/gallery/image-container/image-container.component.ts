@@ -10,9 +10,10 @@ const defaultExpectedImages = 16;
  * images that are either grouped by a specific tag or folder.
  */
 @Component({
-  selector: 'jblog-image-container',
-  templateUrl: './image-container.component.html',
-  styleUrls: ['./image-container.component.scss']
+    selector: 'jblog-image-container',
+    templateUrl: './image-container.component.html',
+    styleUrls: ['./image-container.component.scss'],
+    standalone: false
 })
 export class ImageContainerComponent implements OnChanges {
   /**

@@ -7,7 +7,8 @@ import { AlbumNameTitlePair } from '../model/image-info';
  * form to dislay to the user
  */
 @Pipe({
-  name: 'galleryFormat'
+    name: 'galleryFormat',
+    standalone: false
 })
 export class GalleryFormatPipe implements PipeTransform {
   /**

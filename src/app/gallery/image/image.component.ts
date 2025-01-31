@@ -10,9 +10,10 @@ import { TitleService } from '../../shared/title.service';
  * well as any description provided with it.
  */
 @Component({
-  selector: 'jblog-image',
-  templateUrl: './image.component.html',
-  styleUrls: ['./image.component.scss']
+    selector: 'jblog-image',
+    templateUrl: './image.component.html',
+    styleUrls: ['./image.component.scss'],
+    standalone: false
 })
 export class ImageComponent implements OnInit {
   /**

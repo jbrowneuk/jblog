@@ -7,9 +7,10 @@ import { TitleService } from '../shared/title.service';
  * 404 (page not found) errors.
  */
 @Component({
-  selector: 'jblog-error',
-  templateUrl: './error.component.html',
-  styleUrls: ['./error.component.scss']
+    selector: 'jblog-error',
+    templateUrl: './error.component.html',
+    styleUrls: ['./error.component.scss'],
+    standalone: false
 })
 export class ErrorComponent implements OnInit {
   constructor(private titleService: TitleService) {}

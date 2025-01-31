@@ -9,9 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User, UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'jblog-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'jblog-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
   public loginError: boolean;

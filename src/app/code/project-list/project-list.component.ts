@@ -10,9 +10,10 @@ import { TitleService } from '../../shared/title.service';
  * delegating tasks etc. to the contained components.
  */
 @Component({
-  selector: 'jblog-project-list',
-  templateUrl: './project-list.component.html',
-  styleUrls: ['./project-list.component.scss']
+    selector: 'jblog-project-list',
+    templateUrl: './project-list.component.html',
+    styleUrls: ['./project-list.component.scss'],
+    standalone: false
 })
 export class ProjectListComponent implements OnInit {
   public archiveVisible$: BehaviorSubject<boolean>;

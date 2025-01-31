@@ -8,9 +8,10 @@ import { TitleService } from '../../shared/title.service';
  * The album list component that is used to render a list of album data
  */
 @Component({
-  selector: 'jblog-album-list',
-  templateUrl: './album-list.component.html',
-  styleUrls: ['./album-list.component.scss']
+    selector: 'jblog-album-list',
+    templateUrl: './album-list.component.html',
+    styleUrls: ['./album-list.component.scss'],
+    standalone: false
 })
 export class AlbumListComponent implements OnInit {
   /**

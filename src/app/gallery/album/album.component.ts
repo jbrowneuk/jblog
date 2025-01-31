@@ -10,8 +10,9 @@ import { TitleService } from '../../shared/title.service';
  * either grouped by a specific tag or folder.
  */
 @Component({
-  selector: 'jblog-album',
-  templateUrl: './album.component.html'
+    selector: 'jblog-album',
+    templateUrl: './album.component.html',
+    standalone: false
 })
 export class AlbumComponent implements OnInit {
   /**
