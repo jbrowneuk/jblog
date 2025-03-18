@@ -1,3 +1,18 @@
+# jBlog is now archived
+
+The version of jBlog in this repository is archived. The code base was getting
+too complex and I believe heavy JavaScript frameworks (such as Angular, used for
+jBlog) for simple sites such as this one aren't really the right way to be
+showcasing things. Additionally, dealing with vulnerability alerts for packages
+I pull in just to spin up Angular made me realise that this should be simpler.
+
+The idea of jBlog being a CMS when all it was is for my portfolio is a bit
+far-fetched, so I'm simplifying it back into a set of mostly-static PHP pages
+moving forward. The new repository should appear at
+[my Portfolio repo](https://github.com/jbrowneuk/portfolio).
+
+-----
+
 # Welcome to jBlog!
 
 jBlog is the basic content management system (CMS) powering my portfolio that
